@@ -1,0 +1,17 @@
+[
+    {
+        "container": "StaticResident_gui__pack_win",
+        "fileName": "DefaultFontBold",
+        "alias": "Font: MainBold"
+    },
+    {
+        "container": "StaticResident_gui__pack_win",
+        "fileName": "DefaultFont",
+        "alias": "Font: Main"
+    },
+    {
+        "container": "CAB-CinemaFont_gui__pack_win",
+        "fileName": "CinemaFontM",
+        "alias": "Font: Cinema"
+    }
+]

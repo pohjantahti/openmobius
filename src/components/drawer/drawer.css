@@ -1,0 +1,45 @@
+.drawerButton {
+    height: 8.33rem;
+    width: 3.06rem;
+    position: absolute;
+    transition: right 0.2s;
+    border-radius: 0.7rem 0 0 0.7rem;
+    z-index: 10;
+}
+
+.drawerButtonInnerTop {
+    position: absolute;
+    height: 0.8rem;
+    width: 0.35rem;
+    margin-top: 1.4rem;
+    margin-left: 0.35rem;
+}
+
+.drawerButtonInnerMiddle {
+    position: absolute;
+    height: 4rem;
+    width: 0.35rem;
+    margin-top: 2.2rem;
+    margin-left: 0.35rem;
+}
+
+.drawerButtonInnerBottom {
+    position: absolute;
+    height: 0.8rem;
+    width: 0.35rem;
+    margin-top: 6.2rem;
+    margin-left: 0.35rem;
+}
+
+.drawerButtonText {
+    transform: rotate(90deg);
+    font-size: 1.6rem;
+    margin-left: 1rem;
+}
+
+.drawerHomeImg {
+    height: 6.67rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 1.4rem;
+}

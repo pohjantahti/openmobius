@@ -1,0 +1,1724 @@
+[
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: ResidentAtlas"
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ResidentAtlas2"
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ResidentIcon"
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: All",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1054,
+        "yOffset": 857
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Loading_Background",
+        "width": 5,
+        "height": 612,
+        "xOffset": 1102,
+        "yOffset": 1021
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Loading_Decoration",
+        "width": 500,
+        "height": 713,
+        "xOffset": 0,
+        "yOffset": 1335
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Loading_Wheel",
+        "width": 98,
+        "height": 98,
+        "xOffset": 1560,
+        "yOffset": 6
+    },
+    {
+        "container": "Corporate_gui__pack_win",
+        "fileName": "CorporateAtlas",
+        "alias": "Icon: Loading_SELogo",
+        "width": 592,
+        "height": 61,
+        "xOffset": 14,
+        "yOffset": 828
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DrawerButtonInnerTop",
+        "width": 6,
+        "height": 6,
+        "xOffset": 504,
+        "yOffset": 7
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DrawerButtonInnerMiddle",
+        "width": 6,
+        "height": 1,
+        "xOffset": 504,
+        "yOffset": 13
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DrawerButtonInnerBottom",
+        "width": 6,
+        "height": 6,
+        "xOffset": 504,
+        "yOffset": 19
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DrawerHomeButton",
+        "width": 44,
+        "height": 74,
+        "xOffset": 721,
+        "yOffset": 489
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DrawerHomeTriangle",
+        "width": 16,
+        "height": 34,
+        "xOffset": 1461,
+        "yOffset": 593
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Gil",
+        "width": 256,
+        "height": 256,
+        "xOffset": 0,
+        "yOffset": 1533
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Magicite",
+        "width": 256,
+        "height": 256,
+        "xOffset": 0,
+        "yOffset": 1792
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DrawerBackgroundIcon",
+        "width": 512,
+        "height": 512,
+        "xOffset": 1500,
+        "yOffset": 1536
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlasBG",
+        "alias": "Icon: DrawerBackgroundGradient"
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DrawerCardsLogo",
+        "width": 127,
+        "height": 127,
+        "xOffset": 1330,
+        "yOffset": 504
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Fire Skillseed Small",
+        "width": 56,
+        "height": 56,
+        "xOffset": 987,
+        "yOffset": 261
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Water Skillseed Small",
+        "width": 56,
+        "height": 56,
+        "xOffset": 1771,
+        "yOffset": 171
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Wind Skillseed Small",
+        "width": 56,
+        "height": 56,
+        "xOffset": 1704,
+        "yOffset": 169
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Earth Skillseed Small",
+        "width": 56,
+        "height": 56,
+        "xOffset": 1881,
+        "yOffset": 109
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Light Skillseed Small",
+        "width": 56,
+        "height": 56,
+        "xOffset": 1940,
+        "yOffset": 109
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Dark Skillseed Small",
+        "width": 56,
+        "height": 56,
+        "xOffset": 1763,
+        "yOffset": 112
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Prismatic Skillseed Small",
+        "width": 56,
+        "height": 56,
+        "xOffset": 1645,
+        "yOffset": 174
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Null Skillseed Small",
+        "width": 56,
+        "height": 56,
+        "xOffset": 1712,
+        "yOffset": 228
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Crystal",
+        "width": 128,
+        "height": 128,
+        "xOffset": 131,
+        "yOffset": 92
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: DrawerAlertBackground",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1389,
+        "yOffset": 475
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: DrawerAlertBorder",
+        "width": 76,
+        "height": 76,
+        "xOffset": 1962,
+        "yOffset": 1723
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DrawerBillboardCorner",
+        "width": 125,
+        "height": 125,
+        "xOffset": 192,
+        "yOffset": 431
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: SkillDrawSmall1*",
+        "width": 70,
+        "height": 70,
+        "xOffset": 0,
+        "yOffset": 535
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: SkillDrawSmall2*",
+        "width": 70,
+        "height": 70,
+        "xOffset": 282,
+        "yOffset": 567
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: SkillDrawSmall3*",
+        "width": 70,
+        "height": 70,
+        "xOffset": 282,
+        "yOffset": 640
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_Decks",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1310,
+        "yOffset": 1396
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_MultiplayerDecks",
+        "width": 128,
+        "height": 128,
+        "xOffset": 524,
+        "yOffset": 1265
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_AbilityCards",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1572,
+        "yOffset": 1396
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_CardBank",
+        "width": 128,
+        "height": 128,
+        "xOffset": 524,
+        "yOffset": 1396
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_Fusion",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1834,
+        "yOffset": 1396
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_Auto-Enhance",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1572,
+        "yOffset": 1527
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_SellCards",
+        "width": 128,
+        "height": 128,
+        "xOffset": 655,
+        "yOffset": 1134
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_CardAugment",
+        "width": 128,
+        "height": 128,
+        "xOffset": 655,
+        "yOffset": 1265
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_JobCards",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1441,
+        "yOffset": 1396
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_SkillCards",
+        "width": 128,
+        "height": 128,
+        "xOffset": 524,
+        "yOffset": 1134
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Cards_CardCatalog",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1703,
+        "yOffset": 1396
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Social_Profile",
+        "width": 128,
+        "height": 128,
+        "xOffset": 0,
+        "yOffset": 631
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Social_EditStamps",
+        "width": 128,
+        "height": 128,
+        "xOffset": 259,
+        "yOffset": 1658
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Social_ItemList",
+        "width": 128,
+        "height": 128,
+        "xOffset": 259,
+        "yOffset": 1920
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Social_WeeklyRanking",
+        "width": 128,
+        "height": 128,
+        "xOffset": 131,
+        "yOffset": 747
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Social_EventRankings",
+        "width": 128,
+        "height": 128,
+        "xOffset": 131,
+        "yOffset": 878
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Social_Titles",
+        "width": 128,
+        "height": 128,
+        "xOffset": 131,
+        "yOffset": 1271
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Social_LoginBonus",
+        "width": 128,
+        "height": 128,
+        "xOffset": 131,
+        "yOffset": 616
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Social_Following",
+        "width": 128,
+        "height": 128,
+        "xOffset": 131,
+        "yOffset": 354
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Social_Followers",
+        "width": 128,
+        "height": 128,
+        "xOffset": 131,
+        "yOffset": 485
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Social_FriendIDSearch",
+        "width": 128,
+        "height": 128,
+        "xOffset": 259,
+        "yOffset": 1789
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_PurchaseMagicite",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1310,
+        "yOffset": 1527
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_PurchaseMobiusGiftBox",
+        "width": 128,
+        "height": 128,
+        "xOffset": 393,
+        "yOffset": 610
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_MobiusVIPMode",
+        "width": 128,
+        "height": 128,
+        "xOffset": 524,
+        "yOffset": 1527
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_ItemShop",
+        "width": 128,
+        "height": 128,
+        "xOffset": 393,
+        "yOffset": 479
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_AbilityShop",
+        "width": 128,
+        "height": 128,
+        "xOffset": 393,
+        "yOffset": 1003
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_SummonCards",
+        "width": 128,
+        "height": 128,
+        "xOffset": 914,
+        "yOffset": 1920
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_SkillDraw",
+        "width": 128,
+        "height": 128,
+        "xOffset": 393,
+        "yOffset": 872
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_BoostWeapon",
+        "width": 128,
+        "height": 128,
+        "xOffset": 393,
+        "yOffset": 348
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_SpiritGrove",
+        "width": 128,
+        "height": 128,
+        "xOffset": 652,
+        "yOffset": 1658
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_ExpandCardSlots",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1045,
+        "yOffset": 1789
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_ExpandCardBank",
+        "width": 128,
+        "height": 128,
+        "xOffset": 393,
+        "yOffset": 741
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Shop_RestoreStamina",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1045,
+        "yOffset": 1920
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_Config",
+        "width": 128,
+        "height": 128,
+        "xOffset": 521,
+        "yOffset": 1920
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_WindowsConfig",
+        "width": 128,
+        "height": 128,
+        "xOffset": 521,
+        "yOffset": 1658
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_Story&Theater",
+        "width": 128,
+        "height": 128,
+        "xOffset": 131,
+        "yOffset": 223
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_Help",
+        "width": 128,
+        "height": 128,
+        "xOffset": 521,
+        "yOffset": 1789
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_RelatedInfo",
+        "width": 128,
+        "height": 128,
+        "xOffset": 390,
+        "yOffset": 1789
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_Achievements",
+        "width": 128,
+        "height": 128,
+        "xOffset": 390,
+        "yOffset": 1920
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_SaveFileSharing",
+        "width": 128,
+        "height": 128,
+        "xOffset": 393,
+        "yOffset": 1396
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_Keybinds",
+        "width": 128,
+        "height": 128,
+        "xOffset": 0,
+        "yOffset": 762
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_ControllerConfig",
+        "width": 128,
+        "height": 128,
+        "xOffset": 0,
+        "yOffset": 500
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_CustomerID",
+        "width": 128,
+        "height": 128,
+        "xOffset": 262,
+        "yOffset": 86
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_Support",
+        "width": 128,
+        "height": 128,
+        "xOffset": 262,
+        "yOffset": 479
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_MagicitePurchaseInfo",
+        "width": 128,
+        "height": 128,
+        "xOffset": 262,
+        "yOffset": 610
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_ResetSaveData",
+        "width": 128,
+        "height": 128,
+        "xOffset": 131,
+        "yOffset": 1402
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_TermsofService",
+        "width": 128,
+        "height": 128,
+        "xOffset": 262,
+        "yOffset": 348
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ETC_CopyrightInfo",
+        "width": 128,
+        "height": 128,
+        "xOffset": 0,
+        "yOffset": 238
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Home_Info",
+        "width": 128,
+        "height": 128,
+        "xOffset": 936,
+        "yOffset": 610
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Home_Gifts",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1680,
+        "yOffset": 603
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Home_MapInfo",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1751,
+        "yOffset": 384
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Home_WorldMap",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1358,
+        "yOffset": 634
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: MagiciteDistiller",
+        "width": 128,
+        "height": 128,
+        "xOffset": 756,
+        "yOffset": 721
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: MagiciteDistillerArrow",
+        "width": 26,
+        "height": 22,
+        "xOffset": 463,
+        "yOffset": 847
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Singleplayer",
+        "width": 72,
+        "height": 72,
+        "xOffset": 499,
+        "yOffset": 11
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Multiplayer",
+        "width": 72,
+        "height": 72,
+        "xOffset": 574,
+        "yOffset": 11
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Map_NodeRed",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1819,
+        "yOffset": 122
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Map_NodeGreen",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1557,
+        "yOffset": 210
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Map_NodeYellow",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1426,
+        "yOffset": 329
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Map_NodeBlack",
+        "width": 128,
+        "height": 128,
+        "xOffset": 721,
+        "yOffset": 352
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Map_NodeBlue",
+        "width": 128,
+        "height": 128,
+        "xOffset": 590,
+        "yOffset": 435
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Map_NodeOrange",
+        "width": 128,
+        "height": 128,
+        "xOffset": 459,
+        "yOffset": 435
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Map_PlayerLocation",
+        "width": 64,
+        "height": 55,
+        "xOffset": 420,
+        "yOffset": 59
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Map_ChangePlayerLocation",
+        "width": 123,
+        "height": 106,
+        "xOffset": 526,
+        "yOffset": 358
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Map_ChangingPlayerLocation",
+        "width": 107,
+        "height": 117,
+        "xOffset": 1843,
+        "yOffset": 1532
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Map_CurrentLocationButton",
+        "width": 120,
+        "height": 120,
+        "xOffset": 397,
+        "yOffset": 90
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Map_Completed",
+        "width": 128,
+        "height": 128,
+        "xOffset": 1035,
+        "yOffset": 478
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlasSpline",
+        "alias": "Icon: Map_PathNormal",
+        "width": 50,
+        "height": 52,
+        "xOffset": 0,
+        "yOffset": 6
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: AlertTopBackground",
+        "width": 324,
+        "height": 100,
+        "xOffset": 465,
+        "yOffset": 737
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: AlertTopInner",
+        "width": 85,
+        "height": 85,
+        "xOffset": 103,
+        "yOffset": 4
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ConfirmBattleStamina",
+        "width": 48,
+        "height": 48,
+        "xOffset": 1429,
+        "yOffset": 125
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ConfirmBattleBattles",
+        "width": 48,
+        "height": 48,
+        "xOffset": 1486,
+        "yOffset": 127
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ConfirmBattleMonster",
+        "width": 48,
+        "height": 48,
+        "xOffset": 1537,
+        "yOffset": 178
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ConfirmBattleWarning",
+        "width": 48,
+        "height": 48,
+        "xOffset": 1044,
+        "yOffset": 156
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_BottomBackground",
+        "width": 982,
+        "height": 408,
+        "xOffset": 0,
+        "yOffset": 1640
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_BottomHighlight",
+        "width": 500,
+        "height": 210,
+        "xOffset": 1368,
+        "yOffset": 1323
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_JobChangeBackground",
+        "width": 247,
+        "height": 225,
+        "xOffset": 503,
+        "yOffset": 848
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_BattleInfoBackground",
+        "width": 498,
+        "height": 128,
+        "xOffset": 0,
+        "yOffset": 945
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_HelpButtonBackground",
+        "width": 255,
+        "height": 145,
+        "xOffset": 0,
+        "yOffset": 627
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_AbilityNameBackground",
+        "width": 650,
+        "height": 80,
+        "xOffset": 0,
+        "yOffset": 1551
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_OrbBarBackgroundS1",
+        "width": 1030,
+        "height": 100,
+        "xOffset": 0,
+        "yOffset": 1079
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_OrbBarBackgroundS2",
+        "width": 1024,
+        "height": 148,
+        "xOffset": 0,
+        "yOffset": 1385
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_ElementWheelInner",
+        "width": 128,
+        "height": 128,
+        "xOffset": 852,
+        "yOffset": 348
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_ElementWheelCover",
+        "width": 200,
+        "height": 200,
+        "xOffset": 259,
+        "yOffset": 741
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_ElementWheelSpinningCover",
+        "width": 126,
+        "height": 126,
+        "xOffset": 1689,
+        "yOffset": 123
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_ElementWheelElementSpike",
+        "width": 38,
+        "height": 108,
+        "xOffset": 1985,
+        "yOffset": 273
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_ElementWheelUltimateSpike",
+        "width": 62,
+        "height": 43,
+        "xOffset": 961,
+        "yOffset": 1339
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_DriveOrbSelectionBackground",
+        "width": 174,
+        "height": 276,
+        "xOffset": 1870,
+        "yOffset": 1257
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_UltimateSelectionBackground",
+        "width": 699,
+        "height": 164,
+        "xOffset": 0,
+        "yOffset": 1216
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_JobChangeSelectionBackground",
+        "width": 500,
+        "height": 144,
+        "xOffset": 1368,
+        "yOffset": 1175
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_JobChangeSelectionSpike",
+        "width": 138,
+        "height": 223,
+        "xOffset": 795,
+        "yOffset": 614
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_HPBarBackgroundLeft",
+        "width": 6,
+        "height": 33,
+        "xOffset": 1387,
+        "yOffset": 336
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_HPBarBackgroundMiddle",
+        "width": 1,
+        "height": 33,
+        "xOffset": 1393,
+        "yOffset": 336
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_HPBarBackgroundRight",
+        "width": 6,
+        "height": 33,
+        "xOffset": 1414,
+        "yOffset": 336
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_EnemyInfoBackgroundLeft",
+        "width": 107,
+        "height": 72,
+        "xOffset": 1245,
+        "yOffset": 254
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_EnemyInfoBackgroundMiddle",
+        "width": 40,
+        "height": 72,
+        "xOffset": 1352,
+        "yOffset": 254
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_EnemyInfoBackgroundRight",
+        "width": 70,
+        "height": 72,
+        "xOffset": 1392,
+        "yOffset": 254
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Battle_EnemyTargetHand",
+        "width": 126,
+        "height": 77,
+        "xOffset": 919,
+        "yOffset": 1290
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Battle_UltimateBarIcon",
+        "width": 60,
+        "height": 60,
+        "xOffset": 1018,
+        "yOffset": 823
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_UltimateBar",
+        "width": 500,
+        "height": 20,
+        "xOffset": 0,
+        "yOffset": 120
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_ButtonBackgroundLeft",
+        "width": 21,
+        "height": 68,
+        "xOffset": 71,
+        "yOffset": 49
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_ButtonBackgroundMiddle",
+        "width": 1,
+        "height": 68,
+        "xOffset": 92,
+        "yOffset": 49
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_ButtonBackgroundRight",
+        "width": 21,
+        "height": 68,
+        "xOffset": 118,
+        "yOffset": 49
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_TurnBackgroundLeft",
+        "width": 27,
+        "height": 52,
+        "xOffset": 249,
+        "yOffset": 65
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_TurnBackgroundMiddle",
+        "width": 1,
+        "height": 52,
+        "xOffset": 276,
+        "yOffset": 65
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_TurnBackgroundRight",
+        "width": 27,
+        "height": 52,
+        "xOffset": 307,
+        "yOffset": 65
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_CardAreaBackground",
+        "width": 29,
+        "height": 295,
+        "xOffset": 2001,
+        "yOffset": 788
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_CardElementCostBackground",
+        "width": 79,
+        "height": 202,
+        "xOffset": 1961,
+        "yOffset": 579
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_CardBackgroundTop",
+        "width": 241,
+        "height": 36,
+        "xOffset": 658,
+        "yOffset": 1557
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_CardBackgroundBottom",
+        "width": 241,
+        "height": 36,
+        "xOffset": 658,
+        "yOffset": 1594
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: CardThumbnailDecoration5*",
+        "width": 168,
+        "height": 168,
+        "xOffset": 1871,
+        "yOffset": 1086
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: CardThumbnailDecoration4*",
+        "width": 168,
+        "height": 168,
+        "xOffset": 258,
+        "yOffset": 570
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: CardThumbnailDecoration3*",
+        "width": 168,
+        "height": 168,
+        "xOffset": 600,
+        "yOffset": 566
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: CardThumbnailDecoration2*",
+        "width": 168,
+        "height": 168,
+        "xOffset": 0,
+        "yOffset": 456
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: CardThumbnailDecorationRainbow",
+        "width": 168,
+        "height": 168,
+        "xOffset": 429,
+        "yOffset": 566
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: FireOrb",
+        "width": 126,
+        "height": 126,
+        "xOffset": 656,
+        "yOffset": 88
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: WaterOrb",
+        "width": 126,
+        "height": 126,
+        "xOffset": 263,
+        "yOffset": 1005
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: WindOrb",
+        "width": 126,
+        "height": 126,
+        "xOffset": 391,
+        "yOffset": 1660
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: EarthOrb",
+        "width": 126,
+        "height": 126,
+        "xOffset": 657,
+        "yOffset": 218
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: LightOrb",
+        "width": 126,
+        "height": 126,
+        "xOffset": 263,
+        "yOffset": 1397
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: DarkOrb",
+        "width": 126,
+        "height": 126,
+        "xOffset": 1180,
+        "yOffset": 1267
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: LifeOrb",
+        "width": 126,
+        "height": 126,
+        "xOffset": 263,
+        "yOffset": 1266
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: PrismaticOrb",
+        "width": 126,
+        "height": 126,
+        "xOffset": 263,
+        "yOffset": 873
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: NullOrb",
+        "width": 126,
+        "height": 126,
+        "xOffset": 263,
+        "yOffset": 1135
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: FireOrbBordered",
+        "width": 62,
+        "height": 62,
+        "xOffset": 1725,
+        "yOffset": 423
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: WaterOrbBordered",
+        "width": 62,
+        "height": 62,
+        "xOffset": 1926,
+        "yOffset": 371
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: WindOrbBordered",
+        "width": 62,
+        "height": 62,
+        "xOffset": 787,
+        "yOffset": 523
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: EarthOrbBordered",
+        "width": 62,
+        "height": 62,
+        "xOffset": 1658,
+        "yOffset": 427
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: LightOrbBordered",
+        "width": 62,
+        "height": 62,
+        "xOffset": 1591,
+        "yOffset": 427
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: DarkOrbBordered",
+        "width": 62,
+        "height": 62,
+        "xOffset": 1323,
+        "yOffset": 476
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: LifeOrbBordered",
+        "width": 62,
+        "height": 62,
+        "xOffset": 1524,
+        "yOffset": 427
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: PrismaticOrbBordered",
+        "width": 62,
+        "height": 62,
+        "xOffset": 921,
+        "yOffset": 523
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: NullOrbBordered",
+        "width": 62,
+        "height": 62,
+        "xOffset": 854,
+        "yOffset": 523
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_Number0",
+        "width": 120,
+        "height": 120,
+        "xOffset": 1864,
+        "yOffset": 799
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_Number1",
+        "width": 120,
+        "height": 120,
+        "xOffset": 1713,
+        "yOffset": 891
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_Number2",
+        "width": 120,
+        "height": 120,
+        "xOffset": 1241,
+        "yOffset": 786
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_Number3",
+        "width": 120,
+        "height": 120,
+        "xOffset": 1544,
+        "yOffset": 752
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_Number4",
+        "width": 120,
+        "height": 120,
+        "xOffset": 1393,
+        "yOffset": 796
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_Number5",
+        "width": 120,
+        "height": 120,
+        "xOffset": 1562,
+        "yOffset": 1055
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_Number6",
+        "width": 120,
+        "height": 120,
+        "xOffset": 1864,
+        "yOffset": 934
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_Number7",
+        "width": 120,
+        "height": 120,
+        "xOffset": 1562,
+        "yOffset": 901
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_Number8",
+        "width": 120,
+        "height": 120,
+        "xOffset": 1713,
+        "yOffset": 1022
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Battle_Number9",
+        "width": 120,
+        "height": 120,
+        "xOffset": 14,
+        "yOffset": 336
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Faith_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1616,
+        "yOffset": 913
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Faith_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1682,
+        "yOffset": 913
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Brave_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1951,
+        "yOffset": 846
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Brave_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1347,
+        "yOffset": 779
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Boost_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1750,
+        "yOffset": 913
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Boost_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1548,
+        "yOffset": 913
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Warrior",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1121,
+        "yOffset": 656
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Warrior_Bordered",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1121,
+        "yOffset": 522
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Ranger",
+        "width": 64,
+        "height": 64,
+        "xOffset": 987,
+        "yOffset": 656
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Ranger_Bordered",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1188,
+        "yOffset": 522
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Mage",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1389,
+        "yOffset": 609
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Mage_Bordered",
+        "width": 64,
+        "height": 64,
+        "xOffset": 987,
+        "yOffset": 522
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Monk",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1389,
+        "yOffset": 542
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Monk_Bordered",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1322,
+        "yOffset": 408
+    }
+]
