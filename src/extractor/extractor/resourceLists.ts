@@ -119,8 +119,8 @@ const baseResourceList: Array<string> = [
     "Icon: Map_Completed",
     "Icon: Map_PathNormal",
 
-    "Icon: AlertTopBackground",
-    "Icon: AlertTopInner",
+    "Icon: ModalTitleBackground",
+    "Icon: ModalTitleIcon",
     "Icon: ConfirmBattleStamina",
     "Icon: ConfirmBattleBattles",
     "Icon: ConfirmBattleMonster",

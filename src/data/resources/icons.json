@@ -911,7 +911,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: AlertTopBackground",
+        "alias": "Icon: ModalTitleBackground",
         "width": 324,
         "height": 100,
         "xOffset": 465,
@@ -920,7 +920,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: AlertTopInner",
+        "alias": "Icon: ModalTitleIcon",
         "width": 85,
         "height": 85,
         "xOffset": 103,

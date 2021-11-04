@@ -1,68 +1,102 @@
 import { resources } from "../../extractor";
 
 interface Props {
-    children: any;
-    title: string;
-    innerIcon?: boolean;
-    smallModal?: boolean;
+    children: React.ReactNode;
+    title?: string;
+    titleIcon?: boolean;
+    titleBarHeight: string;
+    titleBarButtons?: React.ReactNode;
+    style?: React.CSSProperties;
 }
+
+// TODO: Add a way to set custom backgroundColors
 
 function ModalBase(props: Props) {
     return (
         <div
             style={{
-                height: "100%",
-                width: "100%",
+                ...props.style,
                 backgroundImage: "linear-gradient(to bottom right, #54DEFB 49%, #040E1A 51%)",
-                borderRadius: 5,
+                borderRadius: "0.5rem",
                 padding: "0.2rem",
-                display: "flex",
-                flexDirection: "column",
             }}
         >
+            {/* Title bar */}
             <div
                 style={{
                     backgroundColor: "#31A9C1",
-                    height: props.smallModal ? "4.43rem" : "4.23rem",
-                    textAlign: "center",
-                    borderRadius: "4px 4px 0 0",
+                    height: props.titleBarHeight,
+                    width: "inherit",
+                    borderRadius: "0.4rem 0.4rem 0 0",
                 }}
             >
-                <img
-                    src={resources["Icon: AlertTopBackground"]}
+                {/* Background images and optional button on the right side */}
+                <div
                     style={{
                         position: "absolute",
-                        height: "4.03rem",
-                        opacity: 0.2,
-                        left: 0,
-                    }}
-                />
-                {props.innerIcon && (
-                    <img
-                        src={resources["Icon: AlertTopInner"]}
-                        style={{
-                            position: "absolute",
-                            height: "3.5rem",
-                            top: "0.4rem",
-                            left: "1.15rem",
-                        }}
-                    />
-                )}
-                <p
-                    style={{
-                        color: "#FFFFFF",
-                        fontSize: "3.4rem",
-                        lineHeight: "3.4rem",
-                        fontWeight: "normal",
+                        display: "flex",
+                        height: "inherit",
+                        width: "inherit",
+                        justifyContent: "space-between",
                     }}
                 >
-                    {props.title}
-                </p>
+                    <img
+                        src={resources["Icon: ModalTitleBackground"]}
+                        style={{
+                            height: "inherit",
+                            opacity: 0.2,
+                        }}
+                    />
+                    {props.titleIcon && (
+                        <img
+                            src={resources["Icon: ModalTitleIcon"]}
+                            style={{
+                                position: "absolute",
+                                height: "3.5rem",
+                                top: "0.4rem",
+                                left: "1.4rem",
+                            }}
+                        />
+                    )}
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            marginRight: "0.5rem",
+                        }}
+                    >
+                        {props.titleBarButtons}
+                    </div>
+                </div>
+                {/* Title bar title */}
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "inherit",
+                        height: "inherit",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <p
+                        style={{
+                            color: "#FFFFFF",
+                            fontSize: "3.4rem",
+                            lineHeight: "3.4rem",
+                            fontWeight: "normal",
+                        }}
+                    >
+                        {props.title}
+                    </p>
+                </div>
             </div>
+            {/* Content */}
             <div
                 style={{
-                    height: "100%",
-                    borderRadius: "0 0 4px 4px",
+                    borderRadius: "0 0 0.4rem 0.4rem",
                     background: "radial-gradient(#0CA495, #167996, #167996)",
                 }}
             >

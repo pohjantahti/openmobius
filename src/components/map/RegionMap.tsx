@@ -197,13 +197,13 @@ function RegionMap() {
                     name: selectedMapNode.name,
                     ...selectedMapNode.battleInfo,
                 }}
-                closeModal={handleModalClose}
+                handleModalClose={handleModalClose}
             />
             <ChangePlayerLocationModal
                 show={showChangePlayerLocationConfirmModal}
                 info={selectedLocationInfo}
                 handleChangingPlayerLocation={handleChangingPlayerLocation}
-                closeModal={handleModalClose}
+                handleModalClose={handleModalClose}
             />
         </div>
     );

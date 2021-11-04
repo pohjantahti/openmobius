@@ -5,11 +5,11 @@ interface Props {
     show: boolean;
     info: any;
     handleChangingPlayerLocation: any;
-    closeModal: any;
+    handleModalClose: () => void;
 }
 
 function ChangePlayerLocationModal(props: Props) {
-    const { show, info, handleChangingPlayerLocation, closeModal } = props;
+    const { show, info, handleChangingPlayerLocation, handleModalClose } = props;
 
     return (
         <>
@@ -24,61 +24,74 @@ function ChangePlayerLocationModal(props: Props) {
                     zIndex: 11,
                 }}
             />
-            <div
+            <ModalBase
+                title="Teleport"
+                titleBarHeight={"4.2rem"}
                 style={{
                     display: show ? "inline" : "none",
                     position: "absolute",
                     top: "35rem",
                     right: "23.2rem",
-                    height: "40rem",
                     width: "46rem",
                     zIndex: 11,
                 }}
             >
-                <ModalBase title="Teleport" smallModal>
+                <div
+                    style={{
+                        width: "inherit",
+                        marginLeft: "1.3rem",
+                        marginRight: "1.3rem",
+                        paddingBottom: "1rem",
+                    }}
+                >
                     <div
                         style={{
-                            width: "43.28rem",
-                            marginLeft: "auto",
-                            marginRight: "auto",
+                            height: "18rem",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
                         }}
                     >
-                        <div
+                        <p
                             style={{
-                                height: "19rem",
-                                display: "flex",
-                                alignItems: "center",
+                                // TODO: Add correct color and textShadow color
+                                color: "#FFFFFFEE",
+                                fontSize: "2.3rem",
+                                lineHeight: "3rem",
                             }}
                         >
-                            <p
-                                style={{
-                                    // TODO: Add correct color and textShadow color
-                                    color: "#FFFFFFEE",
-                                    fontSize: "2.5rem",
-                                    lineHeight: "3rem",
-                                    textAlign: "center",
-                                }}
-                            >
-                                {`Teleport to ${info.name}?`}
-                            </p>
-                        </div>
-
-                        <div
-                            style={{
-                                border: "1px solid #FFFFFF88",
-                                width: "100%",
-                                marginBottom: "2rem",
-                            }}
-                        />
-                        <ModalButton
-                            title="Teleport"
-                            style={{ marginBottom: "1.39rem" }}
-                            onClick={() => handleChangingPlayerLocation("confirmLocation", info.id)}
-                        />
-                        <ModalButton title="Cancel" onClick={closeModal} />
+                            {`Teleport to ${info.name}?`}
+                        </p>
                     </div>
-                </ModalBase>
-            </div>
+
+                    <div
+                        style={{
+                            border: "1px solid #FFFFFF88",
+                            width: "100%",
+                            marginBottom: "2rem",
+                        }}
+                    />
+                    <ModalButton
+                        title="Teleport"
+                        style={{
+                            marginBottom: "1.39rem",
+                            width: "100%",
+                            height: "5.2rem",
+                            fontSize: "2.4rem",
+                        }}
+                        onClick={() => handleChangingPlayerLocation("confirmLocation", info.id)}
+                    />
+                    <ModalButton
+                        title="Cancel"
+                        style={{
+                            width: "100%",
+                            height: "5.2rem",
+                            fontSize: "2.4rem",
+                        }}
+                        onClick={handleModalClose}
+                    />
+                </div>
+            </ModalBase>
         </>
     );
 }
