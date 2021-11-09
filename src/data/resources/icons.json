@@ -963,6 +963,42 @@
         "xOffset": 1044,
         "yOffset": 156
     },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: ConfirmBattleDifficulty",
+        "width": 60,
+        "height": 60,
+        "xOffset": 1456,
+        "yOffset": 230
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Ether_Small",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1590,
+        "yOffset": 560
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: WarpShard_Small",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1925,
+        "yOffset": 437
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: PhoenixDown_Small",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1456,
+        "yOffset": 560
+    },
 
     {
         "container": "CAB-Resident_gui__pack_win",

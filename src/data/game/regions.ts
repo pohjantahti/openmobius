@@ -12,10 +12,17 @@ interface MapNodeType {
     battleInfo: {
         stamina: number;
         battles: number;
+        difficulty?: 0 | 1 | 2 | 3 | 4 | 5;
+        warnings: Array<
+            Array<{
+                type: "image" | "text";
+                text: string;
+            }>
+        >;
     };
     mapInfo: {
         position: Array<number>;
-        color: "red" | "green" | "yellow" | "black" | "blue" | "orange";
+        color: "black" | "blue" | "green" | "yellow" | "orange" | "red";
         completed: boolean;
         paths?: Array<{
             to: number;
@@ -38,6 +45,20 @@ const regions: Array<Region> = [
                 battleInfo: {
                     stamina: 8,
                     battles: 1,
+                    warnings: [
+                        [
+                            {
+                                type: "text",
+                                text: "Prepare yourself!",
+                            },
+                        ],
+                        [
+                            {
+                                type: "text",
+                                text: "Dangerous foes are waiting for you.",
+                            },
+                        ],
+                    ],
                 },
                 mapInfo: {
                     position: [70, 15],
@@ -57,6 +78,20 @@ const regions: Array<Region> = [
                 battleInfo: {
                     stamina: 8,
                     battles: 8,
+                    warnings: [
+                        [
+                            {
+                                type: "text",
+                                text: "Prepare yourself!",
+                            },
+                        ],
+                        [
+                            {
+                                type: "text",
+                                text: "Dangerous foes are waiting for you.",
+                            },
+                        ],
+                    ],
                 },
                 mapInfo: {
                     position: [84, 15],
@@ -70,6 +105,20 @@ const regions: Array<Region> = [
                 battleInfo: {
                     stamina: 8,
                     battles: 8,
+                    warnings: [
+                        [
+                            {
+                                type: "text",
+                                text: "Prepare yourself!",
+                            },
+                        ],
+                        [
+                            {
+                                type: "text",
+                                text: "Dangerous foes are waiting for you.",
+                            },
+                        ],
+                    ],
                 },
                 mapInfo: {
                     position: [94, 22],
@@ -89,6 +138,20 @@ const regions: Array<Region> = [
                 battleInfo: {
                     stamina: 8,
                     battles: 8,
+                    warnings: [
+                        [
+                            {
+                                type: "text",
+                                text: "Prepare yourself!",
+                            },
+                        ],
+                        [
+                            {
+                                type: "text",
+                                text: "Dangerous foes are waiting for you.",
+                            },
+                        ],
+                    ],
                 },
                 mapInfo: {
                     position: [60, 22],
@@ -108,6 +171,20 @@ const regions: Array<Region> = [
                 battleInfo: {
                     stamina: 8,
                     battles: 8,
+                    warnings: [
+                        [
+                            {
+                                type: "text",
+                                text: "Prepare yourself!",
+                            },
+                        ],
+                        [
+                            {
+                                type: "text",
+                                text: "Dangerous foes are waiting for you.",
+                            },
+                        ],
+                    ],
                 },
                 mapInfo: {
                     position: [77, 26],
@@ -131,6 +208,20 @@ const regions: Array<Region> = [
                 battleInfo: {
                     stamina: 8,
                     battles: 8,
+                    warnings: [
+                        [
+                            {
+                                type: "text",
+                                text: "Prepare yourself!",
+                            },
+                        ],
+                        [
+                            {
+                                type: "text",
+                                text: "Dangerous foes are waiting for you.",
+                            },
+                        ],
+                    ],
                 },
                 mapInfo: {
                     position: [77, 40],

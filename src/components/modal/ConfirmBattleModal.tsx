@@ -1,19 +1,78 @@
 import ModalBase from "./ModalBase";
 import ModalButton from "./ModalButton";
 import { resources } from "../../extractor";
+import { MapNodeType } from "../../data/game/regions";
+import React from "react";
 
 interface Props {
     show: boolean;
-    info: {
-        name: string;
-        stamina: number;
-        battles: number;
-    };
+    info: MapNodeType;
     handleModalClose: () => void;
 }
 
 function ConfirmBattleModal(props: Props) {
     const { show, info, handleModalClose } = props;
+
+    const DifficultyMeter = () => {
+        const elements = [];
+        const difficulties: { [color: string]: number } = {
+            black: 0,
+            blue: 1,
+            green: 2,
+            yellow: 3,
+            orange: 4,
+            red: 5,
+        };
+        const difficulty = info.battleInfo.difficulty || difficulties[info.mapInfo.color];
+        for (let i = 0; i < 5; i++) {
+            elements.push(
+                <img
+                    key={i}
+                    src={resources["Icon: ConfirmBattleDifficulty"]}
+                    style={{
+                        height: "3rem",
+                        filter: difficulty > i ? `url(#difficulty${difficulty}Filter)` : "none",
+                    }}
+                />
+            );
+        }
+        return <>{elements}</>;
+    };
+
+    const Warnings = (props: { warningsIndex: number }) => {
+        return (
+            <>
+                {info.battleInfo.warnings[props.warningsIndex].map((warning, index) => (
+                    <React.Fragment key={index}>
+                        {warning.type === "text" && (
+                            <p
+                                style={{
+                                    color: "#FFFFFF",
+                                    fontSize: "1.7rem",
+                                    lineHeight: "2rem",
+                                }}
+                            >
+                                {warning.text}
+                            </p>
+                        )}
+                        {warning.type === "image" && (
+                            <img
+                                src={resources[warning.text]}
+                                style={{
+                                    height: "2rem",
+                                }}
+                            />
+                        )}
+                    </React.Fragment>
+                ))}
+            </>
+        );
+    };
+
+    // Before any node is clicked for the first time, info is an empty object
+    if (Object.keys(info).length === 0) {
+        return null;
+    }
 
     return (
         <>
@@ -63,7 +122,7 @@ function ConfirmBattleModal(props: Props) {
                             height: "7.92rem",
                             width: "100%",
                             border: "1px solid #FFFFFF88",
-                            borderRadius: 4,
+                            borderRadius: "0.4rem",
                             backgroundColor: "#00000033",
                         }}
                     >
@@ -109,7 +168,7 @@ function ConfirmBattleModal(props: Props) {
                                     lineHeight: "2rem",
                                 }}
                             >
-                                {info.stamina}
+                                {info.battleInfo.stamina}
                             </p>
                         </div>
                         <div
@@ -154,7 +213,7 @@ function ConfirmBattleModal(props: Props) {
                                     lineHeight: "2rem",
                                 }}
                             >
-                                {info.battles}
+                                {info.battleInfo.battles}
                             </p>
                         </div>
                     </div>
@@ -173,10 +232,85 @@ function ConfirmBattleModal(props: Props) {
                             height: "4.72rem",
                             width: "100%",
                             border: "1px solid #FFFFFF88",
-                            borderRadius: 4,
+                            borderRadius: "0.4rem",
                             backgroundColor: "#00000033",
                         }}
-                    ></div>
+                    >
+                        <div
+                            style={{
+                                height: "75%",
+                                width: "98%",
+                                backgroundImage: "linear-gradient(#405359, #141E20)",
+                                marginRight: "auto",
+                                marginLeft: "auto",
+                                marginTop: "0.5rem",
+                                display: "flex",
+                                justifyContent: "space-between",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    marginLeft: "0.5rem",
+                                }}
+                            >
+                                <img
+                                    src={resources["Icon: ConfirmBattleMonster"]}
+                                    style={{
+                                        height: "2.36rem",
+                                    }}
+                                />
+                                <img
+                                    src={resources["Icon: Prismatic Skillseed Small"]}
+                                    style={{
+                                        height: "2.36rem",
+                                        marginLeft: "1rem",
+                                    }}
+                                />
+                                {/* TODO: Figure out the skillseed multipliers */}
+                                <p
+                                    style={{
+                                        color: "#FFFFFF",
+                                        fontSize: "1.5rem",
+                                        lineHeight: "2rem",
+                                        marginLeft: "0.5rem",
+                                    }}
+                                >
+                                    x {2.5}
+                                </p>
+                                <p
+                                    style={{
+                                        color: "#FFFFFF",
+                                        fontSize: "1.5rem",
+                                        lineHeight: "2rem",
+                                        marginLeft: "1rem",
+                                    }}
+                                >
+                                    (+{50}%)
+                                </p>
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    marginRight: "0.5rem",
+                                }}
+                            >
+                                <p
+                                    style={{
+                                        color: "#FFFFFF",
+                                        fontSize: "1.3rem",
+                                        lineHeight: "2rem",
+                                        marginRight: "0.5rem",
+                                    }}
+                                >
+                                    Difficulty
+                                </p>
+                                <DifficultyMeter />
+                            </div>
+                        </div>
+                    </div>
 
                     <p
                         style={{
@@ -192,11 +326,49 @@ function ConfirmBattleModal(props: Props) {
                             height: "6.25rem",
                             width: "100%",
                             border: "1px solid #FFFFFF88",
-                            borderRadius: 4,
+                            borderRadius: "0.4rem",
                             backgroundColor: "#00000033",
                             marginBottom: "1.5rem",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-around",
                         }}
-                    ></div>
+                    >
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginLeft: "0.5rem",
+                                marginTop: "0.2rem",
+                            }}
+                        >
+                            <img
+                                src={resources["Icon: ConfirmBattleWarning"]}
+                                style={{
+                                    height: "2.36rem",
+                                    marginRight: "0.5rem",
+                                }}
+                            />
+                            <Warnings warningsIndex={0} />
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginLeft: "0.5rem",
+                                marginBottom: "0.2rem",
+                            }}
+                        >
+                            <img
+                                src={resources["Icon: ConfirmBattleWarning"]}
+                                style={{
+                                    height: "2.36rem",
+                                    marginRight: "0.5rem",
+                                }}
+                            />
+                            <Warnings warningsIndex={1} />
+                        </div>
+                    </div>
 
                     <p
                         style={{
@@ -212,7 +384,7 @@ function ConfirmBattleModal(props: Props) {
                             height: "3.75rem",
                             width: "100%",
                             border: "1px solid #FFFFFF88",
-                            borderRadius: 4,
+                            borderRadius: "0.4rem",
                             backgroundColor: "#00000033",
                         }}
                     ></div>
@@ -221,7 +393,7 @@ function ConfirmBattleModal(props: Props) {
                             height: "18.05rem",
                             width: "100%",
                             border: "1px solid #FFFFFF88",
-                            borderRadius: 4,
+                            borderRadius: "0.4rem",
                             backgroundColor: "#00000033",
                         }}
                     ></div>
@@ -231,11 +403,160 @@ function ConfirmBattleModal(props: Props) {
                             height: "8.33rem",
                             width: "100%",
                             border: "1px solid #FFFFFF88",
-                            borderRadius: 4,
+                            borderRadius: "0.4rem",
                             backgroundColor: "#00000033",
                             marginBottom: "0.4rem",
                         }}
-                    ></div>
+                    >
+                        <div
+                            style={{
+                                display: "flex",
+                                height: "45%",
+                                justifyContent: "space-between",
+                                margin: "0.5rem",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    alignItems: "center",
+                                    height: "3rem",
+                                    width: "47%",
+                                    border: "1px solid #FFFFFF88",
+                                    borderRadius: "0.4rem",
+                                    backgroundColor: "#00000033",
+                                }}
+                            >
+                                <img
+                                    src={resources["Icon: Ether_Small"]}
+                                    style={{
+                                        height: "100%",
+                                        marginLeft: "1rem",
+                                        marginBottom: "0.2rem",
+                                    }}
+                                />
+                                <p
+                                    style={{
+                                        color: "#FFFFFF",
+                                        fontSize: "1.4rem",
+                                        lineHeight: "2rem",
+                                    }}
+                                >
+                                    Ether x{1648}
+                                </p>
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    height: "3.5rem",
+                                    width: "51%",
+                                    marginBottom: "0.4rem",
+                                }}
+                            >
+                                <img
+                                    src={resources["Icon: Battle_UltimateBarIcon"]}
+                                    style={{
+                                        height: "2.8rem",
+                                        filter: "url(#ultimateBarIconFilter)",
+                                    }}
+                                />
+                                <div
+                                    style={{
+                                        position: "relative",
+                                        height: "1.1rem",
+                                        width: "19rem",
+                                        border: "2px solid black",
+                                    }}
+                                >
+                                    <img
+                                        src={resources["Icon: Battle_UltimateBar"]}
+                                        style={{
+                                            height: "inherit",
+                                            width: "inherit",
+                                            transform: "rotate(180deg)",
+                                            position: "absolute",
+                                        }}
+                                    />
+                                    <div
+                                        style={{
+                                            height: "inherit",
+                                            width: `${100 - 90}%`,
+                                            backgroundColor: "#5C5A5B",
+                                            position: "absolute",
+                                            right: 0,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                margin: "0.5rem",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    alignItems: "center",
+                                    height: "3rem",
+                                    width: "47%",
+                                    border: "1px solid #FFFFFF88",
+                                    borderRadius: "0.4rem",
+                                    backgroundColor: "#00000033",
+                                }}
+                            >
+                                <img
+                                    src={resources["Icon: WarpShard_Small"]}
+                                    style={{
+                                        height: "100%",
+                                        marginLeft: "1rem",
+                                        marginBottom: "0.2rem",
+                                    }}
+                                />
+                                <p
+                                    style={{
+                                        color: "#FFFFFF",
+                                        fontSize: "1.4rem",
+                                        lineHeight: "2rem",
+                                        opacity: 0.7,
+                                    }}
+                                >
+                                    Warp Shard x{110}
+                                </p>
+                            </div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    height: "3.5rem",
+                                    width: "51%",
+                                    marginBottom: "0.4rem",
+                                }}
+                            >
+                                <img
+                                    src={resources["Icon: PhoenixDown_Small"]}
+                                    style={{
+                                        height: "2.8rem",
+                                        filter: "url(#ultimateBarIconFilter)",
+                                    }}
+                                />
+                                <p
+                                    style={{
+                                        color: "#FFFFFF",
+                                        fontSize: "1.4rem",
+                                        lineHeight: "2rem",
+                                    }}
+                                >
+                                    Phoenix Down x{930}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
                     <div
                         style={{

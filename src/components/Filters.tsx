@@ -42,6 +42,24 @@ function Filters() {
                 <filter id="blackFilter">
                     <feColorMatrix type="matrix" values={hexToMatrix("#000000")} />
                 </filter>
+                <filter id="difficulty1Filter">
+                    <feColorMatrix type="matrix" values={hexToMatrix("#009AE3")} />
+                </filter>
+                <filter id="difficulty2Filter">
+                    <feColorMatrix type="matrix" values={hexToMatrix("#008012")} />
+                </filter>
+                <filter id="difficulty3Filter">
+                    <feColorMatrix type="matrix" values={hexToMatrix("#EFE700")} />
+                </filter>
+                <filter id="difficulty4Filter">
+                    <feColorMatrix type="matrix" values={hexToMatrix("#E67B00")} />
+                </filter>
+                <filter id="difficulty5Filter">
+                    <feColorMatrix type="matrix" values={hexToMatrix("#9E0000")} />
+                </filter>
+                <filter id="ultimateBarIconFilter">
+                    <feColorMatrix type="matrix" values={hexToMatrix("#FBFF2F")} />
+                </filter>
                 {/* TODO: Better solutions for outlining? Current: https://stackoverflow.com/a/46123184 */}
                 <filter id="blackOutlineFilter" colorInterpolationFilters="sRGB">
                     <feMorphology in="SourceAlpha" result="MORPH" operator="dilate" radius="1.5" />
