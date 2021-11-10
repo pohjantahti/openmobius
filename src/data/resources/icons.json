@@ -1003,6 +1003,98 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
+        "alias": "Icon: DeckBackground_TopLeft",
+        "width": 18,
+        "height": 18,
+        "xOffset": 529,
+        "yOffset": 349
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DeckBackground_TopMiddle",
+        "width": 4,
+        "height": 18,
+        "xOffset": 547,
+        "yOffset": 349
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DeckBackground_TopRight",
+        "width": 18,
+        "height": 18,
+        "xOffset": 551,
+        "yOffset": 349
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DeckBackground_MiddleLeft",
+        "width": 18,
+        "height": 4,
+        "xOffset": 529,
+        "yOffset": 367
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DeckBackground_MiddleRight",
+        "width": 18,
+        "height": 4,
+        "xOffset": 551,
+        "yOffset": 367
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DeckBackground_BottomLeft",
+        "width": 18,
+        "height": 18,
+        "xOffset": 529,
+        "yOffset": 371
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DeckBackground_BottomMiddle",
+        "width": 4,
+        "height": 18,
+        "xOffset": 547,
+        "yOffset": 371
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DeckBackground_BottomRight",
+        "width": 18,
+        "height": 18,
+        "xOffset": 551,
+        "yOffset": 371
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: DeckSelectionBall",
+        "width": 64,
+        "height": 64,
+        "xOffset": 285,
+        "yOffset": 234
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: JobThumbnailCrown",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1389,
+        "yOffset": 408
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
         "alias": "Icon: Battle_BottomBackground",
         "width": 982,
         "height": 408,
@@ -1756,5 +1848,23 @@
         "height": 64,
         "xOffset": 1322,
         "yOffset": 408
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Support",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1255,
+        "yOffset": 611
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentIcon",
+        "alias": "Icon: Support_Bordered",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1054,
+        "yOffset": 522
     }
 ]

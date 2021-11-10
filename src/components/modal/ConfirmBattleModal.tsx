@@ -3,6 +3,7 @@ import ModalButton from "./ModalButton";
 import { resources } from "../../extractor";
 import { MapNodeType } from "../../data/game/regions";
 import React from "react";
+import Deck from "../card/Deck";
 
 interface Props {
     show: boolean;
@@ -66,6 +67,52 @@ function ConfirmBattleModal(props: Props) {
                     </React.Fragment>
                 ))}
             </>
+        );
+    };
+
+    const DeckSelectionBalls = () => {
+        const decks: Array<boolean> = Array(10).fill(false);
+        const currentDeck = 0;
+        decks[currentDeck] = true;
+        return (
+            <div
+                style={{
+                    height: "100%",
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                }}
+            >
+                <p
+                    style={{
+                        color: "#FFFFFF",
+                        fontSize: "1.2rem",
+                        lineHeight: "2rem",
+                    }}
+                >
+                    Decks {currentDeck + 1}/10
+                </p>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginTop: "0.2rem",
+                    }}
+                >
+                    {decks.map((active) => (
+                        <img
+                            src={resources["Icon: DeckSelectionBall"]}
+                            style={{
+                                height: "1rem",
+                                margin: "0 1rem",
+                                opacity: active ? 1 : 0.7,
+                            }}
+                        />
+                    ))}
+                </div>
+            </div>
         );
     };
 
@@ -390,13 +437,25 @@ function ConfirmBattleModal(props: Props) {
                     ></div>
                     <div
                         style={{
-                            height: "18.05rem",
+                            height: "14rem",
                             width: "100%",
                             border: "1px solid #FFFFFF88",
                             borderRadius: "0.4rem",
                             backgroundColor: "#00000033",
+                            display: "flex",
+                            alignItems: "center",
                         }}
-                    ></div>
+                    >
+                        <Deck />
+                    </div>
+                    <div
+                        style={{
+                            height: "4rem",
+                            width: "100%",
+                        }}
+                    >
+                        <DeckSelectionBalls />
+                    </div>
 
                     <div
                         style={{
@@ -439,7 +498,7 @@ function ConfirmBattleModal(props: Props) {
                                 <p
                                     style={{
                                         color: "#FFFFFF",
-                                        fontSize: "1.4rem",
+                                        fontSize: "1.5rem",
                                         lineHeight: "2rem",
                                     }}
                                 >
@@ -521,7 +580,7 @@ function ConfirmBattleModal(props: Props) {
                                 <p
                                     style={{
                                         color: "#FFFFFF",
-                                        fontSize: "1.4rem",
+                                        fontSize: "1.5rem",
                                         lineHeight: "2rem",
                                         opacity: 0.7,
                                     }}
@@ -548,7 +607,7 @@ function ConfirmBattleModal(props: Props) {
                                 <p
                                     style={{
                                         color: "#FFFFFF",
-                                        fontSize: "1.4rem",
+                                        fontSize: "1.5rem",
                                         lineHeight: "2rem",
                                     }}
                                 >

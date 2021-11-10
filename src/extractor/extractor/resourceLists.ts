@@ -104,7 +104,7 @@ const baseResourceList: Array<string> = [
     "Billboard: MobiusFFDevelopers'Room",
     "Billboard: PrincessofDawnArchfiendDawnWarrior",
 
-    "Regionmap: Chaos Vortex",
+    // "Regionmap: Chaos Vortex",
     "Regionmap: Tower",
 
     "Icon: Map_NodeRed",
@@ -130,6 +130,18 @@ const baseResourceList: Array<string> = [
     "Icon: Ether_Small",
     "Icon: WarpShard_Small",
     "Icon: PhoenixDown_Small",
+
+    "Icon: DeckBackground_TopLeft",
+    "Icon: DeckBackground_TopMiddle",
+    "Icon: DeckBackground_TopRight",
+    "Icon: DeckBackground_MiddleLeft",
+    "Icon: DeckBackground_MiddleRight",
+    "Icon: DeckBackground_BottomLeft",
+    "Icon: DeckBackground_BottomMiddle",
+    "Icon: DeckBackground_BottomRight",
+    "Icon: DeckSelectionBall",
+
+    "Icon: JobThumbnailCrown",
 
     // "Icon: Battle_BottomBackground",
     // "Icon: Battle_BottomHighlight",
@@ -180,11 +192,11 @@ const baseResourceList: Array<string> = [
     // "Icon: Battle_Number8",
     // "Icon: Battle_Number9",
 
-    // "Icon: CardThumbnailDecoration5*",
+    "Icon: CardThumbnailDecoration5*",
     // "Icon: CardThumbnailDecoration4*",
     // "Icon: CardThumbnailDecoration3*",
     // "Icon: CardThumbnailDecoration2*",
-    // "Icon: CardThumbnailDecorationRainbow",
+    "Icon: CardThumbnailDecorationRainbow",
 
     // "Icon: FireOrb",
     // "Icon: WaterOrb",
@@ -195,13 +207,13 @@ const baseResourceList: Array<string> = [
     // "Icon: LifeOrb",
     // "Icon: PrismaticOrb",
     // "Icon: NullOrb",
-    // "Icon: FireOrbBordered",
-    // "Icon: WaterOrbBordered",
-    // "Icon: WindOrbBordered",
-    // "Icon: EarthOrbBordered",
-    // "Icon: LightOrbBordered",
-    // "Icon: DarkOrbBordered",
-    // "Icon: LifeOrbBordered",
+    "Icon: FireOrbBordered",
+    "Icon: WaterOrbBordered",
+    "Icon: WindOrbBordered",
+    "Icon: EarthOrbBordered",
+    "Icon: LightOrbBordered",
+    "Icon: DarkOrbBordered",
+    "Icon: LifeOrbBordered",
     // "Icon: PrismaticOrbBordered",
     // "Icon: NullOrbBordered",
 
@@ -213,13 +225,21 @@ const baseResourceList: Array<string> = [
     // "Icon: Boost_Hexagon",
 
     // "Icon: Warrior",
-    // "Icon: Warrior_Bordered",
+    "Icon: Warrior_Bordered",
     // "Icon: Ranger",
-    // "Icon: Ranger_Bordered",
+    "Icon: Ranger_Bordered",
     // "Icon: Mage",
-    // "Icon: Mage_Bordered",
+    "Icon: Mage_Bordered",
     // "Icon: Monk",
-    // "Icon: Monk_Bordered",
+    "Icon: Monk_Bordered",
+    // "Icon: Support",
+    "Icon: Support_Bordered",
+
+    "Thumbnail: Warrior",
+    "Thumbnail: Ares",
+    "Thumbnail: Valkyrie",
+    "Thumbnail: Knights of the Round: FFVII",
+    "Thumbnail: A Tale of Hope",
 ];
 
 export { tilesetList, loadingResourceList, baseResourceList };
