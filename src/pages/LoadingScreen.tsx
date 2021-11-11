@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import MainOverlay from "../pages/MainOverlay";
 import { saveResources, resources } from "../extractor";
 import { sleep } from "../utils";
-import { initPlayerResourceTimers } from "../playerInfo";
+import { initPlayerResourceTimers } from "../info";
+import { initLocalStorage } from "../info/localStorage";
 
 interface Props {
     loadingInfo: {
@@ -17,9 +18,13 @@ function LoadingScreen(props: Props) {
 
     const [completed, setCompleted] = useState(false);
     const [firstTimeLoadCompleted, setFirstTimeLoadCompleted] = useState(false);
+    const [loadingInProgress, setLoadingInProgress] = useState(false);
 
     useEffect(() => {
         const handleFirstTimeLoading = async () => {
+            setLoadingInProgress(true);
+            initPlayerResourceTimers();
+            await initLocalStorage();
             const totalAnimationLength = loadingInfo.loadingTimeLength;
             const startTime: number = Date.now();
             for (const resourceList of loadingInfo.resourceLists) {
@@ -30,13 +35,13 @@ function LoadingScreen(props: Props) {
             await sleep(Math.max(totalAnimationLength - endTime, 0));
             setCompleted(true);
             setFirstTimeLoadCompleted(true);
+            setLoadingInProgress(false);
         };
-        if (loadingInfo.firstTime && !firstTimeLoadCompleted) {
-            initPlayerResourceTimers();
+        if (loadingInfo.firstTime && !loadingInProgress && !firstTimeLoadCompleted) {
             handleFirstTimeLoading();
         }
         // else { TODO: Regular, non-firstTime loading screen for changing region }
-    }, [loadingInfo, firstTimeLoadCompleted]);
+    }, [loadingInfo]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const Loading = () => {
         return (

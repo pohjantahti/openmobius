@@ -4,6 +4,7 @@ import { resources } from "../../extractor";
 import { MapNodeType } from "../../data/game/regions";
 import React from "react";
 import Deck from "../card/Deck";
+import { MAX } from "../../info";
 
 interface Props {
     show: boolean;
@@ -71,7 +72,7 @@ function ConfirmBattleModal(props: Props) {
     };
 
     const DeckSelectionBalls = () => {
-        const decks: Array<boolean> = Array(10).fill(false);
+        const decks: Array<boolean> = Array(MAX.deckCount).fill(false);
         const currentDeck = 0;
         decks[currentDeck] = true;
         return (
@@ -91,7 +92,7 @@ function ConfirmBattleModal(props: Props) {
                         lineHeight: "2rem",
                     }}
                 >
-                    Decks {currentDeck + 1}/10
+                    Decks {currentDeck + 1}/{MAX.deckCount}
                 </p>
                 <div
                     style={{
@@ -101,8 +102,9 @@ function ConfirmBattleModal(props: Props) {
                         marginTop: "0.2rem",
                     }}
                 >
-                    {decks.map((active) => (
+                    {decks.map((active, index) => (
                         <img
+                            key={index}
                             src={resources["Icon: DeckSelectionBall"]}
                             style={{
                                 height: "1rem",
@@ -526,7 +528,7 @@ function ConfirmBattleModal(props: Props) {
                                         position: "relative",
                                         height: "1.1rem",
                                         width: "19rem",
-                                        border: "2px solid black",
+                                        border: "1px solid black",
                                     }}
                                 >
                                     <img

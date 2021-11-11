@@ -1,4 +1,4 @@
-import { playerInfo } from "../../playerInfo";
+import { playerInfo } from "../../info";
 import SkillseedInfo from "./SkillseedInfo";
 
 function CardsInfo() {

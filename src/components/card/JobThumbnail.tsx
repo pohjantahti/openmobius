@@ -1,18 +1,15 @@
+import { JobType } from "../../data/game/jobs";
 import { resources } from "../../extractor";
+import { MAX } from "../../info";
 import { capitalize } from "../../utils";
 
 interface Props {
-    info: {
-        thumbnail: string;
-        class: "warrior" | "ranger" | "mage" | "monk";
-        level: number;
-        overboost: number;
-    };
+    info: JobType;
 }
 
 function JobThumbnail(props: Props) {
     const { info } = props;
-    const overboostTextShadow = info.overboost === 32 ? "#F6CA1F" : "#000000";
+    const overboostTextShadow = info.overboost === MAX.jobOverboost ? "#F6CA1F" : "#000000";
     return (
         <div
             style={{

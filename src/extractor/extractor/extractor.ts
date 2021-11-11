@@ -39,22 +39,26 @@ const getResourceInfo = async (resource: string): Promise<ResourceInfo> => {
 
 const getGameData = async (resource: string, searchId?: number) => {
     const args = resource.split(": ");
-    let jsonFile;
+    let dataFile;
     switch (args[0]) {
+        case "Card":
+            dataFile = "cards.ts";
+            break;
+        case "Job":
+            dataFile = "jobs.ts";
+            break;
         case "Region":
-            jsonFile = "regions.ts";
+            dataFile = "regions.ts";
             break;
         default:
             console.error("Unknown game data type: ", resource, searchId);
             break;
     }
-    const data: { default: Array<any> } = await import("../../data/game/" + jsonFile);
+    const data: { default: Array<any> } = await import("../../data/game/" + dataFile);
     if (args[1]) {
-        if (searchId) {
-            return data.default.filter((item: any) => item.id === searchId)[0];
-        } else {
-            return data.default.filter((item: any) => item.name === args[1])[0];
-        }
+        return data.default.filter((item: any) => item.name === args[1])[0];
+    } else if (searchId! >= 0) {
+        return data.default.filter((item: any) => item.id === searchId)[0];
     } else {
         return data.default;
     }

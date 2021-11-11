@@ -1,51 +1,11 @@
+import { deckInfo } from "../../info";
+import { DeckType } from "../../info/types";
 import BorderedArea from "./BorderedArea";
 import CardThumbnail from "./CardThumbnail";
 import JobThumbnail from "./JobThumbnail";
 
 function Deck() {
-    const deckInfo: { job: any; cards: Array<any> } = {
-        job: {
-            thumbnail: "Thumbnail: Warrior",
-            class: "warrior",
-            level: 12,
-            overboost: 32,
-        },
-        cards: [
-            {
-                thumbnail: "Thumbnail: Ares",
-                star: 5,
-                class: "warrior",
-                element: "fire",
-                level: 80,
-                overboost: 8,
-            },
-            {
-                thumbnail: "Thumbnail: Valkyrie",
-                star: 5,
-                class: "ranger",
-                element: "water",
-                level: 80,
-                overboost: 7,
-            },
-            {
-                thumbnail: "Thumbnail: Knights of the Round: FFVII",
-                star: 5,
-                class: "support",
-                element: "life",
-                level: 56,
-                overboost: 0,
-            },
-            {
-                thumbnail: "Thumbnail: A Tale of Hope",
-                star: 5,
-                class: "support",
-                element: "life",
-                level: 80,
-                overboost: 8,
-            },
-        ],
-    };
-
+    const deck: DeckType = deckInfo[0].decks[0];
     return (
         <div
             style={{
@@ -87,7 +47,7 @@ function Deck() {
                             margin: "0.3rem",
                         }}
                     >
-                        <JobThumbnail info={deckInfo.job} />
+                        <JobThumbnail info={deck.job} />
                     </BorderedArea>
                 </div>
             </BorderedArea>
@@ -155,7 +115,7 @@ function Deck() {
                                 margin: "0.3rem",
                             }}
                         >
-                            <CardThumbnail info={deckInfo.cards[0]} />
+                            <CardThumbnail info={deck.cards[0]} />
                         </BorderedArea>
                     </div>
                     <div
@@ -173,7 +133,7 @@ function Deck() {
                                 margin: "0.3rem",
                             }}
                         >
-                            <CardThumbnail info={deckInfo.cards[1]} />
+                            <CardThumbnail info={deck.cards[1]} />
                         </BorderedArea>
                     </div>
                     <div
@@ -191,7 +151,7 @@ function Deck() {
                                 margin: "0.3rem",
                             }}
                         >
-                            <CardThumbnail info={deckInfo.cards[2]} />
+                            <CardThumbnail info={deck.cards[2]} />
                         </BorderedArea>
                     </div>
                     <div
@@ -209,7 +169,7 @@ function Deck() {
                                 margin: "0.3rem",
                             }}
                         >
-                            <CardThumbnail info={deckInfo.cards[3]} />
+                            <CardThumbnail info={deck.cards[3]} />
                         </BorderedArea>
                     </div>
                 </div>

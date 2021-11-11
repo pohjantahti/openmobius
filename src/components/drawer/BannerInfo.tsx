@@ -1,5 +1,5 @@
 import { resources } from "../../extractor";
-import { playerInfo } from "../../playerInfo";
+import { playerInfo } from "../../info";
 
 interface Banner {
     img: string;

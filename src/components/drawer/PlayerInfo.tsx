@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { resources } from "../../extractor";
-import { emptyDistiller, playerInfo } from "../../playerInfo";
+import { emptyDistiller, playerInfo } from "../../info";
 
 interface Props {
     style?: React.CSSProperties;

@@ -1,5 +1,5 @@
 import { resources } from "../../extractor";
-import { playerInfo } from "../../playerInfo";
+import { playerInfo } from "../../info";
 import { padNumberWithZeroes } from "../../utils";
 
 interface SkillseedProps {
