@@ -1095,6 +1095,43 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
+        "alias": "Icon: ButtonBorder_Left",
+        "width": 15,
+        "height": 64,
+        "xOffset": 395,
+        "yOffset": 368
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: ButtonBorder_Middle",
+        "width": 34,
+        "height": 64,
+        "xOffset": 410,
+        "yOffset": 368
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: ButtonBorder_Right",
+        "width": 15,
+        "height": 64,
+        "xOffset": 444,
+        "yOffset": 368
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: CycleJob",
+        "width": 57,
+        "height": 49,
+        "xOffset": 1048,
+        "yOffset": 554
+    },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
         "alias": "Icon: Battle_BottomBackground",
         "width": 982,
         "height": 408,

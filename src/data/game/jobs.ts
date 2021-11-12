@@ -6,6 +6,7 @@ interface JobType {
     class: "warrior" | "ranger" | "mage" | "monk";
     level: number;
     overboost: number;
+    elements: Array<"fire" | "water" | "wind" | "earth" | "light" | "dark">;
 }
 
 const jobs: Array<JobType> = [
@@ -17,6 +18,7 @@ const jobs: Array<JobType> = [
         class: "warrior",
         level: 8,
         overboost: 0,
+        elements: ["fire", "water", "earth"],
     },
 ];
 

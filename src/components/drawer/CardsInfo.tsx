@@ -1,4 +1,4 @@
-import { playerInfo } from "../../info";
+import { getCurrentDeckLevel, getCurrentDeckName, playerInfo } from "../../info";
 import SkillseedInfo from "./SkillseedInfo";
 
 function CardsInfo() {
@@ -99,7 +99,7 @@ function CardsInfo() {
                                         lineHeight: "2.2rem",
                                     }}
                                 >
-                                    221
+                                    {playerInfo.level}
                                 </p>
                             </div>
                             <div
@@ -159,7 +159,7 @@ function CardsInfo() {
                                 margin: "0 0 -0.4rem",
                             }}
                         >
-                            Warrior Lv.320
+                            {getCurrentDeckName()} Lv.{getCurrentDeckLevel()}
                         </p>
                     </div>
                     <div

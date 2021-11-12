@@ -143,6 +143,11 @@ const baseResourceList: Array<string> = [
 
     "Icon: JobThumbnailCrown",
 
+    "Icon: ButtonBorder_Left",
+    "Icon: ButtonBorder_Middle",
+    "Icon: ButtonBorder_Right",
+    "Icon: CycleJob",
+
     // "Icon: Battle_BottomBackground",
     // "Icon: Battle_BottomHighlight",
     // "Icon: Battle_JobChangeBackground",

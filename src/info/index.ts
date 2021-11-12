@@ -1,7 +1,14 @@
 import { emptyDistiller, initPlayerResourceTimers, spendStamina } from "./intervals";
 import { playerInfo } from "./player";
 import { MAX } from "./consts";
-import { deckInfo, currentDeck, setCurrentDeck } from "./decks";
+import {
+    deckInfo,
+    currentDeck,
+    setCurrentDeck,
+    getCurrentDeckLevel,
+    getCurrentDeckName,
+    getCurrentDeckElements,
+} from "./decks";
 
 export {
     playerInfo,
@@ -12,4 +19,7 @@ export {
     emptyDistiller,
     initPlayerResourceTimers,
     setCurrentDeck,
+    getCurrentDeckLevel,
+    getCurrentDeckName,
+    getCurrentDeckElements,
 };
