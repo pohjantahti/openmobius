@@ -3,21 +3,34 @@ import { getGameData } from "../extractor";
 import { setDeckInfo } from "./decks";
 import { FullDeckType } from "./types";
 
-const defaultLocalStorageContent: {
+const getDefaultData = (): {
     decks: Array<Array<{ job: number; cards: Array<number> }>>;
-} = {
-    decks: [
-        [
+} => {
+    const data = {
+        // Decks with default job and empty cards
+        decks: Array(10).fill([
             {
                 job: 0,
-                cards: [0, 1, 2, 3],
+                cards: [-1, -1, -1, -1],
             },
             {
                 job: 0,
-                cards: [-1, 0, 0, -1],
+                cards: [-1, -1, -1, -1],
             },
-        ],
-    ],
+        ]),
+    };
+    // Default deck with some cards
+    data.decks[0] = [
+        {
+            job: 0,
+            cards: [0, 1, 2, 3],
+        },
+        {
+            job: 0,
+            cards: [-1, 0, 0, -1],
+        },
+    ];
+    return data;
 };
 
 const initLocalStorage = async () => {
@@ -27,7 +40,7 @@ const initLocalStorage = async () => {
     // Set default deck data to localStorage if it doesnt exist
     if (localStorage.length === 0 || !localStorage.getItem("decks")) {
         console.log("Local Storage filled with default data");
-        localStorage.setItem("decks", JSON.stringify(defaultLocalStorageContent.decks));
+        localStorage.setItem("decks", JSON.stringify(getDefaultData().decks));
     }
 
     // Get localStorage data and add it to deckInfo

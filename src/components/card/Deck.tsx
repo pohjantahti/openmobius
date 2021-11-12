@@ -1,14 +1,18 @@
-import { deckInfo } from "../../info";
 import { DeckType } from "../../info/types";
 import BorderedArea from "./BorderedArea";
 import CardThumbnail from "./CardThumbnail";
 import JobThumbnail from "./JobThumbnail";
 
-function Deck() {
-    const deck: DeckType = deckInfo[0].decks[0];
+interface Props {
+    style?: React.CSSProperties;
+    deck: DeckType;
+}
+
+function Deck(props: Props) {
     return (
         <div
             style={{
+                ...props.style,
                 display: "flex",
             }}
         >
@@ -47,7 +51,7 @@ function Deck() {
                             margin: "0.3rem",
                         }}
                     >
-                        <JobThumbnail info={deck.job} />
+                        <JobThumbnail info={props.deck.job} />
                     </BorderedArea>
                 </div>
             </BorderedArea>
@@ -115,7 +119,7 @@ function Deck() {
                                 margin: "0.3rem",
                             }}
                         >
-                            <CardThumbnail info={deck.cards[0]} />
+                            <CardThumbnail info={props.deck.cards[0]} />
                         </BorderedArea>
                     </div>
                     <div
@@ -133,7 +137,7 @@ function Deck() {
                                 margin: "0.3rem",
                             }}
                         >
-                            <CardThumbnail info={deck.cards[1]} />
+                            <CardThumbnail info={props.deck.cards[1]} />
                         </BorderedArea>
                     </div>
                     <div
@@ -151,7 +155,7 @@ function Deck() {
                                 margin: "0.3rem",
                             }}
                         >
-                            <CardThumbnail info={deck.cards[2]} />
+                            <CardThumbnail info={props.deck.cards[2]} />
                         </BorderedArea>
                     </div>
                     <div
@@ -169,7 +173,7 @@ function Deck() {
                                 margin: "0.3rem",
                             }}
                         >
-                            <CardThumbnail info={deck.cards[3]} />
+                            <CardThumbnail info={props.deck.cards[3]} />
                         </BorderedArea>
                     </div>
                 </div>

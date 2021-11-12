@@ -2,9 +2,9 @@ import ModalBase from "./ModalBase";
 import ModalButton from "./ModalButton";
 import { resources } from "../../extractor";
 import { MapNodeType } from "../../data/game/regions";
-import React from "react";
-import Deck from "../card/Deck";
-import { MAX } from "../../info";
+import React, { useState } from "react";
+import { currentDeck, MAX } from "../../info";
+import DeckSelection from "../card/DeckSelection";
 
 interface Props {
     show: boolean;
@@ -14,6 +14,9 @@ interface Props {
 
 function ConfirmBattleModal(props: Props) {
     const { show, info, handleModalClose } = props;
+
+    // Used to force DeckSelectionBalls to rerender
+    const [, refresher] = useState(0);
 
     const DifficultyMeter = () => {
         const elements = [];
@@ -73,7 +76,6 @@ function ConfirmBattleModal(props: Props) {
 
     const DeckSelectionBalls = () => {
         const decks: Array<boolean> = Array(MAX.deckCount).fill(false);
-        const currentDeck = 0;
         decks[currentDeck] = true;
         return (
             <div
@@ -109,7 +111,7 @@ function ConfirmBattleModal(props: Props) {
                             style={{
                                 height: "1rem",
                                 margin: "0 1rem",
-                                opacity: active ? 1 : 0.7,
+                                opacity: active ? 1 : 0.5,
                             }}
                         />
                     ))}
@@ -448,7 +450,7 @@ function ConfirmBattleModal(props: Props) {
                             alignItems: "center",
                         }}
                     >
-                        <Deck />
+                        <DeckSelection refresher={refresher} />
                     </div>
                     <div
                         style={{
