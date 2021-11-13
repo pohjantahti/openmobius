@@ -14,8 +14,8 @@ function JobThumbnail(props: Props) {
         <div
             style={{
                 position: "relative",
-                height: "7.8rem",
-                width: "7.8rem",
+                height: "96%",
+                width: "96%",
             }}
         >
             {/* Thumbnail */}
@@ -39,8 +39,8 @@ function JobThumbnail(props: Props) {
             <div
                 style={{
                     position: "absolute",
-                    bottom: 0,
-                    left: "2%",
+                    bottom: "2%",
+                    left: "1%",
                     display: "flex",
                 }}
             >
@@ -49,7 +49,7 @@ function JobThumbnail(props: Props) {
                     style={{
                         height: "3rem",
                         filter: "saturate(200%)",
-                        marginRight: "-0.4rem",
+                        marginRight: "-4%",
                     }}
                 />
                 <p
@@ -58,7 +58,7 @@ function JobThumbnail(props: Props) {
                         lineHeight: "1.3rem",
                         color: "#FFFFFF",
                         textShadow: "-1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000",
-                        marginTop: "1.3rem",
+                        marginTop: "24%",
                         zIndex: 1,
                     }}
                 >
@@ -70,8 +70,8 @@ function JobThumbnail(props: Props) {
                 <div
                     style={{
                         position: "absolute",
-                        top: "1%",
-                        right: "4%",
+                        top: "1.5%",
+                        right: "8%",
                         display: "flex",
                         justifyContent: "space-between",
                         width: "60%",
@@ -83,7 +83,7 @@ function JobThumbnail(props: Props) {
                             lineHeight: "1.2rem",
                             color: "#FFFFFF",
                             textShadow: `-1px 0 ${overboostTextShadow}, 0 1px ${overboostTextShadow}, 1px 0 ${overboostTextShadow}, 0 -1px ${overboostTextShadow}`,
-                            marginBottom: "0.3rem",
+                            marginTop: "5%",
                         }}
                     >
                         Lv.
@@ -106,8 +106,8 @@ function JobThumbnail(props: Props) {
                 style={{
                     position: "absolute",
                     height: "25%",
-                    bottom: "1%",
-                    right: "1%",
+                    bottom: "5%",
+                    right: "5%",
                 }}
             />
         </div>

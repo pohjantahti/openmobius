@@ -3,6 +3,8 @@ import BorderedArea from "./BorderedArea";
 import CardThumbnail from "./CardThumbnail";
 import JobThumbnail from "./JobThumbnail";
 
+// In "style" prop, the ratio of height and width should roughly be: height / width = ~0.25
+
 interface Props {
     style?: React.CSSProperties;
     deck: DeckType;
@@ -14,41 +16,56 @@ function Deck(props: Props) {
             style={{
                 ...props.style,
                 display: "flex",
+                justifyContent: "space-between",
             }}
         >
             <BorderedArea
                 style={{
-                    height: "11.25rem",
-                    width: "8.9rem",
+                    height: "100%",
+                    width: "20%",
                 }}
                 childrenStyle={{
-                    padding: "0 0.2rem",
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
                 }}
             >
-                <p
-                    style={{
-                        color: "#FFFFFF",
-                        fontSize: "1.3rem",
-                        lineHeight: "2rem",
-                        marginLeft: "0.3rem",
-                    }}
-                >
-                    Job
-                </p>
                 <div
                     style={{
+                        height: "20%",
+                        width: "90%",
+                        padding: "0 5%",
+                    }}
+                >
+                    <p
+                        style={{
+                            color: "#FFFFFF",
+                            fontSize: "1.3rem",
+                            lineHeight: "2rem",
+                        }}
+                    >
+                        Job
+                    </p>
+                </div>
+                <div
+                    style={{
+                        height: "80%",
+                        width: "100%",
                         display: "flex",
                         justifyContent: "center",
-                        marginTop: "0.4rem",
+                        alignItems: "center",
                     }}
                 >
                     <BorderedArea
                         style={{
-                            height: "8.4rem",
-                            width: "8.4rem",
+                            height: "92%",
+                            width: "92%",
                         }}
                         childrenStyle={{
-                            margin: "0.3rem",
+                            height: "100%",
+                            width: "100%",
+                            margin: "4%",
                         }}
                     >
                         <JobThumbnail info={props.deck.job} />
@@ -57,23 +74,23 @@ function Deck(props: Props) {
             </BorderedArea>
             <BorderedArea
                 style={{
-                    height: "11.25rem",
-                    width: "35.56rem",
-                    marginLeft: "0.5rem",
+                    height: "100%",
+                    width: "79%",
                 }}
                 childrenStyle={{
-                    width: "34.56rem",
+                    width: "100%",
                     height: "100%",
-                    padding: "0 0.5rem",
                     display: "flex",
                     flexDirection: "column",
                 }}
             >
                 <div
                     style={{
+                        height: "20%",
+                        width: "96%",
+                        padding: "0 2%",
                         display: "flex",
                         justifyContent: "space-between",
-                        width: "100%",
                     }}
                 >
                     <p
@@ -97,85 +114,29 @@ function Deck(props: Props) {
                 </div>
                 <div
                     style={{
+                        height: "80%",
                         width: "100%",
-                        height: "100%",
                         display: "flex",
-                        justifyContent: "space-between",
-                        marginTop: "0.4rem",
+                        justifyContent: "space-around",
+                        alignItems: "center",
                     }}
                 >
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                        }}
-                    >
+                    {props.deck.cards.map((card, index) => (
                         <BorderedArea
+                            key={index}
                             style={{
-                                height: "8.4rem",
-                                width: "8.4rem",
+                                height: "92%",
+                                width: "23.3%",
                             }}
                             childrenStyle={{
-                                margin: "0.3rem",
+                                height: "100%",
+                                width: "100%",
+                                margin: "4%",
                             }}
                         >
-                            <CardThumbnail info={props.deck.cards[0]} />
+                            <CardThumbnail info={card} />
                         </BorderedArea>
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <BorderedArea
-                            style={{
-                                height: "8.4rem",
-                                width: "8.4rem",
-                            }}
-                            childrenStyle={{
-                                margin: "0.3rem",
-                            }}
-                        >
-                            <CardThumbnail info={props.deck.cards[1]} />
-                        </BorderedArea>
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <BorderedArea
-                            style={{
-                                height: "8.4rem",
-                                width: "8.4rem",
-                            }}
-                            childrenStyle={{
-                                margin: "0.3rem",
-                            }}
-                        >
-                            <CardThumbnail info={props.deck.cards[2]} />
-                        </BorderedArea>
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <BorderedArea
-                            style={{
-                                height: "8.4rem",
-                                width: "8.4rem",
-                            }}
-                            childrenStyle={{
-                                margin: "0.3rem",
-                            }}
-                        >
-                            <CardThumbnail info={props.deck.cards[3]} />
-                        </BorderedArea>
-                    </div>
+                    ))}
                 </div>
             </BorderedArea>
         </div>

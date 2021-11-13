@@ -1,4 +1,11 @@
-import { getCurrentDeckLevel, getCurrentDeckName, playerInfo } from "../../info";
+import {
+    currentDeck,
+    deckInfo,
+    getCurrentDeckLevel,
+    getCurrentDeckName,
+    playerInfo,
+} from "../../info";
+import Deck from "../card/Deck";
 import SkillseedInfo from "./SkillseedInfo";
 
 function CardsInfo() {
@@ -176,9 +183,18 @@ function CardsInfo() {
                             style={{
                                 height: "12.5rem",
                                 width: "41.67rem",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
                             }}
                         >
-                            {/* TODO: Current deck info here */}
+                            <Deck
+                                style={{
+                                    height: "10.15rem",
+                                    width: "40.5rem",
+                                }}
+                                deck={deckInfo[currentDeck].decks[0]}
+                            />
                         </div>
                         {/* Skillseed info */}
                         <div

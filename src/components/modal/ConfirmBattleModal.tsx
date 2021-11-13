@@ -594,7 +594,13 @@ function ConfirmBattleModal(props: Props) {
                             alignItems: "center",
                         }}
                     >
-                        <DeckSelection refresher={refresher} />
+                        <DeckSelection
+                            refresher={refresher}
+                            deckStyle={{
+                                height: "11.25rem",
+                                minWidth: "44.95rem",
+                            }}
+                        />
                     </div>
                     <div
                         style={{

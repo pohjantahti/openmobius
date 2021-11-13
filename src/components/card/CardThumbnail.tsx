@@ -17,8 +17,8 @@ function CardThumbnail(props: Props) {
         <div
             style={{
                 position: "relative",
-                height: "7.8rem",
-                width: "7.8rem",
+                height: "96%",
+                width: "96%",
             }}
         >
             {info && (
@@ -47,16 +47,16 @@ function CardThumbnail(props: Props) {
                         style={{
                             position: "absolute",
                             height: "25%",
-                            top: "1%",
-                            left: "1%",
+                            top: "1.5%",
+                            left: "1.5%",
                         }}
                     />
                     {/* Level */}
                     <div
                         style={{
                             position: "absolute",
-                            top: "1%",
-                            right: "4%",
+                            top: "1.5%",
+                            right: "8%",
                             display: "flex",
                             justifyContent: "space-between",
                             width: "60%",
@@ -68,7 +68,7 @@ function CardThumbnail(props: Props) {
                                 lineHeight: "1.2rem",
                                 color: "#FFFFFF",
                                 textShadow: `-1px 0 ${levelTextShadow}, 0 1px ${levelTextShadow}, 1px 0 ${levelTextShadow}, 0 -1px ${levelTextShadow}`,
-                                marginBottom: "0.3rem",
+                                marginTop: "5%",
                             }}
                         >
                             Lv.
@@ -90,7 +90,7 @@ function CardThumbnail(props: Props) {
                             style={{
                                 position: "absolute",
                                 top: "22%",
-                                right: "4%",
+                                right: "8%",
                                 fontSize: "1.2rem",
                                 lineHeight: "1.2rem",
                                 color: "#FFFFFF",
@@ -106,8 +106,8 @@ function CardThumbnail(props: Props) {
                         style={{
                             position: "absolute",
                             height: "25%",
-                            bottom: "1%",
-                            right: "2%",
+                            bottom: "5%",
+                            right: "5%",
                         }}
                     />
                 </>

@@ -4,6 +4,7 @@ import Deck from "./Deck";
 
 interface Props {
     refresher?: any;
+    deckStyle: React.CSSProperties;
 }
 
 function DeckSelection(props: Props) {
@@ -64,7 +65,7 @@ function DeckSelection(props: Props) {
                 {deckInfo.map((fullDeck, index) => (
                     <Deck
                         key={index}
-                        style={{ margin: "0 0.22rem" }}
+                        style={{ ...props.deckStyle, margin: "0 0.5%" }}
                         deck={fullDeck.decks[fullDeck.activeDeck]}
                     />
                 ))}
