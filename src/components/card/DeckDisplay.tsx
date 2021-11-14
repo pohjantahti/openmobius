@@ -1,4 +1,4 @@
-import { DeckType } from "../../info/types";
+import { Deck } from "../../info/types";
 import BorderedArea from "./BorderedArea";
 import CardThumbnail from "./CardThumbnail";
 import JobThumbnail from "./JobThumbnail";
@@ -7,10 +7,10 @@ import JobThumbnail from "./JobThumbnail";
 
 interface Props {
     style?: React.CSSProperties;
-    deck: DeckType;
+    deck: Deck;
 }
 
-function Deck(props: Props) {
+function DeckDisplay(props: Props) {
     return (
         <div
             style={{
@@ -143,4 +143,4 @@ function Deck(props: Props) {
     );
 }
 
-export default Deck;
+export default DeckDisplay;

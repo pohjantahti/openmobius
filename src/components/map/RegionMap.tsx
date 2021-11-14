@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PlayerInfo from "../drawer/PlayerInfo";
 import ConfirmBattleModal from "../modal/ConfirmBattleModal";
 import { getGameData, resources } from "../../extractor";
@@ -7,7 +7,7 @@ import MapButtons from "./MapButtons";
 import ChangePlayerLocationModal from "../modal/ChangePlayerLocationModal";
 import { MapNodeType, Region } from "../../data/game/regions";
 
-function RegionMap() {
+function RegionMapView() {
     const baseMapPosition = 0;
     const [mouseClickCount, setMouseClickCount] = useState(0);
     const [baseMousePosition, setBaseMousePosition] = useState(baseMapPosition);
@@ -28,19 +28,18 @@ function RegionMap() {
     const mapDiv = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const initMap = async () => {
+            // TODO: Move this to LoadingScreen
+            const mapInfo: Region = await getGameData("Region: Tower");
+            // TODO: Validate mapInfo. Check for mandatory values and that id values are unique
+            window.playMusic(mapInfo.music);
+            setMapNodeInfo(mapInfo.nodes);
+            setPlayerLocation(mapInfo.startingLocation || 0);
+        };
         initMap();
     }, []);
 
-    const initMap = async () => {
-        // TODO: Move this to LoadingScreen
-        const mapInfo: Region = await getGameData("Region: Tower");
-        // TODO: Validate mapInfo. Check for mandatory values and that id values are unique
-        window.playMusic(mapInfo.music);
-        setMapNodeInfo(mapInfo.nodes);
-        setPlayerLocation(mapInfo.startingLocation || 0);
-    };
-
-    const handleMouseDown = (event: any) => {
+    const handleMouseDown = (event: React.MouseEvent) => {
         setMouseClickCount(event.detail);
         setBaseMousePosition(event.clientY);
     };
@@ -51,7 +50,7 @@ function RegionMap() {
     };
 
     // Used to calculate the backgroundPosition when it's moved
-    const handleMouseMove = (event: any) => {
+    const handleMouseMove = (event: React.MouseEvent) => {
         if (mapDiv.current && mouseClickCount === 1) {
             // Calculate the next attempted move
             let newMapPosition: number = event.clientY - baseMousePosition + previousMapPosition;
@@ -103,9 +102,12 @@ function RegionMap() {
     };
 
     // Handles everything related to changing player location
-    const handleChangingPlayerLocation = (action: string, mapNodeId?: number) => {
+    const handleChangingPlayerLocation = (
+        action: "switchMode" | "newLocation" | "confirmLocation",
+        mapNodeId?: number
+    ) => {
         switch (action) {
-            // Enable ability to choose new location
+            // Enable/disable ability to choose new location
             case "switchMode":
                 setChangingPlayerLocation(!changingPlayerLocation);
                 break;
@@ -126,8 +128,6 @@ function RegionMap() {
                 setChangingPlayerLocation(false);
                 handleModalClose();
                 break;
-            default:
-                break;
         }
     };
 
@@ -139,7 +139,6 @@ function RegionMap() {
                 backgroundColor: "#000000",
                 height: "100%",
                 width: "100%",
-                margin: "auto",
             }}
         >
             <PlayerInfo
@@ -206,4 +205,4 @@ function RegionMap() {
     );
 }
 
-export default RegionMap;
+export default RegionMapView;

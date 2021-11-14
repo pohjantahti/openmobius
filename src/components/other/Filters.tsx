@@ -1,4 +1,4 @@
-import { hexToMatrix } from "../utils";
+import { hexToMatrix } from "../../utils";
 
 // Used to color monochrome textures and add outlines to text
 // Add to the style of <img>: filter: "url(#filterId)"

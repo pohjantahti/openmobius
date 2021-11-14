@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { currentDeck, deckInfo, MAX, setCurrentDeck } from "../../info";
-import Deck from "./Deck";
+import DeckDisplay from "./DeckDisplay";
 
 interface Props {
     refresher?: any;
@@ -63,7 +63,7 @@ function DeckSelection(props: Props) {
                 }}
             >
                 {deckInfo.map((fullDeck, index) => (
-                    <Deck
+                    <DeckDisplay
                         key={index}
                         style={{ ...props.deckStyle, margin: "0 0.5%" }}
                         deck={fullDeck.decks[fullDeck.activeDeck]}

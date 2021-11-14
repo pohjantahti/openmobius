@@ -65,7 +65,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: DrawerButtonInnerTop",
+        "alias": "Icon: Drawer_ButtonInner_Top",
         "width": 6,
         "height": 6,
         "xOffset": 504,
@@ -74,7 +74,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: DrawerButtonInnerMiddle",
+        "alias": "Icon: Drawer_ButtonInner_Middle",
         "width": 6,
         "height": 1,
         "xOffset": 504,
@@ -83,7 +83,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: DrawerButtonInnerBottom",
+        "alias": "Icon: Drawer_ButtonInner_Bottom",
         "width": 6,
         "height": 6,
         "xOffset": 504,
@@ -92,7 +92,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: DrawerHomeButton",
+        "alias": "Icon: Drawer_HomeButton",
         "width": 44,
         "height": 74,
         "xOffset": 721,
@@ -101,7 +101,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: DrawerHomeTriangle",
+        "alias": "Icon: Drawer_HomeTriangle",
         "width": 16,
         "height": 34,
         "xOffset": 1461,
@@ -129,7 +129,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: DrawerBackgroundIcon",
+        "alias": "Icon: Drawer_BackgroundIcon",
         "width": 512,
         "height": 512,
         "xOffset": 1500,
@@ -138,13 +138,13 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlasBG",
-        "alias": "Icon: DrawerBackgroundGradient"
+        "alias": "Icon: Drawer_BackgroundGradient"
     },
 
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: DrawerCardsLogo",
+        "alias": "Icon: Drawer_CardsLogo",
         "width": 127,
         "height": 127,
         "xOffset": 1330,
@@ -154,7 +154,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: Fire Skillseed Small",
+        "alias": "Icon: FireSkillseed_Small",
         "width": 56,
         "height": 56,
         "xOffset": 987,
@@ -163,7 +163,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: Water Skillseed Small",
+        "alias": "Icon: WaterSkillseed_Small",
         "width": 56,
         "height": 56,
         "xOffset": 1771,
@@ -172,7 +172,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: Wind Skillseed Small",
+        "alias": "Icon: WindSkillseed_Small",
         "width": 56,
         "height": 56,
         "xOffset": 1704,
@@ -181,7 +181,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: Earth Skillseed Small",
+        "alias": "Icon: EarthSkillseed_Small",
         "width": 56,
         "height": 56,
         "xOffset": 1881,
@@ -190,7 +190,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: Light Skillseed Small",
+        "alias": "Icon: LightSkillseed_Small",
         "width": 56,
         "height": 56,
         "xOffset": 1940,
@@ -199,7 +199,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: Dark Skillseed Small",
+        "alias": "Icon: DarkSkillseed_Small",
         "width": 56,
         "height": 56,
         "xOffset": 1763,
@@ -208,7 +208,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: Prismatic Skillseed Small",
+        "alias": "Icon: PrismaticSkillseed_Small",
         "width": 56,
         "height": 56,
         "xOffset": 1645,
@@ -237,7 +237,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: DrawerAlertBackground",
+        "alias": "Icon: Drawer_AlertBackground",
         "width": 64,
         "height": 64,
         "xOffset": 1389,
@@ -246,7 +246,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: DrawerAlertBorder",
+        "alias": "Icon: Drawer_AlertBorder",
         "width": 76,
         "height": 76,
         "xOffset": 1962,
@@ -255,7 +255,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: DrawerBillboardCorner",
+        "alias": "Icon: Drawer_BillboardCorner",
         "width": 125,
         "height": 125,
         "xOffset": 192,
@@ -265,7 +265,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas2",
-        "alias": "Icon: SkillDrawSmall1*",
+        "alias": "Icon: SkillDraw1*_Small",
         "width": 70,
         "height": 70,
         "xOffset": 0,
@@ -274,7 +274,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas2",
-        "alias": "Icon: SkillDrawSmall2*",
+        "alias": "Icon: SkillDraw2*_Small",
         "width": 70,
         "height": 70,
         "xOffset": 282,
@@ -283,7 +283,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas2",
-        "alias": "Icon: SkillDrawSmall3*",
+        "alias": "Icon: SkillDraw3*_Small",
         "width": 70,
         "height": 70,
         "xOffset": 282,
@@ -800,7 +800,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Map_NodeRed",
+        "alias": "Icon: MapNode_Red",
         "width": 128,
         "height": 128,
         "xOffset": 1819,
@@ -809,7 +809,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Map_NodeGreen",
+        "alias": "Icon: MapNode_Green",
         "width": 128,
         "height": 128,
         "xOffset": 1557,
@@ -818,7 +818,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Map_NodeYellow",
+        "alias": "Icon: MapNode_Yellow",
         "width": 128,
         "height": 128,
         "xOffset": 1426,
@@ -827,7 +827,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Map_NodeBlack",
+        "alias": "Icon: MapNode_Black",
         "width": 128,
         "height": 128,
         "xOffset": 721,
@@ -836,7 +836,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Map_NodeBlue",
+        "alias": "Icon: MapNode_Blue",
         "width": 128,
         "height": 128,
         "xOffset": 590,
@@ -845,7 +845,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Map_NodeOrange",
+        "alias": "Icon: MapNode_Orange",
         "width": 128,
         "height": 128,
         "xOffset": 459,
@@ -901,7 +901,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlasSpline",
-        "alias": "Icon: Map_PathNormal",
+        "alias": "Icon: MapPath_Normal",
         "width": 50,
         "height": 52,
         "xOffset": 0,
@@ -930,7 +930,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: ConfirmBattleStamina",
+        "alias": "Icon: ConfirmBattle_Stamina",
         "width": 48,
         "height": 48,
         "xOffset": 1429,
@@ -939,7 +939,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: ConfirmBattleBattles",
+        "alias": "Icon: ConfirmBattle_Battles",
         "width": 48,
         "height": 48,
         "xOffset": 1486,
@@ -948,7 +948,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: ConfirmBattleMonster",
+        "alias": "Icon: ConfirmBattle_Monster",
         "width": 48,
         "height": 48,
         "xOffset": 1537,
@@ -957,7 +957,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: ConfirmBattleWarning",
+        "alias": "Icon: ConfirmBattle_Warning",
         "width": 48,
         "height": 48,
         "xOffset": 1044,
@@ -966,7 +966,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: ConfirmBattleDifficulty",
+        "alias": "Icon: ConfirmBattle_Difficulty",
         "width": 60,
         "height": 60,
         "xOffset": 1456,
@@ -1461,7 +1461,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: CardThumbnailDecoration5*",
+        "alias": "Icon: CardThumbnail_Decoration5*",
         "width": 168,
         "height": 168,
         "xOffset": 1871,
@@ -1470,7 +1470,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: CardThumbnailDecoration4*",
+        "alias": "Icon: CardThumbnail_Decoration4*",
         "width": 168,
         "height": 168,
         "xOffset": 258,
@@ -1479,7 +1479,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: CardThumbnailDecoration3*",
+        "alias": "Icon: CardThumbnail_Decoration3*",
         "width": 168,
         "height": 168,
         "xOffset": 600,
@@ -1488,7 +1488,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: CardThumbnailDecoration2*",
+        "alias": "Icon: CardThumbnail_Decoration2*",
         "width": 168,
         "height": 168,
         "xOffset": 0,
@@ -1497,7 +1497,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: CardThumbnailDecorationRainbow",
+        "alias": "Icon: CardThumbnail_DecorationRainbow",
         "width": 168,
         "height": 168,
         "xOffset": 429,
@@ -1589,7 +1589,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: FireOrbBordered",
+        "alias": "Icon: FireOrb_Bordered",
         "width": 62,
         "height": 62,
         "xOffset": 1725,
@@ -1598,7 +1598,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: WaterOrbBordered",
+        "alias": "Icon: WaterOrb_Bordered",
         "width": 62,
         "height": 62,
         "xOffset": 1926,
@@ -1607,7 +1607,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: WindOrbBordered",
+        "alias": "Icon: WindOrb_Bordered",
         "width": 62,
         "height": 62,
         "xOffset": 787,
@@ -1616,7 +1616,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: EarthOrbBordered",
+        "alias": "Icon: EarthOrb_Bordered",
         "width": 62,
         "height": 62,
         "xOffset": 1658,
@@ -1625,7 +1625,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: LightOrbBordered",
+        "alias": "Icon: LightOrb_Bordered",
         "width": 62,
         "height": 62,
         "xOffset": 1591,
@@ -1634,7 +1634,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: DarkOrbBordered",
+        "alias": "Icon: DarkOrb_Bordered",
         "width": 62,
         "height": 62,
         "xOffset": 1323,
@@ -1643,7 +1643,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: LifeOrbBordered",
+        "alias": "Icon: LifeOrb_Bordered",
         "width": 62,
         "height": 62,
         "xOffset": 1524,
@@ -1652,7 +1652,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: PrismaticOrbBordered",
+        "alias": "Icon: PrismaticOrb_Bordered",
         "width": 62,
         "height": 62,
         "xOffset": 921,
@@ -1661,7 +1661,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentIcon",
-        "alias": "Icon: NullOrbBordered",
+        "alias": "Icon: NullOrb_Bordered",
         "width": 62,
         "height": 62,
         "xOffset": 854,

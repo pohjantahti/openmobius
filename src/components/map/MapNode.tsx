@@ -34,7 +34,7 @@ function MapNode(props: Props) {
             }}
         >
             <img
-                src={resources[`Icon: Map_Node${capitalize(info.mapInfo.color)}`]}
+                src={resources[`Icon: MapNode_${capitalize(info.mapInfo.color)}`]}
                 style={{ height: "6rem", width: "6rem" }}
                 onClick={() =>
                     changingPlayerLocation

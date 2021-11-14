@@ -15,15 +15,15 @@ function DrawerButtons(props: any) {
                 onClick={() => handleDrawer("cards")}
             >
                 <img
-                    src={resources["Icon: DrawerButtonInnerTop"]}
+                    src={resources["Icon: Drawer_ButtonInner_Top"]}
                     className="drawerButtonInnerTop"
                 />
                 <img
-                    src={resources["Icon: DrawerButtonInnerMiddle"]}
+                    src={resources["Icon: Drawer_ButtonInner_Middle"]}
                     className="drawerButtonInnerMiddle"
                 />
                 <img
-                    src={resources["Icon: DrawerButtonInnerBottom"]}
+                    src={resources["Icon: Drawer_ButtonInner_Bottom"]}
                     className="drawerButtonInnerBottom"
                 />
                 <p
@@ -46,15 +46,15 @@ function DrawerButtons(props: any) {
                 onClick={() => handleDrawer("social")}
             >
                 <img
-                    src={resources["Icon: DrawerButtonInnerTop"]}
+                    src={resources["Icon: Drawer_ButtonInner_Top"]}
                     className="drawerButtonInnerTop"
                 />
                 <img
-                    src={resources["Icon: DrawerButtonInnerMiddle"]}
+                    src={resources["Icon: Drawer_ButtonInner_Middle"]}
                     className="drawerButtonInnerMiddle"
                 />
                 <img
-                    src={resources["Icon: DrawerButtonInnerBottom"]}
+                    src={resources["Icon: Drawer_ButtonInner_Bottom"]}
                     className="drawerButtonInnerBottom"
                 />
                 <p
@@ -77,15 +77,15 @@ function DrawerButtons(props: any) {
                 onClick={() => handleDrawer("shop")}
             >
                 <img
-                    src={resources["Icon: DrawerButtonInnerTop"]}
+                    src={resources["Icon: Drawer_ButtonInner_Top"]}
                     className="drawerButtonInnerTop"
                 />
                 <img
-                    src={resources["Icon: DrawerButtonInnerMiddle"]}
+                    src={resources["Icon: Drawer_ButtonInner_Middle"]}
                     className="drawerButtonInnerMiddle"
                 />
                 <img
-                    src={resources["Icon: DrawerButtonInnerBottom"]}
+                    src={resources["Icon: Drawer_ButtonInner_Bottom"]}
                     className="drawerButtonInnerBottom"
                 />
                 <p
@@ -108,15 +108,15 @@ function DrawerButtons(props: any) {
                 onClick={() => handleDrawer("etc")}
             >
                 <img
-                    src={resources["Icon: DrawerButtonInnerTop"]}
+                    src={resources["Icon: Drawer_ButtonInner_Top"]}
                     className="drawerButtonInnerTop"
                 />
                 <img
-                    src={resources["Icon: DrawerButtonInnerMiddle"]}
+                    src={resources["Icon: Drawer_ButtonInner_Middle"]}
                     className="drawerButtonInnerMiddle"
                 />
                 <img
-                    src={resources["Icon: DrawerButtonInnerBottom"]}
+                    src={resources["Icon: Drawer_ButtonInner_Bottom"]}
                     className="drawerButtonInnerBottom"
                 />
                 <p
@@ -141,7 +141,7 @@ function DrawerButtons(props: any) {
                 onClick={() => handleDrawer("home")}
             >
                 <img
-                    src={resources["Icon: DrawerHomeButton"]}
+                    src={resources["Icon: Drawer_HomeButton"]}
                     style={{
                         position: "absolute",
                         height: "8.4rem",

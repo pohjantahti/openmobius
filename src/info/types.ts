@@ -1,14 +1,14 @@
-import { CardType } from "../data/game/cards";
-import { JobType } from "../data/game/jobs";
+import { Card } from "../data/game/cards";
+import { Job } from "../data/game/jobs";
 
-interface FullDeckType {
-    decks: [DeckType, DeckType];
+interface FullDeck {
+    decks: [Deck, Deck];
     activeDeck: number;
 }
 
-interface DeckType {
-    job: JobType;
-    cards: Array<CardType | undefined>;
+interface Deck {
+    job: Job;
+    cards: Array<Card | undefined>;
 }
 
-export type { FullDeckType, DeckType };
+export type { FullDeck, Deck };

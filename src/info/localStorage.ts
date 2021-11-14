@@ -1,7 +1,7 @@
 import { MAX } from "./consts";
 import { getGameData } from "../extractor";
 import { setDeckInfo } from "./decks";
-import { FullDeckType } from "./types";
+import { FullDeck } from "./types";
 
 const getDefaultData = (): {
     decks: Array<Array<{ job: number; cards: Array<number> }>>;
@@ -45,7 +45,7 @@ const initLocalStorage = async () => {
 
     // Get localStorage data and add it to deckInfo
     const deckData: Array<any> = JSON.parse(localStorage.getItem("decks")!);
-    const decks: Array<FullDeckType> = [];
+    const decks: Array<FullDeck> = [];
     // Loop through full decks (main + sub)
     for (let i = 0; i < Math.min(deckData.length, MAX.deckCount); i++) {
         const deck: any = [];

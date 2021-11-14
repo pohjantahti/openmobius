@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import MainOverlay from "../pages/MainOverlay";
-import { saveResources, resources } from "../extractor";
-import { sleep } from "../utils";
-import { initPlayerResourceTimers } from "../info";
-import { initLocalStorage } from "../info/localStorage";
+import MainView from "./MainView";
+import { saveResources, resources } from "../../extractor";
+import { sleep } from "../../utils";
+import { initPlayerResourceTimers } from "../../info";
+import { initLocalStorage } from "../../info/localStorage";
 
 interface Props {
     loadingInfo: {
@@ -125,7 +125,7 @@ function LoadingScreen(props: Props) {
                     }}
                 >
                     <img
-                        src={resources["Icon: DrawerBackgroundGradient"]}
+                        src={resources["Icon: Drawer_BackgroundGradient"]}
                         style={{
                             position: "absolute",
                             top: "-2.6rem",
@@ -213,7 +213,7 @@ function LoadingScreen(props: Props) {
         );
     };
 
-    return <>{completed ? <MainOverlay /> : <Loading />}</>;
+    return <>{completed ? <MainView /> : <Loading />}</>;
 }
 
 export default LoadingScreen;

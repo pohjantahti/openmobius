@@ -66,7 +66,7 @@ function BannerInfo(props: Props) {
                     }}
                 />
                 <img
-                    src={resources["Icon: DrawerBillboardCorner"]}
+                    src={resources["Icon: Drawer_BillboardCorner"]}
                     style={{
                         height: "6rem",
                         position: "absolute",
@@ -74,7 +74,7 @@ function BannerInfo(props: Props) {
                     }}
                 />
                 <img
-                    src={resources["Icon: DrawerBillboardCorner"]}
+                    src={resources["Icon: Drawer_BillboardCorner"]}
                     style={{
                         height: "6rem",
                         position: "absolute",
@@ -84,7 +84,7 @@ function BannerInfo(props: Props) {
                     }}
                 />
                 <img
-                    src={resources["Icon: DrawerBillboardCorner"]}
+                    src={resources["Icon: Drawer_BillboardCorner"]}
                     style={{
                         height: "6rem",
                         position: "absolute",
@@ -93,7 +93,7 @@ function BannerInfo(props: Props) {
                     }}
                 />
                 <img
-                    src={resources["Icon: DrawerBillboardCorner"]}
+                    src={resources["Icon: Drawer_BillboardCorner"]}
                     style={{
                         height: "6rem",
                         position: "absolute",

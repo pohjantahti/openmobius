@@ -20,7 +20,7 @@ function MapButtons(props: Props) {
                 onClick={() => handleChangingPlayerLocation("switchMode")}
             >
                 <img
-                    src={resources["Icon: Map_NodeBlack"]}
+                    src={resources["Icon: MapNode_Black"]}
                     style={{
                         position: "absolute",
                         height: "6.4rem",

@@ -1,10 +1,10 @@
-import { CardType } from "../../data/game/cards";
+import { Card } from "../../data/game/cards";
 import { resources } from "../../extractor";
 import { MAX } from "../../info";
 import { capitalize } from "../../utils";
 
 interface Props {
-    info: CardType | undefined;
+    info: Card | undefined;
 }
 
 function CardThumbnail(props: Props) {
@@ -34,7 +34,7 @@ function CardThumbnail(props: Props) {
                     />
                     {/* Border */}
                     <img
-                        src={resources["Icon: CardThumbnailDecoration5*"]}
+                        src={resources["Icon: CardThumbnail_Decoration5*"]}
                         style={{
                             position: "absolute",
                             height: "inherit",

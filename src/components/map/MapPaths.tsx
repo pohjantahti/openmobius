@@ -11,7 +11,7 @@ function MapPaths(props: Props) {
 
     // TODO: Add other path types
     const types: Record<string, string> = {
-        normal: "Icon: Map_PathNormal",
+        normal: "Icon: MapPath_Normal",
     };
 
     const paths: Array<{

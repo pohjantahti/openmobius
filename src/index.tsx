@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import StartMenu from "./pages/StartMenu";
+import StartMenu from "./components/view/StartMenu";
 import "./index.css";
 
 ReactDOM.render(

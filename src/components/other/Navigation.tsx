@@ -1,5 +1,5 @@
-import { baseResourceList } from "../extractor";
-import LoadingScreen from "../pages/LoadingScreen";
+import { baseResourceList } from "../../extractor";
+import LoadingScreen from "../view/LoadingScreen";
 
 // At the moment a barebone component since only 1 region exists
 

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { getResourceURL } from "../extractor";
+import { getResourceURL } from "../../extractor";
 
 declare global {
     interface Window {

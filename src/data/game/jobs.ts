@@ -1,4 +1,4 @@
-interface JobType {
+interface Job {
     id: number;
     name: string;
     card: string;
@@ -9,7 +9,7 @@ interface JobType {
     elements: Array<"fire" | "water" | "wind" | "earth" | "light" | "dark">;
 }
 
-const jobs: Array<JobType> = [
+const jobs: Array<Job> = [
     {
         id: 0,
         name: "Warrior",
@@ -23,4 +23,4 @@ const jobs: Array<JobType> = [
 ];
 
 export default jobs;
-export type { JobType };
+export type { Job };

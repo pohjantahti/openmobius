@@ -38,7 +38,7 @@ function SkillseedInfo() {
                         resources[
                             element === "Crystals"
                                 ? "Icon: Crystal"
-                                : `Icon: ${element} Skillseed Small`
+                                : `Icon: ${element}Skillseed_Small`
                         ]
                     }
                     style={{

@@ -5,7 +5,7 @@ import {
     getCurrentDeckName,
     playerInfo,
 } from "../../info";
-import Deck from "../card/Deck";
+import DeckDisplay from "../card/DeckDisplay";
 import SkillseedInfo from "./SkillseedInfo";
 
 function CardsInfo() {
@@ -188,7 +188,7 @@ function CardsInfo() {
                                 alignItems: "center",
                             }}
                         >
-                            <Deck
+                            <DeckDisplay
                                 style={{
                                     height: "10.15rem",
                                     width: "40.5rem",

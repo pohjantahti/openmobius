@@ -40,7 +40,7 @@ function ConfirmBattleModal(props: Props) {
             elements.push(
                 <img
                     key={i}
-                    src={resources["Icon: ConfirmBattleDifficulty"]}
+                    src={resources["Icon: ConfirmBattle_Difficulty"]}
                     style={{
                         height: "3rem",
                         filter: difficulty > i ? `url(#difficulty${difficulty}Filter)` : "none",
@@ -192,7 +192,7 @@ function ConfirmBattleModal(props: Props) {
                             }}
                         >
                             <img
-                                src={resources["Icon: ConfirmBattleStamina"]}
+                                src={resources["Icon: ConfirmBattle_Stamina"]}
                                 style={{
                                     height: "2.36rem",
                                     marginRight: "0.7rem",
@@ -237,7 +237,7 @@ function ConfirmBattleModal(props: Props) {
                             }}
                         >
                             <img
-                                src={resources["Icon: ConfirmBattleBattles"]}
+                                src={resources["Icon: ConfirmBattle_Battles"]}
                                 style={{
                                     height: "2.36rem",
                                     marginRight: "0.7rem",
@@ -314,13 +314,13 @@ function ConfirmBattleModal(props: Props) {
                                 }}
                             >
                                 <img
-                                    src={resources["Icon: ConfirmBattleMonster"]}
+                                    src={resources["Icon: ConfirmBattle_Monster"]}
                                     style={{
                                         height: "2.36rem",
                                     }}
                                 />
                                 <img
-                                    src={resources["Icon: Prismatic Skillseed Small"]}
+                                    src={resources["Icon: PrismaticSkillseed_Small"]}
                                     style={{
                                         height: "2.36rem",
                                         marginLeft: "1rem",
@@ -401,7 +401,7 @@ function ConfirmBattleModal(props: Props) {
                             }}
                         >
                             <img
-                                src={resources["Icon: ConfirmBattleWarning"]}
+                                src={resources["Icon: ConfirmBattle_Warning"]}
                                 style={{
                                     height: "2.36rem",
                                     marginRight: "0.5rem",
@@ -418,7 +418,7 @@ function ConfirmBattleModal(props: Props) {
                             }}
                         >
                             <img
-                                src={resources["Icon: ConfirmBattleWarning"]}
+                                src={resources["Icon: ConfirmBattle_Warning"]}
                                 style={{
                                     height: "2.36rem",
                                     marginRight: "0.5rem",
@@ -528,7 +528,7 @@ function ConfirmBattleModal(props: Props) {
                             {getCurrentDeckElements().map((element, index) => (
                                 <img
                                     key={index}
-                                    src={resources[`Icon: ${capitalize(element)}OrbBordered`]}
+                                    src={resources[`Icon: ${capitalize(element)}Orb_Bordered`]}
                                     style={{
                                         height: "2.6rem",
                                         marginLeft: "0.2rem",

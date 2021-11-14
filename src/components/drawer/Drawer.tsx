@@ -121,7 +121,7 @@ function Drawer() {
                     }}
                 >
                     <img
-                        src={resources["Icon: DrawerCardsLogo"]}
+                        src={resources["Icon: Drawer_CardsLogo"]}
                         style={{
                             height: "6.6rem",
                             opacity: 0.4,
@@ -254,7 +254,7 @@ function Drawer() {
                 onClick={() => handleDrawer("home")}
             >
                 <img
-                    src={resources["Icon: DrawerHomeTriangle"]}
+                    src={resources["Icon: Drawer_HomeTriangle"]}
                     style={{
                         height: "2.78rem",
                         marginTop: "auto",

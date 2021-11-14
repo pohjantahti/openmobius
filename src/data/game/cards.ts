@@ -1,4 +1,4 @@
-interface CardType {
+interface Card {
     id: number;
     name: string;
     card: string;
@@ -10,7 +10,7 @@ interface CardType {
     element: "fire" | "water" | "wind" | "earth" | "light" | "dark" | "life";
 }
 
-const cards: Array<CardType> = [
+const cards: Array<Card> = [
     {
         id: 0,
         name: "Ares",
@@ -58,4 +58,4 @@ const cards: Array<CardType> = [
 ];
 
 export default cards;
-export type { CardType };
+export type { Card };

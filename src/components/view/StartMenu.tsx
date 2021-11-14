@@ -1,7 +1,7 @@
 import { useState } from "react";
-import AspectRatioScaler from "../components/AspectRatioScaler";
-import { setBaseDirectoryHandle } from "../extractor";
-import { saveResources, tilesetList, loadingResourceList, resources } from "../extractor";
+import AspectRatioScaler from "../other/AspectRatioScaler";
+import { setBaseDirectoryHandle } from "../../extractor";
+import { saveResources, tilesetList, loadingResourceList, resources } from "../../extractor";
 
 function StartMenu() {
     const [loadingCompleted, setLoadingCompleted] = useState(false);

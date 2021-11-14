@@ -1,9 +1,9 @@
-import { FullDeckType } from "./types";
+import { FullDeck } from "./types";
 
-let deckInfo: Array<FullDeckType> = [];
+let deckInfo: Array<FullDeck> = [];
 let currentDeck: number = 0;
 
-const setDeckInfo = (decks: Array<FullDeckType>) => {
+const setDeckInfo = (decks: Array<FullDeck>) => {
     deckInfo = decks;
 };
 

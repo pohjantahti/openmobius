@@ -37,7 +37,7 @@ function DrawerScrollList(props: { items: Array<DrawerItem> }) {
                             }}
                         >
                             <img
-                                src={resources["Icon: DrawerAlertBackground"]}
+                                src={resources["Icon: Drawer_AlertBackground"]}
                                 style={{
                                     height: "3.2rem",
                                     filter: "url(#alertFilter)",
@@ -46,7 +46,7 @@ function DrawerScrollList(props: { items: Array<DrawerItem> }) {
                                 }}
                             />
                             <img
-                                src={resources["Icon: DrawerAlertBorder"]}
+                                src={resources["Icon: Drawer_AlertBorder"]}
                                 style={{
                                     height: "3.5rem",
                                     marginLeft: "-3.4rem",
@@ -109,7 +109,7 @@ function DrawerScrollList(props: { items: Array<DrawerItem> }) {
                                 }}
                             >
                                 <img
-                                    src={resources["Icon: SkillDrawSmall3*"]}
+                                    src={resources["Icon: SkillDraw3*_Small"]}
                                     style={{
                                         height: "2rem",
                                         marginBottom: "-10rem",
@@ -128,7 +128,7 @@ function DrawerScrollList(props: { items: Array<DrawerItem> }) {
                                     {item.text?.split(",")[0]}
                                 </p>
                                 <img
-                                    src={resources["Icon: SkillDrawSmall2*"]}
+                                    src={resources["Icon: SkillDraw2*_Small"]}
                                     style={{
                                         height: "2rem",
                                         marginBottom: "-10rem",
@@ -147,7 +147,7 @@ function DrawerScrollList(props: { items: Array<DrawerItem> }) {
                                     {item.text?.split(",")[1]}
                                 </p>
                                 <img
-                                    src={resources["Icon: SkillDrawSmall1*"]}
+                                    src={resources["Icon: SkillDraw1*_Small"]}
                                     style={{
                                         height: "2rem",
                                         marginBottom: "-10rem",

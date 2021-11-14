@@ -1,10 +1,10 @@
-import { JobType } from "../../data/game/jobs";
+import { Job } from "../../data/game/jobs";
 import { resources } from "../../extractor";
 import { MAX } from "../../info";
 import { capitalize } from "../../utils";
 
 interface Props {
-    info: JobType;
+    info: Job;
 }
 
 function JobThumbnail(props: Props) {
@@ -29,7 +29,7 @@ function JobThumbnail(props: Props) {
             />
             {/* Border */}
             <img
-                src={resources["Icon: CardThumbnailDecorationRainbow"]}
+                src={resources["Icon: CardThumbnail_DecorationRainbow"]}
                 style={{
                     position: "absolute",
                     height: "inherit",

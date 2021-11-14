@@ -50,7 +50,7 @@ function DrawerPage(props: Props) {
             }}
         >
             <img
-                src={resources["Icon: DrawerBackgroundIcon"]}
+                src={resources["Icon: Drawer_BackgroundIcon"]}
                 style={{
                     height: "50rem",
                     position: "absolute",
@@ -60,7 +60,7 @@ function DrawerPage(props: Props) {
                 }}
             />
             <img
-                src={resources["Icon: DrawerBackgroundIcon"]}
+                src={resources["Icon: Drawer_BackgroundIcon"]}
                 style={{
                     height: "20rem",
                     position: "absolute",
@@ -70,7 +70,7 @@ function DrawerPage(props: Props) {
                 }}
             />
             <img
-                src={resources["Icon: DrawerBackgroundGradient"]}
+                src={resources["Icon: Drawer_BackgroundGradient"]}
                 style={{
                     height: "100rem",
                     position: "absolute",
