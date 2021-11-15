@@ -12,7 +12,7 @@ const setCurrentDeck = (newCurrentDeck: number) => {
 };
 
 const getCurrentDeckLevel = (subJob?: boolean) => {
-    const deck = deckInfo[currentDeck].decks[subJob ? 1 : 0];
+    const deck = deckInfo[currentDeck][subJob ? 1 : 0];
     return (
         deck.job.overboost +
         (deck.cards[0]?.level || 0) +
@@ -27,12 +27,12 @@ const getCurrentDeckLevel = (subJob?: boolean) => {
 };
 
 const getCurrentDeckName = (subJob?: boolean) => {
-    const deck = deckInfo[currentDeck].decks[subJob ? 1 : 0];
+    const deck = deckInfo[currentDeck][subJob ? 1 : 0];
     return deck.job.name;
 };
 
 const getCurrentDeckElements = (subJob?: boolean) => {
-    const deck = deckInfo[currentDeck].decks[subJob ? 1 : 0];
+    const deck = deckInfo[currentDeck][subJob ? 1 : 0];
     return deck.job.elements;
 };
 

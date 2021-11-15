@@ -72,10 +72,7 @@ const initLocalStorage = async () => {
                 cards: cards,
             });
         }
-        decks.push({
-            decks: deck,
-            activeDeck: 0,
-        });
+        decks.push(deck);
     }
     setDeckInfo(decks);
 };

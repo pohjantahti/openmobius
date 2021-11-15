@@ -1,12 +1,14 @@
+import { Element, JobClass } from "../../info/types";
+
 interface Job {
     id: number;
     name: string;
     card: string;
     thumbnail: string;
-    class: "warrior" | "ranger" | "mage" | "monk";
+    class: JobClass;
     level: number;
     overboost: number;
-    elements: Array<"fire" | "water" | "wind" | "earth" | "light" | "dark">;
+    elements: [Element, Element, Element];
 }
 
 const jobs: Array<Job> = [

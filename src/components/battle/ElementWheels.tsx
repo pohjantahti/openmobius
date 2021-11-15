@@ -1,22 +1,24 @@
 import { resources } from "../../extractor";
+import { Element } from "../../info/types";
 
 interface Props {
-    elements: {
-        main: [string, string, string];
-        sub: [string, string, string];
-    };
-    wheel: {
-        main: [number, number, number];
-        sub: [number, number, number];
+    elementWheel: {
+        elements: {
+            main: [Element, Element, Element];
+            sub: [Element, Element, Element];
+        };
+        wheel: [number, number, number];
     };
 }
 
 function ElementWheels(props: Props) {
-    const { elements, wheel } = props;
+    const { elements, wheel } = props.elementWheel;
 
     const animationSpeed = 0.5;
 
-    const elementColor: any = {
+    const subWheel = [100 / 3 + 2, 100 / 3, 100 / 3];
+
+    const elementColor: Record<Element, string> = {
         fire: "#DF0909",
         water: "#1092E6",
         wind: "#00D200",
@@ -25,20 +27,12 @@ function ElementWheels(props: Props) {
         dark: "#5A03CC",
     };
 
-    if (wheel.main[0] > 0) {
-        wheel.main[0] += 2;
-    } else if (wheel.main[1] > 0) {
-        wheel.main[1] += 2;
-    } else if (wheel.main[2] > 0) {
-        wheel.main[2] += 2;
-    }
-
-    if (wheel.sub[0] > 0) {
-        wheel.sub[0] += 2;
-    } else if (wheel.sub[1] > 0) {
-        wheel.sub[1] += 2;
-    } else if (wheel.sub[2] > 0) {
-        wheel.sub[2] += 2;
+    if (wheel[0] > 0) {
+        wheel[0] += 2;
+    } else if (wheel[1] > 0) {
+        wheel[1] += 2;
+    } else if (wheel[2] > 0) {
+        wheel[2] += 2;
     }
 
     return (
@@ -75,7 +69,7 @@ function ElementWheels(props: Props) {
                         strokeWidth: 8,
                         stroke: elementColor[elements.main[0]],
                         transition: `stroke-dasharray ${animationSpeed}s`,
-                        strokeDasharray: `${wheel.main[0] + wheel.main[1] + wheel.main[2]} 100`,
+                        strokeDasharray: `${wheel[0] + wheel[1] + wheel[2]} 100`,
                     }}
                 ></circle>
                 <circle
@@ -87,7 +81,7 @@ function ElementWheels(props: Props) {
                         strokeWidth: 8,
                         stroke: elementColor[elements.main[1]],
                         transition: `stroke-dasharray ${animationSpeed}s`,
-                        strokeDasharray: `${wheel.main[1] + wheel.main[2]} 100`,
+                        strokeDasharray: `${wheel[1] + wheel[2]} 100`,
                     }}
                 ></circle>
                 <circle
@@ -99,7 +93,7 @@ function ElementWheels(props: Props) {
                         strokeWidth: 8,
                         stroke: elementColor[elements.main[2]],
                         transition: `stroke-dasharray ${animationSpeed}s`,
-                        strokeDasharray: `${wheel.main[2]} 100`,
+                        strokeDasharray: `${wheel[2]} 100`,
                     }}
                 ></circle>
             </svg>
@@ -168,7 +162,7 @@ function ElementWheels(props: Props) {
                         strokeWidth: 8,
                         stroke: elementColor[elements.sub[0]],
                         transition: `stroke-dasharray ${animationSpeed}s`,
-                        strokeDasharray: `${wheel.sub[0] + wheel.sub[1] + wheel.sub[2]} 100`,
+                        strokeDasharray: `${subWheel[0] + subWheel[1] + subWheel[2]} 100`,
                     }}
                 ></circle>
                 <circle
@@ -180,7 +174,7 @@ function ElementWheels(props: Props) {
                         strokeWidth: 8,
                         stroke: elementColor[elements.sub[1]],
                         transition: `stroke-dasharray ${animationSpeed}s`,
-                        strokeDasharray: `${wheel.sub[1] + wheel.sub[2]} 100`,
+                        strokeDasharray: `${subWheel[1] + subWheel[2]} 100`,
                     }}
                 ></circle>
                 <circle
@@ -192,7 +186,7 @@ function ElementWheels(props: Props) {
                         strokeWidth: 8,
                         stroke: elementColor[elements.sub[2]],
                         transition: `stroke-dasharray ${animationSpeed}s`,
-                        strokeDasharray: `${wheel.sub[2]} 100`,
+                        strokeDasharray: `${subWheel[2]} 100`,
                     }}
                 ></circle>
             </svg>

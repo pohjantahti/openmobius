@@ -1,13 +1,15 @@
+import { CardClass, CardElement } from "../../info/types";
+
 interface Card {
     id: number;
     name: string;
     card: string;
     thumbnail: string;
-    class: "warrior" | "ranger" | "mage" | "monk" | "support";
+    class: CardClass;
     star: number;
     level: number;
     overboost: number;
-    element: "fire" | "water" | "wind" | "earth" | "light" | "dark" | "life";
+    element: CardElement;
 }
 
 const cards: Array<Card> = [

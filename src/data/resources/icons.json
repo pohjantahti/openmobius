@@ -1286,7 +1286,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_HPBarBackgroundLeft",
+        "alias": "Icon: Battle_HPBarBackground_Left",
         "width": 6,
         "height": 33,
         "xOffset": 1387,
@@ -1295,7 +1295,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_HPBarBackgroundMiddle",
+        "alias": "Icon: Battle_HPBarBackground_Middle",
         "width": 1,
         "height": 33,
         "xOffset": 1393,
@@ -1304,7 +1304,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_HPBarBackgroundRight",
+        "alias": "Icon: Battle_HPBarBackground_Right",
         "width": 6,
         "height": 33,
         "xOffset": 1414,
@@ -1313,7 +1313,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_EnemyInfoBackgroundLeft",
+        "alias": "Icon: Battle_EnemyInfoBackground_Left",
         "width": 107,
         "height": 72,
         "xOffset": 1245,
@@ -1322,7 +1322,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_EnemyInfoBackgroundMiddle",
+        "alias": "Icon: Battle_EnemyInfoBackground_Middle",
         "width": 40,
         "height": 72,
         "xOffset": 1352,
@@ -1331,7 +1331,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_EnemyInfoBackgroundRight",
+        "alias": "Icon: Battle_EnemyInfoBackground_Right",
         "width": 70,
         "height": 72,
         "xOffset": 1392,
@@ -1368,7 +1368,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_ButtonBackgroundLeft",
+        "alias": "Icon: Battle_ButtonBackground_Left",
         "width": 21,
         "height": 68,
         "xOffset": 71,
@@ -1377,7 +1377,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_ButtonBackgroundMiddle",
+        "alias": "Icon: Battle_ButtonBackground_Middle",
         "width": 1,
         "height": 68,
         "xOffset": 92,
@@ -1386,7 +1386,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_ButtonBackgroundRight",
+        "alias": "Icon: Battle_ButtonBackground_Right",
         "width": 21,
         "height": 68,
         "xOffset": 118,
@@ -1396,7 +1396,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_TurnBackgroundLeft",
+        "alias": "Icon: Battle_TurnBackground_Left",
         "width": 27,
         "height": 52,
         "xOffset": 249,
@@ -1405,7 +1405,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_TurnBackgroundMiddle",
+        "alias": "Icon: Battle_TurnBackground_Middle",
         "width": 1,
         "height": 52,
         "xOffset": 276,
@@ -1414,7 +1414,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_TurnBackgroundRight",
+        "alias": "Icon: Battle_TurnBackground_Right",
         "width": 27,
         "height": 52,
         "xOffset": 307,
@@ -1442,7 +1442,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_CardBackgroundTop",
+        "alias": "Icon: Battle_CardBackground_Top",
         "width": 241,
         "height": 36,
         "xOffset": 658,
@@ -1451,7 +1451,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas",
-        "alias": "Icon: Battle_CardBackgroundBottom",
+        "alias": "Icon: Battle_CardBackground_Bottom",
         "width": 241,
         "height": 36,
         "xOffset": 658,

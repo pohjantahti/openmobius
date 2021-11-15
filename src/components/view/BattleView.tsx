@@ -5,10 +5,11 @@ import ResultsScreen from "../battle/ResultsScreen";
 interface Props {
     battleInProgress: boolean;
     setBattleInProgress: React.Dispatch<React.SetStateAction<boolean>>;
+    battleNodeInfo: { waves: number };
 }
 
 function BattleView(props: Props) {
-    const { battleInProgress, setBattleInProgress } = props;
+    const { battleInProgress, setBattleInProgress, battleNodeInfo } = props;
 
     const [combatInProgress, setCombatInProgress] = useState(false);
     const [resultsInProgress, setResultsInProgress] = useState(false);
@@ -46,6 +47,7 @@ function BattleView(props: Props) {
                     <BattleScreen
                         combatInProgress={combatInProgress}
                         handleCombatEnd={handleCombatEnd}
+                        battleNodeInfo={battleNodeInfo}
                     />
                     <ResultsScreen
                         resultsInProgress={resultsInProgress}

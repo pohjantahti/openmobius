@@ -5,15 +5,20 @@ import { useState } from "react";
 
 function MainView() {
     const [battleInProgress, setBattleInProgress] = useState(false);
+    const [battleNodeInfo, setBattleNodeInfo] = useState<{ waves: number }>(Object());
     // const [battleEnemyList, setBattleEnemyList] = useState([]);
 
     return (
         <>
-            <RegionMapView setBattleInProgress={setBattleInProgress} />
+            <RegionMapView
+                setBattleInProgress={setBattleInProgress}
+                setBattleNodeInfo={setBattleNodeInfo}
+            />
             <Drawer />
             <BattleView
                 battleInProgress={battleInProgress}
                 setBattleInProgress={setBattleInProgress}
+                battleNodeInfo={battleNodeInfo}
             />
         </>
     );

@@ -9,6 +9,7 @@ import { MapNodeType, Region } from "../../data/game/regions";
 
 interface Props {
     setBattleInProgress: React.Dispatch<React.SetStateAction<boolean>>;
+    setBattleNodeInfo: React.Dispatch<React.SetStateAction<{ waves: number }>>;
 }
 
 function RegionMapView(props: Props) {
@@ -137,6 +138,9 @@ function RegionMapView(props: Props) {
 
     const handleBattleStart = () => {
         props.setBattleInProgress(true);
+        props.setBattleNodeInfo({
+            waves: selectedMapNode.battleInfo.battles,
+        });
         handleModalClose();
     };
 

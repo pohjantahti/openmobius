@@ -193,7 +193,7 @@ function CardsInfo() {
                                     height: "10.15rem",
                                     width: "40.5rem",
                                 }}
-                                deck={deckInfo[currentDeck].decks[0]}
+                                deck={deckInfo[currentDeck][0]}
                             />
                         </div>
                         {/* Skillseed info */}

@@ -66,7 +66,7 @@ function DeckSelection(props: Props) {
                     <DeckDisplay
                         key={index}
                         style={{ ...props.deckStyle, margin: "0 0.5%" }}
-                        deck={fullDeck.decks[fullDeck.activeDeck]}
+                        deck={fullDeck[0]}
                     />
                 ))}
             </div>

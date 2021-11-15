@@ -1,19 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { battle, initBattle } from "../../battle";
+import { currentDeck, deckInfo } from "../../info";
 import BackgroundImages from "./BackgroundImages";
 import ElementWheels from "./ElementWheels";
+import Buttons from "./button/Buttons";
+import ScoreWaveBar from "./bar/ScoreWaveBar";
+import { BattleInfo } from "../../battle/Battle";
 
 interface Props {
     combatInProgress: boolean;
     handleCombatEnd: () => void;
+    battleNodeInfo: { waves: number };
 }
 
 function BattleScreen(props: Props) {
-    const { combatInProgress, handleCombatEnd } = props;
+    const { combatInProgress, handleCombatEnd, battleNodeInfo } = props;
+
+    const [battleInfo, setBattleInfo] = useState<BattleInfo>(Object());
 
     useEffect(() => {
-        initBattle();
-    }, []);
+        initBattle({
+            deck: deckInfo[currentDeck],
+            waves: battleNodeInfo.waves,
+        });
+        setBattleInfo(battle.getBattleInfo());
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    // This is needed till the first time setBattleInfo is called in useEffect
+    if (Object.keys(battleInfo).length === 0) {
+        return null;
+    }
 
     return (
         <div
@@ -25,16 +41,10 @@ function BattleScreen(props: Props) {
         >
             <BackgroundImages />
 
-            <ElementWheels
-                elements={{
-                    main: ["fire", "water", "earth"],
-                    sub: ["fire", "light", "dark"],
-                }}
-                wheel={{
-                    main: [100 / 3, 100 / 3, 100 / 3],
-                    sub: [100 / 3, 100 / 3, 100 / 3],
-                }}
-            />
+            <ElementWheels elementWheel={battleInfo.elementWheel} />
+
+            <Buttons />
+            <ScoreWaveBar score={battleInfo.score} wave={battleInfo.wave} />
 
             <button
                 style={{
