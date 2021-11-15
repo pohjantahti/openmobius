@@ -1,13 +1,20 @@
 import BattleView from "./BattleView";
 import Drawer from "../drawer/Drawer";
-import RegionMapView from "../map/RegionMap";
+import RegionMapView from "./RegionMap";
+import { useState } from "react";
 
 function MainView() {
+    const [battleInProgress, setBattleInProgress] = useState(false);
+    // const [battleEnemyList, setBattleEnemyList] = useState([]);
+
     return (
         <>
-            <RegionMapView />
+            <RegionMapView setBattleInProgress={setBattleInProgress} />
             <Drawer />
-            <BattleView />
+            <BattleView
+                battleInProgress={battleInProgress}
+                setBattleInProgress={setBattleInProgress}
+            />
         </>
     );
 }

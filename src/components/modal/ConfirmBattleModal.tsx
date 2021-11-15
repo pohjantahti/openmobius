@@ -16,6 +16,7 @@ import { capitalize } from "../../utils";
 interface Props {
     show: boolean;
     info: MapNodeType;
+    handleBattleStart: () => void;
     handleModalClose: () => void;
 }
 
@@ -786,6 +787,7 @@ function ConfirmBattleModal(props: Props) {
                             width: "100%",
                             fontSize: "2.6rem",
                         }}
+                        onClick={props.handleBattleStart}
                     />
                     <ModalButton
                         title="Cancel"

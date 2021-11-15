@@ -2,12 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import PlayerInfo from "../drawer/PlayerInfo";
 import ConfirmBattleModal from "../modal/ConfirmBattleModal";
 import { getGameData, resources } from "../../extractor";
-import MapNodes from "./MapNodes";
-import MapButtons from "./MapButtons";
+import MapNodes from "../map/MapNodes";
+import MapButtons from "../map/MapButtons";
 import ChangePlayerLocationModal from "../modal/ChangePlayerLocationModal";
 import { MapNodeType, Region } from "../../data/game/regions";
 
-function RegionMapView() {
+interface Props {
+    setBattleInProgress: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function RegionMapView(props: Props) {
     const baseMapPosition = 0;
     const [mouseClickCount, setMouseClickCount] = useState(0);
     const [baseMousePosition, setBaseMousePosition] = useState(baseMapPosition);
@@ -131,6 +135,11 @@ function RegionMapView() {
         }
     };
 
+    const handleBattleStart = () => {
+        props.setBattleInProgress(true);
+        handleModalClose();
+    };
+
     // TODO: Hide map buttons and drawer when any modal is shown
 
     return (
@@ -193,6 +202,7 @@ function RegionMapView() {
             <ConfirmBattleModal
                 show={showBattleConfirmModal}
                 info={selectedMapNode}
+                handleBattleStart={handleBattleStart}
                 handleModalClose={handleModalClose}
             />
             <ChangePlayerLocationModal

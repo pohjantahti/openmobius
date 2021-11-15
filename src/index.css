@@ -92,3 +92,9 @@ p {
         top: -1.8rem;
     }
 }
+
+@keyframes spinLeft {
+    100% {
+        transform: rotate(-360deg);
+    }
+}
