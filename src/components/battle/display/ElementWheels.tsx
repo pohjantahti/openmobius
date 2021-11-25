@@ -1,23 +1,19 @@
-import { resources } from "../../extractor";
-import { Element } from "../../info/types";
+import { resources } from "../../../extractor";
+import { Element } from "../../../info/types";
 
 interface Props {
-    elementWheel: {
-        elements: {
-            main: [Element, Element, Element];
-            sub: [Element, Element, Element];
-        };
-        wheel: [number, number, number];
+    elements: {
+        main: [Element, Element, Element];
+        sub: [Element, Element, Element];
     };
+    elementWheel: [number, number, number];
+    countdownToJobChange: number;
 }
 
 function ElementWheels(props: Props) {
-    const { elements, wheel } = props.elementWheel;
-
+    const { elements, elementWheel, countdownToJobChange } = props;
     const animationSpeed = 0.5;
-
     const subWheel = [100 / 3 + 2, 100 / 3, 100 / 3];
-
     const elementColor: Record<Element, string> = {
         fire: "#DF0909",
         water: "#1092E6",
@@ -27,12 +23,12 @@ function ElementWheels(props: Props) {
         dark: "#5A03CC",
     };
 
-    if (wheel[0] > 0) {
-        wheel[0] += 2;
-    } else if (wheel[1] > 0) {
-        wheel[1] += 2;
-    } else if (wheel[2] > 0) {
-        wheel[2] += 2;
+    if (elementWheel[0] > 0) {
+        elementWheel[0] += 2;
+    } else if (elementWheel[1] > 0) {
+        elementWheel[1] += 2;
+    } else if (elementWheel[2] > 0) {
+        elementWheel[2] += 2;
     }
 
     return (
@@ -69,7 +65,9 @@ function ElementWheels(props: Props) {
                         strokeWidth: 8,
                         stroke: elementColor[elements.main[0]],
                         transition: `stroke-dasharray ${animationSpeed}s`,
-                        strokeDasharray: `${wheel[0] + wheel[1] + wheel[2]} 100`,
+                        strokeDasharray: `${
+                            elementWheel[0] + elementWheel[1] + elementWheel[2]
+                        } 100`,
                     }}
                 ></circle>
                 <circle
@@ -81,7 +79,7 @@ function ElementWheels(props: Props) {
                         strokeWidth: 8,
                         stroke: elementColor[elements.main[1]],
                         transition: `stroke-dasharray ${animationSpeed}s`,
-                        strokeDasharray: `${wheel[1] + wheel[2]} 100`,
+                        strokeDasharray: `${elementWheel[1] + elementWheel[2]} 100`,
                     }}
                 ></circle>
                 <circle
@@ -93,7 +91,7 @@ function ElementWheels(props: Props) {
                         strokeWidth: 8,
                         stroke: elementColor[elements.main[2]],
                         transition: `stroke-dasharray ${animationSpeed}s`,
-                        strokeDasharray: `${wheel[2]} 100`,
+                        strokeDasharray: `${elementWheel[2]} 100`,
                     }}
                 ></circle>
             </svg>
@@ -221,6 +219,22 @@ function ElementWheels(props: Props) {
                     animation: "spinLeft 30s linear infinite",
                 }}
             />
+            {countdownToJobChange > 0 && (
+                <p
+                    style={{
+                        position: "absolute",
+                        bottom: "5.2rem",
+                        left: "1.7rem",
+                        width: "10rem",
+                        textAlign: "center",
+                        color: "white",
+                        fontSize: "3rem",
+                        filter: "url(#blackOutlineFilter)",
+                    }}
+                >
+                    {countdownToJobChange}
+                </p>
+            )}
             {/* Darken job change wheel when job change unavailable */}
             <div
                 style={{
@@ -230,7 +244,7 @@ function ElementWheels(props: Props) {
                     bottom: "2.8rem",
                     left: "1.6rem",
                     backgroundColor: "black",
-                    opacity: 0.5,
+                    opacity: countdownToJobChange > 0 ? 0.5 : 0,
                     borderRadius: "5rem",
                 }}
             />

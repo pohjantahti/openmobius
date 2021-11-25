@@ -9,6 +9,7 @@ import {
     getCurrentDeckLevel,
     getCurrentDeckName,
     MAX,
+    playerInfo,
 } from "../../info";
 import DeckSelection from "../card/DeckSelection";
 import { capitalize } from "../../utils";
@@ -129,7 +130,7 @@ function ConfirmBattleModal(props: Props) {
     };
 
     // Before any node is clicked for the first time, info is an empty object
-    if (Object.keys(info).length === 0) {
+    if (Object.keys(info).length === 0 || !show) {
         return null;
     }
 
@@ -137,7 +138,6 @@ function ConfirmBattleModal(props: Props) {
         <>
             <div
                 style={{
-                    display: show ? "inline" : "none",
                     position: "absolute",
                     top: 0,
                     left: 0,
@@ -151,7 +151,6 @@ function ConfirmBattleModal(props: Props) {
                 titleIcon
                 titleBarHeight={"4.4rem"}
                 style={{
-                    display: show ? "inline" : "none",
                     position: "absolute",
                     top: "18.2rem",
                     right: "23.2rem",
@@ -560,7 +559,12 @@ function ConfirmBattleModal(props: Props) {
                                 >
                                     {getCurrentDeckName()}
                                 </p>
-                                <div style={{ border: "1px solid #FFFFFF88", width: "11.5rem" }} />
+                                <div
+                                    style={{
+                                        border: "1px solid #FFFFFF88",
+                                        width: "11.5rem",
+                                    }}
+                                />
                                 <p
                                     style={{
                                         color: "#FFFFFF",
@@ -696,7 +700,7 @@ function ConfirmBattleModal(props: Props) {
                                     <div
                                         style={{
                                             height: "inherit",
-                                            width: `${100 - 90}%`,
+                                            width: `${100 - playerInfo.ultimate}%`,
                                             backgroundColor: "#5C5A5B",
                                             position: "absolute",
                                             right: 0,

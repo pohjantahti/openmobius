@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { Enemy } from "../../data/game/enemies";
 import BattleScreen from "../battle/BattleScreen";
 import ResultsScreen from "../battle/ResultsScreen";
 
 interface Props {
     battleInProgress: boolean;
     setBattleInProgress: React.Dispatch<React.SetStateAction<boolean>>;
-    battleNodeInfo: { waves: number };
+    battleNodeInfo: { waves: number; enemies: Array<Array<Enemy>> };
 }
 
 function BattleView(props: Props) {

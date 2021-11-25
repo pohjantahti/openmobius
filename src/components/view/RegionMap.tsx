@@ -6,13 +6,16 @@ import MapNodes from "../map/MapNodes";
 import MapButtons from "../map/MapButtons";
 import ChangePlayerLocationModal from "../modal/ChangePlayerLocationModal";
 import { MapNodeType, Region } from "../../data/game/regions";
+import { Enemy } from "../../data/game/enemies";
 
 interface Props {
     setBattleInProgress: React.Dispatch<React.SetStateAction<boolean>>;
-    setBattleNodeInfo: React.Dispatch<React.SetStateAction<{ waves: number }>>;
+    setBattleNodeInfo: React.Dispatch<
+        React.SetStateAction<{ waves: number; enemies: Array<Array<Enemy>> }>
+    >;
 }
 
-function RegionMapView(props: Props) {
+function RegionMap(props: Props) {
     const baseMapPosition = 0;
     const [mouseClickCount, setMouseClickCount] = useState(0);
     const [baseMousePosition, setBaseMousePosition] = useState(baseMapPosition);
@@ -22,7 +25,7 @@ function RegionMapView(props: Props) {
     const [mapNodeInfo, setMapNodeInfo] = useState<Array<MapNodeType>>([]);
 
     const [showBattleConfirmModal, setShowBattleConfirmModal] = useState(false);
-    const [selectedMapNode, setSelectedMapNode] = useState<any>({});
+    const [selectedMapNode, setSelectedMapNode] = useState<MapNodeType>(Object());
 
     const [playerLocation, setPlayerLocation] = useState(0);
     const [changingPlayerLocation, setChangingPlayerLocation] = useState(false);
@@ -136,11 +139,25 @@ function RegionMapView(props: Props) {
         }
     };
 
-    const handleBattleStart = () => {
-        props.setBattleInProgress(true);
+    const handleBattleStart = async () => {
+        // Fetch enemy data with id values from selectedMapNode and put them in enemyInfo
+        const mapNodeEnemies = selectedMapNode.battleInfo.enemies!;
+        const enemyInfo: Array<Array<Enemy>> = [];
+        // Loop waves
+        for (let i = 0; i < mapNodeEnemies.length; i++) {
+            enemyInfo.push([]);
+            // Loop enemies in a wave
+            for (let j = 0; j < mapNodeEnemies[i].length; j++) {
+                const enemy: Enemy = await getGameData("Enemy", mapNodeEnemies[i][j]);
+                enemyInfo[i].push(enemy);
+            }
+        }
+
         props.setBattleNodeInfo({
             waves: selectedMapNode.battleInfo.battles,
+            enemies: enemyInfo,
         });
+        props.setBattleInProgress(true);
         handleModalClose();
     };
 
@@ -219,4 +236,4 @@ function RegionMapView(props: Props) {
     );
 }
 
-export default RegionMapView;
+export default RegionMap;

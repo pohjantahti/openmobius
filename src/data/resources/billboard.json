@@ -775,7 +775,11 @@
     {
         "container": "CAB-Id_02900_BillBoard_gui__pack__us_win",
         "fileName": "Id_02900_BillBoard_Atlas",
-        "alias": "Billboard: "
+        "alias": "Billboard: Break",
+        "width": 700,
+        "height": 132,
+        "xOffset": 0,
+        "yOffset": 892
     },
     {
         "container": "CAB-Id_02901_BillBoard_gui__pack__us_win",

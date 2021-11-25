@@ -1,16 +1,19 @@
 import BattleView from "./BattleView";
 import Drawer from "../drawer/Drawer";
-import RegionMapView from "./RegionMap";
+import RegionMap from "./RegionMap";
 import { useState } from "react";
+import { Enemy } from "../../data/game/enemies";
 
 function MainView() {
     const [battleInProgress, setBattleInProgress] = useState(false);
-    const [battleNodeInfo, setBattleNodeInfo] = useState<{ waves: number }>(Object());
-    // const [battleEnemyList, setBattleEnemyList] = useState([]);
+    const [battleNodeInfo, setBattleNodeInfo] = useState<{
+        waves: number;
+        enemies: Array<Array<Enemy>>;
+    }>(Object());
 
     return (
         <>
-            <RegionMapView
+            <RegionMap
                 setBattleInProgress={setBattleInProgress}
                 setBattleNodeInfo={setBattleNodeInfo}
             />

@@ -60,6 +60,9 @@ function Filters() {
                 <filter id="ultimateBarIconFilter">
                     <feColorMatrix type="matrix" values={hexToMatrix("#FBFF2F")} />
                 </filter>
+                <filter id="brokenDamageTextFilter">
+                    <feColorMatrix type="matrix" values={hexToMatrix("#D4A815")} />
+                </filter>
                 {/* TODO: Better solutions for outlining? Current: https://stackoverflow.com/a/46123184 */}
                 <filter id="blackOutlineFilter" colorInterpolationFilters="sRGB">
                     <feMorphology in="SourceAlpha" result="MORPH" operator="dilate" radius="1.5" />

@@ -44,6 +44,9 @@ const getGameData = async (resource: string, searchId?: number) => {
         case "Card":
             dataFile = "cards.ts";
             break;
+        case "Enemy":
+            dataFile = "enemies.ts";
+            break;
         case "Job":
             dataFile = "jobs.ts";
             break;

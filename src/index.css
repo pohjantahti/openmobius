@@ -98,3 +98,15 @@ p {
         transform: rotate(-360deg);
     }
 }
+
+@keyframes battleTargetHand {
+    0% {
+        margin-left: 0;
+    }
+    50% {
+        margin-left: -1rem;
+    }
+    100% {
+        margin-left: 0;
+    }
+}

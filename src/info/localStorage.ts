@@ -23,7 +23,7 @@ const getDefaultData = (): {
     data.decks[0] = [
         {
             job: 0,
-            cards: [0, 1, 2, 3],
+            cards: [0, 1, 3, 2],
         },
         {
             job: 0,

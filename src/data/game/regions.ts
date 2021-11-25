@@ -19,6 +19,7 @@ interface MapNodeType {
                 text: string;
             }>
         >;
+        enemies?: Array<Array<number>>;
     };
     mapInfo: {
         position: Array<number>;
@@ -222,6 +223,7 @@ const regions: Array<Region> = [
                             },
                         ],
                     ],
+                    enemies: [[1, 1, 1], [0]],
                 },
                 mapInfo: {
                     position: [77, 40],

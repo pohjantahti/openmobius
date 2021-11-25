@@ -38,6 +38,7 @@ const playerInfo = {
         dark: 12456,
     },
     crystals: 54321,
+    ultimate: 100,
 };
 
 export { playerInfo };

@@ -20,7 +20,7 @@ function JobThumbnail(props: Props) {
         >
             {/* Thumbnail */}
             <img
-                src={resources[info.thumbnail]}
+                src={resources[info.resources.thumbnail]}
                 style={{
                     position: "absolute",
                     height: "inherit",
