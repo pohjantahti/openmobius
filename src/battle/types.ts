@@ -38,6 +38,7 @@ interface BattleJob {
 }
 
 interface BattleInfo {
+    battleResources: Record<string, string>;
     score: number;
     wave: {
         current: number;

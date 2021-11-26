@@ -2,6 +2,7 @@ import { resources } from "../../extractor";
 import DamageTexts from "./DamageTexts";
 
 interface Props {
+    battleResources: Record<string, string>;
     playerCard: string;
     damageToPlayer: Array<{
         damage: number;
@@ -10,7 +11,7 @@ interface Props {
 }
 
 function PlayerCard(props: Props) {
-    const { playerCard, damageToPlayer, playerMoving } = props;
+    const { battleResources, playerCard, damageToPlayer, playerMoving } = props;
 
     return (
         <>
@@ -33,7 +34,7 @@ function PlayerCard(props: Props) {
                     }}
                 >
                     <img
-                        src={resources[playerCard]}
+                        src={battleResources[playerCard]}
                         style={{
                             position: "absolute",
                             width: "100%",

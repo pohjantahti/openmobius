@@ -7,12 +7,14 @@ import { isWeakness } from "./utils";
 
 interface BattleInput {
     deck: FullDeck;
-    waves: number;
     ultimate: number;
     enemies: Array<Array<Enemy>>;
+    difficulty: number;
+    battleResources: Record<string, string>;
 }
 
 class Battle {
+    battleResources: Record<string, string>;
     player: PlayerActor;
     score: number;
     wave: {
@@ -36,6 +38,7 @@ class Battle {
     }>;
 
     constructor(data: BattleInput) {
+        this.battleResources = data.battleResources;
         this.player = new PlayerActor({ deck: data.deck, ultimate: data.ultimate });
         this.score = 0;
         this.wave = {
@@ -43,7 +46,7 @@ class Battle {
             max: data.enemies.length,
         };
         this.enemies = Array.from(data.enemies, (wave: Array<Enemy>) =>
-            Array.from(wave, (enemy) => new EnemyActor(enemy))
+            Array.from(wave, (enemy) => new EnemyActor(enemy, data.difficulty))
         );
         this.targetIndex = 0;
         this.damageToEnemies = [];
@@ -53,6 +56,7 @@ class Battle {
 
     getBattleInfo(): BattleInfo {
         return {
+            battleResources: this.battleResources,
             score: this.score,
             wave: this.wave,
             elements: {

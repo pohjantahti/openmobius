@@ -6,7 +6,11 @@ import ResultsScreen from "../battle/ResultsScreen";
 interface Props {
     battleInProgress: boolean;
     setBattleInProgress: React.Dispatch<React.SetStateAction<boolean>>;
-    battleNodeInfo: { waves: number; enemies: Array<Array<Enemy>> };
+    battleNodeInfo: {
+        enemies: Array<Array<Enemy>>;
+        difficulty: number;
+        battleResources: Record<string, string>;
+    };
 }
 
 function BattleView(props: Props) {

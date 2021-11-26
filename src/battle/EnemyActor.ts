@@ -35,26 +35,26 @@ class EnemyActor {
     };
     effects: Array<Effect>;
 
-    constructor(data: Enemy) {
+    constructor(data: Enemy, difficulty: number) {
         this.id = data.id;
         this.name = data.name;
         this.resources = data.resources;
         this.element = data.element;
         this.hp = {
-            current: data.hp,
-            max: data.hp,
+            current: data.hp * difficulty,
+            max: data.hp * difficulty,
         };
         this.breakGauge = {
             yellow: {
-                current: data.breakGauge.yellow,
-                max: data.breakGauge.yellow,
+                current: data.breakGauge.yellow * difficulty,
+                max: data.breakGauge.yellow * difficulty,
             },
             red: {
-                current: data.breakGauge.red,
-                max: data.breakGauge.red,
+                current: data.breakGauge.red * difficulty,
+                max: data.breakGauge.red * difficulty,
             },
         };
-        this.attack = data.attack;
+        this.attack = data.attack * difficulty;
         this.defense = data.defense;
         this.isBroken = false;
         this.isBrokenAnimation = false;

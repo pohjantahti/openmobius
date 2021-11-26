@@ -261,11 +261,6 @@ const baseResourceList: Array<string> = [
     "Thumbnail: Knights of the Round: FFVII",
     "Thumbnail: Xezat: FFV",
     "Thumbnail: Jormungand",
-
-    "Card: Warrior",
-    "Card: Shiva: FFX 1",
-    "Card: Dust Soldier (Fire) 2*",
-    "Card: 5* Frame",
     "Card: 5-8* Frame",
 ];
 

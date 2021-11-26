@@ -7,8 +7,9 @@ import { Enemy } from "../../data/game/enemies";
 function MainView() {
     const [battleInProgress, setBattleInProgress] = useState(false);
     const [battleNodeInfo, setBattleNodeInfo] = useState<{
-        waves: number;
         enemies: Array<Array<Enemy>>;
+        difficulty: number;
+        battleResources: Record<string, string>;
     }>(Object());
 
     return (

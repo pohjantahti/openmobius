@@ -13,7 +13,11 @@ import { sleep } from "../../utils";
 interface Props {
     combatInProgress: boolean;
     handleCombatEnd: () => void;
-    battleNodeInfo: { waves: number; enemies: Array<Array<Enemy>> };
+    battleNodeInfo: {
+        enemies: Array<Array<Enemy>>;
+        difficulty: number;
+        battleResources: Record<string, string>;
+    };
 }
 
 function BattleScreen(props: Props) {
@@ -30,9 +34,10 @@ function BattleScreen(props: Props) {
     useEffect(() => {
         initBattle({
             deck: deckInfo[currentDeck],
-            waves: battleNodeInfo.waves,
             ultimate: playerInfo.ultimate,
             enemies: battleNodeInfo.enemies,
+            difficulty: battleNodeInfo.difficulty,
+            battleResources: battleNodeInfo.battleResources,
         });
         setBattleInfo(battle.getBattleInfo());
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -62,8 +67,7 @@ function BattleScreen(props: Props) {
         if (battleInfo.targetIndex === -1 && !waveEnding) {
             setWaveEnding(true);
             handleWaveEnd();
-        }
-        if (battleInfo.actions === 0 && !turnEnding) {
+        } else if (battleInfo.actions === 0 && !turnEnding) {
             setTurnEnding(true);
             handleTurnEnd();
         }
@@ -169,6 +173,7 @@ function BattleScreen(props: Props) {
             />
 
             <EnemyCards
+                battleResources={battleInfo.battleResources}
                 enemies={battleInfo.enemies}
                 targetIndex={battleInfo.targetIndex}
                 handleBattleAction={handleBattleAction}
@@ -177,6 +182,7 @@ function BattleScreen(props: Props) {
                 enemiesMoving={enemiesMoving}
             />
             <PlayerCard
+                battleResources={battleInfo.battleResources}
                 playerCard={battleInfo.playerCard}
                 damageToPlayer={battleInfo.damageToPlayer}
                 playerMoving={playerMoving}

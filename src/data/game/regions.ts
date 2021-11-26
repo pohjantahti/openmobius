@@ -10,16 +10,8 @@ interface MapNodeType {
     id: number;
     name: string;
     battleInfo: {
-        stamina: number;
-        battles: number;
-        difficulty?: 0 | 1 | 2 | 3 | 4 | 5;
-        warnings: Array<
-            Array<{
-                type: "image" | "text";
-                text: string;
-            }>
-        >;
-        enemies?: Array<Array<number>>;
+        enemies: Array<Array<number>>;
+        enemyDifficulty: number;
     };
     mapInfo: {
         position: Array<number>;
@@ -30,6 +22,15 @@ interface MapNodeType {
             type: "normal";
             height?: number;
         }>;
+        stamina: number;
+        battles: number;
+        difficulty?: 0 | 1 | 2 | 3 | 4 | 5;
+        warnings: Array<
+            Array<{
+                type: "image" | "text";
+                text: string;
+            }>
+        >;
     };
 }
 
@@ -44,6 +45,19 @@ const regions: Array<Region> = [
                 id: 0,
                 name: "Phantasmic Coil",
                 battleInfo: {
+                    enemies: [[1, 1, 1], [0]],
+                    enemyDifficulty: 1,
+                },
+                mapInfo: {
+                    position: [70, 15],
+                    color: "red",
+                    completed: true,
+                    paths: [
+                        {
+                            to: 1,
+                            type: "normal",
+                        },
+                    ],
                     stamina: 8,
                     battles: 1,
                     warnings: [
@@ -61,22 +75,18 @@ const regions: Array<Region> = [
                         ],
                     ],
                 },
-                mapInfo: {
-                    position: [70, 15],
-                    color: "red",
-                    completed: true,
-                    paths: [
-                        {
-                            to: 1,
-                            type: "normal",
-                        },
-                    ],
-                },
             },
             {
                 id: 1,
                 name: "Phantasmic Coil",
                 battleInfo: {
+                    enemies: [[1, 1, 1], [0]],
+                    enemyDifficulty: 1,
+                },
+                mapInfo: {
+                    position: [84, 15],
+                    color: "red",
+                    completed: true,
                     stamina: 8,
                     battles: 8,
                     warnings: [
@@ -93,33 +103,14 @@ const regions: Array<Region> = [
                             },
                         ],
                     ],
-                },
-                mapInfo: {
-                    position: [84, 15],
-                    color: "red",
-                    completed: true,
                 },
             },
             {
                 id: 2,
                 name: "Phantasmic Coil",
                 battleInfo: {
-                    stamina: 8,
-                    battles: 8,
-                    warnings: [
-                        [
-                            {
-                                type: "text",
-                                text: "Prepare yourself!",
-                            },
-                        ],
-                        [
-                            {
-                                type: "text",
-                                text: "Dangerous foes are waiting for you.",
-                            },
-                        ],
-                    ],
+                    enemies: [[1, 1, 1], [0]],
+                    enemyDifficulty: 1,
                 },
                 mapInfo: {
                     position: [94, 22],
@@ -131,12 +122,6 @@ const regions: Array<Region> = [
                             type: "normal",
                         },
                     ],
-                },
-            },
-            {
-                id: 3,
-                name: "Phantasmic Coil",
-                battleInfo: {
                     stamina: 8,
                     battles: 8,
                     warnings: [
@@ -153,6 +138,14 @@ const regions: Array<Region> = [
                             },
                         ],
                     ],
+                },
+            },
+            {
+                id: 3,
+                name: "Phantasmic Coil",
+                battleInfo: {
+                    enemies: [[1, 1, 1], [0]],
+                    enemyDifficulty: 1,
                 },
                 mapInfo: {
                     position: [60, 22],
@@ -164,12 +157,6 @@ const regions: Array<Region> = [
                             type: "normal",
                         },
                     ],
-                },
-            },
-            {
-                id: 4,
-                name: "Phantasmic Coil",
-                battleInfo: {
                     stamina: 8,
                     battles: 8,
                     warnings: [
@@ -186,6 +173,14 @@ const regions: Array<Region> = [
                             },
                         ],
                     ],
+                },
+            },
+            {
+                id: 4,
+                name: "Phantasmic Coil",
+                battleInfo: {
+                    enemies: [[1, 1, 1], [0]],
+                    enemyDifficulty: 1,
                 },
                 mapInfo: {
                     position: [77, 26],
@@ -201,12 +196,6 @@ const regions: Array<Region> = [
                             type: "normal",
                         },
                     ],
-                },
-            },
-            {
-                id: 5,
-                name: "The Phantasm",
-                battleInfo: {
                     stamina: 8,
                     battles: 8,
                     warnings: [
@@ -223,7 +212,14 @@ const regions: Array<Region> = [
                             },
                         ],
                     ],
+                },
+            },
+            {
+                id: 5,
+                name: "The Phantasm",
+                battleInfo: {
                     enemies: [[1, 1, 1], [0]],
+                    enemyDifficulty: 1,
                 },
                 mapInfo: {
                     position: [77, 40],
@@ -234,6 +230,22 @@ const regions: Array<Region> = [
                             to: 4,
                             type: "normal",
                         },
+                    ],
+                    stamina: 8,
+                    battles: 8,
+                    warnings: [
+                        [
+                            {
+                                type: "text",
+                                text: "Prepare yourself!",
+                            },
+                        ],
+                        [
+                            {
+                                type: "text",
+                                text: "Dangerous foes are waiting for you.",
+                            },
+                        ],
                     ],
                 },
             },

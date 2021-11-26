@@ -7,6 +7,7 @@ import DamageTexts from "./DamageTexts";
 import EnemyBoonAilmentBar from "./display/EnemyBoonAilmentBar";
 
 interface Props {
+    battleResources: Record<string, string>;
     enemies: Array<EnemyActor>;
     targetIndex: number;
     handleBattleAction: (action: BattleAction, index?: number) => void;
@@ -25,6 +26,7 @@ interface Props {
 
 function EnemyCards(props: Props) {
     const {
+        battleResources,
         enemies,
         targetIndex,
         handleBattleAction,
@@ -171,7 +173,7 @@ function EnemyCards(props: Props) {
                         }}
                     >
                         <img
-                            src={resources[enemy.resources.card]}
+                            src={battleResources[enemy.resources.card]}
                             style={{
                                 position: "absolute",
                                 width: "100%",
@@ -179,7 +181,7 @@ function EnemyCards(props: Props) {
                             }}
                         />
                         <img
-                            src={resources[enemy.resources.border]}
+                            src={battleResources[enemy.resources.border]}
                             style={{
                                 position: "absolute",
                                 width: "100%",

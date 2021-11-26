@@ -37,7 +37,7 @@ function ConfirmBattleModal(props: Props) {
             orange: 4,
             red: 5,
         };
-        const difficulty = info.battleInfo.difficulty || difficulties[info.mapInfo.color];
+        const difficulty = info.mapInfo.difficulty || difficulties[info.mapInfo.color];
         for (let i = 0; i < 5; i++) {
             elements.push(
                 <img
@@ -56,7 +56,7 @@ function ConfirmBattleModal(props: Props) {
     const Warnings = (props: { warningsIndex: number }) => {
         return (
             <>
-                {info.battleInfo.warnings[props.warningsIndex].map((warning, index) => (
+                {info.mapInfo.warnings[props.warningsIndex].map((warning, index) => (
                     <React.Fragment key={index}>
                         {warning.type === "text" && (
                             <p
@@ -226,7 +226,7 @@ function ConfirmBattleModal(props: Props) {
                                     lineHeight: "2rem",
                                 }}
                             >
-                                {info.battleInfo.stamina}
+                                {info.mapInfo.stamina}
                             </p>
                         </div>
                         <div
@@ -271,7 +271,7 @@ function ConfirmBattleModal(props: Props) {
                                     lineHeight: "2rem",
                                 }}
                             >
-                                {info.battleInfo.battles}
+                                {info.mapInfo.battles}
                             </p>
                         </div>
                     </div>

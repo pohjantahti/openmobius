@@ -1,17 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import PlayerInfo from "../drawer/PlayerInfo";
 import ConfirmBattleModal from "../modal/ConfirmBattleModal";
-import { getGameData, resources } from "../../extractor";
+import { getGameData, getResourceURL, resources } from "../../extractor";
 import MapNodes from "../map/MapNodes";
 import MapButtons from "../map/MapButtons";
 import ChangePlayerLocationModal from "../modal/ChangePlayerLocationModal";
 import { MapNodeType, Region } from "../../data/game/regions";
 import { Enemy } from "../../data/game/enemies";
+import { currentDeck, deckInfo } from "../../info";
 
 interface Props {
     setBattleInProgress: React.Dispatch<React.SetStateAction<boolean>>;
     setBattleNodeInfo: React.Dispatch<
-        React.SetStateAction<{ waves: number; enemies: Array<Array<Enemy>> }>
+        React.SetStateAction<{
+            enemies: Array<Array<Enemy>>;
+            difficulty: number;
+            battleResources: Record<string, string>;
+        }>
     >;
 }
 
@@ -153,9 +158,30 @@ function RegionMap(props: Props) {
             }
         }
 
+        // Find all the Job and Enemy resources
+        let resourceList: Array<string> = [];
+        // Job
+        for (const deck of deckInfo[currentDeck]) {
+            resourceList.push(deck.job.resources.card);
+        }
+        // Enemies
+        for (const wave of enemyInfo) {
+            for (const enemy of wave) {
+                resourceList.push(...Object.values(enemy.resources));
+            }
+        }
+        // Clean list of duplicates
+        resourceList = Array.from(new Set(resourceList));
+        // Get the resource URLs
+        const battleResources: Record<string, string> = {};
+        for (const resource of resourceList) {
+            battleResources[resource] = await getResourceURL(resource);
+        }
+
         props.setBattleNodeInfo({
-            waves: selectedMapNode.battleInfo.battles,
             enemies: enemyInfo,
+            difficulty: selectedMapNode.battleInfo.enemyDifficulty,
+            battleResources: battleResources,
         });
         props.setBattleInProgress(true);
         handleModalClose();
