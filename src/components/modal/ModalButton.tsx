@@ -9,23 +9,44 @@ interface Props {
         fontSize: string | number;
         [style: string]: string | number;
     };
+    showSub?: boolean;
 }
 
 function ModalButton(props: Props) {
     const [pressing, setPressing] = useState(false);
+    const { showSub = false } = props;
+
+    // In arrays: [mainColor (blue), subColor (pink)]
+    const color = {
+        border: [
+            ["#34D7E0", "#004D51"],
+            ["#A169B4", "#51335F"],
+        ],
+        background: [
+            ["#004242", "#006E6F"],
+            ["#462B4F", "#5F3666"],
+        ],
+        pressing: ["#00B3B2EE", "#811585EE"],
+    };
 
     return (
         <div
             style={{
                 ...props.style,
-                backgroundImage: "linear-gradient(174deg, #34D7E0 47%, #004D51 51%)",
+                backgroundImage: `linear-gradient(174deg, ${
+                    color.border[Number(showSub)][0]
+                } 47%, ${color.border[Number(showSub)][1]} 51%)`,
                 borderRadius: "0.4rem",
                 padding: "0.15rem 0.1rem 0.1rem 0.1rem",
             }}
         >
             <div
                 style={{
-                    background: "linear-gradient(#004242, #006E6F, #006E6F, #006E6F, #004242)",
+                    background: `linear-gradient(${color.background[Number(showSub)][0]}, ${
+                        color.background[Number(showSub)][1]
+                    }, ${color.background[Number(showSub)][1]}, ${
+                        color.background[Number(showSub)][1]
+                    }, ${color.background[Number(showSub)][0]})`,
                     height: "inherit",
                     width: "inherit",
                     display: "flex",
@@ -37,7 +58,9 @@ function ModalButton(props: Props) {
                 {!pressing && (
                     <div
                         style={{
-                            background: "radial-gradient(circle, #00B3B2EE 30%, #00000000)",
+                            background: `radial-gradient(circle, ${
+                                color.pressing[Number(showSub)]
+                            } 30%, #00000000)`,
                             position: "absolute",
                             height: "inherit",
                             width: "85%",

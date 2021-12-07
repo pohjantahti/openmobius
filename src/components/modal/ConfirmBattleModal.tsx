@@ -2,7 +2,7 @@ import ModalBase from "./ModalBase";
 import ModalButton from "./ModalButton";
 import { resources } from "../../extractor";
 import { MapNodeType } from "../../data/game/regions";
-import React from "react";
+import React, { useState } from "react";
 import { playerInfo } from "../../info";
 import ConfirmBattleSelectDeck from "../card/ConfirmBattleSelectDeck";
 
@@ -15,6 +15,11 @@ interface Props {
 
 function ConfirmBattleModal(props: Props) {
     const { show, info, handleModalClose } = props;
+    const [showSub, setShowSub] = useState(false);
+    const color = {
+        area: ["#00000033", "#794C92"],
+        subArea: ["#00000033", "#9058AB"],
+    };
 
     const DifficultyMeter = () => {
         const elements = [];
@@ -100,6 +105,7 @@ function ConfirmBattleModal(props: Props) {
                     width: "48rem",
                     zIndex: 11,
                 }}
+                showSub={showSub}
             >
                 <div
                     style={{
@@ -124,7 +130,7 @@ function ConfirmBattleModal(props: Props) {
                             width: "100%",
                             border: "1px solid #FFFFFF88",
                             borderRadius: "0.4rem",
-                            backgroundColor: "#00000033",
+                            backgroundColor: color.area[Number(showSub)],
                         }}
                     >
                         <div
@@ -234,7 +240,7 @@ function ConfirmBattleModal(props: Props) {
                             width: "100%",
                             border: "1px solid #FFFFFF88",
                             borderRadius: "0.4rem",
-                            backgroundColor: "#00000033",
+                            backgroundColor: color.area[Number(showSub)],
                         }}
                     >
                         <div
@@ -328,7 +334,7 @@ function ConfirmBattleModal(props: Props) {
                             width: "100%",
                             border: "1px solid #FFFFFF88",
                             borderRadius: "0.4rem",
-                            backgroundColor: "#00000033",
+                            backgroundColor: color.area[Number(showSub)],
                             marginBottom: "1.5rem",
                             display: "flex",
                             flexDirection: "column",
@@ -380,7 +386,7 @@ function ConfirmBattleModal(props: Props) {
                     >
                         Select Deck
                     </p>
-                    <ConfirmBattleSelectDeck />
+                    <ConfirmBattleSelectDeck showSub={showSub} setShowSub={setShowSub} />
 
                     <div
                         style={{
@@ -388,7 +394,7 @@ function ConfirmBattleModal(props: Props) {
                             width: "100%",
                             border: "1px solid #FFFFFF88",
                             borderRadius: "0.4rem",
-                            backgroundColor: "#00000033",
+                            backgroundColor: color.area[Number(showSub)],
                             marginBottom: "0.4rem",
                         }}
                     >
@@ -409,7 +415,7 @@ function ConfirmBattleModal(props: Props) {
                                     width: "47%",
                                     border: "1px solid #FFFFFF88",
                                     borderRadius: "0.4rem",
-                                    backgroundColor: "#00000033",
+                                    backgroundColor: color.subArea[Number(showSub)],
                                 }}
                             >
                                 <img
@@ -491,7 +497,7 @@ function ConfirmBattleModal(props: Props) {
                                     width: "47%",
                                     border: "1px solid #FFFFFF88",
                                     borderRadius: "0.4rem",
-                                    backgroundColor: "#00000033",
+                                    backgroundColor: color.subArea[Number(showSub)],
                                 }}
                             >
                                 <img
@@ -558,6 +564,7 @@ function ConfirmBattleModal(props: Props) {
                             fontSize: "2.6rem",
                         }}
                         onClick={props.handleBattleStart}
+                        showSub={showSub}
                     />
                     <ModalButton
                         title="Cancel"
@@ -567,6 +574,7 @@ function ConfirmBattleModal(props: Props) {
                             fontSize: "2.6rem",
                         }}
                         onClick={handleModalClose}
+                        showSub={showSub}
                     />
                 </div>
             </ModalBase>

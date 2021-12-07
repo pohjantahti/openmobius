@@ -5,9 +5,11 @@ import DeckDisplay from "./DeckDisplay";
 interface Props {
     refresher: React.Dispatch<React.SetStateAction<number>>;
     deckStyle: React.CSSProperties;
+    showSub: boolean;
 }
 
 function DeckSelection(props: Props) {
+    const { refresher, deckStyle, showSub } = props;
     const [position, setPosition] = useState(0);
     const [mouseDown, setMouseDown] = useState(false);
 
@@ -35,7 +37,7 @@ function DeckSelection(props: Props) {
             newCurrentDeck = Math.min(currentDeck + 1, MAX.deckCount - 1);
         }
         setMouseDown(false);
-        props.refresher(Math.random());
+        refresher(Math.random());
         return newCurrentDeck;
     };
 
@@ -65,8 +67,8 @@ function DeckSelection(props: Props) {
                 {deckInfo.map((fullDeck, index) => (
                     <DeckDisplay
                         key={index}
-                        style={{ ...props.deckStyle, margin: "0 0.5%" }}
-                        deck={fullDeck[0]}
+                        style={{ ...deckStyle, margin: "0 0.5%" }}
+                        deck={fullDeck[Number(showSub)]}
                     />
                 ))}
             </div>

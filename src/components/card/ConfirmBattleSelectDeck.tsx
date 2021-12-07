@@ -5,9 +5,24 @@ import { capitalize } from "../../utils";
 import DeckSelection from "./DeckSelection";
 import DeckSelectionBalls from "./DeckSelectionBalls";
 
-function ConfirmBattleSelectDeck() {
+interface Props {
+    showSub: boolean;
+    setShowSub: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ConfirmBattleSelectDeck(props: Props) {
+    const { showSub, setShowSub } = props;
     // Used to force DeckSelectionBalls to re-render. Called in DeckSelection.
     const [, refresher] = useState(0);
+
+    // In arrays: [mainColor (blue), subColor (pink)]
+    const color = {
+        jobChange: [
+            ["#153663", "#028AE0"],
+            ["#A15EB2", "#831D88"],
+        ],
+        area: ["#00000033", "#794C92"],
+    };
 
     return (
         <>
@@ -28,10 +43,15 @@ function ConfirmBattleSelectDeck() {
                         display: "flex",
                         height: "100%",
                         width: "9.8rem",
-                        background: "linear-gradient(to right, #153663, #028AE0, #153663)",
+                        background: `linear-gradient(to right, ${
+                            color.jobChange[Number(showSub)][0]
+                        }, ${color.jobChange[Number(showSub)][1]}, ${
+                            color.jobChange[Number(showSub)][0]
+                        })`,
                         borderRadius: "0.8rem",
                         marginRight: "0.2rem",
                     }}
+                    onClick={() => setShowSub(!showSub)}
                 >
                     <img
                         src={resources["Icon: ButtonBorder_Left"]}
@@ -59,8 +79,8 @@ function ConfirmBattleSelectDeck() {
                             height: "100%",
                             width: "100%",
                             display: "flex",
-                            justifyContent: "center",
                             alignItems: "center",
+                            marginLeft: "1rem",
                         }}
                     >
                         <img
@@ -77,17 +97,17 @@ function ConfirmBattleSelectDeck() {
                                 marginTop: "-0.1rem",
                             }}
                         >
-                            MAIN
+                            {showSub ? "SUB" : "MAIN"}
                         </p>
                     </div>
                 </div>
                 <div
                     style={{
                         height: "3.19rem",
-                        width: "15.14rem",
+                        width: "15.1rem",
                         border: "1px solid #FFFFFF88",
                         borderRadius: "0.4rem",
-                        backgroundColor: "#00000033",
+                        backgroundColor: color.area[Number(showSub)],
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
@@ -102,7 +122,7 @@ function ConfirmBattleSelectDeck() {
                     >
                         Elements
                     </p>
-                    {getCurrentDeckElements().map((element, index) => (
+                    {getCurrentDeckElements(showSub).map((element, index) => (
                         <img
                             key={index}
                             src={resources[`Icon: ${capitalize(element)}Orb_Bordered`]}
@@ -134,7 +154,7 @@ function ConfirmBattleSelectDeck() {
                                 width: "11.5rem",
                             }}
                         >
-                            {getCurrentDeckName()}
+                            {getCurrentDeckName(showSub)}
                         </p>
                         <div
                             style={{
@@ -161,7 +181,7 @@ function ConfirmBattleSelectDeck() {
                             fontWeight: "lighter",
                         }}
                     >
-                        {getCurrentDeckLevel()}
+                        {getCurrentDeckLevel(showSub)}
                     </p>
                 </div>
             </div>
@@ -172,7 +192,7 @@ function ConfirmBattleSelectDeck() {
                     width: "100%",
                     border: "1px solid #FFFFFF88",
                     borderRadius: "0.4rem",
-                    backgroundColor: "#00000033",
+                    backgroundColor: color.area[Number(showSub)],
                     display: "flex",
                     alignItems: "center",
                 }}
@@ -183,6 +203,7 @@ function ConfirmBattleSelectDeck() {
                         height: "11.25rem",
                         minWidth: "44.95rem",
                     }}
+                    showSub={showSub}
                 />
             </div>
             {/* Bottom row: Display index of currently seen deck */}

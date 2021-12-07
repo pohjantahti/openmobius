@@ -7,16 +7,34 @@ interface Props {
     titleBarHeight: string;
     titleBarButtons?: React.ReactNode;
     style?: React.CSSProperties;
+    showSub?: boolean;
 }
 
 // TODO: Add a way to set custom backgroundColors
 
 function ModalBase(props: Props) {
+    const { showSub = false } = props;
+
+    // In arrays: [mainColor (blue), subColor (pink)]
+    const color = {
+        border: [
+            ["#54DEFB", "#040E1A"],
+            ["#DAB3E7", "#221F2D"],
+        ],
+        title: ["#31A9C1", "#B891C3"],
+        background: [
+            ["#0CA495", "#167996"],
+            ["#8C7DC0", "#7C6EA3"],
+        ],
+    };
+
     return (
         <div
             style={{
                 ...props.style,
-                backgroundImage: "linear-gradient(to bottom right, #54DEFB 49%, #040E1A 51%)",
+                backgroundImage: `linear-gradient(to bottom right, ${
+                    color.border[Number(showSub)][0]
+                } 49%, ${color.border[Number(showSub)][1]} 51%)`,
                 borderRadius: "0.5rem",
                 padding: "0.2rem",
             }}
@@ -24,7 +42,7 @@ function ModalBase(props: Props) {
             {/* Title bar */}
             <div
                 style={{
-                    backgroundColor: "#31A9C1",
+                    backgroundColor: color.title[Number(showSub)],
                     height: props.titleBarHeight,
                     width: "inherit",
                     borderRadius: "0.4rem 0.4rem 0 0",
@@ -97,7 +115,9 @@ function ModalBase(props: Props) {
             <div
                 style={{
                     borderRadius: "0 0 0.4rem 0.4rem",
-                    background: "radial-gradient(#0CA495, #167996, #167996)",
+                    background: `radial-gradient(${color.background[Number(showSub)][0]}, ${
+                        color.background[Number(showSub)][1]
+                    }, ${color.background[Number(showSub)][1]})`,
                 }}
             >
                 {props.children}
