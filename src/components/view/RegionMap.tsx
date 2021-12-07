@@ -18,9 +18,12 @@ interface Props {
             battleResources: Record<string, string>;
         }>
     >;
+    showButtons: boolean;
+    setShowButtons: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function RegionMap(props: Props) {
+    const { setBattleInProgress, setBattleNodeInfo, showButtons, setShowButtons } = props;
     const baseMapPosition = 0;
     const [mouseClickCount, setMouseClickCount] = useState(0);
     const [baseMousePosition, setBaseMousePosition] = useState(baseMapPosition);
@@ -106,12 +109,14 @@ function RegionMap(props: Props) {
         if (moveAllowed) {
             setSelectedMapNode(targetMapNode);
             setShowBattleConfirmModal(true);
+            setShowButtons(false);
         }
     };
 
     const handleModalClose = () => {
         setShowBattleConfirmModal(false);
         setShowChangePlayerLocationConfirmModal(false);
+        setShowButtons(true);
     };
 
     // Handles everything related to changing player location
@@ -134,6 +139,7 @@ function RegionMap(props: Props) {
                     name: targetMapNode.name,
                 });
                 setShowChangePlayerLocationConfirmModal(true);
+                setShowButtons(false);
                 break;
             // Move to new location after confirm
             case "confirmLocation":
@@ -145,6 +151,7 @@ function RegionMap(props: Props) {
     };
 
     const handleBattleStart = async () => {
+        setShowBattleConfirmModal(false);
         // Fetch enemy data with id values from selectedMapNode and put them in enemyInfo
         const mapNodeEnemies = selectedMapNode.battleInfo.enemies!;
         const enemyInfo: Array<Array<Enemy>> = [];
@@ -178,16 +185,14 @@ function RegionMap(props: Props) {
             battleResources[resource] = await getResourceURL(resource);
         }
 
-        props.setBattleNodeInfo({
+        setBattleNodeInfo({
             enemies: enemyInfo,
             difficulty: selectedMapNode.battleInfo.enemyDifficulty,
             battleResources: battleResources,
         });
-        props.setBattleInProgress(true);
-        handleModalClose();
+        setBattleInProgress(true);
+        setShowButtons(true);
     };
-
-    // TODO: Hide map buttons and drawer when any modal is shown
 
     return (
         <div
@@ -244,6 +249,7 @@ function RegionMap(props: Props) {
                 <MapButtons
                     changingPlayerLocation={changingPlayerLocation}
                     handleChangingPlayerLocation={handleChangingPlayerLocation}
+                    showButtons={showButtons}
                 />
             </div>
             <ConfirmBattleModal

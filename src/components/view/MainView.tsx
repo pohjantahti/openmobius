@@ -11,14 +11,17 @@ function MainView() {
         difficulty: number;
         battleResources: Record<string, string>;
     }>(Object());
+    const [showButtons, setShowButtons] = useState(true);
 
     return (
         <>
             <RegionMap
                 setBattleInProgress={setBattleInProgress}
                 setBattleNodeInfo={setBattleNodeInfo}
+                showButtons={showButtons}
+                setShowButtons={setShowButtons}
             />
-            <Drawer />
+            <Drawer showButtons={showButtons} />
             <BattleView
                 battleInProgress={battleInProgress}
                 setBattleInProgress={setBattleInProgress}

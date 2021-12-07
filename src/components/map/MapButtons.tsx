@@ -3,13 +3,19 @@ import { resources } from "../../extractor";
 interface Props {
     changingPlayerLocation: boolean;
     handleChangingPlayerLocation: any;
+    showButtons: boolean;
 }
 
 function MapButtons(props: Props) {
-    const { changingPlayerLocation, handleChangingPlayerLocation } = props;
+    const { changingPlayerLocation, handleChangingPlayerLocation, showButtons } = props;
 
     return (
-        <>
+        <div
+            style={{
+                opacity: showButtons ? 1 : 0,
+                transition: "opacity 0.3s",
+            }}
+        >
             {/* Change location button */}
             <div
                 style={{
@@ -60,7 +66,7 @@ function MapButtons(props: Props) {
                     }}
                 />
             </div>
-        </>
+        </div>
     );
 }
 

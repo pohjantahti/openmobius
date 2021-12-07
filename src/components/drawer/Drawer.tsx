@@ -8,7 +8,12 @@ import drawerScrollInfo from "./DrawerScrollInfo";
 import { resources } from "../../extractor";
 import "./drawer.css";
 
-function Drawer() {
+interface Props {
+    showButtons: boolean;
+}
+
+function Drawer(props: Props) {
+    const { showButtons } = props;
     const [cardsOpen, setCardsOpen] = useState(false);
     const [socialOpen, setSocialOpen] = useState(false);
     const [shopOpen, setShopOpen] = useState(false);
@@ -242,7 +247,7 @@ function Drawer() {
                 style={{
                     position: "absolute",
                     transition: "right 0.2s",
-                    right: homeOpen ? 0 : "-36.45rem",
+                    right: homeOpen && showButtons ? 0 : "-36.45rem",
                     width: "36.45rem",
                     height: "8.33rem",
                     backgroundColor: "#4B93E8AA",
@@ -287,6 +292,7 @@ function Drawer() {
                 etcOpen={etcOpen}
                 homeOpen={homeOpen}
                 handleDrawer={handleDrawer}
+                showButtons={showButtons}
             />
         </>
     );

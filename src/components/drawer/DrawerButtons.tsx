@@ -1,7 +1,20 @@
 import { resources } from "../../extractor";
 
-function DrawerButtons(props: any) {
-    const { cardsOpen, socialOpen, shopOpen, etcOpen, homeOpen, handleDrawer } = props;
+interface Props {
+    cardsOpen: boolean;
+    socialOpen: boolean;
+    shopOpen: boolean;
+    etcOpen: boolean;
+    homeOpen: boolean;
+    handleDrawer: (drawer: string) => void;
+    showButtons: boolean;
+}
+
+function DrawerButtons(props: Props) {
+    const { cardsOpen, socialOpen, shopOpen, etcOpen, homeOpen, handleDrawer, showButtons } = props;
+    const open = "47.77rem";
+    const normal = 0;
+    const hidden = "-5rem";
 
     return (
         <>
@@ -10,7 +23,7 @@ function DrawerButtons(props: any) {
                 style={{
                     bottom: "38.87rem",
                     backgroundColor: "#2C9368",
-                    right: cardsOpen ? "47.77rem" : 0,
+                    right: showButtons ? (cardsOpen ? open : normal) : hidden,
                 }}
                 onClick={() => handleDrawer("cards")}
             >
@@ -41,7 +54,7 @@ function DrawerButtons(props: any) {
                 style={{
                     bottom: "29.43rem",
                     backgroundColor: "#8B4344",
-                    right: socialOpen ? "47.77rem" : 0,
+                    right: showButtons ? (socialOpen ? open : normal) : hidden,
                 }}
                 onClick={() => handleDrawer("social")}
             >
@@ -72,7 +85,7 @@ function DrawerButtons(props: any) {
                 style={{
                     bottom: "19.99rem",
                     backgroundColor: "#E6B479",
-                    right: shopOpen ? "47.77rem" : 0,
+                    right: showButtons ? (shopOpen ? open : normal) : hidden,
                 }}
                 onClick={() => handleDrawer("shop")}
             >
@@ -103,7 +116,7 @@ function DrawerButtons(props: any) {
                 style={{
                     bottom: "10.55rem",
                     backgroundColor: "#8654D1",
-                    right: etcOpen ? "47.77rem" : 0,
+                    right: showButtons ? (etcOpen ? open : normal) : hidden,
                 }}
                 onClick={() => handleDrawer("etc")}
             >
@@ -135,7 +148,7 @@ function DrawerButtons(props: any) {
                     width: "4.18rem",
                     bottom: "1.11rem",
                     backgroundColor: "#4B93E8",
-                    right: 0,
+                    right: showButtons ? normal : hidden,
                     display: homeOpen ? "none" : "inline",
                 }}
                 onClick={() => handleDrawer("home")}
