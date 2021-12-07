@@ -3,7 +3,7 @@ import { currentDeck, deckInfo, MAX, setCurrentDeck } from "../../info";
 import DeckDisplay from "./DeckDisplay";
 
 interface Props {
-    refresher?: any;
+    refresher: React.Dispatch<React.SetStateAction<number>>;
     deckStyle: React.CSSProperties;
 }
 

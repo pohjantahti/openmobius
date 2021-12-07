@@ -2,17 +2,9 @@ import ModalBase from "./ModalBase";
 import ModalButton from "./ModalButton";
 import { resources } from "../../extractor";
 import { MapNodeType } from "../../data/game/regions";
-import React, { useState } from "react";
-import {
-    currentDeck,
-    getCurrentDeckElements,
-    getCurrentDeckLevel,
-    getCurrentDeckName,
-    MAX,
-    playerInfo,
-} from "../../info";
-import DeckSelection from "../card/DeckSelection";
-import { capitalize } from "../../utils";
+import React from "react";
+import { playerInfo } from "../../info";
+import ConfirmBattleSelectDeck from "../card/ConfirmBattleSelectDeck";
 
 interface Props {
     show: boolean;
@@ -23,9 +15,6 @@ interface Props {
 
 function ConfirmBattleModal(props: Props) {
     const { show, info, handleModalClose } = props;
-
-    // Used to force DeckSelectionBalls to rerender
-    const [, refresher] = useState(0);
 
     const DifficultyMeter = () => {
         const elements = [];
@@ -80,52 +69,6 @@ function ConfirmBattleModal(props: Props) {
                     </React.Fragment>
                 ))}
             </>
-        );
-    };
-
-    const DeckSelectionBalls = () => {
-        const decks: Array<boolean> = Array(MAX.deckCount).fill(false);
-        decks[currentDeck] = true;
-        return (
-            <div
-                style={{
-                    height: "100%",
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }}
-            >
-                <p
-                    style={{
-                        color: "#FFFFFF",
-                        fontSize: "1.2rem",
-                        lineHeight: "2rem",
-                    }}
-                >
-                    Decks {currentDeck + 1}/{MAX.deckCount}
-                </p>
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginTop: "0.2rem",
-                    }}
-                >
-                    {decks.map((active, index) => (
-                        <img
-                            key={index}
-                            src={resources["Icon: DeckSelectionBall"]}
-                            style={{
-                                height: "1rem",
-                                margin: "0 1rem",
-                                opacity: active ? 1 : 0.5,
-                            }}
-                        />
-                    ))}
-                </div>
-            </div>
         );
     };
 
@@ -437,184 +380,7 @@ function ConfirmBattleModal(props: Props) {
                     >
                         Select Deck
                     </p>
-                    <div
-                        style={{
-                            height: "3.75rem",
-                            width: "100%",
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <div
-                            style={{
-                                position: "relative",
-                                display: "flex",
-                                height: "100%",
-                                width: "9.8rem",
-                                background: "linear-gradient(to right, #153663, #028AE0, #153663)",
-                                borderRadius: "0.8rem",
-                                marginRight: "0.2rem",
-                            }}
-                        >
-                            <img
-                                src={resources["Icon: ButtonBorder_Left"]}
-                                style={{
-                                    height: "inherit",
-                                }}
-                            />
-                            <img
-                                src={resources["Icon: ButtonBorder_Middle"]}
-                                style={{
-                                    height: "inherit",
-                                    width: "100%",
-                                }}
-                            />
-                            <img
-                                src={resources["Icon: ButtonBorder_Right"]}
-                                style={{
-                                    height: "inherit",
-                                }}
-                            />
-
-                            <div
-                                style={{
-                                    position: "absolute",
-                                    height: "100%",
-                                    width: "100%",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <img
-                                    src={resources["Icon: CycleJob"]}
-                                    style={{
-                                        height: "2rem",
-                                        marginRight: "0.4rem",
-                                    }}
-                                />
-                                <p
-                                    style={{
-                                        color: "#FFFFFF",
-                                        fontSize: "1.7rem",
-                                        marginTop: "-0.1rem",
-                                    }}
-                                >
-                                    MAIN
-                                </p>
-                            </div>
-                        </div>
-                        <div
-                            style={{
-                                height: "3.19rem",
-                                width: "15.14rem",
-                                border: "1px solid #FFFFFF88",
-                                borderRadius: "0.4rem",
-                                backgroundColor: "#00000033",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                marginRight: "0.1rem",
-                            }}
-                        >
-                            <p
-                                style={{
-                                    color: "#FFFFFF",
-                                    fontSize: "1.2rem",
-                                }}
-                            >
-                                Elements
-                            </p>
-                            {getCurrentDeckElements().map((element, index) => (
-                                <img
-                                    key={index}
-                                    src={resources[`Icon: ${capitalize(element)}Orb_Bordered`]}
-                                    style={{
-                                        height: "2.6rem",
-                                        marginLeft: "0.2rem",
-                                    }}
-                                />
-                            ))}
-                        </div>
-                        <div
-                            style={{
-                                position: "relative",
-                                height: "100%",
-                                width: "20rem",
-                                display: "flex",
-                                alignItems: "flex-end",
-                                marginBottom: "0.7rem",
-                            }}
-                        >
-                            <div>
-                                <p
-                                    style={{
-                                        color: "#FFFFFF",
-                                        fontSize: "1.2rem",
-                                        lineHeight: "1.3rem",
-                                        marginBottom: "0.1rem",
-                                        textAlign: "left",
-                                        width: "11.5rem",
-                                    }}
-                                >
-                                    {getCurrentDeckName()}
-                                </p>
-                                <div
-                                    style={{
-                                        border: "1px solid #FFFFFF88",
-                                        width: "11.5rem",
-                                    }}
-                                />
-                                <p
-                                    style={{
-                                        color: "#FFFFFF",
-                                        fontSize: "1.2rem",
-                                        lineHeight: "1.2rem",
-                                        textAlign: "right",
-                                    }}
-                                >
-                                    Lv.
-                                </p>
-                            </div>
-                            <p
-                                style={{
-                                    color: "#FFFFFF",
-                                    fontSize: "3.5rem",
-                                    lineHeight: "3.5rem",
-                                    fontWeight: "lighter",
-                                }}
-                            >
-                                {getCurrentDeckLevel()}
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        style={{
-                            height: "14rem",
-                            width: "100%",
-                            border: "1px solid #FFFFFF88",
-                            borderRadius: "0.4rem",
-                            backgroundColor: "#00000033",
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <DeckSelection
-                            refresher={refresher}
-                            deckStyle={{
-                                height: "11.25rem",
-                                minWidth: "44.95rem",
-                            }}
-                        />
-                    </div>
-                    <div
-                        style={{
-                            height: "4rem",
-                            width: "100%",
-                        }}
-                    >
-                        <DeckSelectionBalls />
-                    </div>
+                    <ConfirmBattleSelectDeck />
 
                     <div
                         style={{
