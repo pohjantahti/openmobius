@@ -6,18 +6,13 @@ import DisplayData from "./display/DisplayData";
 import Buttons from "./button/Buttons";
 import EnemyCards from "./EnemyCards";
 import PlayerCard from "./PlayerCard";
-import { Enemy } from "../../data/game/enemies";
-import { BattleAction, BattleInfo } from "../../battle/types";
+import { BattleAction, BattleInfo, BattleNodeInfo } from "../../battle/types";
 import { sleep } from "../../utils";
 
 interface Props {
     combatInProgress: boolean;
     handleCombatEnd: () => void;
-    battleNodeInfo: {
-        enemies: Array<Array<Enemy>>;
-        difficulty: number;
-        battleResources: Record<string, string>;
-    };
+    battleNodeInfo: BattleNodeInfo;
 }
 
 function BattleScreen(props: Props) {
@@ -38,6 +33,7 @@ function BattleScreen(props: Props) {
             enemies: battleNodeInfo.enemies,
             difficulty: battleNodeInfo.difficulty,
             battleResources: battleNodeInfo.battleResources,
+            activeDeck: battleNodeInfo.activeDeck,
         });
         setBattleInfo(battle.getBattleInfo());
     }, []); // eslint-disable-line react-hooks/exhaustive-deps

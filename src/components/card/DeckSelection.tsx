@@ -5,11 +5,11 @@ import DeckDisplay from "./DeckDisplay";
 interface Props {
     refresher: React.Dispatch<React.SetStateAction<number>>;
     deckStyle: React.CSSProperties;
-    showSub: boolean;
+    showSubDeck: boolean;
 }
 
 function DeckSelection(props: Props) {
-    const { refresher, deckStyle, showSub } = props;
+    const { refresher, deckStyle, showSubDeck } = props;
     const [position, setPosition] = useState(0);
     const [mouseDown, setMouseDown] = useState(false);
 
@@ -68,7 +68,7 @@ function DeckSelection(props: Props) {
                     <DeckDisplay
                         key={index}
                         style={{ ...deckStyle, margin: "0 0.5%" }}
-                        deck={fullDeck[Number(showSub)]}
+                        deck={fullDeck[Number(showSubDeck)]}
                     />
                 ))}
             </div>

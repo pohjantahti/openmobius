@@ -7,13 +7,13 @@ interface Props {
     titleBarHeight: string;
     titleBarButtons?: React.ReactNode;
     style?: React.CSSProperties;
-    showSub?: boolean;
+    showSubDeck?: boolean;
 }
 
 // TODO: Add a way to set custom backgroundColors
 
 function ModalBase(props: Props) {
-    const { showSub = false } = props;
+    const { showSubDeck = false } = props;
 
     // In arrays: [mainColor (blue), subColor (pink)]
     const color = {
@@ -33,8 +33,8 @@ function ModalBase(props: Props) {
             style={{
                 ...props.style,
                 backgroundImage: `linear-gradient(to bottom right, ${
-                    color.border[Number(showSub)][0]
-                } 49%, ${color.border[Number(showSub)][1]} 51%)`,
+                    color.border[Number(showSubDeck)][0]
+                } 49%, ${color.border[Number(showSubDeck)][1]} 51%)`,
                 borderRadius: "0.5rem",
                 padding: "0.2rem",
             }}
@@ -42,7 +42,7 @@ function ModalBase(props: Props) {
             {/* Title bar */}
             <div
                 style={{
-                    backgroundColor: color.title[Number(showSub)],
+                    backgroundColor: color.title[Number(showSubDeck)],
                     height: props.titleBarHeight,
                     width: "inherit",
                     borderRadius: "0.4rem 0.4rem 0 0",
@@ -115,9 +115,9 @@ function ModalBase(props: Props) {
             <div
                 style={{
                     borderRadius: "0 0 0.4rem 0.4rem",
-                    background: `radial-gradient(${color.background[Number(showSub)][0]}, ${
-                        color.background[Number(showSub)][1]
-                    }, ${color.background[Number(showSub)][1]})`,
+                    background: `radial-gradient(${color.background[Number(showSubDeck)][0]}, ${
+                        color.background[Number(showSubDeck)][1]
+                    }, ${color.background[Number(showSubDeck)][1]})`,
                 }}
             >
                 {props.children}

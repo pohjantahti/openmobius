@@ -9,12 +9,12 @@ interface Props {
         fontSize: string | number;
         [style: string]: string | number;
     };
-    showSub?: boolean;
+    showSubDeck?: boolean;
 }
 
 function ModalButton(props: Props) {
     const [pressing, setPressing] = useState(false);
-    const { showSub = false } = props;
+    const { showSubDeck = false } = props;
 
     // In arrays: [mainColor (blue), subColor (pink)]
     const color = {
@@ -34,19 +34,19 @@ function ModalButton(props: Props) {
             style={{
                 ...props.style,
                 backgroundImage: `linear-gradient(174deg, ${
-                    color.border[Number(showSub)][0]
-                } 47%, ${color.border[Number(showSub)][1]} 51%)`,
+                    color.border[Number(showSubDeck)][0]
+                } 47%, ${color.border[Number(showSubDeck)][1]} 51%)`,
                 borderRadius: "0.4rem",
                 padding: "0.15rem 0.1rem 0.1rem 0.1rem",
             }}
         >
             <div
                 style={{
-                    background: `linear-gradient(${color.background[Number(showSub)][0]}, ${
-                        color.background[Number(showSub)][1]
-                    }, ${color.background[Number(showSub)][1]}, ${
-                        color.background[Number(showSub)][1]
-                    }, ${color.background[Number(showSub)][0]})`,
+                    background: `linear-gradient(${color.background[Number(showSubDeck)][0]}, ${
+                        color.background[Number(showSubDeck)][1]
+                    }, ${color.background[Number(showSubDeck)][1]}, ${
+                        color.background[Number(showSubDeck)][1]
+                    }, ${color.background[Number(showSubDeck)][0]})`,
                     height: "inherit",
                     width: "inherit",
                     display: "flex",
@@ -59,7 +59,7 @@ function ModalButton(props: Props) {
                     <div
                         style={{
                             background: `radial-gradient(circle, ${
-                                color.pressing[Number(showSub)]
+                                color.pressing[Number(showSubDeck)]
                             } 30%, #00000000)`,
                             position: "absolute",
                             height: "inherit",

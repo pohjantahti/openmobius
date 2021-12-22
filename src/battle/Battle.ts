@@ -11,6 +11,7 @@ interface BattleInput {
     enemies: Array<Array<Enemy>>;
     difficulty: number;
     battleResources: Record<string, string>;
+    activeDeck: 0 | 1;
 }
 
 class Battle {
@@ -39,7 +40,11 @@ class Battle {
 
     constructor(data: BattleInput) {
         this.battleResources = data.battleResources;
-        this.player = new PlayerActor({ deck: data.deck, ultimate: data.ultimate });
+        this.player = new PlayerActor({
+            deck: data.deck,
+            ultimate: data.ultimate,
+            activeDeck: data.activeDeck,
+        });
         this.score = 0;
         this.wave = {
             current: 0,

@@ -8,6 +8,7 @@ import { createBattleFullDeck, getStartingOrbs, isResistant } from "./utils";
 interface PlayerInput {
     deck: FullDeck;
     ultimate: number;
+    activeDeck: 0 | 1;
 }
 
 class PlayerActor {
@@ -35,7 +36,7 @@ class PlayerActor {
 
     constructor(data: PlayerInput) {
         this.deck = createBattleFullDeck(data.deck);
-        this.activeDeck = 0;
+        this.activeDeck = data.activeDeck;
         this.wheel = [100 / 3, 100 / 3, 100 / 3];
         this.ultimate = {
             current: data.ultimate,

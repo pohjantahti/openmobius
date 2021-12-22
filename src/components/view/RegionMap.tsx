@@ -8,16 +8,11 @@ import ChangePlayerLocationModal from "../modal/ChangePlayerLocationModal";
 import { MapNodeType, Region } from "../../data/game/regions";
 import { Enemy } from "../../data/game/enemies";
 import { currentDeck, deckInfo } from "../../info";
+import { BattleNodeInfo } from "../../battle/types";
 
 interface Props {
     setBattleInProgress: React.Dispatch<React.SetStateAction<boolean>>;
-    setBattleNodeInfo: React.Dispatch<
-        React.SetStateAction<{
-            enemies: Array<Array<Enemy>>;
-            difficulty: number;
-            battleResources: Record<string, string>;
-        }>
-    >;
+    setBattleNodeInfo: React.Dispatch<React.SetStateAction<BattleNodeInfo>>;
     showButtons: boolean;
     setShowButtons: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -42,6 +37,8 @@ function RegionMap(props: Props) {
     const [selectedLocationInfo, setSelectedLocationInfo] = useState({});
 
     const mapDiv = useRef<HTMLDivElement>(null);
+
+    const [showSubDeck, setShowSubDeck] = useState(false);
 
     useEffect(() => {
         const initMap = async () => {
@@ -189,6 +186,7 @@ function RegionMap(props: Props) {
             enemies: enemyInfo,
             difficulty: selectedMapNode.battleInfo.enemyDifficulty,
             battleResources: battleResources,
+            activeDeck: showSubDeck ? 1 : 0,
         });
         setBattleInProgress(true);
         setShowButtons(true);
@@ -257,6 +255,8 @@ function RegionMap(props: Props) {
                 info={selectedMapNode}
                 handleBattleStart={handleBattleStart}
                 handleModalClose={handleModalClose}
+                showSubDeck={showSubDeck}
+                setShowSubDeck={setShowSubDeck}
             />
             <ChangePlayerLocationModal
                 show={showChangePlayerLocationConfirmModal}

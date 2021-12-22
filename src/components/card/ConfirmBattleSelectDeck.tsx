@@ -6,12 +6,12 @@ import DeckSelection from "./DeckSelection";
 import DeckSelectionBalls from "./DeckSelectionBalls";
 
 interface Props {
-    showSub: boolean;
-    setShowSub: React.Dispatch<React.SetStateAction<boolean>>;
+    showSubDeck: boolean;
+    setShowSubDeck: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function ConfirmBattleSelectDeck(props: Props) {
-    const { showSub, setShowSub } = props;
+    const { showSubDeck, setShowSubDeck } = props;
     // Used to force DeckSelectionBalls to re-render. Called in DeckSelection.
     const [, refresher] = useState(0);
 
@@ -44,14 +44,14 @@ function ConfirmBattleSelectDeck(props: Props) {
                         height: "100%",
                         width: "9.8rem",
                         background: `linear-gradient(to right, ${
-                            color.jobChange[Number(showSub)][0]
-                        }, ${color.jobChange[Number(showSub)][1]}, ${
-                            color.jobChange[Number(showSub)][0]
+                            color.jobChange[Number(showSubDeck)][0]
+                        }, ${color.jobChange[Number(showSubDeck)][1]}, ${
+                            color.jobChange[Number(showSubDeck)][0]
                         })`,
                         borderRadius: "0.8rem",
                         marginRight: "0.2rem",
                     }}
-                    onClick={() => setShowSub(!showSub)}
+                    onClick={() => setShowSubDeck(!showSubDeck)}
                 >
                     <img
                         src={resources["Icon: ButtonBorder_Left"]}
@@ -97,7 +97,7 @@ function ConfirmBattleSelectDeck(props: Props) {
                                 marginTop: "-0.1rem",
                             }}
                         >
-                            {showSub ? "SUB" : "MAIN"}
+                            {showSubDeck ? "SUB" : "MAIN"}
                         </p>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ function ConfirmBattleSelectDeck(props: Props) {
                         width: "15.1rem",
                         border: "1px solid #FFFFFF88",
                         borderRadius: "0.4rem",
-                        backgroundColor: color.area[Number(showSub)],
+                        backgroundColor: color.area[Number(showSubDeck)],
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
@@ -122,7 +122,7 @@ function ConfirmBattleSelectDeck(props: Props) {
                     >
                         Elements
                     </p>
-                    {getCurrentDeckElements(showSub).map((element, index) => (
+                    {getCurrentDeckElements(showSubDeck).map((element, index) => (
                         <img
                             key={index}
                             src={resources[`Icon: ${capitalize(element)}Orb_Bordered`]}
@@ -154,7 +154,7 @@ function ConfirmBattleSelectDeck(props: Props) {
                                 width: "11.5rem",
                             }}
                         >
-                            {getCurrentDeckName(showSub)}
+                            {getCurrentDeckName(showSubDeck)}
                         </p>
                         <div
                             style={{
@@ -181,7 +181,7 @@ function ConfirmBattleSelectDeck(props: Props) {
                             fontWeight: "lighter",
                         }}
                     >
-                        {getCurrentDeckLevel(showSub)}
+                        {getCurrentDeckLevel(showSubDeck)}
                     </p>
                 </div>
             </div>
@@ -192,7 +192,7 @@ function ConfirmBattleSelectDeck(props: Props) {
                     width: "100%",
                     border: "1px solid #FFFFFF88",
                     borderRadius: "0.4rem",
-                    backgroundColor: color.area[Number(showSub)],
+                    backgroundColor: color.area[Number(showSubDeck)],
                     display: "flex",
                     alignItems: "center",
                 }}
@@ -203,7 +203,7 @@ function ConfirmBattleSelectDeck(props: Props) {
                         height: "11.25rem",
                         minWidth: "44.95rem",
                     }}
-                    showSub={showSub}
+                    showSubDeck={showSubDeck}
                 />
             </div>
             {/* Bottom row: Display index of currently seen deck */}

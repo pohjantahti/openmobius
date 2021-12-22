@@ -1,4 +1,5 @@
 import { Card } from "../data/game/cards";
+import { Enemy } from "../data/game/enemies";
 import { JobClass, Element, FullElement } from "../info/types";
 import EnemyActor from "./EnemyActor";
 
@@ -534,5 +535,12 @@ interface Effect {
     resistancePoints?: number;
 }
 
+interface BattleNodeInfo {
+    enemies: Array<Array<Enemy>>;
+    difficulty: number;
+    battleResources: Record<string, string>;
+    activeDeck: 0 | 1;
+}
+
 export { BattleAction, Boon, Ailment, AutoAbility, ExtraSkill, InnateSkill };
-export type { BattleFullDeck, BattleDeck, BattleJob, BattleInfo, Effect };
+export type { BattleFullDeck, BattleDeck, BattleJob, BattleInfo, Effect, BattleNodeInfo };
