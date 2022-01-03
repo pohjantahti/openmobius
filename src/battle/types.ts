@@ -107,7 +107,7 @@ enum BattleAction {
 }
 
 enum Boon {
-    AbilityIgniton = "abilityIgnition",
+    AbilityIgnition = "abilityIgnition",
     AbsoluteDefense = "absoluteDefense",
     AttackIgnition = "attackIgnition",
     Barrier = "barrier",

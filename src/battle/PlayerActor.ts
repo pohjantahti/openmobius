@@ -349,3 +349,4 @@ class PlayerActor {
 }
 
 export default PlayerActor;
+export type { PlayerInput };

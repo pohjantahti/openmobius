@@ -30,10 +30,10 @@ class PlayerDamage {
     }
 
     static elementEnhance(player: PlayerActor, card: Card): number {
-        const vitalityTap =
-            30 *
-            Math.pow(player.getMainJob().stats.hp.current / player.getMainJob().stats.hp.max, 3);
-        let additionalEE = card.extraSkills.includes(ExtraSkill.VitalityTap) ? vitalityTap : 0;
+        let additionalEE = card.extraSkills.includes(ExtraSkill.VitalityTap)
+            ? 30 *
+              Math.pow(player.getMainJob().stats.hp.current / player.getMainJob().stats.hp.max, 3)
+            : 0;
         let playerEE = 0;
         if (card.element !== "life") {
             playerEE = player.getMainJob().elementEnhance[card.element];
