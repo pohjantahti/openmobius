@@ -15,7 +15,7 @@ interface Job {
     stats: {
         hp: number;
         attack: number;
-        break: number;
+        breakPower: number;
         magic: number;
         critical: number;
         speed: number;
@@ -41,7 +41,7 @@ const jobs: Array<Job> = [
         stats: {
             hp: 9230,
             attack: 675,
-            break: 407,
+            breakPower: 407,
             magic: 335,
             critical: 2,
             speed: 6,

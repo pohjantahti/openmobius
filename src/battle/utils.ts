@@ -1,111 +1,126 @@
 import { Card } from "../data/game/cards";
-import { Element, FullDeck, FullElement } from "../info/types";
+import { Deck, Element, FullDeck, FullElement } from "../info/types";
+import { capitalize } from "../utils";
 import EnemyActor from "./EnemyActor";
 import PlayerActor from "./PlayerActor";
-import { AutoAbility, BattleFullDeck, BattleJob, InnateSkill } from "./types";
+import { AutoAbility, BattleDeck, BattleFullDeck, InnateSkill } from "./types";
 
 // Convert FullDeck to BattleFullDeck
 // Mix stats from different sources (job, weapon, custom skills, card extra skills)
 const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
-    const mainDeck = fullDeck[0].job;
-    const subDeck = fullDeck[1].job;
+    const getBattleDeck = (deck: Deck): BattleDeck => {
+        // Add and sum all the Auto-Abilities from cards to one object
+        const autoAbilities: Partial<Record<AutoAbility, number>> = {};
+        deck.cards.forEach((card) => {
+            if (!card) return;
+            const cardAA = Object.entries(card.autoAbilities) as Array<[AutoAbility, number]>;
+            cardAA.forEach(([autoAbility, value]) => {
+                if (autoAbilities[autoAbility] && autoAbilities[autoAbility]! >= 0) {
+                    autoAbilities[autoAbility]! += value;
+                } else {
+                    autoAbilities[autoAbility] = value;
+                }
+            });
+        });
 
-    const battleMainDeck: BattleJob = {
-        id: mainDeck.id,
-        name: mainDeck.name,
-        resources: {
-            card: mainDeck.resources.card,
-            thumbnail: mainDeck.resources.thumbnail,
-        },
-        class: mainDeck.class,
-        level: mainDeck.level,
-        overboost: mainDeck.overboost,
-        elements: mainDeck.elements,
-        stats: {
-            hp: {
-                current: mainDeck.stats.hp,
-                max: mainDeck.stats.hp,
+        // Multiply base stat with statUp Auto-Abilities
+        const getStat = (stat: "hp" | "attack" | "breakPower" | "magic"): number => {
+            let base = deck.job.stats[stat];
+            let autoAbility = deck.job.autoAbilities[`${stat}Up`] || 0;
+            if (autoAbilities[`${stat}Up`]) {
+                autoAbility += autoAbilities[`${stat}Up`]!;
+                delete autoAbilities[`${stat}Up`];
+            }
+            base = Math.round(base * (1 + autoAbility / 100));
+            return base;
+        };
+
+        // Sum Element Enhance from Job and other sources
+        const getElementEnhance = (element: Element) => {
+            let enhance = deck.job.elementEnhance[element] || 0;
+            const autoAbility = `enhance${capitalize(element)}` as AutoAbility;
+            if (autoAbilities[autoAbility]) {
+                enhance += autoAbilities[autoAbility]!;
+                delete autoAbilities[autoAbility];
+            }
+            return enhance;
+        };
+
+        // Sum Element Resistance from Job and other sources
+        const getElementResistance = (element: Element) => {
+            let resistance = deck.job.elementResistance[element] || 0;
+            const autoAbility = `resist${capitalize(element)}` as AutoAbility;
+            if (autoAbilities[autoAbility]) {
+                resistance += autoAbilities[autoAbility]!;
+                delete autoAbilities[autoAbility];
+            }
+            return resistance;
+        };
+
+        // Combine rest of the Auto-Abilities from Job and other sources
+        const getAutoAbilities = () => {
+            const jobAA = deck.job.autoAbilities;
+            const otherAA = Object.entries(autoAbilities) as Array<[AutoAbility, number]>;
+            otherAA.forEach(([autoAbility, value]) => {
+                if (jobAA[autoAbility]) {
+                    jobAA[autoAbility]! += value;
+                } else {
+                    jobAA[autoAbility] = value;
+                }
+            });
+            return jobAA;
+        };
+
+        return {
+            job: {
+                id: deck.job.id,
+                name: deck.job.name,
+                resources: {
+                    card: deck.job.resources.card,
+                    thumbnail: deck.job.resources.thumbnail,
+                },
+                class: deck.job.class,
+                level: deck.job.level,
+                overboost: deck.job.overboost,
+                elements: deck.job.elements,
+                stats: {
+                    hp: {
+                        current: getStat("hp"),
+                        max: getStat("hp"),
+                    },
+                    attack: getStat("attack"),
+                    breakPower: getStat("breakPower"),
+                    magic: getStat("magic"),
+                    critical: deck.job.stats.critical,
+                    speed: deck.job.stats.speed,
+                    defense: deck.job.stats.defense,
+                },
+                elementEnhance: {
+                    fire: getElementEnhance("fire"),
+                    water: getElementEnhance("water"),
+                    wind: getElementEnhance("wind"),
+                    earth: getElementEnhance("earth"),
+                    light: getElementEnhance("light"),
+                    dark: getElementEnhance("dark"),
+                },
+                elementResistance: {
+                    fire: getElementResistance("fire"),
+                    water: getElementResistance("water"),
+                    wind: getElementResistance("wind"),
+                    earth: getElementResistance("earth"),
+                    light: getElementResistance("light"),
+                    dark: getElementResistance("dark"),
+                },
+                autoAbilities: getAutoAbilities(),
             },
-            attack: mainDeck.stats.attack,
-            break: mainDeck.stats.break,
-            magic: mainDeck.stats.magic,
-            critical: mainDeck.stats.critical,
-            speed: mainDeck.stats.speed,
-            defense: mainDeck.stats.defense,
-        },
-        elementEnhance: {
-            fire: mainDeck.elementEnhance.fire || 0,
-            water: mainDeck.elementEnhance.water || 0,
-            wind: mainDeck.elementEnhance.wind || 0,
-            earth: mainDeck.elementEnhance.earth || 0,
-            light: mainDeck.elementEnhance.light || 0,
-            dark: mainDeck.elementEnhance.dark || 0,
-        },
-        elementResistance: {
-            fire: mainDeck.elementResistance.fire || 0,
-            water: mainDeck.elementResistance.water || 0,
-            wind: mainDeck.elementResistance.wind || 0,
-            earth: mainDeck.elementResistance.earth || 0,
-            light: mainDeck.elementResistance.light || 0,
-            dark: mainDeck.elementResistance.dark || 0,
-        },
-        autoAbilities: mainDeck.autoAbilities,
+            cards: deck.cards,
+        };
     };
-    const battleSubDeck =
-        mainDeck.id === subDeck.id
-            ? battleMainDeck
-            : {
-                  id: subDeck.id,
-                  name: subDeck.name,
-                  resources: {
-                      card: subDeck.resources.card,
-                      thumbnail: subDeck.resources.thumbnail,
-                  },
-                  class: subDeck.class,
-                  level: subDeck.level,
-                  overboost: subDeck.overboost,
-                  elements: subDeck.elements,
-                  stats: {
-                      hp: {
-                          current: subDeck.stats.hp,
-                          max: subDeck.stats.hp,
-                      },
-                      attack: subDeck.stats.attack,
-                      break: subDeck.stats.break,
-                      magic: subDeck.stats.magic,
-                      critical: subDeck.stats.critical,
-                      speed: subDeck.stats.speed,
-                      defense: subDeck.stats.defense,
-                  },
-                  elementEnhance: {
-                      fire: subDeck.elementEnhance.fire || 0,
-                      water: subDeck.elementEnhance.water || 0,
-                      wind: subDeck.elementEnhance.wind || 0,
-                      earth: subDeck.elementEnhance.earth || 0,
-                      light: subDeck.elementEnhance.light || 0,
-                      dark: subDeck.elementEnhance.dark || 0,
-                  },
-                  elementResistance: {
-                      fire: subDeck.elementResistance.fire || 0,
-                      water: subDeck.elementResistance.water || 0,
-                      wind: subDeck.elementResistance.wind || 0,
-                      earth: subDeck.elementResistance.earth || 0,
-                      light: subDeck.elementResistance.light || 0,
-                      dark: subDeck.elementResistance.dark || 0,
-                  },
-                  autoAbilities: subDeck.autoAbilities,
-              };
 
-    return [
-        {
-            job: battleMainDeck,
-            cards: fullDeck[0].cards,
-        },
-        {
-            job: battleSubDeck,
-            cards: fullDeck[1].cards,
-        },
-    ];
+    const battleMainDeck = getBattleDeck(fullDeck[0]);
+    const battleSubDeck =
+        fullDeck[0].job.id === fullDeck[1].job.id ? battleMainDeck : getBattleDeck(fullDeck[1]);
+    return [battleMainDeck, battleSubDeck];
 };
 
 const getStartingOrbs = (
@@ -148,7 +163,7 @@ const getStartingOrbs = (
 };
 
 const getAutoAbility = (target: PlayerActor | Card, autoAbility: AutoAbility): number => {
-    let holder = target instanceof PlayerActor ? target.getMainJob() : target;
+    const holder = target instanceof PlayerActor ? target.getMainJob() : target;
     return holder.autoAbilities[autoAbility] || 0;
 };
 

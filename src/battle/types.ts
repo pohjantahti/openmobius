@@ -27,7 +27,7 @@ interface BattleJob {
             max: number;
         };
         attack: number;
-        break: number;
+        breakPower: number;
         magic: number;
         critical: number;
         speed: number;

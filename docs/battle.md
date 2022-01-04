@@ -191,7 +191,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Area Ultimate Charge Abilities
 -   [ ] Area Ultimate Charge Normal Attacks
 -   [ ] Attack Limit Break
--   [ ] Attack Up
+-   [x] Attack Up
 -   [ ] Attuned Chain
 -   [ ] Auto-Charge Ultimate
 -   [ ] Avert Action Loss
@@ -208,7 +208,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Boost Starter
 -   [ ] Boost Ultimate
 -   [ ] Brave Starter
--   [ ] Break PowerUp
+-   [x] Break Power Up
 -   [ ] Clutch Barrier
 -   [ ] Clutch Berserk
 -   [ ] Clutch Boost
@@ -232,19 +232,19 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Earth Draw
 -   [ ] Element Starter
 -   [ ] Elemental Third Strike
--   [ ] Enhance Dark
--   [ ] Enhance Earth
--   [ ] Enhance Fire
--   [ ] Enhance Light
--   [ ] Enhance Water
--   [ ] Enhance Wind
+-   [x] Enhance Dark
+-   [x] Enhance Earth
+-   [x] Enhance Fire
+-   [x] Enhance Light
+-   [x] Enhance Water
+-   [x] Enhance Wind
 -   [ ] Exploit Weakness
 -   [ ] Extended Break
 -   [ ] Faith Starter
 -   [ ] Fire Draw
 -   [ ] Gil Up
 -   [ ] Guard Scorpion Manual
--   [ ] HP Up
+-   [x] HP Up
 -   [ ] Haste Starter
 -   [ ] Healing Victory
 -   [ ] Improved Criticals
@@ -264,7 +264,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] MP Break Power Up
 -   [ ] MP Damage Up
 -   [ ] MP HP Up
--   [ ] Magic Up
+-   [x] Magic Up
 -   [x] Painful Break
 -   [ ] Piercing Break
 -   [ ] Prismatic Draw
@@ -334,8 +334,8 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Critical Retrieval
 -   [ ] Critical Rupture
 -   [ ] Critical Weakness
--   [ ] Damage LimitBreak
--   [ ] Damage LimitBreak II
+-   [ ] Damage Limit Break
+-   [ ] Damage Limit Break II
 -   [ ] Dark Pact
 -   [ ] Dispel
 -   [ ] Drive Ignition

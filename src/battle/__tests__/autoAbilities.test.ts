@@ -1,5 +1,5 @@
 import EnemyActor from "../EnemyActor";
-import PlayerActor from "../PlayerActor";
+import PlayerActor, { PlayerInput } from "../PlayerActor";
 import PlayerDamage from "../PlayerDamage";
 import { Card } from "../../data/game/cards";
 import { Job } from "../../data/game/jobs";
@@ -81,6 +81,77 @@ describe("Auto-Abilities", () => {
         card.element = "life";
         expect(PlayerDamage.elementEnhance(player, card)).toBe(1);
         passedTests.add(AutoAbility.EnhanceDark);
+    });
+
+    test("Stat up from Job", () => {
+        const playerInput: PlayerInput = JSON.parse(JSON.stringify(emptyPlayerActor));
+        playerInput.deck[0].job.autoAbilities = {
+            hpUp: 11,
+            attackUp: 12,
+            breakPowerUp: 13,
+            magicUp: 14,
+        };
+        playerInput.deck[0].job.stats.hp = 100;
+        playerInput.deck[0].job.stats.attack = 100;
+        playerInput.deck[0].job.stats.breakPower = 100;
+        playerInput.deck[0].job.stats.magic = 100;
+        const player = new PlayerActor(playerInput);
+        expect(player.getMainJob().stats.hp.current).toBe(111);
+        expect(player.getMainJob().stats.attack).toBe(112);
+        expect(player.getMainJob().stats.breakPower).toBe(113);
+        expect(player.getMainJob().stats.magic).toBe(114);
+    });
+
+    test("Stat up from Card", () => {
+        const playerInput: PlayerInput = JSON.parse(JSON.stringify(emptyPlayerActor));
+        const card: Card = JSON.parse(JSON.stringify(emptyCard));
+        card.autoAbilities = {
+            hpUp: 15,
+            attackUp: 16,
+            breakPowerUp: 17,
+            magicUp: 18,
+        };
+        playerInput.deck[0].job.stats.hp = 100;
+        playerInput.deck[0].job.stats.attack = 100;
+        playerInput.deck[0].job.stats.breakPower = 100;
+        playerInput.deck[0].job.stats.magic = 100;
+        playerInput.deck[0].cards[0] = card;
+        const player = new PlayerActor(playerInput);
+        expect(player.getMainJob().stats.hp.current).toBe(115);
+        expect(player.getMainJob().stats.attack).toBe(116);
+        expect(player.getMainJob().stats.breakPower).toBe(117);
+        expect(player.getMainJob().stats.magic).toBe(118);
+    });
+
+    test("Stat up from Job and Card", () => {
+        const playerInput: PlayerInput = JSON.parse(JSON.stringify(emptyPlayerActor));
+        playerInput.deck[0].job.autoAbilities = {
+            hpUp: 11,
+            attackUp: 12,
+            breakPowerUp: 13,
+            magicUp: 14,
+        };
+        const card: Card = JSON.parse(JSON.stringify(emptyCard));
+        card.autoAbilities = {
+            hpUp: 15,
+            attackUp: 16,
+            breakPowerUp: 17,
+            magicUp: 18,
+        };
+        playerInput.deck[0].job.stats.hp = 100;
+        playerInput.deck[0].job.stats.attack = 100;
+        playerInput.deck[0].job.stats.breakPower = 100;
+        playerInput.deck[0].job.stats.magic = 100;
+        playerInput.deck[0].cards[0] = card;
+        const player = new PlayerActor(playerInput);
+        expect(player.getMainJob().stats.hp.current).toBe(126);
+        passedTests.add(AutoAbility.HPUp);
+        expect(player.getMainJob().stats.attack).toBe(128);
+        passedTests.add(AutoAbility.AttackUp);
+        expect(player.getMainJob().stats.breakPower).toBe(130);
+        passedTests.add(AutoAbility.BreakPowerUp);
+        expect(player.getMainJob().stats.magic).toBe(132);
+        passedTests.add(AutoAbility.MagicUp);
     });
 
     test("Painful Break", () => {

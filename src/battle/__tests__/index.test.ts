@@ -16,7 +16,7 @@ const emptyPlayerActor: PlayerInput = {
                 stats: {
                     hp: 0,
                     attack: 0,
-                    break: 0,
+                    breakPower: 0,
                     magic: 0,
                     critical: 0,
                     speed: 0,
@@ -40,7 +40,7 @@ const emptyPlayerActor: PlayerInput = {
                 stats: {
                     hp: 0,
                     attack: 0,
-                    break: 0,
+                    breakPower: 0,
                     magic: 0,
                     critical: 0,
                     speed: 0,
