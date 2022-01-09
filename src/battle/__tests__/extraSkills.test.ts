@@ -34,14 +34,14 @@ describe("Extra Skills", () => {
     test("Bloodthirst", () => {
         enemy.isBroken = true;
         card.extraSkills.push(ExtraSkill.Bloodthirst);
-        expect(PlayerDamage.break(player, card, enemy)).toBe(2.15);
+        expect(PlayerDamage.break(player, enemy, card)).toBe(2.15);
         passedTests.add(ExtraSkill.Bloodthirst);
     });
 
     test("Extreme Bloodthirst", () => {
         enemy.isBroken = true;
         card.extraSkills.push(ExtraSkill.ExtremeBloodthirst);
-        expect(PlayerDamage.break(player, card, enemy)).toBe(12);
+        expect(PlayerDamage.break(player, enemy, card)).toBe(12);
         passedTests.add(ExtraSkill.ExtremeBloodthirst);
     });
 
@@ -49,17 +49,17 @@ describe("Extra Skills", () => {
         card.extraSkills.push(ExtraSkill.BreakExploiter);
         enemy.element = "water";
         card.element = "fire";
-        expect(PlayerDamage.weakness(player, card, enemy)).toBe(1.3);
+        expect(PlayerDamage.weakness(player, enemy, card.element, card)).toBe(1.3);
         enemy.isBroken = true;
-        expect(PlayerDamage.weakness(player, card, enemy)).toBe(2.25);
+        expect(PlayerDamage.weakness(player, enemy, card.element, card)).toBe(2.25);
         passedTests.add(ExtraSkill.BreakExploiter);
     });
 
     test("Breaker Killer", () => {
-        expect(PlayerDamage.criticalChance(player, card, enemy)).toBe(0);
+        expect(PlayerDamage.criticalChance(player, enemy, card)).toBe(0);
         card.extraSkills.push(ExtraSkill.BreakerKiller);
         enemy.isBroken = true;
-        expect(PlayerDamage.criticalChance(player, card, enemy)).toBe(0.15);
+        expect(PlayerDamage.criticalChance(player, enemy, card)).toBe(0.15);
         passedTests.add(ExtraSkill.BreakerKiller);
     });
 
@@ -77,17 +77,17 @@ describe("Extra Skills", () => {
 
     test("Mantra", () => {
         card.extraSkills.push(ExtraSkill.Mantra);
-        expect(PlayerDamage.baseStat(player, card)).toBe(1);
+        expect(PlayerDamage.baseAttackMagic(player, card)).toBe(1);
         player.getMainJob().stats.attack = 200;
-        expect(PlayerDamage.baseStat(player, card)).toBe(3);
+        expect(PlayerDamage.baseAttackMagic(player, card)).toBe(3);
         passedTests.add(ExtraSkill.Mantra);
     });
 
     test("Taijutsu", () => {
         card.extraSkills.push(ExtraSkill.Taijutsu);
-        expect(PlayerDamage.baseStat(player, card)).toBe(0.8);
+        expect(PlayerDamage.baseAttackMagic(player, card)).toBe(0.8);
         player.getMainJob().stats.attack = 200;
-        expect(PlayerDamage.baseStat(player, card)).toBe(3 * 0.8);
+        expect(PlayerDamage.baseAttackMagic(player, card)).toBe(3 * 0.8);
         passedTests.add(ExtraSkill.Taijutsu);
     });
 

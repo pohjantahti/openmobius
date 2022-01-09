@@ -1,9 +1,9 @@
-import { Effect } from "../../../battle/types";
+import { BattleEffect } from "../../../battle/types";
 import { resources } from "../../../extractor";
 import { capitalize } from "../../../utils";
 
 interface Props {
-    playerEffects: Array<Effect>;
+    playerEffects: Array<BattleEffect>;
 }
 
 function PlayerBoonAilmentBar(props: Props) {

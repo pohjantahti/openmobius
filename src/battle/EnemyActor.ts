@@ -1,6 +1,6 @@
 import { Element, Target } from "../info/types";
 import { Enemy } from "../data/game/enemies";
-import { Ailment, Boon, Effect } from "./types";
+import { Ailment, Boon, BattleEffect } from "./types";
 import PlayerActor from "./PlayerActor";
 
 class EnemyActor {
@@ -33,7 +33,7 @@ class EnemyActor {
         current: number;
         max: number;
     };
-    effects: Array<Effect>;
+    effects: Array<BattleEffect>;
 
     constructor(data: Enemy, difficulty: number) {
         this.id = data.id;
@@ -166,7 +166,7 @@ class EnemyActor {
         }
     }
 
-    effectActive(name: string): boolean {
+    effectActive(name: Boon | Ailment): boolean {
         return this.effects.filter((effect) => effect.name === name).length > 0;
     }
 

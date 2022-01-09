@@ -1,6 +1,6 @@
 import { Card } from "../data/game/cards";
 import { Enemy } from "../data/game/enemies";
-import { JobClass, Element, FullElement } from "../info/types";
+import { JobClass, Element, FullElement, Target } from "../info/types";
 import EnemyActor from "./EnemyActor";
 
 type BattleFullDeck = [BattleDeck, BattleDeck];
@@ -36,6 +36,25 @@ interface BattleJob {
     elementEnhance: Record<Element, number>;
     elementResistance: Record<Element, number>;
     autoAbilities: Partial<Record<AutoAbility, number>>;
+    ultimate: {
+        name: string;
+        attack: number;
+        breakPower: number;
+        critical: number;
+        target: Target;
+        hits: number;
+        level: number;
+        lastHitAttack?: number;
+        lastHitBreakPower?: number;
+        lastHitTarget?: Target;
+        effect?: Array<{
+            name: Boon | Ailment;
+            duration: number;
+            target: Target;
+            timing: "before" | "after";
+            type?: "square" | "hexagon";
+        }>;
+    };
 }
 
 interface BattleInfo {
@@ -77,21 +96,13 @@ interface BattleInfo {
     countdownToJobChange: number;
     orbs: Record<FullElement, number>;
     actions: number;
-    damageToEnemies: Array<{
-        enemyIndex: number;
-        hits: Array<{
-            damage: number;
-            critical?: boolean;
-            weakness?: boolean;
-            broken?: boolean;
-        }>;
-    }>;
+    damageToEnemies: Array<DamageToEnemies>;
     isBattleCompleted: boolean;
     playerCard: string;
     damageToPlayer: Array<{
         damage: number;
     }>;
-    playerEffects: Array<Effect>;
+    playerEffects: Array<BattleEffect>;
 }
 
 enum BattleAction {
@@ -386,6 +397,7 @@ enum AutoAbility {
     SkillseedUp = "skillseedUp",
     SleepResistance = "sleepResistance",
     SnipeStarter = "snipeStarter",
+    Spellsword = "spellsword",
     StartingActionsUp = "startingActionsUp",
     StunStarter = "stunStarter",
     TerraBattleArcher2 = "terraBattleArcher2",
@@ -530,6 +542,14 @@ enum InnateSkill {
 
 interface Effect {
     name: Boon | Ailment;
+    duration: number;
+    target: Target;
+    timing: "before" | "after";
+    type?: "square" | "hexagon";
+}
+
+interface BattleEffect {
+    name: Boon | Ailment;
     type: "square" | "hexagon";
     duration: number;
     resistancePoints?: number;
@@ -542,5 +562,24 @@ interface BattleNodeInfo {
     activeDeck: 0 | 1;
 }
 
+interface DamageToEnemies {
+    enemyIndex: number;
+    hits: Array<{
+        damage: number;
+        critical?: boolean;
+        weakness?: boolean;
+        broken?: boolean;
+    }>;
+}
+
 export { BattleAction, Boon, Ailment, AutoAbility, ExtraSkill, InnateSkill };
-export type { BattleFullDeck, BattleDeck, BattleJob, BattleInfo, Effect, BattleNodeInfo };
+export type {
+    BattleFullDeck,
+    BattleDeck,
+    BattleJob,
+    BattleInfo,
+    Effect,
+    BattleEffect,
+    BattleNodeInfo,
+    DamageToEnemies,
+};

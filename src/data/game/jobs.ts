@@ -1,5 +1,5 @@
-import { AutoAbility } from "../../battle/types";
-import { Element, JobClass } from "../../info/types";
+import { Ailment, AutoAbility, Boon, Effect } from "../../battle/types";
+import { Element, JobClass, Target } from "../../info/types";
 
 interface Job {
     id: number;
@@ -24,6 +24,19 @@ interface Job {
     elementEnhance: Partial<Record<Element, number>>;
     elementResistance: Partial<Record<Element, number>>;
     autoAbilities: Partial<Record<AutoAbility, number>>;
+    ultimate: {
+        name: string;
+        attack: number;
+        breakPower: number;
+        critical: number;
+        target: Target;
+        hits: number;
+        level: number;
+        lastHitAttack?: number;
+        lastHitBreakPower?: number;
+        lastHitTarget?: Target;
+        effect?: Array<Effect>;
+    };
 }
 
 const jobs: Array<Job> = [
@@ -56,6 +69,31 @@ const jobs: Array<Job> = [
         autoAbilities: {
             avertAttackDown: 50,
             avertDefenseDown: 50,
+        },
+        ultimate: {
+            name: "Arc Slash",
+            attack: 2000,
+            breakPower: 700,
+            critical: 1,
+            target: "cone",
+            hits: 4,
+            level: 9,
+            effect: [
+                {
+                    name: Boon.Brave,
+                    duration: 4,
+                    target: "self",
+                    timing: "after",
+                    type: "hexagon",
+                },
+                {
+                    name: Ailment.Debarrier,
+                    duration: 4,
+                    target: "cone",
+                    timing: "after",
+                    type: "hexagon",
+                },
+            ],
         },
     },
 ];

@@ -35,3 +35,14 @@ test("Mix Auto-Abilities from Job and Cards", () => {
         piercingBreak: 35,
     });
 });
+
+test("Ultimate damage multipliers", () => {
+    const playerInput: PlayerInput = JSON.parse(JSON.stringify(emptyPlayerActor));
+    playerInput.deck[0].job.ultimate.attack = 1000;
+    playerInput.deck[0].job.ultimate.breakPower = 500;
+    playerInput.deck[0].job.ultimate.level = 10;
+    const player = new PlayerActor(playerInput);
+    expect(player.ultimate.max).toBe(80);
+    expect(player.getMainJob().ultimate.attack).toBe(3000);
+    expect(player.getMainJob().ultimate.breakPower).toBe(1500);
+});

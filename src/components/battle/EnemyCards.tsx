@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import EnemyActor from "../../battle/EnemyActor";
-import { BattleAction } from "../../battle/types";
+import { BattleAction, DamageToEnemies } from "../../battle/types";
 import { resources } from "../../extractor";
 import { capitalize, sleep } from "../../utils";
 import DamageTexts from "./DamageTexts";
@@ -11,15 +11,7 @@ interface Props {
     enemies: Array<EnemyActor>;
     targetIndex: number;
     handleBattleAction: (action: BattleAction, index?: number) => void;
-    damageToEnemies: Array<{
-        enemyIndex: number;
-        hits: Array<{
-            damage: number;
-            critical?: boolean;
-            weakness?: boolean;
-            broken?: boolean;
-        }>;
-    }>;
+    damageToEnemies: Array<DamageToEnemies>;
     changingTarget: boolean;
     enemiesMoving: boolean;
 }

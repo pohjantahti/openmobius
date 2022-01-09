@@ -2,8 +2,23 @@ import { Card } from "../data/game/cards";
 import { Element, FullDeck, FullElement, Target } from "../info/types";
 import EnemyActor from "./EnemyActor";
 import PlayerDamage from "./PlayerDamage";
-import { Ailment, BattleFullDeck, BattleJob, Boon, Effect, ExtraSkill } from "./types";
-import { createBattleFullDeck, getStartingOrbs, isResistant } from "./utils";
+import {
+    Ailment,
+    BattleFullDeck,
+    BattleJob,
+    Boon,
+    BattleEffect,
+    ExtraSkill,
+    AutoAbility,
+} from "./types";
+import {
+    createBattleFullDeck,
+    getAutoAbility,
+    getStartingOrbs,
+    getWeaknessWeaponElement,
+    isResistant,
+    isWeakness,
+} from "./utils";
 
 interface PlayerInput {
     deck: FullDeck;
@@ -32,15 +47,15 @@ class PlayerActor {
         prismatic: number;
     };
     actions: number;
-    effects: Array<Effect>;
+    effects: Array<BattleEffect>;
 
     constructor(data: PlayerInput) {
         this.deck = createBattleFullDeck(data.deck);
         this.activeDeck = data.activeDeck;
         this.wheel = [100 / 3, 100 / 3, 100 / 3];
         this.ultimate = {
-            current: data.ultimate,
-            max: 100,
+            current: (this.deck[0].job.ultimate.level === 10 ? 80 : 100) * (data.ultimate / 100),
+            max: this.deck[0].job.ultimate.level === 10 ? 80 : 100,
         };
         this.sameJob = this.getMainJob().id === this.getSubJob().id;
         this.countdownToJobChange = 4;
@@ -96,38 +111,108 @@ class PlayerActor {
         }
     }
 
+    updateUltimateGauge(amount: number) {
+        this.ultimate.current = Math.min(this.ultimate.current + amount, this.ultimate.max);
+    }
+
     tapAttack() {
         this.updateOrbs(this.getRandomOrbFromElementWheel(), 1);
         this.elementWheelTowardDefault(2);
+        // Ultimate Charger
+        this.updateUltimateGauge(getAutoAbility(this, AutoAbility.UltimateCharger));
     }
 
-    getTapHPDamage(enemy: EnemyActor) {
-        return 400;
+    getTapHPDamage(enemy: EnemyActor): [number, boolean] {
+        // Base damage
+        let damage = this.getMainJob().stats.attack;
+        // Attack
+        damage *= PlayerDamage.attackMod(this);
+        // Break
+        damage *= PlayerDamage.break(this, enemy);
+        // Weakness
+        const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
+        if (weaknessWeapon) {
+            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+        }
+        // Critical
+        let criticalHit = Math.random() < PlayerDamage.criticalChance(this, enemy);
+        if (criticalHit) {
+            damage *= PlayerDamage.critical(this);
+        }
+        // Defense
+        damage *= PlayerDamage.defense(enemy);
+        damage = Math.floor(damage);
+        // Damage limit
+        damage = Math.min(
+            damage,
+            this.getMainJob().autoAbilities[AutoAbility.AttackLimitBreak] ? 999999 : 9999
+        );
+        return [damage, criticalHit];
     }
 
-    getTapYellowGaugeDamage(enemy: EnemyActor) {
-        return 200;
+    getTapYellowGaugeDamage(enemy: EnemyActor): number {
+        // Base damage
+        let damage = this.getMainJob().stats.breakPower;
+        // Break Power
+        damage *= PlayerDamage.breakPowerMod(this);
+        // Stat mods
+        damage *= PlayerDamage.statMod(this);
+        // Break defense
+        damage *= PlayerDamage.breakDefense(enemy);
+        // Weakness
+        const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
+        if (weaknessWeapon) {
+            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+        }
+        //Piercing Break
+        damage *= PlayerDamage.piercingBreak(this);
+        // Reduced damage to yellow gauge
+        let reducedDamage = 0.2;
+        if (weaknessWeapon) {
+            reducedDamage = 0.5;
+        }
+        damage *= reducedDamage;
+        damage = Math.floor(damage);
+        return damage;
     }
 
-    getTapRedGaugeDamage(enemy: EnemyActor) {
-        return 400;
+    getTapRedGaugeDamage(enemy: EnemyActor): number {
+        // Base damage
+        let damage = this.getMainJob().stats.breakPower;
+        // Break Power
+        damage *= PlayerDamage.breakPowerMod(this);
+        // Stat mods
+        damage *= PlayerDamage.statMod(this);
+        // Break defense
+        damage *= PlayerDamage.breakDefense(enemy);
+        // Weakness
+        const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
+        if (weaknessWeapon) {
+            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+        }
+        //Piercing Break
+        damage *= PlayerDamage.piercingBreak(this);
+        damage = Math.floor(damage);
+        return damage;
     }
 
     getCardHPDamage(card: Card, enemy: EnemyActor): [number, boolean] {
         let damage = card.ability.attack / card.ability.hits;
         // Attack/Magic
-        damage *= PlayerDamage.baseStat(this, card);
+        damage *= PlayerDamage.baseAttackMagic(this, card);
         // Element Enhance
         damage *= PlayerDamage.elementEnhance(this, card);
         // Break
-        damage *= PlayerDamage.break(this, card, enemy);
+        damage *= PlayerDamage.break(this, enemy, card);
         // Weakness
-        damage *= PlayerDamage.weakness(this, card, enemy);
+        damage *= PlayerDamage.weakness(this, enemy, card.element, card);
         // Critical
-        let criticalHit = Math.random() < PlayerDamage.criticalChance(this, card, enemy);
+        let criticalHit = Math.random() < PlayerDamage.criticalChance(this, enemy, card);
         if (criticalHit) {
             damage *= PlayerDamage.critical(this, card);
         }
+        // Defense
+        damage *= PlayerDamage.defense(enemy, card);
         damage = Math.floor(damage);
         // Damage limit
         damage = Math.min(damage, PlayerDamage.damageLimit(card));
@@ -135,25 +220,139 @@ class PlayerActor {
         return [damage, criticalHit];
     }
 
-    getCardYellowGaugeDamage(card: Card, enemy: EnemyActor) {
-        const damage = card.ability.break / card.ability.hits;
+    getCardYellowGaugeDamage(card: Card, enemy: EnemyActor): number {
+        let damage = card.ability.break / card.ability.hits;
         if (!isResistant(card, enemy) || card.extraSkills.includes(ExtraSkill.GuardBreaker)) {
+            // When Mantra/Taijutsu is present, use break power. Otherwise, use magic.
+            if (
+                card.extraSkills.includes(ExtraSkill.Mantra) ||
+                card.extraSkills.includes(ExtraSkill.Taijutsu)
+            ) {
+                damage *= PlayerDamage.baseBreakPower(this);
+            } else {
+                damage *= PlayerDamage.baseAttackMagic(this, card);
+            }
+            // Break defense
+            damage *= PlayerDamage.breakDefense(enemy);
+            // Weakness
+            damage *= PlayerDamage.weakness(this, enemy, card.element, card);
+            // Reduced damage to yellow gauge
+            let reducedDamage = 0.2;
+            if (isWeakness(card.element, enemy.element)) {
+                reducedDamage = 0.5;
+            }
+            damage *= reducedDamage;
+            damage = Math.floor(damage);
             return damage;
         } else {
             return 0;
         }
     }
 
-    getCardRedGaugeDamage(card: Card, enemy: EnemyActor) {
+    getCardRedGaugeDamage(card: Card, enemy: EnemyActor): number {
+        let damage = card.ability.break / card.ability.hits;
         if (
             (!isResistant(card, enemy) || card.extraSkills.includes(ExtraSkill.GuardBreaker)) &&
             (card.extraSkills.includes(ExtraSkill.Mantra) ||
                 card.extraSkills.includes(ExtraSkill.Taijutsu))
         ) {
-            return 0;
+            // Break Power
+            damage *= PlayerDamage.baseBreakPower(this);
+            // Break defense
+            damage *= PlayerDamage.breakDefense(enemy);
+            // Weakness
+            damage *= PlayerDamage.weakness(this, enemy, card.element, card);
+            //Piercing Break
+            damage *= PlayerDamage.piercingBreak(this);
+            damage = Math.floor(damage);
+            return damage;
         } else {
             return 0;
         }
+    }
+
+    getUltimateHPDamage(multiplier: number, enemy: EnemyActor): [number, boolean] {
+        // Base damage
+        let damage = this.getMainJob().stats.attack;
+        // Ultimate level multiplier
+        damage *= multiplier / 100;
+        // Attack
+        damage *= PlayerDamage.attackMod(this);
+        // Break
+        damage *= PlayerDamage.break(this, enemy);
+        // Weakness
+        const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
+        if (weaknessWeapon && this.getMainJob().autoAbilities[AutoAbility.Spellsword]) {
+            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+        }
+        // Critical
+        let criticalHit =
+            Math.random() <
+            PlayerDamage.criticalChance(
+                this,
+                enemy,
+                undefined,
+                this.getMainJob().ultimate.critical
+            );
+        if (criticalHit) {
+            damage *= PlayerDamage.critical(this);
+        }
+        // Defense
+        damage *= PlayerDamage.defense(enemy);
+        damage = Math.floor(damage);
+        // Damage limit
+        damage = Math.min(damage, 999999);
+        return [damage, criticalHit];
+    }
+
+    getUltimateYellowGaugeDamage(multiplier: number, enemy: EnemyActor): number {
+        // Base damage
+        let damage = this.getMainJob().stats.breakPower;
+        // Ultimate level multiplier
+        damage *= multiplier / 100;
+        // Break Power
+        damage *= PlayerDamage.breakPowerMod(this);
+        // Stat mods
+        damage *= PlayerDamage.statMod(this);
+        // Break defense
+        damage *= PlayerDamage.breakDefense(enemy);
+        // Weakness when Spellsword and weakness weapon active
+        const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
+        if (weaknessWeapon && this.getMainJob().autoAbilities[AutoAbility.Spellsword]) {
+            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+        }
+        //Piercing Break
+        damage *= PlayerDamage.piercingBreak(this);
+        // Reduced damage to yellow gauge
+        let reducedDamage = 0.2;
+        if (weaknessWeapon && this.getMainJob().autoAbilities[AutoAbility.Spellsword]) {
+            reducedDamage = 0.5;
+        }
+        damage *= reducedDamage;
+        damage = Math.floor(damage);
+        return damage;
+    }
+
+    getUltimateRedGaugeDamage(multiplier: number, enemy: EnemyActor): number {
+        // Base damage
+        let damage = this.getMainJob().stats.breakPower;
+        // Ultimate level multiplier
+        damage *= multiplier / 100;
+        // Break Power
+        damage *= PlayerDamage.breakPowerMod(this);
+        // Stat mods
+        damage *= PlayerDamage.statMod(this);
+        // Break defense
+        damage *= PlayerDamage.breakDefense(enemy);
+        // Weakness when Spellsword and weakness weapon active
+        const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
+        if (weaknessWeapon && this.getMainJob().autoAbilities[AutoAbility.Spellsword]) {
+            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+        }
+        //Piercing Break
+        damage *= PlayerDamage.piercingBreak(this);
+        damage = Math.floor(damage);
+        return damage;
     }
 
     driveElement(elementIndex: number) {
@@ -185,6 +384,7 @@ class PlayerActor {
             }
         }
         this.addResistElementEffect(element, this.orbs[element]);
+        this.updateUltimateGauge(this.orbs[element]);
         // Remove the driven element from wheel
         this.wheel[elementIndex] = 0;
         // Remove the orbs
@@ -329,7 +529,7 @@ class PlayerActor {
         }
     }
 
-    effectActive(name: string): boolean {
+    effectActive(name: Boon | Ailment): boolean {
         return this.effects.filter((effect) => effect.name === name).length > 0;
     }
 

@@ -2,7 +2,7 @@ import { Enemy } from "../data/game/enemies";
 import { FullDeck, Target } from "../info/types";
 import EnemyActor from "./EnemyActor";
 import PlayerActor from "./PlayerActor";
-import { BattleAction, BattleInfo, ExtraSkill } from "./types";
+import { BattleAction, BattleInfo, DamageToEnemies, Effect, ExtraSkill } from "./types";
 import { isWeakness } from "./utils";
 
 interface BattleInput {
@@ -24,15 +24,7 @@ class Battle {
     };
     enemies: Array<Array<EnemyActor>>;
     targetIndex: number;
-    damageToEnemies: Array<{
-        enemyIndex: number;
-        hits: Array<{
-            damage: number;
-            critical?: boolean;
-            weakness?: boolean;
-            broken?: boolean;
-        }>;
-    }>;
+    damageToEnemies: Array<DamageToEnemies>;
     isBattleCompleted: boolean;
     damageToPlayer: Array<{
         damage: number;
@@ -75,7 +67,7 @@ class Battle {
                     current: this.player.ultimate.current,
                     max: this.player.ultimate.max,
                 },
-                name: "Ultimate name",
+                name: this.player.getMainJob().ultimate.name,
             },
             jobClass: this.player.getMainJob().class,
             enemies: this.enemies[this.wave.current],
@@ -119,6 +111,9 @@ class Battle {
                 break;
             case BattleAction.Drive:
                 this.player.driveElement(index!);
+                break;
+            case BattleAction.Ultimate:
+                this.ultimate();
                 break;
         }
         console.log("ACTION", action, index);
@@ -185,24 +180,18 @@ class Battle {
         this.useAction();
         this.player.tapAttack();
         const targets = this.getTargets("single");
-        const damageToEnemies: Array<{
-            enemyIndex: number;
-            hits: Array<{
-                damage: number;
-                critical?: boolean;
-                weakness?: boolean;
-                broken?: boolean;
-            }>;
-        }> = [];
+        const damageToEnemies: Array<DamageToEnemies> = [];
         targets.forEach((enemy) => {
             const hits = [];
             const numberOfHits = 1;
             for (let i = 0; i < numberOfHits; i++) {
-                const hp = this.player.getTapHPDamage(enemy);
+                const [hp, critical] = this.player.getTapHPDamage(enemy);
                 const yellow = this.player.getTapYellowGaugeDamage(enemy);
                 const red = this.player.getTapRedGaugeDamage(enemy);
                 hits.push({
                     damage: hp,
+                    critical: critical,
+                    broken: enemy.isBroken,
                 });
                 enemy.takeDamage({
                     hp: hp,
@@ -232,40 +221,17 @@ class Battle {
             this.useAction();
         }
         this.player.updateOrbs(card.element, card.ability.cost * -1);
+        this.player.updateUltimateGauge(card.ability.cost);
 
         // Before attack effects
-        card.effect
-            ?.filter((effect) => effect.timing === "before")
-            .forEach((effect) => {
-                switch (effect.target) {
-                    case "self":
-                        this.player.addEffect(effect);
-                        break;
-                    case "single":
-                        const target = this.getTargets("single")[0];
-                        target.addEffect(effect);
-                        break;
-                    case "area":
-                        const targets = this.getTargets("area");
-                        targets.forEach((target) => target.addEffect(effect));
-                        break;
-                }
-            });
+        this.addEffects(card.effect, "before");
 
         // Check if there is need to calculate damage
         if (card.ability.attack === 0 || card.ability.break === 0) {
             this.damageToEnemies = [];
         } else {
             const targets = this.getTargets(card.ability.target);
-            const damageToEnemies: Array<{
-                enemyIndex: number;
-                hits: Array<{
-                    damage: number;
-                    critical?: boolean;
-                    weakness?: boolean;
-                    broken?: boolean;
-                }>;
-            }> = [];
+            const damageToEnemies: Array<DamageToEnemies> = [];
             targets.forEach((enemy) => {
                 const hits = [];
                 const numberOfHits = card.ability.hits;
@@ -276,7 +242,8 @@ class Battle {
                     hits.push({
                         damage: hp,
                         critical: critical,
-                        weakness: isWeakness(card, enemy),
+                        weakness: isWeakness(card.element, enemy.element),
+                        broken: enemy.isBroken,
                     });
                     enemy.takeDamage({
                         hp: hp,
@@ -296,8 +263,122 @@ class Battle {
         }
 
         // After attack effects
-        card.effect
-            ?.filter((effect) => effect.timing === "after")
+        this.addEffects(card.effect, "after");
+
+        // After attack Extra Skills
+        if (card.extraSkills.includes(ExtraSkill.ElementalRetrieval)) {
+            this.player.updateOrbs(this.player.getRandomOrbFromElementWheel(), 1);
+        }
+        if (card.extraSkills.includes(ExtraSkill.ElementalMirror) && card.element !== "life") {
+            this.player.addResistElementEffect(card.element, 1);
+        }
+    }
+
+    ultimate() {
+        this.useAction();
+        this.player.ultimate.current = 0;
+        // Make a function for adding effects, and replace the two sections in cardAbility()
+        const ultimate = this.player.getMainJob().ultimate;
+
+        //Before effects
+        this.addEffects(ultimate.effect, "before");
+
+        // Damage
+        // Calculate the base Attack and Break Power by reducing
+        // the last hit proportion, if specified, from the base value
+        let attack = ultimate.attack;
+        let breakPower = ultimate.breakPower;
+        let lastHitAttack = ultimate.lastHitAttack || attack;
+        let lastHitBreakPower = ultimate.lastHitBreakPower || breakPower;
+        if (lastHitAttack !== attack) {
+            lastHitAttack = attack * lastHitAttack;
+            attack -= lastHitAttack;
+        }
+        if (lastHitBreakPower !== breakPower) {
+            lastHitBreakPower = breakPower * lastHitBreakPower;
+            breakPower -= lastHitBreakPower;
+        }
+        const targets = this.getTargets(ultimate.target);
+        const lastHitTargets = this.getTargets(ultimate.lastHitTarget || ultimate.target);
+        const damageToEnemies: Array<DamageToEnemies> = [];
+
+        // Normal hits
+        targets.forEach((enemy) => {
+            const hits = [];
+            const numberOfHits = ultimate.hits - 1;
+            for (let i = 0; i < numberOfHits; i++) {
+                const [hp, critical] = this.player.getUltimateHPDamage(
+                    attack / numberOfHits,
+                    enemy
+                );
+                const yellow = this.player.getUltimateYellowGaugeDamage(
+                    breakPower / numberOfHits,
+                    enemy
+                );
+                const red = this.player.getUltimateYellowGaugeDamage(
+                    breakPower / numberOfHits,
+                    enemy
+                );
+                hits.push({
+                    damage: hp,
+                    critical: critical,
+                    broken: enemy.isBroken,
+                });
+                enemy.takeDamage({
+                    hp: hp,
+                    yellow: yellow,
+                    red: red,
+                });
+            }
+            if (numberOfHits > 0) {
+                damageToEnemies.push({
+                    enemyIndex: this.enemies[this.wave.current].indexOf(enemy),
+                    hits: hits,
+                });
+            }
+        });
+
+        // Last hit
+        lastHitTargets.forEach((enemy) => {
+            const hits = [];
+            const [hp, critical] = this.player.getUltimateHPDamage(lastHitAttack, enemy);
+            const yellow = this.player.getUltimateYellowGaugeDamage(lastHitBreakPower, enemy);
+            const red = this.player.getUltimateYellowGaugeDamage(lastHitBreakPower, enemy);
+            hits.push({
+                damage: hp,
+                critical: critical,
+                broken: enemy.isBroken,
+            });
+            enemy.takeDamage({
+                hp: hp,
+                yellow: yellow,
+                red: red,
+            });
+
+            const enemyIndex = damageToEnemies.findIndex(
+                (x) => x.enemyIndex === this.enemies[this.wave.current].indexOf(enemy)
+            );
+            if (enemyIndex === -1) {
+                damageToEnemies.push({
+                    enemyIndex: this.enemies[this.wave.current].indexOf(enemy),
+                    hits: hits,
+                });
+            } else {
+                damageToEnemies[enemyIndex].hits.push(...hits);
+            }
+            if (enemy.hp.current === 0) {
+                this.findNewTarget();
+            }
+        });
+        this.damageToEnemies = damageToEnemies;
+
+        //After effects
+        this.addEffects(ultimate.effect, "after");
+    }
+
+    addEffects(effects: Array<Effect> | undefined, timing: "before" | "after") {
+        effects
+            ?.filter((effect) => effect.timing === timing)
             .forEach((effect) => {
                 switch (effect.target) {
                     case "self":
@@ -313,13 +394,6 @@ class Battle {
                         break;
                 }
             });
-        // After attack Extra Skills
-        if (card.extraSkills.includes(ExtraSkill.ElementalRetrieval)) {
-            this.player.updateOrbs(this.player.getRandomOrbFromElementWheel(), 1);
-        }
-        if (card.extraSkills.includes(ExtraSkill.ElementalMirror) && card.element !== "life") {
-            this.player.addResistElementEffect(card.element, 1);
-        }
     }
 
     getTargets(targetType: Target): Array<EnemyActor> {
@@ -327,6 +401,22 @@ class Battle {
         switch (targetType) {
             case "single":
                 targets.push(this.enemies[this.wave.current][this.targetIndex]);
+                break;
+            case "cone":
+                // Picks 3 targets: 1 from left, middle and right
+                targets.push(this.enemies[this.wave.current][this.targetIndex]);
+                if (
+                    this.enemies[this.wave.current][this.targetIndex - 1] &&
+                    this.enemies[this.wave.current][this.targetIndex - 1].hp.current > 0
+                ) {
+                    targets.push(this.enemies[this.wave.current][this.targetIndex - 1]);
+                }
+                if (
+                    this.enemies[this.wave.current][this.targetIndex + 1] &&
+                    this.enemies[this.wave.current][this.targetIndex + 1].hp.current > 0
+                ) {
+                    targets.push(this.enemies[this.wave.current][this.targetIndex + 1]);
+                }
                 break;
             case "area":
                 this.enemies[this.wave.current].forEach((enemy) => {

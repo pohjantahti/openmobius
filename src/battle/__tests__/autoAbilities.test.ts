@@ -157,9 +157,9 @@ describe("Auto-Abilities", () => {
     test("Painful Break", () => {
         enemy.isBroken = true;
         player.getMainJob().autoAbilities.painfulBreak = 200;
-        expect(PlayerDamage.break(player, card, enemy)).toBe(4);
+        expect(PlayerDamage.break(player, enemy, card)).toBe(4);
         card.innateSkills!.painfulBreak = 150;
-        expect(PlayerDamage.break(player, card, enemy)).toBe(5.5);
+        expect(PlayerDamage.break(player, enemy, card)).toBe(5.5);
         passedTests.add(AutoAbility.PainfulBreak);
     });
 });

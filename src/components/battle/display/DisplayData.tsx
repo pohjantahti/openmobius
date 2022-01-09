@@ -6,7 +6,7 @@ import OrbBar from "./OrbBar";
 import ScoreWaveBar from "./ScoreWaveBar";
 import TurnBar from "./TurnBar";
 import UltimateBar from "./UltimateBar";
-import { Effect } from "../../../battle/types";
+import { BattleEffect } from "../../../battle/types";
 
 interface Props {
     elements: {
@@ -37,7 +37,7 @@ interface Props {
     actions: number;
     jobClass: JobClass;
     countdownToJobChange: number;
-    playerEffects: Array<Effect>;
+    playerEffects: Array<BattleEffect>;
 }
 
 function DisplayData(props: Props) {

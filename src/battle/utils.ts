@@ -1,9 +1,10 @@
 import { Card } from "../data/game/cards";
-import { Deck, Element, FullDeck, FullElement } from "../info/types";
+import { MAX } from "../info";
+import { CardElement, Deck, Element, FullDeck, FullElement } from "../info/types";
 import { capitalize } from "../utils";
 import EnemyActor from "./EnemyActor";
 import PlayerActor from "./PlayerActor";
-import { AutoAbility, BattleDeck, BattleFullDeck, InnateSkill } from "./types";
+import { AutoAbility, BattleDeck, BattleFullDeck, Boon, InnateSkill } from "./types";
 
 // Convert FullDeck to BattleFullDeck
 // Mix stats from different sources (job, weapon, custom skills, card extra skills)
@@ -55,6 +56,31 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
                 delete autoAbilities[autoAbility];
             }
             return resistance;
+        };
+
+        // Calculate the ultimate level and apply the multiplier to attack and break power
+        const getUltimate = () => {
+            const ultimateLevels: Record<number, number> = {
+                1: 1,
+                2: 1.1,
+                3: 1.2,
+                4: 1.3,
+                5: 1.4,
+                6: 1.7,
+                7: 2,
+                8: 2.3,
+                9: 2.6,
+                10: 3,
+            };
+            const ultimate = deck.job.ultimate;
+            ultimate.level = Math.min(
+                ultimate.level + (autoAbilities[AutoAbility.BoostUltimate] || 0),
+                MAX.ultimateLevel
+            );
+            delete autoAbilities[AutoAbility.BoostUltimate];
+            ultimate.attack *= ultimateLevels[ultimate.level];
+            ultimate.breakPower *= ultimateLevels[ultimate.level];
+            return ultimate;
         };
 
         // Combine rest of the Auto-Abilities from Job and other sources
@@ -111,6 +137,7 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
                     light: getElementResistance("light"),
                     dark: getElementResistance("dark"),
                 },
+                ultimate: getUltimate(),
                 autoAbilities: getAutoAbilities(),
             },
             cards: deck.cards,
@@ -171,7 +198,7 @@ const getInnateSkill = (card: Card, innateSkill: InnateSkill): number => {
     return (card.innateSkills && card.innateSkills[innateSkill]) || 0;
 };
 
-const isWeakness = (card: Card, enemy: EnemyActor): boolean => {
+const isWeakness = (usedElement: CardElement, targetElement: Element): boolean => {
     const weaknesses = {
         fire: "water",
         water: "fire",
@@ -181,7 +208,26 @@ const isWeakness = (card: Card, enemy: EnemyActor): boolean => {
         dark: "light",
         life: "none",
     };
-    return weaknesses[card.element] === enemy.element;
+    return weaknesses[usedElement] === targetElement;
+};
+
+const getWeaknessWeaponElement = (player: PlayerActor, enemy: EnemyActor): CardElement | false => {
+    const pairs: Array<[Boon, CardElement]> = [
+        [Boon.FireWeapon, "fire"],
+        [Boon.WaterWeapon, "water"],
+        [Boon.WindWeapon, "wind"],
+        [Boon.EarthWeapon, "earth"],
+        [Boon.LightWeapon, "light"],
+        [Boon.DarkWeapon, "dark"],
+    ];
+    for (const [weapon, element] of pairs) {
+        if (player.effectActive(weapon)) {
+            if (isWeakness(element, enemy.element)) {
+                return element;
+            }
+        }
+    }
+    return false;
 };
 
 const isResistant = (card: Card, enemy: EnemyActor): boolean => {
@@ -194,5 +240,6 @@ export {
     getAutoAbility,
     getInnateSkill,
     isWeakness,
+    getWeaknessWeaponElement,
     isResistant,
 };

@@ -1,4 +1,4 @@
-import { Ailment, AutoAbility, Boon, ExtraSkill, InnateSkill } from "../../battle/types";
+import { Ailment, AutoAbility, Boon, Effect, ExtraSkill, InnateSkill } from "../../battle/types";
 import { CardClass, CardElement, Target } from "../../info/types";
 
 interface Card {
@@ -25,13 +25,7 @@ interface Card {
     extraSkills: Array<ExtraSkill>;
     autoAbilities: Partial<Record<AutoAbility, number>>;
     innateSkills?: Partial<Record<InnateSkill, number>>;
-    effect?: Array<{
-        name: Boon | Ailment;
-        duration: number;
-        target: Target;
-        timing: "before" | "after";
-        type?: "square" | "hexagon";
-    }>;
+    effect?: Array<Effect>;
 }
 
 const cards: Array<Card> = [

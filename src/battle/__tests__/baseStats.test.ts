@@ -18,38 +18,38 @@ describe("Base stats and multipliers", () => {
 
     test("Attack", () => {
         card.extraSkills.push(ExtraSkill.Mantra);
-        expect(PlayerDamage.baseStat(player, card)).toBe(1);
+        expect(PlayerDamage.baseAttackMagic(player, card)).toBe(1);
         player.getMainJob().stats.attack = 200;
-        expect(PlayerDamage.baseStat(player, card)).toBe(3);
+        expect(PlayerDamage.baseAttackMagic(player, card)).toBe(3);
     });
 
     test("Magic", () => {
-        expect(PlayerDamage.baseStat(player, card)).toBe(1);
+        expect(PlayerDamage.baseAttackMagic(player, card)).toBe(1);
         player.getMainJob().stats.magic = 200;
-        expect(PlayerDamage.baseStat(player, card)).toBe(3);
+        expect(PlayerDamage.baseAttackMagic(player, card)).toBe(3);
     });
 
     test("Break", () => {
-        expect(PlayerDamage.break(player, card, enemy)).toBe(1);
+        expect(PlayerDamage.break(player, enemy, card)).toBe(1);
         enemy.isBroken = true;
-        expect(PlayerDamage.break(player, card, enemy)).toBe(2);
+        expect(PlayerDamage.break(player, enemy, card)).toBe(2);
     });
 
     test("Weakness", () => {
         enemy.element = "fire";
         card.element = "fire";
-        expect(PlayerDamage.weakness(player, card, enemy)).toBe(1);
+        expect(PlayerDamage.weakness(player, enemy, card.element, card)).toBe(1);
         enemy.element = "water";
-        expect(PlayerDamage.weakness(player, card, enemy)).toBe(1.3);
+        expect(PlayerDamage.weakness(player, enemy, card.element, card)).toBe(1.3);
         enemy.isBroken = true;
-        expect(PlayerDamage.weakness(player, card, enemy)).toBe(2);
+        expect(PlayerDamage.weakness(player, enemy, card.element, card)).toBe(2);
     });
 
     test("Critical chance", () => {
-        expect(PlayerDamage.criticalChance(player, card, enemy)).toBe(0);
+        expect(PlayerDamage.criticalChance(player, enemy, card)).toBe(0);
         player.getMainJob().stats.critical = 4;
         card.ability.critical = 3;
-        expect(PlayerDamage.criticalChance(player, card, enemy)).toBe(7 * 0.05);
+        expect(PlayerDamage.criticalChance(player, enemy, card)).toBe(7 * 0.05);
     });
 
     test("Critical", () => {
