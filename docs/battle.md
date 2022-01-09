@@ -6,7 +6,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 
 ### Boons
 
--   [ ] Ability Igniton
+-   [ ] Ability Ignition
 -   [ ] Absolute Defense
 -   [ ] Attack Ignition
 -   [ ] Barrier
@@ -15,7 +15,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Berserk II
 -   [ ] Blitzball
 -   [ ] Bloodlust X
--   [ ] Boost
+-   [x] Boost
 -   [ ] Boost II
 -   [x] Brave
 -   [ ] Brave II
@@ -132,7 +132,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Bio
 -   [ ] Bio II
 -   [ ] Bleeding Out
--   [ ] Break Defense Down
+-   [x] Break Defense Down
 -   [ ] Break Defense Down II
 -   [ ] Call of the Void
 -   [ ] Clouded Cast
@@ -266,7 +266,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] MP HP Up
 -   [x] Magic Up
 -   [x] Painful Break
--   [ ] Piercing Break
+-   [x] Piercing Break
 -   [ ] Prismatic Draw
 -   [ ] Prismatic Element Starter
 -   [ ] Prismatic Return
@@ -340,7 +340,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Dispel
 -   [ ] Drive Ignition
 -   [ ] Drive Tap
--   [ ] Duration Boost
+-   [x] Duration Boost
 -   [ ] Earth Pact
 -   [ ] Element Every Buddy
 -   [ ] Element Tap
@@ -348,8 +348,8 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [x] Elemental Mirror
 -   [x] Elemental Retrieval
 -   [ ] Elemental Return
--   [ ] Enhanced Ailments
--   [ ] Enhanced Boons
+-   [x] Enhanced Ailments
+-   [x] Enhanced Boons
 -   [ ] Enhanced Dark
 -   [ ] Enhanced Earth
 -   [ ] Enhanced Fire
@@ -358,7 +358,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Enhanced Water
 -   [ ] Enhanced Wind
 -   [ ] Esuna
--   [ ] Extra Life
+-   [x] Extra Life
 -   [x] Extreme Bloodthirst
 -   [ ] Fire Pact
 -   [ ] Fortune
@@ -371,8 +371,8 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Imbue Light
 -   [ ] Imbue Water
 -   [ ] Imbue Wind
--   [ ] Lasting Ailments
--   [ ] Lastin Boons
+-   [x] Lasting Ailments
+-   [x] Lasting Boons
 -   [ ] Legendary Blademaster
 -   [ ] Light Pact
 -   [ ] Lone Lion

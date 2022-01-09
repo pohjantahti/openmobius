@@ -213,6 +213,10 @@ class PlayerActor {
         }
         // Defense
         damage *= PlayerDamage.defense(enemy, card);
+        // Element of Card and Enemy are the same
+        if (isResistant(card, enemy)) {
+            damage *= 0.25;
+        }
         damage = Math.floor(damage);
         // Damage limit
         damage = Math.min(damage, PlayerDamage.damageLimit(card));
@@ -236,6 +240,10 @@ class PlayerActor {
             damage *= PlayerDamage.breakDefense(enemy);
             // Weakness
             damage *= PlayerDamage.weakness(this, enemy, card.element, card);
+            // Guard Breaker
+            if (isResistant(card, enemy) && card.extraSkills.includes(ExtraSkill.GuardBreaker)) {
+                damage *= 0.4;
+            }
             // Reduced damage to yellow gauge
             let reducedDamage = 0.2;
             if (isWeakness(card.element, enemy.element)) {
@@ -337,7 +345,7 @@ class PlayerActor {
         // Base damage
         let damage = this.getMainJob().stats.breakPower;
         // Ultimate level multiplier
-        damage *= multiplier / 100;
+        damage *= 1 + multiplier / 100;
         // Break Power
         damage *= PlayerDamage.breakPowerMod(this);
         // Stat mods

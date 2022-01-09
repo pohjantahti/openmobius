@@ -3,7 +3,7 @@ import PlayerActor, { PlayerInput } from "../PlayerActor";
 import PlayerDamage from "../PlayerDamage";
 import { Card } from "../../data/game/cards";
 import { Job } from "../../data/game/jobs";
-import { AutoAbility } from "../types";
+import { AutoAbility, ExtraSkill } from "../types";
 import { emptyPlayerActor, emptyCard, emptyEnemyActor } from "./index.test";
 import { getGameData } from "../../extractor";
 import console from "console";
@@ -161,5 +161,23 @@ describe("Auto-Abilities", () => {
         card.innateSkills!.painfulBreak = 150;
         expect(PlayerDamage.break(player, enemy, card)).toBe(5.5);
         passedTests.add(AutoAbility.PainfulBreak);
+    });
+
+    test("Piercing Break", () => {
+        expect(player.getTapRedGaugeDamage(enemy)).toBe(0);
+        expect(player.getCardRedGaugeDamage(card, enemy)).toBe(0);
+        expect(player.getUltimateRedGaugeDamage(100, enemy)).toBe(0);
+        player.getMainJob().stats.breakPower = 200;
+        card.ability.break = 200;
+        card.element = "earth";
+        card.extraSkills = [ExtraSkill.Mantra];
+        expect(player.getTapRedGaugeDamage(enemy)).toBe(200);
+        expect(player.getCardRedGaugeDamage(card, enemy)).toBe(600);
+        expect(player.getUltimateRedGaugeDamage(100, enemy)).toBe(400);
+        player.getMainJob().autoAbilities[AutoAbility.PiercingBreak] = 150;
+        expect(player.getTapRedGaugeDamage(enemy)).toBe(500);
+        expect(player.getCardRedGaugeDamage(card, enemy)).toBe(1500);
+        expect(player.getUltimateRedGaugeDamage(100, enemy)).toBe(1000);
+        passedTests.add(AutoAbility.PiercingBreak);
     });
 });

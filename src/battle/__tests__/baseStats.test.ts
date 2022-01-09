@@ -55,4 +55,19 @@ describe("Base stats and multipliers", () => {
     test("Critical", () => {
         expect(PlayerDamage.critical(player, card)).toBe(1.5);
     });
+
+    test("Defense", () => {
+        expect(PlayerDamage.defense(enemy)).toBe(1);
+        enemy.defense = 15;
+        expect(PlayerDamage.defense(enemy)).toBe(0.85);
+    });
+
+    test("Element of Card and Enemy are the same", () => {
+        card.ability.attack = 200;
+        card.element = "fire";
+        enemy.element = "earth";
+        expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+        enemy.element = "fire";
+        expect(player.getCardHPDamage(card, enemy)).toStrictEqual([50, false]);
+    });
 });

@@ -485,7 +485,7 @@ enum ExtraSkill {
     ImbueWater = "imbueWater",
     ImbueWind = "imbueWind",
     LastingAilments = "lastingAilments",
-    LastinBoons = "lastingBoons",
+    LastingBoons = "lastingBoons",
     LegendaryBlademaster = "legendaryBlademaster",
     LightPact = "lightPact",
     LoneLion = "loneLion",

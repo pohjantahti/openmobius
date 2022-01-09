@@ -120,7 +120,7 @@ const cards: Array<Card> = [
         },
         extraSkills: [
             ExtraSkill.EnhancedLife,
-            ExtraSkill.LastinBoons,
+            ExtraSkill.LastingBoons,
             ExtraSkill.QuickCast,
             ExtraSkill.EnhancedBoons,
             ExtraSkill.ExtraLife,

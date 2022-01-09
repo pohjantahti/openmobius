@@ -1,8 +1,17 @@
+import { Card } from "../data/game/cards";
 import { Enemy } from "../data/game/enemies";
 import { FullDeck, Target } from "../info/types";
 import EnemyActor from "./EnemyActor";
 import PlayerActor from "./PlayerActor";
-import { BattleAction, BattleInfo, DamageToEnemies, Effect, ExtraSkill } from "./types";
+import {
+    Ailment,
+    BattleAction,
+    BattleInfo,
+    Boon,
+    DamageToEnemies,
+    Effect,
+    ExtraSkill,
+} from "./types";
 import { isWeakness } from "./utils";
 
 interface BattleInput {
@@ -223,8 +232,19 @@ class Battle {
         this.player.updateOrbs(card.element, card.ability.cost * -1);
         this.player.updateUltimateGauge(card.ability.cost);
 
+        // Before attack Extra Skills
+        if (card.extraSkills.includes(ExtraSkill.DurationBoost)) {
+            // TODO: Ignore some Boons (e.g. Resist, Igninition, Cleaving)
+            const boons = (Object as any).values(Boon);
+            this.player.effects
+                .filter((effect) => boons.includes(effect.name))
+                .forEach((effect) => {
+                    effect.duration = Math.min(effect.duration + 1, 5);
+                });
+        }
+
         // Before attack effects
-        this.addEffects(card.effect, "before");
+        this.addEffects(card.effect, "before", card);
 
         // Check if there is need to calculate damage
         if (card.ability.attack === 0 || card.ability.break === 0) {
@@ -263,14 +283,17 @@ class Battle {
         }
 
         // After attack effects
-        this.addEffects(card.effect, "after");
+        this.addEffects(card.effect, "after", card);
 
         // After attack Extra Skills
+        if (card.extraSkills.includes(ExtraSkill.ExtraLife)) {
+            this.player.updateOrbs("life", 1);
+        }
         if (card.extraSkills.includes(ExtraSkill.ElementalRetrieval)) {
             this.player.updateOrbs(this.player.getRandomOrbFromElementWheel(), 1);
         }
         if (card.extraSkills.includes(ExtraSkill.ElementalMirror) && card.element !== "life") {
-            this.player.addResistElementEffect(card.element, 1);
+            this.player.addResistElementEffect(card.element, card.ability.cost / 2);
         }
     }
 
@@ -376,10 +399,36 @@ class Battle {
         this.addEffects(ultimate.effect, "after");
     }
 
-    addEffects(effects: Array<Effect> | undefined, timing: "before" | "after") {
+    addEffects(effects: Array<Effect> | undefined, timing: "before" | "after", card?: Card) {
         effects
             ?.filter((effect) => effect.timing === timing)
             .forEach((effect) => {
+                if (card) {
+                    if (
+                        (Object as any).values(Boon).includes(effect.name) &&
+                        card.extraSkills.includes(ExtraSkill.EnhancedBoons)
+                    ) {
+                        effect.type = "hexagon";
+                    }
+                    if (
+                        (Object as any).values(Ailment).includes(effect.name) &&
+                        card.extraSkills.includes(ExtraSkill.EnhancedAilments)
+                    ) {
+                        effect.type = "hexagon";
+                    }
+                    if (
+                        (Object as any).values(Boon).includes(effect.name) &&
+                        card.extraSkills.includes(ExtraSkill.LastingBoons)
+                    ) {
+                        effect.duration += 1;
+                    }
+                    if (
+                        (Object as any).values(Ailment).includes(effect.name) &&
+                        card.extraSkills.includes(ExtraSkill.LastingAilments)
+                    ) {
+                        effect.duration += 1;
+                    }
+                }
                 switch (effect.target) {
                     case "self":
                         this.player.addEffect(effect);
