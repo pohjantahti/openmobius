@@ -1,16 +1,9 @@
 import { Card } from "../data/game/cards";
-import { Element, FullDeck, FullElement, Target } from "../info/types";
+import { Element, FullDeck, FullElement } from "../info/types";
+import BattleActor from "./BattleActor";
 import EnemyActor from "./EnemyActor";
 import PlayerDamage from "./PlayerDamage";
-import {
-    Ailment,
-    BattleFullDeck,
-    BattleJob,
-    Boon,
-    BattleEffect,
-    ExtraSkill,
-    AutoAbility,
-} from "./types";
+import { BattleFullDeck, BattleJob, Boon, ExtraSkill, AutoAbility } from "./types";
 import {
     createBattleFullDeck,
     getAutoAbility,
@@ -26,7 +19,7 @@ interface PlayerInput {
     activeDeck: 0 | 1;
 }
 
-class PlayerActor {
+class PlayerActor extends BattleActor {
     deck: BattleFullDeck;
     activeDeck: 0 | 1;
     wheel: [number, number, number];
@@ -47,9 +40,9 @@ class PlayerActor {
         prismatic: number;
     };
     actions: number;
-    effects: Array<BattleEffect>;
 
     constructor(data: PlayerInput) {
+        super();
         this.deck = createBattleFullDeck(data.deck);
         this.activeDeck = data.activeDeck;
         this.wheel = [100 / 3, 100 / 3, 100 / 3];
@@ -61,7 +54,6 @@ class PlayerActor {
         this.countdownToJobChange = 4;
         this.orbs = getStartingOrbs(this.getMainJob().elements, 16);
         this.actions = this.getMainJob().stats.speed;
-        this.effects = [];
     }
 
     // Main refers to the current active job
@@ -524,57 +516,6 @@ class PlayerActor {
     takeDamage(damage: number) {
         const hp = this.getMainJob().stats.hp;
         hp.current = Math.max(hp.current - damage, 0);
-    }
-
-    // Add effect or reapply current effect with new duration
-    addEffect(newEffect: {
-        name: Boon | Ailment;
-        duration: number;
-        target: Target;
-        timing?: "before" | "after";
-        type?: "square" | "hexagon";
-        resistancePoints?: number;
-    }) {
-        if (this.effectActive(newEffect.name)) {
-            const currentEffect = this.effects.filter(
-                (effect) => effect.name === newEffect.name
-            )[0];
-            currentEffect.duration = Math.min(
-                Math.max(currentEffect.duration, newEffect.duration),
-                5
-            );
-            if (currentEffect.type === "square" && newEffect.type === "hexagon") {
-                currentEffect.type = "hexagon";
-            }
-            if (newEffect.resistancePoints && newEffect.resistancePoints >= 0) {
-                currentEffect.resistancePoints = newEffect.resistancePoints;
-            }
-        } else {
-            this.effects.push({
-                name: newEffect.name,
-                type: newEffect.type || "square",
-                duration: Math.min(newEffect.duration, 5),
-                resistancePoints: newEffect.resistancePoints,
-            });
-        }
-    }
-
-    effectActive(name: Boon | Ailment): boolean {
-        return this.effects.filter((effect) => effect.name === name).length > 0;
-    }
-
-    // Reduce effect durations and filter out the ones with a duration or resistancePoints of 0
-    reduceEffects(amount = 1) {
-        this.effects.forEach((effect) => {
-            effect.duration -= amount;
-            if (effect.resistancePoints) {
-                effect.resistancePoints -= 2;
-            }
-        });
-        this.effects = this.effects.filter(
-            (effect) =>
-                effect.duration > 0 || (effect.resistancePoints && effect.resistancePoints > 0)
-        );
     }
 }
 

@@ -234,6 +234,7 @@ describe("Extra Skills", () => {
         expect(battle.enemies[0][0].effectActive(Ailment.BreakDefenseDown)).toBe(true);
         expect(battle.enemies[0][0].effects[0].duration).toBe(3);
         card.extraSkills = [ExtraSkill.LastingAilments];
+        battle.enemies[0][0].effects = [];
         battle.cardAbility(0);
         expect(battle.enemies[0][0].effects[0].duration).toBe(4);
         passedTests.add(ExtraSkill.LastingAilments);

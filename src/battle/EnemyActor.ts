@@ -1,9 +1,10 @@
-import { Element, Target } from "../info/types";
+import { Element } from "../info/types";
 import { Enemy } from "../data/game/enemies";
-import { Ailment, Boon, BattleEffect } from "./types";
+import { Boon } from "./types";
 import PlayerActor from "./PlayerActor";
+import BattleActor from "./BattleActor";
 
-class EnemyActor {
+class EnemyActor extends BattleActor {
     id: number;
     name: string;
     resources: {
@@ -33,9 +34,9 @@ class EnemyActor {
         current: number;
         max: number;
     };
-    effects: Array<BattleEffect>;
 
     constructor(data: Enemy, difficulty: number) {
+        super();
         this.id = data.id;
         this.name = data.name;
         this.resources = data.resources;
@@ -62,7 +63,6 @@ class EnemyActor {
             current: 0,
             max: 7,
         };
-        this.effects = [];
     }
 
     getHPDamage(player: PlayerActor) {
@@ -131,57 +131,6 @@ class EnemyActor {
             this.isBrokenAnimation = true;
             this.breakLength.current = this.breakLength.max;
         }
-    }
-
-    // Add effect or reapply current effect with new duration
-    addEffect(newEffect: {
-        name: Boon | Ailment;
-        duration: number;
-        target: Target;
-        timing?: "before" | "after";
-        type?: "square" | "hexagon";
-        resistancePoints?: number;
-    }) {
-        if (this.effectActive(newEffect.name)) {
-            const currentEffect = this.effects.filter(
-                (effect) => effect.name === newEffect.name
-            )[0];
-            currentEffect.duration = Math.min(
-                Math.max(currentEffect.duration, newEffect.duration),
-                5
-            );
-            if (currentEffect.type === "square" && newEffect.type === "hexagon") {
-                currentEffect.type = "hexagon";
-            }
-            if (newEffect.resistancePoints && newEffect.resistancePoints >= 0) {
-                currentEffect.resistancePoints = newEffect.resistancePoints;
-            }
-        } else {
-            this.effects.push({
-                name: newEffect.name,
-                type: newEffect.type || "square",
-                duration: Math.min(newEffect.duration, 5),
-                resistancePoints: newEffect.resistancePoints,
-            });
-        }
-    }
-
-    effectActive(name: Boon | Ailment): boolean {
-        return this.effects.filter((effect) => effect.name === name).length > 0;
-    }
-
-    // Reduce effect durations and filter out the ones with a duration or resistancePoints of 0
-    reduceEffects(amount = 1) {
-        this.effects.forEach((effect) => {
-            effect.duration -= amount;
-            if (effect.resistancePoints) {
-                effect.resistancePoints -= 2;
-            }
-        });
-        this.effects = this.effects.filter(
-            (effect) =>
-                effect.duration > 0 || (effect.resistancePoints && effect.resistancePoints > 0)
-        );
     }
 }
 

@@ -245,9 +245,9 @@ class Battle {
         // Before attack Extra Skills
         if (card.extraSkills.includes(ExtraSkill.DurationBoost)) {
             // TODO: Ignore some Boons (e.g. Resist, Igninition, Cleaving)
-            const boons = (Object as any).values(Boon);
+            const boons = Object.values(Boon);
             this.player.effects
-                .filter((effect) => boons.includes(effect.name))
+                .filter((effect) => boons.includes(effect.name as Boon))
                 .forEach((effect) => {
                     effect.duration = Math.min(effect.duration + 1, 5);
                 });
@@ -422,25 +422,25 @@ class Battle {
             .forEach((effect) => {
                 if (card) {
                     if (
-                        (Object as any).values(Boon).includes(effect.name) &&
+                        Object.values(Boon).includes(effect.name as Boon) &&
                         card.extraSkills.includes(ExtraSkill.EnhancedBoons)
                     ) {
                         effect.type = "hexagon";
                     }
                     if (
-                        (Object as any).values(Ailment).includes(effect.name) &&
+                        Object.values(Ailment).includes(effect.name as Ailment) &&
                         card.extraSkills.includes(ExtraSkill.EnhancedAilments)
                     ) {
                         effect.type = "hexagon";
                     }
                     if (
-                        (Object as any).values(Boon).includes(effect.name) &&
+                        Object.values(Boon).includes(effect.name as Boon) &&
                         card.extraSkills.includes(ExtraSkill.LastingBoons)
                     ) {
                         effect.duration += 1;
                     }
                     if (
-                        (Object as any).values(Ailment).includes(effect.name) &&
+                        Object.values(Ailment).includes(effect.name as Ailment) &&
                         card.extraSkills.includes(ExtraSkill.LastingAilments)
                     ) {
                         effect.duration += 1;
