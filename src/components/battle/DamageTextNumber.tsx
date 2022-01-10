@@ -4,7 +4,7 @@ import { sleep } from "../../utils";
 
 interface Props {
     damage: number;
-    broken: boolean;
+    filter: string;
 }
 
 function DamageTextNumber(props: Props) {
@@ -57,7 +57,7 @@ function DamageTextNumber(props: Props) {
                             marginRight: "-1.8rem",
                             marginTop: imageMarginTop[Number(hitNumber)],
                             zIndex: array.length - index,
-                            filter: props.broken ? "url(#brokenDamageTextFilter)" : "none",
+                            filter: props.filter,
                         }}
                     />
                 ))}

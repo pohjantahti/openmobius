@@ -103,6 +103,8 @@ interface BattleInfo {
         damage: number;
     }>;
     playerEffects: Array<BattleEffect>;
+    healToPlayer: Array<number>;
+    poisonToPlayer: Array<number>;
 }
 
 enum BattleAction {

@@ -38,6 +38,8 @@ class Battle {
     damageToPlayer: Array<{
         damage: number;
     }>;
+    healToPlayer: Array<number>;
+    poisonToPlayer: Array<number>;
 
     constructor(data: BattleInput) {
         this.battleResources = data.battleResources;
@@ -58,6 +60,8 @@ class Battle {
         this.damageToEnemies = [];
         this.isBattleCompleted = false;
         this.damageToPlayer = [];
+        this.healToPlayer = [];
+        this.poisonToPlayer = [];
     }
 
     getBattleInfo(): BattleInfo {
@@ -101,6 +105,8 @@ class Battle {
             playerCard: this.player.getMainJob().resources.card,
             damageToPlayer: this.damageToPlayer,
             playerEffects: this.player.effects,
+            healToPlayer: this.healToPlayer,
+            poisonToPlayer: this.poisonToPlayer,
         };
     }
 
@@ -119,7 +125,11 @@ class Battle {
                 this.cardAbility(index!);
                 break;
             case BattleAction.Drive:
-                this.player.driveElement(index!);
+                if (index === 3) {
+                    this.healToPlayer = [this.player.driveLife()];
+                } else {
+                    this.player.driveElement(index!);
+                }
                 break;
             case BattleAction.Ultimate:
                 this.ultimate();
@@ -284,6 +294,13 @@ class Battle {
 
         // After attack effects
         this.addEffects(card.effect, "after", card);
+        if (card.element === "life") {
+            let heal = 10;
+            if (card.extraSkills.includes(ExtraSkill.EnhancedLife)) {
+                heal += 10;
+            }
+            this.healToPlayer = [this.player.heal(0, heal)];
+        }
 
         // After attack Extra Skills
         if (card.extraSkills.includes(ExtraSkill.ExtraLife)) {

@@ -10,31 +10,42 @@ interface Props {
         broken?: boolean;
     }>;
     divName: string;
+    healHits?: Array<number>;
+    poisonHits?: Array<number>;
 }
 
 function DamageTexts(props: Props) {
-    const { damageHits, divName } = props;
+    const { damageHits, divName, healHits, poisonHits } = props;
     const centerOffset = () => {
         return Math.random() * 5;
     };
 
+    const setAnimation = async (name: string, type: "damage" | "heal" | "poison") => {
+        let maxTime = 800;
+        const poisonHitDivs: NodeListOf<HTMLElement> = document.querySelectorAll(`.${name}${type}`);
+        for (let i = 0; i < poisonHitDivs.length; i++) {
+            poisonHitDivs[i].style.opacity = "1";
+            const time = Math.min(maxTime / poisonHitDivs.length, 100);
+            maxTime -= time;
+            await sleep(time);
+        }
+        for (let i = 0; i < poisonHitDivs.length; i++) {
+            await sleep(Math.min(maxTime / poisonHitDivs.length, 500));
+            poisonHitDivs[i].style.opacity = "0";
+        }
+    };
+
     useEffect(() => {
-        const setAnimation = async () => {
-            let maxTime = 800;
-            const damageHitDivs: NodeListOf<HTMLElement> = document.querySelectorAll(`.${divName}`);
-            for (let i = 0; i < damageHitDivs.length; i++) {
-                damageHitDivs[i].style.opacity = "1";
-                const time = Math.min(maxTime / damageHitDivs.length, 100);
-                maxTime -= time;
-                await sleep(time);
-            }
-            for (let i = 0; i < damageHitDivs.length; i++) {
-                await sleep(Math.min(maxTime / damageHitDivs.length, 500));
-                damageHitDivs[i].style.opacity = "0";
-            }
-        };
-        setAnimation();
+        setAnimation(divName, "damage");
     }, [damageHits, divName]);
+
+    useEffect(() => {
+        setAnimation(divName, "heal");
+    }, [healHits, divName]);
+
+    useEffect(() => {
+        setAnimation(divName, "poison");
+    }, [poisonHits, divName]);
 
     return (
         <>
@@ -49,9 +60,12 @@ function DamageTexts(props: Props) {
                         opacity: 0,
                         transition: "opacity 0.2s linear",
                     }}
-                    className={divName}
+                    className={divName + "damage"}
                 >
-                    <DamageTextNumber damage={hit.damage} broken={Boolean(hit.broken)} />
+                    <DamageTextNumber
+                        damage={hit.damage}
+                        filter={hit.broken ? "url(#brokenDamageTextFilter)" : "none"}
+                    />
                     {(hit.critical || hit.weakness) && (
                         <div
                             style={{
@@ -93,6 +107,38 @@ function DamageTexts(props: Props) {
                             )}
                         </div>
                     )}
+                </div>
+            ))}
+            {healHits?.map((heal, index) => (
+                <div
+                    key={index}
+                    style={{
+                        position: "absolute",
+                        top: `${5 + centerOffset()}rem`,
+                        left: `${-10 + centerOffset()}rem`,
+                        display: "flex",
+                        opacity: 0,
+                        transition: "opacity 0.2s linear",
+                    }}
+                    className={divName + "heal"}
+                >
+                    <DamageTextNumber damage={heal} filter={"url(#healTextFilter)"} />
+                </div>
+            ))}
+            {poisonHits?.map((poison, index) => (
+                <div
+                    key={index}
+                    style={{
+                        position: "absolute",
+                        top: `${5 + centerOffset()}rem`,
+                        left: `${-10 + centerOffset()}rem`,
+                        display: "flex",
+                        opacity: 0,
+                        transition: "opacity 0.2s linear",
+                    }}
+                    className={divName + "poison"}
+                >
+                    <DamageTextNumber damage={poison} filter={"url(#poisonTextFilter)"} />
                 </div>
             ))}
         </>

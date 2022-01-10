@@ -140,19 +140,19 @@ function DragButtons(props: Props) {
     const driveElements = [
         {
             element: elements[0],
-            isPresent: orbs[elements[0]] && orbs[elements[0]] > 0,
+            isPresent: orbs[elements[0]] && orbs[elements[0]] + orbs["prismatic"] > 0,
         },
         {
             element: elements[1],
-            isPresent: orbs[elements[1]] && orbs[elements[1]] > 0,
+            isPresent: orbs[elements[1]] && orbs[elements[1]] + orbs["prismatic"] > 0,
         },
         {
             element: elements[2],
-            isPresent: orbs[elements[2]] && orbs[elements[2]] > 0,
+            isPresent: orbs[elements[2]] && orbs[elements[2]] + orbs["prismatic"] > 0,
         },
         {
             element: "life",
-            isPresent: orbs["life"] && orbs["life"] > 0,
+            isPresent: orbs["life"] && orbs["life"] + orbs["prismatic"] > 0,
         },
     ];
 

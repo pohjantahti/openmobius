@@ -391,12 +391,21 @@ class PlayerActor {
                 }
             }
         }
-        this.addResistElementEffect(element, this.orbs[element]);
-        this.updateUltimateGauge(this.orbs[element]);
+        let orbsToDrive = this.orbs[element] + this.orbs["prismatic"];
+        this.addResistElementEffect(element, orbsToDrive);
+        this.updateUltimateGauge(orbsToDrive);
         // Remove the driven element from wheel
         this.wheel[elementIndex] = 0;
         // Remove the orbs
         this.orbs[element] = 0;
+        this.orbs["prismatic"] = 0;
+    }
+
+    driveLife(): number {
+        const lifeOrbs = this.orbs["life"] + this.orbs["prismatic"];
+        this.orbs["life"] = 0;
+        this.orbs["prismatic"] = 0;
+        return this.heal(lifeOrbs);
     }
 
     addResistElementEffect(element: Element, amount: number) {
@@ -431,6 +440,19 @@ class PlayerActor {
             target: "self",
             resistancePoints: newResistancePoints,
         });
+    }
+
+    heal(lifeOrbsDriven = 0, percentage = 0): number {
+        // 8% per life orb
+        const heal = Math.ceil(
+            this.getMainJob().stats.hp.max * 0.08 * lifeOrbsDriven +
+                this.getMainJob().stats.hp.max * (percentage / 100)
+        );
+        this.getMainJob().stats.hp.current = Math.min(
+            this.getMainJob().stats.hp.current + heal,
+            this.getMainJob().stats.hp.max
+        );
+        return heal;
     }
 
     // Moves element wheel a specified amount toward the default of [100/3, 100/3, 100/3]

@@ -63,6 +63,12 @@ function Filters() {
                 <filter id="brokenDamageTextFilter">
                     <feColorMatrix type="matrix" values={hexToMatrix("#D4A815")} />
                 </filter>
+                <filter id="healTextFilter">
+                    <feColorMatrix type="matrix" values={hexToMatrix("#72E675")} />
+                </filter>
+                <filter id="poisonTextFilter">
+                    <feColorMatrix type="matrix" values={hexToMatrix("#E92C34")} />
+                </filter>
                 {/* TODO: Better solutions for outlining? Current: https://stackoverflow.com/a/46123184 */}
                 <filter id="blackOutlineFilter" colorInterpolationFilters="sRGB">
                     <feMorphology in="SourceAlpha" result="MORPH" operator="dilate" radius="1.5" />

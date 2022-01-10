@@ -86,13 +86,6 @@ const jobs: Array<Job> = [
                     timing: "after",
                     type: "hexagon",
                 },
-                {
-                    name: Ailment.Debarrier,
-                    duration: 4,
-                    target: "cone",
-                    timing: "after",
-                    type: "hexagon",
-                },
             ],
         },
     },

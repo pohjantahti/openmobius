@@ -8,10 +8,19 @@ interface Props {
         damage: number;
     }>;
     playerMoving: boolean;
+    healToPlayer: Array<number>;
+    poisonToPlayer: Array<number>;
 }
 
 function PlayerCard(props: Props) {
-    const { battleResources, playerCard, damageToPlayer, playerMoving } = props;
+    const {
+        battleResources,
+        playerCard,
+        damageToPlayer,
+        playerMoving,
+        healToPlayer,
+        poisonToPlayer,
+    } = props;
 
     return (
         <>
@@ -48,7 +57,12 @@ function PlayerCard(props: Props) {
                             width: "100%",
                         }}
                     />
-                    <DamageTexts damageHits={damageToPlayer} divName={"playerDamageTextDiv"} />
+                    <DamageTexts
+                        damageHits={damageToPlayer}
+                        divName={"playerDamageTextDiv"}
+                        healHits={healToPlayer}
+                        poisonHits={poisonToPlayer}
+                    />
                 </div>
             </div>
         </>

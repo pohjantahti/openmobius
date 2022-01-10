@@ -129,7 +129,7 @@ function BattleScreen(props: Props) {
                 !turnEnding &&
                 !waveEnding &&
                 card &&
-                battleInfo.orbs[card.element] >= card.ability.cost
+                battleInfo.orbs[card.element] + battleInfo.orbs["prismatic"] >= card.ability.cost
         );
     });
 
@@ -182,6 +182,8 @@ function BattleScreen(props: Props) {
                 playerCard={battleInfo.playerCard}
                 damageToPlayer={battleInfo.damageToPlayer}
                 playerMoving={playerMoving}
+                healToPlayer={battleInfo.healToPlayer}
+                poisonToPlayer={battleInfo.poisonToPlayer}
             />
 
             <button

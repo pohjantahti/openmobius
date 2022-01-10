@@ -171,6 +171,19 @@ describe("Extra Skills", () => {
         passedTests.add(ExtraSkill.EnhancedBoons);
     });
 
+    test("Enhanced Life", () => {
+        battle.player.getMainJob().stats.hp.current = 1;
+        battle.player.getMainJob().stats.hp.max = 100;
+        card.element = "life";
+        expect(battle.player.getMainJob().stats.hp.current).toBe(1);
+        battle.cardAbility(0);
+        expect(battle.player.getMainJob().stats.hp.current).toBe(11);
+        card.extraSkills = [ExtraSkill.EnhancedLife];
+        battle.cardAbility(0);
+        expect(battle.player.getMainJob().stats.hp.current).toBe(31);
+        passedTests.add(ExtraSkill.EnhancedLife);
+    });
+
     test("Extra Life", () => {
         battle.player.orbs = {
             fire: 15,
