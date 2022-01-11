@@ -448,7 +448,7 @@ class Battle {
                 }
                 switch (effect.target) {
                     case "self":
-                        this.player.addEffect(effect);
+                        this.player.addEffect(effect, this.player);
                         break;
                     case "single":
                         const target = this.getTargets("single")[0];

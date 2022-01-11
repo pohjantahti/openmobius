@@ -2,7 +2,7 @@ import EnemyActor from "../EnemyActor";
 import PlayerActor from "../PlayerActor";
 import PlayerDamage from "../PlayerDamage";
 import { Card } from "../../data/game/cards";
-import { ExtraSkill } from "../types";
+import { Boon, ExtraSkill } from "../types";
 import { emptyPlayerActor, emptyCard, emptyEnemyActor } from "./index.test";
 
 describe("Base stats and multipliers", () => {
@@ -69,5 +69,107 @@ describe("Base stats and multipliers", () => {
         expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
         enemy.element = "fire";
         expect(player.getCardHPDamage(card, enemy)).toStrictEqual([50, false]);
+    });
+
+    describe("HP", () => {
+        test("Gaining Trance while at full HP", () => {
+            const hp = player.getMainJob().stats.hp;
+            hp.current = 100;
+            hp.max = 100;
+            expect(hp.current).toBe(100);
+            expect(hp.max).toBe(100);
+            player.addEffect(
+                {
+                    name: Boon.LucidWar,
+                    duration: 1,
+                    target: "self",
+                },
+                player
+            );
+            player.getMainJob().class = "warrior";
+            expect(hp.current).toBe(130);
+            expect(hp.max).toBe(130);
+        });
+        test("Gaining Trance while not at full HP", () => {
+            const hp = player.getMainJob().stats.hp;
+            hp.current = 100;
+            hp.max = 100;
+            player.takeDamage(50);
+            expect(hp.current).toBe(50);
+            expect(hp.max).toBe(100);
+            player.addEffect(
+                {
+                    name: Boon.LucidWar,
+                    duration: 1,
+                    target: "self",
+                },
+                player
+            );
+            player.getMainJob().class = "warrior";
+            expect(hp.current).toBe(50);
+            expect(hp.max).toBe(130);
+        });
+        test("Losing Trance while at full HP", () => {
+            const hp = player.getMainJob().stats.hp;
+            hp.current = 100;
+            hp.max = 100;
+            player.addEffect(
+                {
+                    name: Boon.LucidWar,
+                    duration: 1,
+                    target: "self",
+                },
+                player
+            );
+            player.getMainJob().class = "warrior";
+            expect(hp.current).toBe(130);
+            expect(hp.max).toBe(130);
+            player.removeEffect(Boon.LucidWar, player);
+            expect(hp.current).toBe(100);
+            expect(hp.max).toBe(100);
+        });
+        test("Losing Trance while not at full HP", () => {
+            const hp = player.getMainJob().stats.hp;
+            hp.current = 100;
+            hp.max = 100;
+            player.takeDamage(35);
+            expect(hp.current).toBe(65);
+            player.addEffect(
+                {
+                    name: Boon.LucidWar,
+                    duration: 1,
+                    target: "self",
+                },
+                player
+            );
+            player.getMainJob().class = "warrior";
+            expect(hp.current).toBe(65);
+            expect(hp.max).toBe(130);
+            player.removeEffect(Boon.LucidWar, player);
+            expect(hp.current).toBe(50);
+            expect(hp.max).toBe(100);
+        });
+        test("Take damage while Trance is active", () => {
+            const hp = player.getMainJob().stats.hp;
+            hp.current = 100;
+            hp.max = 100;
+            player.addEffect(
+                {
+                    name: Boon.LucidWar,
+                    duration: 1,
+                    target: "self",
+                },
+                player
+            );
+            player.getMainJob().class = "warrior";
+            expect(hp.current).toBe(130);
+            expect(hp.max).toBe(130);
+            player.takeDamage(30);
+            expect(hp.current).toBe(100);
+            expect(hp.max).toBe(130);
+            player.removeEffect(Boon.LucidWar, player);
+            expect(hp.current).toBe(77);
+            expect(hp.max).toBe(100);
+        });
     });
 });

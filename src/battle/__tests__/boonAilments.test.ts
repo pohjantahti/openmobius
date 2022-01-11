@@ -41,6 +41,20 @@ describe("Boons and Ailments", () => {
         });
     });
 
+    test("Boost", () => {
+        expect(PlayerDamage.baseBreakPower(player)).toBe(1);
+        player.addEffect({
+            name: Boon.Boost,
+            duration: 1,
+            target: "self",
+        });
+        expect(player.effectActive(Boon.Boost)).toBe(true);
+        expect(PlayerDamage.baseBreakPower(player)).toBe(2);
+        player.getMainJob().stats.breakPower = 200;
+        expect(PlayerDamage.baseBreakPower(player)).toBe(6);
+        passedTests.add(Boon.Boost);
+    });
+
     test("Brave", () => {
         card.extraSkills.push(ExtraSkill.Mantra);
         player.addEffect({
@@ -81,17 +95,228 @@ describe("Boons and Ailments", () => {
         passedTests.add(Boon.Faith);
     });
 
-    test("Boost", () => {
-        expect(PlayerDamage.baseBreakPower(player)).toBe(1);
-        player.addEffect({
-            name: Boon.Boost,
-            duration: 1,
-            target: "self",
+    describe("Trance", () => {
+        test("Lucid War", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Boon.LucidWar,
+                duration: 1,
+                target: "self",
+            });
+            player.getMainJob().class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.getMainJob().class = "warrior";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([780, false]);
+            passedTests.add(Boon.LucidWar);
         });
-        expect(player.effectActive(Boon.Boost)).toBe(true);
-        expect(PlayerDamage.baseBreakPower(player)).toBe(2);
-        player.getMainJob().stats.breakPower = 200;
-        expect(PlayerDamage.baseBreakPower(player)).toBe(6);
-        passedTests.add(Boon.Boost);
+        test("Lucid War II", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Boon.LucidWarII,
+                duration: 1,
+                target: "self",
+            });
+            player.getMainJob().class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.getMainJob().class = "warrior";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([870, false]);
+            passedTests.add(Boon.LucidWarII);
+        });
+
+        test("Lucid Hunt", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Boon.LucidHunt,
+                duration: 1,
+                target: "self",
+            });
+            player.getMainJob().class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.getMainJob().class = "ranger";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([780, false]);
+            passedTests.add(Boon.LucidHunt);
+        });
+        test("Lucid Hunt II", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Boon.LucidHuntII,
+                duration: 1,
+                target: "self",
+            });
+            player.getMainJob().class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.getMainJob().class = "ranger";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([870, false]);
+            passedTests.add(Boon.LucidHuntII);
+        });
+
+        test("Lucid Cast", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Boon.LucidCast,
+                duration: 1,
+                target: "self",
+            });
+            player.getMainJob().class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.getMainJob().class = "mage";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([780, false]);
+            passedTests.add(Boon.LucidCast);
+        });
+        test("Lucid Cast II", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Boon.LucidCastII,
+                duration: 1,
+                target: "self",
+            });
+            player.getMainJob().class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.getMainJob().class = "mage";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([870, false]);
+            passedTests.add(Boon.LucidCastII);
+        });
+
+        test("Lucid Fist", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Boon.LucidFist,
+                duration: 1,
+                target: "self",
+            });
+            player.getMainJob().class = "warrior";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.getMainJob().class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([780, false]);
+            passedTests.add(Boon.LucidFist);
+        });
+        test("Lucid Fist II", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Boon.LucidFistII,
+                duration: 1,
+                target: "self",
+            });
+            player.getMainJob().class = "warrior";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.getMainJob().class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([870, false]);
+            passedTests.add(Boon.LucidFistII);
+        });
+    });
+
+    describe("Anti-Trance", () => {
+        test("Clouded War", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Ailment.CloudedWar,
+                duration: 1,
+                target: "self",
+            });
+            card.class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            card.class = "warrior";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            passedTests.add(Ailment.CloudedWar);
+        });
+        test("Clouded Hunter", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Ailment.CloudedHunt,
+                duration: 1,
+                target: "self",
+            });
+            card.class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            card.class = "ranger";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            passedTests.add(Ailment.CloudedHunt);
+        });
+        test("Clouded Cast", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Ailment.CloudedCast,
+                duration: 1,
+                target: "self",
+            });
+            card.class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            card.class = "mage";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            passedTests.add(Ailment.CloudedCast);
+        });
+        test("Clouded Fist", () => {
+            card.element = "fire";
+            enemy.element = "earth";
+            card.ability.attack = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            player.getMainJob().stats.magic = 200;
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            player.addEffect({
+                name: Ailment.CloudedFist,
+                duration: 1,
+                target: "self",
+            });
+            card.class = "warrior";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([600, false]);
+            card.class = "monk";
+            expect(player.getCardHPDamage(card, enemy)).toStrictEqual([200, false]);
+            passedTests.add(Ailment.CloudedFist);
+        });
     });
 });

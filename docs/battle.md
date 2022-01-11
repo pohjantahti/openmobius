@@ -74,14 +74,14 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Light Pact
 -   [ ] Light Weapon
 -   [ ] Lightforce
--   [ ] Lucid Cast
--   [ ] Lucid Cast II
--   [ ] Lucid Fist
--   [ ] Lucid Fist II
--   [ ] Lucid Hunt
--   [ ] Lucid Hunt II
--   [ ] Lucid War
--   [ ] Lucid War II
+-   [x] Lucid Cast
+-   [x] Lucid Cast II
+-   [x] Lucid Fist
+-   [x] Lucid Fist II
+-   [x] Lucid Hunt
+-   [x] Lucid Hunt II
+-   [x] Lucid War
+-   [x] Lucid War II
 -   [ ] Martial Arts
 -   [ ] Martial Flow
 -   [ ] Melee
@@ -135,10 +135,10 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [x] Break Defense Down
 -   [ ] Break Defense Down II
 -   [ ] Call of the Void
--   [ ] Clouded Cast
--   [ ] Clouded Fist
--   [ ] Clouded Hunt
--   [ ] Clouded War
+-   [x] Clouded Cast
+-   [x] Clouded Fist
+-   [x] Clouded Hunt
+-   [x] Clouded War
 -   [ ] Critical Resist Down
 -   [ ] Critical Resist Down II
 -   [ ] Curse

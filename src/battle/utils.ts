@@ -97,6 +97,7 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
             return jobAA;
         };
 
+        const hp = getStat("hp");
         return {
             job: {
                 id: deck.job.id,
@@ -111,8 +112,8 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
                 elements: deck.job.elements,
                 stats: {
                     hp: {
-                        current: getStat("hp"),
-                        max: getStat("hp"),
+                        current: hp,
+                        max: hp,
                     },
                     attack: getStat("attack"),
                     breakPower: getStat("breakPower"),

@@ -8,22 +8,35 @@ import { getAutoAbility, getInnateSkill, isWeakness } from "./utils";
 // https://www.reddit.com/r/MobiusFF/wiki/gameplay-analysis/damage-calculation
 class PlayerDamage {
     static baseAttackMagic(player: PlayerActor, card: Card): number {
+        let multiplier = 1;
         if (
             card.extraSkills.includes(ExtraSkill.Mantra) ||
             card.extraSkills.includes(ExtraSkill.Taijutsu)
         ) {
-            const multiplier =
+            multiplier =
                 (1 + player.getMainJob().stats.attack / 100) *
                 PlayerDamage.attackMod(player) *
                 PlayerDamage.statMod(player);
-            return card.extraSkills.includes(ExtraSkill.Taijutsu) ? multiplier * 0.8 : multiplier;
+            multiplier = card.extraSkills.includes(ExtraSkill.Taijutsu)
+                ? multiplier * 0.8
+                : multiplier;
         } else {
-            return (
+            multiplier =
                 (1 + player.getMainJob().stats.magic / 100) *
                 PlayerDamage.magicMod(player) *
-                PlayerDamage.statMod(player)
-            );
+                PlayerDamage.statMod(player);
         }
+        // Anti-Trance
+        if (card.class === "warrior") {
+            multiplier = player.effectActive(Ailment.CloudedWar) ? 1 : multiplier;
+        } else if (card.class === "ranger") {
+            multiplier = player.effectActive(Ailment.CloudedHunt) ? 1 : multiplier;
+        } else if (card.class === "mage") {
+            multiplier = player.effectActive(Ailment.CloudedCast) ? 1 : multiplier;
+        } else if (card.class === "monk") {
+            multiplier = player.effectActive(Ailment.CloudedFist) ? 1 : multiplier;
+        }
+        return multiplier;
     }
 
     static baseBreakPower(player: PlayerActor) {
@@ -36,6 +49,20 @@ class PlayerDamage {
 
     static statMod(player: PlayerActor) {
         let statMod = 0;
+        // Trance
+        if (player.getMainJob().class === "warrior") {
+            statMod += player.effectActive(Boon.LucidWar) ? 30 : 0;
+            statMod += player.effectActive(Boon.LucidWarII) ? 45 : 0;
+        } else if (player.getMainJob().class === "ranger") {
+            statMod += player.effectActive(Boon.LucidHunt) ? 30 : 0;
+            statMod += player.effectActive(Boon.LucidHuntII) ? 45 : 0;
+        } else if (player.getMainJob().class === "mage") {
+            statMod += player.effectActive(Boon.LucidCast) ? 30 : 0;
+            statMod += player.effectActive(Boon.LucidCastII) ? 45 : 0;
+        } else if (player.getMainJob().class === "monk") {
+            statMod += player.effectActive(Boon.LucidFist) ? 30 : 0;
+            statMod += player.effectActive(Boon.LucidFistII) ? 45 : 0;
+        }
         return 1 + statMod / 100;
     }
 

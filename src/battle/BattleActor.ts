@@ -1,5 +1,6 @@
 import { MAX } from "../info";
 import { Target } from "../info/types";
+import PlayerActor from "./PlayerActor";
 import { Ailment, BattleEffect, Boon } from "./types";
 
 class BattleActor {
@@ -12,14 +13,17 @@ class BattleActor {
     // Add effect or reapply current effect with new values
     // https://www.reddit.com/r/MobiusFF/wiki/gameplay/buff-debuff
     // https://www.reddit.com/r/MobiusFF/wiki/cards/ex-cards
-    addEffect(newEffect: {
-        name: Boon | Ailment;
-        duration: number;
-        target: Target;
-        timing?: "before" | "after";
-        type?: "square" | "hexagon";
-        resistancePoints?: number;
-    }) {
+    addEffect(
+        newEffect: {
+            name: Boon | Ailment;
+            duration: number;
+            target: Target;
+            timing?: "before" | "after";
+            type?: "square" | "hexagon";
+            resistancePoints?: number;
+        },
+        player?: PlayerActor
+    ) {
         if (this.effectActive(newEffect.name)) {
             const currentEffect = this.effects.filter(
                 (effect) => effect.name === newEffect.name
@@ -40,20 +44,49 @@ class BattleActor {
                 currentEffect.resistancePoints = newEffect.resistancePoints;
             }
         } else {
-            if (this.replaceEffect(newEffect.name, newEffect.type)) {
+            if (this.replaceEffect(newEffect.name, newEffect.type, player)) {
                 this.effects.push({
                     name: newEffect.name,
                     type: newEffect.type || "square",
                     duration: Math.min(newEffect.duration, MAX.effectDuration),
                     resistancePoints: newEffect.resistancePoints,
                 });
+                // Increased HP effect
+                if (player) {
+                    const hp = player.getMainJob().stats.hp;
+                    let multiplier = 0;
+                    // Trance
+                    if (player.getMainJob().class === "warrior") {
+                        multiplier += newEffect.name === Boon.LucidWar ? 30 : 0;
+                        multiplier += newEffect.name === Boon.LucidWarII ? 45 : 0;
+                    } else if (player.getMainJob().class === "ranger") {
+                        multiplier += newEffect.name === Boon.LucidHunt ? 30 : 0;
+                        multiplier += newEffect.name === Boon.LucidHuntII ? 45 : 0;
+                    } else if (player.getMainJob().class === "mage") {
+                        multiplier += newEffect.name === Boon.LucidCast ? 40 : 0;
+                        multiplier += newEffect.name === Boon.LucidCastII ? 45 : 0;
+                    } else if (player.getMainJob().class === "monk") {
+                        multiplier += newEffect.name === Boon.LucidFist ? 30 : 0;
+                        multiplier += newEffect.name === Boon.LucidFistII ? 45 : 0;
+                    }
+                    multiplier = 1 + multiplier / 100;
+
+                    if (hp.current === hp.max) {
+                        hp.current *= multiplier;
+                    }
+                    hp.max *= multiplier;
+                }
             }
         }
     }
 
     // Used to determine if new effect replaces/removes old effects.
     // It's far from pretty but it passes all the tests so it will stay like this for now.
-    replaceEffect(newEffectName: Boon | Ailment, newEffectType = "square"): boolean {
+    replaceEffect(
+        newEffectName: Boon | Ailment,
+        newEffectType = "square",
+        player?: PlayerActor
+    ): boolean {
         const counterparts = [
             [Boon.Barrier, [Boon.BarrierII, Ailment.Debarrier, Ailment.DebarrierII]],
             [Boon.BarrierII, [Boon.Barrier, Ailment.Debarrier, Ailment.DebarrierII]],
@@ -85,6 +118,18 @@ class BattleActor {
             [Boon.Snipe, [Boon.SnipeII, Ailment.Debilitate]],
             [Boon.SnipeII, [Boon.Snipe, Ailment.Debilitate]],
             [Ailment.Debilitate, [Boon.Snipe, Boon.SnipeII]],
+            [Boon.LucidCast, [Boon.LucidCastII, Ailment.CloudedCast]],
+            [Boon.LucidCastII, [Boon.LucidCast, Ailment.CloudedCast]],
+            [Ailment.CloudedCast, [Boon.LucidCast, Boon.LucidCastII]],
+            [Boon.LucidFist, [Boon.LucidFistII, Ailment.CloudedFist]],
+            [Boon.LucidFistII, [Boon.LucidFist, Ailment.CloudedFist]],
+            [Ailment.CloudedFist, [Boon.LucidFist, Boon.LucidFistII]],
+            [Boon.LucidHunt, [Boon.LucidHuntII, Ailment.CloudedHunt]],
+            [Boon.LucidHuntII, [Boon.LucidHunt, Ailment.CloudedHunt]],
+            [Ailment.CloudedHunt, [Boon.LucidHunt, Boon.LucidHuntII]],
+            [Boon.LucidWar, [Boon.LucidWarII, Ailment.CloudedWar]],
+            [Boon.LucidWarII, [Boon.LucidWar, Ailment.CloudedWar]],
+            [Ailment.CloudedWar, [Boon.LucidWar, Boon.LucidWarII]],
             [Boon.BreakDefenseUp, [Ailment.BreakDefenseDown, Ailment.BreakDefenseDownII]],
             [Ailment.BreakDefenseDown, [Ailment.BreakDefenseDownII, Boon.BreakDefenseUp]],
             [Ailment.BreakDefenseDownII, [Ailment.BreakDefenseDown, Boon.BreakDefenseUp]],
@@ -107,37 +152,37 @@ class BattleActor {
                             currentEffect?.type === "square" &&
                             newEffectType === "square"
                         ) {
-                            this.removeEffect(counter as Boon | Ailment);
+                            this.removeEffect(counter as Boon | Ailment, player);
                             return true;
                         } else if (
                             currentEffect?.name.substring(currentEffect.name.length - 2) === "II" &&
                             currentEffect?.type === "square" &&
                             newEffectType === "square"
                         ) {
-                            this.removeEffect(counter as Boon | Ailment);
+                            this.removeEffect(counter as Boon | Ailment, player);
                             return false;
                         } else if (
                             newEffectName.substring(newEffectName.length - 2) === "II" &&
                             currentEffect?.type === "hexagon" &&
                             newEffectType === "hexagon"
                         ) {
-                            this.removeEffect(counter as Boon | Ailment);
+                            this.removeEffect(counter as Boon | Ailment, player);
                             return true;
                         } else if (
                             currentEffect?.name.substring(currentEffect.name.length - 2) === "II" &&
                             currentEffect?.type === "hexagon" &&
                             newEffectType === "hexagon"
                         ) {
-                            this.removeEffect(counter as Boon | Ailment);
+                            this.removeEffect(counter as Boon | Ailment, player);
                             return false;
                         } else if (currentEffect?.type === "square" && newEffectType === "square") {
-                            this.removeEffect(counter as Boon | Ailment);
+                            this.removeEffect(counter as Boon | Ailment, player);
                             return false;
                         } else if (
                             currentEffect?.type === "square" &&
                             newEffectType === "hexagon"
                         ) {
-                            this.removeEffect(counter as Boon | Ailment);
+                            this.removeEffect(counter as Boon | Ailment, player);
                             return true;
                         } else if (
                             newEffectName.substring(newEffectName.length - 2) === "II" &&
@@ -177,8 +222,31 @@ class BattleActor {
         return this.effects.filter((effect) => effect.name === name).length > 0;
     }
 
-    removeEffect(name: Boon | Ailment) {
+    removeEffect(name: Boon | Ailment, player?: PlayerActor) {
         this.effects = this.effects.filter((effect) => effect.name !== name);
+        // Remove previously added increased HP effect
+        if (player) {
+            const hp = player.getMainJob().stats.hp;
+            let multiplier = 0;
+            // Trance
+            if (player.getMainJob().class === "warrior") {
+                multiplier += name === Boon.LucidWar ? 30 : 0;
+                multiplier += name === Boon.LucidWarII ? 45 : 0;
+            } else if (player.getMainJob().class === "ranger") {
+                multiplier += name === Boon.LucidHunt ? 30 : 0;
+                multiplier += name === Boon.LucidHuntII ? 45 : 0;
+            } else if (player.getMainJob().class === "mage") {
+                multiplier += name === Boon.LucidCast ? 40 : 0;
+                multiplier += name === Boon.LucidCastII ? 45 : 0;
+            } else if (player.getMainJob().class === "monk") {
+                multiplier += name === Boon.LucidFist ? 30 : 0;
+                multiplier += name === Boon.LucidFistII ? 45 : 0;
+            }
+            multiplier = 1 + multiplier / 100;
+
+            hp.current = Math.ceil(hp.current / multiplier);
+            hp.max /= multiplier;
+        }
     }
 
     // Reduce effect durations and filter out the ones with a duration or resistancePoints of 0

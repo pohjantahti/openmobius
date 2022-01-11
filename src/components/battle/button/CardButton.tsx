@@ -111,7 +111,7 @@ function CardButton(props: Props) {
                         height: "5.5rem",
                         width: "0.9rem",
                         marginTop: "4.2rem",
-                        marginLeft: "1.2rem",
+                        marginLeft: "1.3rem",
                         display: "flex",
                         flexDirection: "column",
                     }}

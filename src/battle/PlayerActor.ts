@@ -133,7 +133,7 @@ class PlayerActor extends BattleActor {
         }
         // Defense
         damage *= PlayerDamage.defense(enemy);
-        damage = Math.floor(damage);
+        damage = Math.round(damage);
         // Damage limit
         damage = Math.min(
             damage,
@@ -164,7 +164,7 @@ class PlayerActor extends BattleActor {
             reducedDamage = 0.5;
         }
         damage *= reducedDamage;
-        damage = Math.floor(damage);
+        damage = Math.round(damage);
         return damage;
     }
 
@@ -184,7 +184,7 @@ class PlayerActor extends BattleActor {
         }
         //Piercing Break
         damage *= PlayerDamage.piercingBreak(this);
-        damage = Math.floor(damage);
+        damage = Math.round(damage);
         return damage;
     }
 
@@ -209,7 +209,7 @@ class PlayerActor extends BattleActor {
         if (isResistant(card, enemy)) {
             damage *= 0.25;
         }
-        damage = Math.floor(damage);
+        damage = Math.round(damage);
         // Damage limit
         damage = Math.min(damage, PlayerDamage.damageLimit(card));
 
@@ -242,7 +242,7 @@ class PlayerActor extends BattleActor {
                 reducedDamage = 0.5;
             }
             damage *= reducedDamage;
-            damage = Math.floor(damage);
+            damage = Math.round(damage);
             return damage;
         } else {
             return 0;
@@ -264,7 +264,7 @@ class PlayerActor extends BattleActor {
             damage *= PlayerDamage.weakness(this, enemy, card.element, card);
             //Piercing Break
             damage *= PlayerDamage.piercingBreak(this);
-            damage = Math.floor(damage);
+            damage = Math.round(damage);
             return damage;
         } else {
             return 0;
@@ -299,7 +299,7 @@ class PlayerActor extends BattleActor {
         }
         // Defense
         damage *= PlayerDamage.defense(enemy);
-        damage = Math.floor(damage);
+        damage = Math.round(damage);
         // Damage limit
         damage = Math.min(damage, 999999);
         return [damage, criticalHit];
@@ -329,7 +329,7 @@ class PlayerActor extends BattleActor {
             reducedDamage = 0.5;
         }
         damage *= reducedDamage;
-        damage = Math.floor(damage);
+        damage = Math.round(damage);
         return damage;
     }
 
@@ -351,7 +351,7 @@ class PlayerActor extends BattleActor {
         }
         //Piercing Break
         damage *= PlayerDamage.piercingBreak(this);
-        damage = Math.floor(damage);
+        damage = Math.round(damage);
         return damage;
     }
 
@@ -435,15 +435,10 @@ class PlayerActor extends BattleActor {
     }
 
     heal(lifeOrbsDriven = 0, percentage = 0): number {
+        const hp = this.getMainJob().stats.hp;
         // 8% per life orb
-        const heal = Math.ceil(
-            this.getMainJob().stats.hp.max * 0.08 * lifeOrbsDriven +
-                this.getMainJob().stats.hp.max * (percentage / 100)
-        );
-        this.getMainJob().stats.hp.current = Math.min(
-            this.getMainJob().stats.hp.current + heal,
-            this.getMainJob().stats.hp.max
-        );
+        const heal = Math.ceil(hp.max * 0.08 * lifeOrbsDriven + hp.max * (percentage / 100));
+        hp.current = Math.min(hp.current + heal, hp.max);
         return heal;
     }
 
