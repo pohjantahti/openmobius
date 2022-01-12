@@ -1,4 +1,3 @@
-import { Card } from "../data/game/cards";
 import { Enemy } from "../data/game/enemies";
 import { FullDeck, Target } from "../info/types";
 import EnemyActor from "./EnemyActor";
@@ -6,6 +5,7 @@ import PlayerActor from "./PlayerActor";
 import {
     Ailment,
     BattleAction,
+    BattleCard,
     BattleInfo,
     Boon,
     DamageToEnemies,
@@ -142,6 +142,7 @@ class Battle {
         console.log("Wave completed", this.wave.current, this.wave.max);
         this.player.countdownToJobChange -= 1;
         this.player.reduceEffects();
+        this.player.reduceCooldowns();
 
         if (this.wave.current + 1 === this.wave.max) {
             this.battleCompleted();
@@ -193,6 +194,7 @@ class Battle {
         this.player.resetActions();
         this.player.countdownToJobChange -= 1;
         this.player.reduceEffects();
+        this.player.reduceCooldowns();
     }
 
     tapAttack() {
@@ -238,6 +240,17 @@ class Battle {
         // Action and orb reductions
         if (!card.extraSkills.includes(ExtraSkill.QuickCast)) {
             this.useAction();
+        }
+        // Ability cooldown
+        if (card.ability.cooldown.max > 0) {
+            let cooldown = card.ability.cooldown.max;
+            if (card.extraSkills.includes(ExtraSkill.QuickRecast)) {
+                const extraSkillCount = card.extraSkills.filter(
+                    (extraSkill) => extraSkill === ExtraSkill.QuickRecast
+                ).length;
+                cooldown = Math.max(cooldown - extraSkillCount, 0);
+            }
+            card.ability.cooldown.current = cooldown;
         }
         this.player.updateOrbs(card.element, card.ability.cost * -1);
         this.player.updateUltimateGauge(card.ability.cost);
@@ -416,7 +429,7 @@ class Battle {
         this.addEffects(ultimate.effect, "after");
     }
 
-    addEffects(effects: Array<Effect> | undefined, timing: "before" | "after", card?: Card) {
+    addEffects(effects: Array<Effect> | undefined, timing: "before" | "after", card?: BattleCard) {
         effects
             ?.filter((effect) => effect.timing === timing)
             .forEach((effect) => {

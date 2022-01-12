@@ -2,8 +2,8 @@ import EnemyActor from "../EnemyActor";
 import PlayerActor from "../PlayerActor";
 import PlayerDamage from "../PlayerDamage";
 import { Card } from "../../data/game/cards";
-import { Ailment, Boon, ExtraSkill } from "../types";
-import { emptyPlayerActor, emptyCard, emptyEnemyActor } from "./index.test";
+import { Ailment, BattleCard, Boon, ExtraSkill } from "../types";
+import { emptyPlayerActor, emptyEnemyActor, emptyBattleCard } from "./index.test";
 import { getGameData } from "../../extractor";
 import console from "console";
 import Battle from "../Battle";
@@ -11,13 +11,13 @@ import Battle from "../Battle";
 describe("Extra Skills", () => {
     let player: PlayerActor;
     let enemy: EnemyActor;
-    let card: Card;
+    let card: BattleCard;
     let battle: Battle;
     const passedTests: Set<ExtraSkill> = new Set();
 
     beforeEach(() => {
         player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
-        card = JSON.parse(JSON.stringify(emptyCard));
+        card = JSON.parse(JSON.stringify(emptyBattleCard));
         enemy = new EnemyActor(JSON.parse(JSON.stringify(emptyEnemyActor)), 1);
         const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
         decks[0].cards[0] = card;
@@ -277,6 +277,20 @@ describe("Extra Skills", () => {
         battle.cardAbility(0);
         expect(battle.player.actions).toBe(4);
         passedTests.add(ExtraSkill.QuickCast);
+    });
+
+    test("Quick Recast", () => {
+        card.ability.cooldown.max = 3;
+        battle.cardAbility(0);
+        expect(card.ability.cooldown.current).toBe(3);
+        card.extraSkills = [ExtraSkill.QuickRecast];
+        battle.cardAbility(0);
+        expect(card.ability.cooldown.current).toBe(2);
+        card.ability.cooldown.current = 3;
+        card.extraSkills = [ExtraSkill.QuickRecast, ExtraSkill.QuickRecast];
+        battle.cardAbility(0);
+        expect(card.ability.cooldown.current).toBe(1);
+        passedTests.add(ExtraSkill.QuickRecast);
     });
 
     test("Taijutsu", () => {

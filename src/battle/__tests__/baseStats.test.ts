@@ -1,18 +1,17 @@
 import EnemyActor from "../EnemyActor";
 import PlayerActor from "../PlayerActor";
 import PlayerDamage from "../PlayerDamage";
-import { Card } from "../../data/game/cards";
-import { Boon, ExtraSkill } from "../types";
-import { emptyPlayerActor, emptyCard, emptyEnemyActor } from "./index.test";
+import { BattleCard, Boon, ExtraSkill } from "../types";
+import { emptyPlayerActor, emptyEnemyActor, emptyBattleCard } from "./index.test";
 
 describe("Base stats and multipliers", () => {
     let player: PlayerActor;
     let enemy: EnemyActor;
-    let card: Card;
+    let card: BattleCard;
 
     beforeEach(() => {
         player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
-        card = JSON.parse(JSON.stringify(emptyCard));
+        card = JSON.parse(JSON.stringify(emptyBattleCard));
         enemy = new EnemyActor(JSON.parse(JSON.stringify(emptyEnemyActor)), 1);
     });
 

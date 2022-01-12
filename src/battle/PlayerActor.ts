@@ -1,9 +1,8 @@
-import { Card } from "../data/game/cards";
 import { Element, FullDeck, FullElement } from "../info/types";
 import BattleActor from "./BattleActor";
 import EnemyActor from "./EnemyActor";
 import PlayerDamage from "./PlayerDamage";
-import { BattleFullDeck, BattleJob, Boon, ExtraSkill, AutoAbility } from "./types";
+import { BattleFullDeck, BattleJob, Boon, ExtraSkill, AutoAbility, BattleCard } from "./types";
 import {
     createBattleFullDeck,
     getAutoAbility,
@@ -68,12 +67,12 @@ class PlayerActor extends BattleActor {
     }
 
     // Main refers to the current active job
-    getMainCards(): Array<Card | undefined> {
+    getMainCards(): Array<BattleCard | undefined> {
         return this.deck[this.activeDeck].cards;
     }
 
     // Sub refers to the current non-active job
-    getSubCards(): Array<Card | undefined> {
+    getSubCards(): Array<BattleCard | undefined> {
         return this.deck[this.activeDeck === 0 ? 1 : 0].cards;
     }
 
@@ -188,7 +187,7 @@ class PlayerActor extends BattleActor {
         return damage;
     }
 
-    getCardHPDamage(card: Card, enemy: EnemyActor): [number, boolean] {
+    getCardHPDamage(card: BattleCard, enemy: EnemyActor): [number, boolean] {
         let damage = card.ability.attack / card.ability.hits;
         // Attack/Magic
         damage *= PlayerDamage.baseAttackMagic(this, card);
@@ -216,7 +215,7 @@ class PlayerActor extends BattleActor {
         return [damage, criticalHit];
     }
 
-    getCardYellowGaugeDamage(card: Card, enemy: EnemyActor): number {
+    getCardYellowGaugeDamage(card: BattleCard, enemy: EnemyActor): number {
         let damage = card.ability.break / card.ability.hits;
         if (!isResistant(card, enemy) || card.extraSkills.includes(ExtraSkill.GuardBreaker)) {
             // When Mantra/Taijutsu is present, use break power. Otherwise, use magic.
@@ -249,7 +248,7 @@ class PlayerActor extends BattleActor {
         }
     }
 
-    getCardRedGaugeDamage(card: Card, enemy: EnemyActor): number {
+    getCardRedGaugeDamage(card: BattleCard, enemy: EnemyActor): number {
         let damage = card.ability.break / card.ability.hits;
         if (
             (!isResistant(card, enemy) || card.extraSkills.includes(ExtraSkill.GuardBreaker)) &&
@@ -511,6 +510,20 @@ class PlayerActor extends BattleActor {
     takeDamage(damage: number) {
         const hp = this.getMainJob().stats.hp;
         hp.current = Math.max(hp.current - damage, 0);
+    }
+
+    reduceCooldowns() {
+        for (const card of this.getMainCards()) {
+            if (card && card.ability.cooldown.current > 0) {
+                card.ability.cooldown.current = Math.max(card.ability.cooldown.current - 1, 0);
+            }
+        }
+
+        for (const card of this.getSubCards()) {
+            if (card && card.ability.cooldown.current > 0) {
+                card.ability.cooldown.current = Math.max(card.ability.cooldown.current - 1, 0);
+            }
+        }
     }
 }
 

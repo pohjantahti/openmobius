@@ -388,7 +388,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Potent Cleansing
 -   [ ] Prime Supporter
 -   [x] Quick Cast
--   [ ] Quick Recast
+-   [x] Quick Recast
 -   [ ] Reckoning
 -   [ ] Sicarius Bestia Hunter
 -   [ ] Sicarius Bestia Killer

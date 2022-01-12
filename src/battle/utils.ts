@@ -1,10 +1,9 @@
-import { Card } from "../data/game/cards";
 import { MAX } from "../info";
 import { CardElement, Deck, Element, FullDeck, FullElement } from "../info/types";
 import { capitalize } from "../utils";
 import EnemyActor from "./EnemyActor";
 import PlayerActor from "./PlayerActor";
-import { AutoAbility, BattleDeck, BattleFullDeck, Boon, InnateSkill } from "./types";
+import { AutoAbility, BattleCard, BattleDeck, BattleFullDeck, Boon, InnateSkill } from "./types";
 
 // Convert FullDeck to BattleFullDeck
 // Mix stats from different sources (job, weapon, custom skills, card extra skills)
@@ -97,6 +96,24 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
             return jobAA;
         };
 
+        // Convert Card to BattleCard
+        const getCards = (): Array<BattleCard | undefined> => {
+            const cards: Array<BattleCard | undefined> = [];
+            // Easier to edit the card when treated as any
+            for (const card of deck.cards as Array<any | undefined>) {
+                if (!card) {
+                    cards.push(undefined);
+                } else {
+                    card.ability.cooldown = {
+                        current: 0,
+                        max: Number(card.ability.cooldown) || 0,
+                    };
+                    cards.push(card);
+                }
+            }
+            return cards;
+        };
+
         const hp = getStat("hp");
         return {
             job: {
@@ -141,14 +158,19 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
                 ultimate: getUltimate(),
                 autoAbilities: getAutoAbilities(),
             },
-            cards: deck.cards,
+            cards: getCards(),
         };
     };
 
-    const battleMainDeck = getBattleDeck(fullDeck[0]);
-    const battleSubDeck =
-        fullDeck[0].job.id === fullDeck[1].job.id ? battleMainDeck : getBattleDeck(fullDeck[1]);
-    return [battleMainDeck, battleSubDeck];
+    const mainDeck = getBattleDeck(fullDeck[0]);
+    const subDeck = getBattleDeck(fullDeck[1]);
+    return [
+        { job: mainDeck.job, cards: mainDeck.cards },
+        {
+            job: fullDeck[0].job.id === fullDeck[1].job.id ? mainDeck.job : subDeck.job,
+            cards: subDeck.cards,
+        },
+    ];
 };
 
 const getStartingOrbs = (
@@ -190,12 +212,12 @@ const getStartingOrbs = (
     return orbs;
 };
 
-const getAutoAbility = (target: PlayerActor | Card, autoAbility: AutoAbility): number => {
+const getAutoAbility = (target: PlayerActor | BattleCard, autoAbility: AutoAbility): number => {
     const holder = target instanceof PlayerActor ? target.getMainJob() : target;
     return holder.autoAbilities[autoAbility] || 0;
 };
 
-const getInnateSkill = (card: Card, innateSkill: InnateSkill): number => {
+const getInnateSkill = (card: BattleCard, innateSkill: InnateSkill): number => {
     return (card.innateSkills && card.innateSkills[innateSkill]) || 0;
 };
 
@@ -231,7 +253,7 @@ const getWeaknessWeaponElement = (player: PlayerActor, enemy: EnemyActor): CardE
     return false;
 };
 
-const isResistant = (card: Card, enemy: EnemyActor): boolean => {
+const isResistant = (card: BattleCard, enemy: EnemyActor): boolean => {
     return card.element === enemy.element;
 };
 

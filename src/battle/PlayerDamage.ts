@@ -1,13 +1,12 @@
-import { Card } from "../data/game/cards";
 import { CardElement } from "../info/types";
 import EnemyActor from "./EnemyActor";
 import PlayerActor from "./PlayerActor";
-import { Ailment, AutoAbility, Boon, ExtraSkill, InnateSkill } from "./types";
+import { Ailment, AutoAbility, BattleCard, Boon, ExtraSkill, InnateSkill } from "./types";
 import { getAutoAbility, getInnateSkill, isWeakness } from "./utils";
 
 // https://www.reddit.com/r/MobiusFF/wiki/gameplay-analysis/damage-calculation
 class PlayerDamage {
-    static baseAttackMagic(player: PlayerActor, card: Card): number {
+    static baseAttackMagic(player: PlayerActor, card: BattleCard): number {
         let multiplier = 1;
         if (
             card.extraSkills.includes(ExtraSkill.Mantra) ||
@@ -81,7 +80,7 @@ class PlayerDamage {
         return 1 + breakPowerMod / 100;
     }
 
-    static elementEnhance(player: PlayerActor, card: Card): number {
+    static elementEnhance(player: PlayerActor, card: BattleCard): number {
         let additionalEE = card.extraSkills.includes(ExtraSkill.VitalityTap)
             ? 30 *
               Math.pow(player.getMainJob().stats.hp.current / player.getMainJob().stats.hp.max, 3)
@@ -93,7 +92,7 @@ class PlayerDamage {
         return 1 + (playerEE + additionalEE) / 100;
     }
 
-    static break(player: PlayerActor, enemy: EnemyActor, card?: Card): number {
+    static break(player: PlayerActor, enemy: EnemyActor, card?: BattleCard): number {
         const cardBonus = (): number => {
             if (!card) return 0;
             let bonus = card.extraSkills.includes(ExtraSkill.Bloodthirst) ? 15 : 0;
@@ -113,7 +112,7 @@ class PlayerDamage {
         player: PlayerActor,
         enemy: EnemyActor,
         usedElement: CardElement,
-        card?: Card
+        card?: BattleCard
     ): number {
         const cardBonus = (): number => {
             if (!card) return 0;
@@ -132,7 +131,7 @@ class PlayerDamage {
     static criticalChance(
         player: PlayerActor,
         enemy: EnemyActor,
-        card?: Card,
+        card?: BattleCard,
         extraStars = 0
     ): number {
         const cardBonus = (): number => {
@@ -146,12 +145,12 @@ class PlayerDamage {
         return criticalChance + cardBonus();
     }
 
-    static critical(player: PlayerActor, card?: Card): number {
+    static critical(player: PlayerActor, card?: BattleCard): number {
         let additionalCritical = 0;
         return 1 + (50 + additionalCritical) / 100;
     }
 
-    static damageLimit(card: Card): number {
+    static damageLimit(card: BattleCard): number {
         let damageLimit = 99999;
         if (card.extraSkills.includes(ExtraSkill.DamageLimitBreak)) {
             damageLimit = 999999;
@@ -167,7 +166,7 @@ class PlayerDamage {
         return 1 + piercingBreak / 100;
     }
 
-    static defense(enemy: EnemyActor, card?: Card) {
+    static defense(enemy: EnemyActor, card?: BattleCard) {
         const cardBonus = (): number => {
             if (!card) return 0;
             let bonus = 0;

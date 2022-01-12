@@ -129,6 +129,7 @@ function BattleScreen(props: Props) {
                 !turnEnding &&
                 !waveEnding &&
                 card &&
+                card.ability.cooldown.current === 0 &&
                 battleInfo.orbs[card.element] + battleInfo.orbs["prismatic"] >= card.ability.cost
         );
     });

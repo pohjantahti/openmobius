@@ -3,20 +3,20 @@ import PlayerActor, { PlayerInput } from "../PlayerActor";
 import PlayerDamage from "../PlayerDamage";
 import { Card } from "../../data/game/cards";
 import { Job } from "../../data/game/jobs";
-import { AutoAbility, ExtraSkill } from "../types";
-import { emptyPlayerActor, emptyCard, emptyEnemyActor } from "./index.test";
+import { AutoAbility, BattleCard, ExtraSkill } from "../types";
+import { emptyPlayerActor, emptyCard, emptyEnemyActor, emptyBattleCard } from "./index.test";
 import { getGameData } from "../../extractor";
 import console from "console";
 
 describe("Auto-Abilities", () => {
     let player: PlayerActor;
     let enemy: EnemyActor;
-    let card: Card;
+    let card: BattleCard;
     const passedTests: Set<AutoAbility> = new Set();
 
     beforeEach(() => {
         player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
-        card = JSON.parse(JSON.stringify(emptyCard));
+        card = JSON.parse(JSON.stringify(emptyBattleCard));
         enemy = new EnemyActor(JSON.parse(JSON.stringify(emptyEnemyActor)), 1);
     });
 

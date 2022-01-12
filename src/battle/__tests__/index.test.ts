@@ -1,6 +1,7 @@
 import { PlayerInput } from "../PlayerActor";
 import { Card } from "../../data/game/cards";
 import { Enemy } from "../../data/game/enemies";
+import { BattleCard } from "../types";
 
 const emptyPlayerActor: PlayerInput = {
     deck: [
@@ -94,6 +95,34 @@ const emptyCard: Card = {
         critical: 0,
         target: "single",
         hits: 1,
+        cooldown: 0,
+    },
+    extraSkills: [],
+    autoAbilities: {},
+    innateSkills: {},
+};
+
+const emptyBattleCard: BattleCard = {
+    id: 0,
+    name: "",
+    resources: { card: "", thumbnail: "" },
+    class: "warrior",
+    star: 5,
+    level: 80,
+    overboost: 0,
+    element: "fire",
+    ability: {
+        name: "",
+        cost: 0,
+        attack: 0,
+        break: 0,
+        critical: 0,
+        target: "single",
+        hits: 1,
+        cooldown: {
+            current: 0,
+            max: 0,
+        },
     },
     extraSkills: [],
     autoAbilities: {},
@@ -116,4 +145,4 @@ const emptyEnemyActor: Enemy = {
 
 test.todo("Battle features");
 
-export { emptyPlayerActor, emptyCard, emptyEnemyActor };
+export { emptyPlayerActor, emptyCard, emptyBattleCard, emptyEnemyActor };

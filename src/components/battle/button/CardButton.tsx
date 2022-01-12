@@ -1,5 +1,4 @@
-import { BattleAction } from "../../../battle/types";
-import { Card } from "../../../data/game/cards";
+import { BattleAction, BattleCard } from "../../../battle/types";
 import { resources } from "../../../extractor";
 import { CardElement } from "../../../info/types";
 import { capitalize } from "../../../utils";
@@ -7,7 +6,7 @@ import { capitalize } from "../../../utils";
 interface Props {
     handleBattleAction: (action: BattleAction, index?: number | undefined) => void;
     show: boolean;
-    cardInfo: Card | undefined;
+    cardInfo: BattleCard | undefined;
     index: number;
     style: React.CSSProperties;
 }
@@ -131,6 +130,27 @@ function CardButton(props: Props) {
                         ))}
                 </div>
             )}
+            {/* Ability cooldown */}
+            {cardInfo && cardInfo?.ability.cooldown.current > 0 && (
+                <div
+                    style={{
+                        position: "absolute",
+                        top: "2rem",
+                        left: "2.4rem",
+                    }}
+                >
+                    <p
+                        style={{
+                            color: "#FFFFDD",
+                            filter: "url(#thinBlackOutlineFilter)",
+                            fontSize: "1.5rem",
+                        }}
+                    >
+                        {cardInfo?.ability.cooldown.current}
+                    </p>
+                </div>
+            )}
+
             {/* Ability name */}
             <div
                 style={{

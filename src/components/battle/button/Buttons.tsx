@@ -2,8 +2,7 @@ import ClickButtons from "./ClickButtons";
 import DragButtons from "./DragButtons";
 import { Element, FullElement } from "../../../info/types";
 import CardButtons from "./CardButtons";
-import { Card } from "../../../data/game/cards";
-import { BattleAction } from "../../../battle/types";
+import { BattleAction, BattleCard } from "../../../battle/types";
 
 interface Props {
     handleBattleAction: (action: BattleAction, index?: number) => void;
@@ -17,7 +16,7 @@ interface Props {
         name: string;
     };
     showCards: Array<boolean>;
-    cards: Array<Card | undefined>;
+    cards: Array<BattleCard | undefined>;
     countdownToJobChange: number;
     changingTarget: boolean;
 }

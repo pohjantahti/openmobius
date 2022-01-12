@@ -1,7 +1,8 @@
 import PlayerActor, { PlayerInput } from "../PlayerActor";
 import { Card } from "../../data/game/cards";
-import { emptyPlayerActor, emptyCard } from "./index.test";
+import { emptyPlayerActor, emptyCard, emptyBattleCard, emptyEnemyActor } from "./index.test";
 import { Ailment, Boon } from "../types";
+import Battle from "../Battle";
 
 test("Mix Auto-Abilities from Job and Cards", () => {
     const playerInput: PlayerInput = JSON.parse(JSON.stringify(emptyPlayerActor));
@@ -427,4 +428,29 @@ describe("Replacing Boons and Ailments", () => {
         expect(player.effectActive(Ailment.CurseII)).toBe(true);
         expect(player.effects.length).toBe(1);
     });
+});
+
+test("Ability cooldown", () => {
+    const card = JSON.parse(JSON.stringify(emptyBattleCard));
+    const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+    decks[0].cards[0] = card;
+    const battle = new Battle({
+        deck: decks,
+        ultimate: 100,
+        enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+        difficulty: 1,
+        battleResources: {},
+        activeDeck: 0,
+    });
+    card.ability.cooldown.max = 3;
+    battle.cardAbility(0);
+    expect(card.ability.cooldown.current).toBe(3);
+    battle.endTurn();
+    expect(card.ability.cooldown.current).toBe(2);
+    battle.waveCompleted();
+    expect(card.ability.cooldown.current).toBe(1);
+    battle.endTurn();
+    expect(card.ability.cooldown.current).toBe(0);
+    battle.endTurn();
+    expect(card.ability.cooldown.current).toBe(0);
 });

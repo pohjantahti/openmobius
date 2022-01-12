@@ -1,11 +1,10 @@
-import { BattleAction } from "../../../battle/types";
-import { Card } from "../../../data/game/cards";
+import { BattleAction, BattleCard } from "../../../battle/types";
 import CardButton from "./CardButton";
 
 interface Props {
     handleBattleAction: (action: BattleAction, index?: number) => void;
     showCards: Array<boolean>;
-    cards: Array<Card | undefined>;
+    cards: Array<BattleCard | undefined>;
 }
 
 function CardButtons(props: Props) {

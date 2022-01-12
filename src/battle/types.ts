@@ -1,13 +1,12 @@
-import { Card } from "../data/game/cards";
 import { Enemy } from "../data/game/enemies";
-import { JobClass, Element, FullElement, Target } from "../info/types";
+import { JobClass, Element, FullElement, Target, CardElement, CardClass } from "../info/types";
 import EnemyActor from "./EnemyActor";
 
 type BattleFullDeck = [BattleDeck, BattleDeck];
 
 interface BattleDeck {
     job: BattleJob;
-    cards: Array<Card | undefined>;
+    cards: Array<BattleCard | undefined>;
 }
 
 interface BattleJob {
@@ -57,6 +56,37 @@ interface BattleJob {
     };
 }
 
+interface BattleCard {
+    id: number;
+    name: string;
+    resources: {
+        card: string;
+        thumbnail: string;
+    };
+    class: CardClass;
+    star: number;
+    level: number;
+    overboost: number;
+    element: CardElement;
+    ability: {
+        name: string;
+        cost: number;
+        attack: number;
+        break: number;
+        critical: number;
+        target: Target;
+        hits: number;
+        cooldown: {
+            current: number;
+            max: number;
+        };
+    };
+    extraSkills: Array<ExtraSkill>;
+    autoAbilities: Partial<Record<AutoAbility, number>>;
+    innateSkills?: Partial<Record<InnateSkill, number>>;
+    effect?: Array<Effect>;
+}
+
 interface BattleInfo {
     battleResources: Record<string, string>;
     score: number;
@@ -70,7 +100,7 @@ interface BattleInfo {
     };
     elementWheel: [number, number, number];
 
-    cards: Array<Card | undefined>;
+    cards: Array<BattleCard | undefined>;
     ultimate: {
         gauge: {
             current: number;
@@ -579,6 +609,7 @@ export type {
     BattleFullDeck,
     BattleDeck,
     BattleJob,
+    BattleCard,
     BattleInfo,
     Effect,
     BattleEffect,

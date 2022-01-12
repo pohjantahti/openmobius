@@ -1,8 +1,8 @@
 import PlayerActor from "../PlayerActor";
 import PlayerDamage from "../PlayerDamage";
 import { Card } from "../../data/game/cards";
-import { Ailment, Boon, ExtraSkill } from "../types";
-import { emptyPlayerActor, emptyCard, emptyEnemyActor } from "./index.test";
+import { Ailment, BattleCard, Boon, ExtraSkill } from "../types";
+import { emptyPlayerActor, emptyEnemyActor, emptyBattleCard } from "./index.test";
 import { getGameData } from "../../extractor";
 import console from "console";
 import { Job } from "../../data/game/jobs";
@@ -11,12 +11,12 @@ import EnemyActor from "../EnemyActor";
 describe("Boons and Ailments", () => {
     let player: PlayerActor;
     let enemy: EnemyActor;
-    let card: Card;
+    let card: BattleCard;
     const passedTests: Set<Boon | Ailment> = new Set();
 
     beforeEach(() => {
         player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
-        card = JSON.parse(JSON.stringify(emptyCard));
+        card = JSON.parse(JSON.stringify(emptyBattleCard));
         enemy = new EnemyActor(JSON.parse(JSON.stringify(emptyEnemyActor)), 1);
     });
 
@@ -35,7 +35,7 @@ describe("Boons and Ailments", () => {
         jobs.forEach((job) => {
             job.ultimate.effect?.forEach((effect) => {
                 if (!passedTests.has(effect.name)) {
-                    console.log(`Ultimate:\t${card.id}\tEffect:\t\t${effect.name}`);
+                    console.log(`Ultimate:\t${job.id}\tEffect:\t\t${effect.name}`);
                 }
             });
         });

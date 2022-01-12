@@ -21,6 +21,7 @@ interface Card {
         critical: number;
         target: Target;
         hits: number;
+        cooldown?: number;
     };
     extraSkills: Array<ExtraSkill>;
     autoAbilities: Partial<Record<AutoAbility, number>>;
@@ -117,6 +118,7 @@ const cards: Array<Card> = [
             critical: 0,
             target: "self",
             hits: 0,
+            cooldown: 3,
         },
         extraSkills: [
             ExtraSkill.EnhancedLife,
