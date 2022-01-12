@@ -52,30 +52,7 @@ class BattleActor {
                     resistancePoints: newEffect.resistancePoints,
                 });
                 // Increased HP effect
-                if (player) {
-                    const hp = player.getMainJob().stats.hp;
-                    let multiplier = 0;
-                    // Trance
-                    if (player.getMainJob().class === "warrior") {
-                        multiplier += newEffect.name === Boon.LucidWar ? 30 : 0;
-                        multiplier += newEffect.name === Boon.LucidWarII ? 45 : 0;
-                    } else if (player.getMainJob().class === "ranger") {
-                        multiplier += newEffect.name === Boon.LucidHunt ? 30 : 0;
-                        multiplier += newEffect.name === Boon.LucidHuntII ? 45 : 0;
-                    } else if (player.getMainJob().class === "mage") {
-                        multiplier += newEffect.name === Boon.LucidCast ? 40 : 0;
-                        multiplier += newEffect.name === Boon.LucidCastII ? 45 : 0;
-                    } else if (player.getMainJob().class === "monk") {
-                        multiplier += newEffect.name === Boon.LucidFist ? 30 : 0;
-                        multiplier += newEffect.name === Boon.LucidFistII ? 45 : 0;
-                    }
-                    multiplier = 1 + multiplier / 100;
-
-                    if (hp.current === hp.max) {
-                        hp.current *= multiplier;
-                    }
-                    hp.max *= multiplier;
-                }
+                this.changeHP(true, newEffect.name, player);
             }
         }
     }
@@ -225,28 +202,7 @@ class BattleActor {
     removeEffect(name: Boon | Ailment, player?: PlayerActor) {
         this.effects = this.effects.filter((effect) => effect.name !== name);
         // Remove previously added increased HP effect
-        if (player) {
-            const hp = player.getMainJob().stats.hp;
-            let multiplier = 0;
-            // Trance
-            if (player.getMainJob().class === "warrior") {
-                multiplier += name === Boon.LucidWar ? 30 : 0;
-                multiplier += name === Boon.LucidWarII ? 45 : 0;
-            } else if (player.getMainJob().class === "ranger") {
-                multiplier += name === Boon.LucidHunt ? 30 : 0;
-                multiplier += name === Boon.LucidHuntII ? 45 : 0;
-            } else if (player.getMainJob().class === "mage") {
-                multiplier += name === Boon.LucidCast ? 40 : 0;
-                multiplier += name === Boon.LucidCastII ? 45 : 0;
-            } else if (player.getMainJob().class === "monk") {
-                multiplier += name === Boon.LucidFist ? 30 : 0;
-                multiplier += name === Boon.LucidFistII ? 45 : 0;
-            }
-            multiplier = 1 + multiplier / 100;
-
-            hp.current = Math.ceil(hp.current / multiplier);
-            hp.max /= multiplier;
-        }
+        this.changeHP(false, name, player);
     }
 
     // Reduce effect durations and filter out the ones with a duration or resistancePoints of 0
@@ -261,6 +217,44 @@ class BattleActor {
             (effect) =>
                 effect.duration > 0 || (effect.resistancePoints && effect.resistancePoints > 0)
         );
+    }
+
+    changeHP(multiply: boolean, name: Boon | Ailment, player?: PlayerActor) {
+        if (player) {
+            const jobs = [player.getMainJob()];
+            if (!player.sameJob) {
+                jobs.push(player.getSubJob());
+            }
+            for (const job of jobs) {
+                const hp = job.stats.hp;
+                let multiplier = 0;
+                // Trance
+                if (job.class === "warrior") {
+                    multiplier += name === Boon.LucidWar ? 30 : 0;
+                    multiplier += name === Boon.LucidWarII ? 45 : 0;
+                } else if (job.class === "ranger") {
+                    multiplier += name === Boon.LucidHunt ? 30 : 0;
+                    multiplier += name === Boon.LucidHuntII ? 45 : 0;
+                } else if (job.class === "mage") {
+                    multiplier += name === Boon.LucidCast ? 40 : 0;
+                    multiplier += name === Boon.LucidCastII ? 45 : 0;
+                } else if (job.class === "monk") {
+                    multiplier += name === Boon.LucidFist ? 30 : 0;
+                    multiplier += name === Boon.LucidFistII ? 45 : 0;
+                }
+                multiplier = 1 + multiplier / 100;
+
+                if (multiply) {
+                    if (hp.current === hp.max) {
+                        hp.current *= multiplier;
+                    }
+                    hp.max *= multiplier;
+                } else {
+                    hp.current = Math.ceil(hp.current / multiplier);
+                    hp.max /= multiplier;
+                }
+            }
+        }
     }
 }
 

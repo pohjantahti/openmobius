@@ -1,3 +1,4 @@
+import Battle from "../Battle";
 import EnemyActor from "../EnemyActor";
 import PlayerActor from "../PlayerActor";
 import PlayerDamage from "../PlayerDamage";
@@ -169,6 +170,84 @@ describe("Base stats and multipliers", () => {
             player.removeEffect(Boon.LucidWar, player);
             expect(hp.current).toBe(77);
             expect(hp.max).toBe(100);
+        });
+        test("Increase sub job HP with Trance", () => {
+            const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+            decks[1].job.id = 1;
+            const battle = new Battle({
+                deck: decks,
+                ultimate: 100,
+                enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+                difficulty: 1,
+                battleResources: {},
+                activeDeck: 0,
+            });
+            expect(battle.player.sameJob).toBe(false);
+
+            const main = battle.player.getMainJob();
+            const sub = battle.player.getSubJob();
+            main.class = "monk";
+            main.stats.hp.current = 100;
+            main.stats.hp.max = 100;
+            sub.class = "warrior";
+            sub.stats.hp.current = 100;
+            sub.stats.hp.max = 100;
+            battle.player.addEffect(
+                {
+                    name: Boon.LucidWar,
+                    duration: 1,
+                    target: "self",
+                },
+                battle.player
+            );
+            expect(main.stats.hp.current).toBe(100);
+            expect(main.stats.hp.max).toBe(100);
+            expect(sub.stats.hp.current).toBe(130);
+            expect(sub.stats.hp.max).toBe(130);
+            battle.player.removeEffect(Boon.LucidWar, battle.player);
+            expect(main.stats.hp.current).toBe(100);
+            expect(main.stats.hp.max).toBe(100);
+            expect(sub.stats.hp.current).toBe(100);
+            expect(sub.stats.hp.max).toBe(100);
+        });
+        test("Increase main and sub job HP with Trance", () => {
+            const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+            decks[1].job.id = 1;
+            const battle = new Battle({
+                deck: decks,
+                ultimate: 100,
+                enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+                difficulty: 1,
+                battleResources: {},
+                activeDeck: 0,
+            });
+            expect(battle.player.sameJob).toBe(false);
+
+            const main = battle.player.getMainJob();
+            const sub = battle.player.getSubJob();
+            main.class = "warrior";
+            main.stats.hp.current = 100;
+            main.stats.hp.max = 100;
+            sub.class = "warrior";
+            sub.stats.hp.current = 100;
+            sub.stats.hp.max = 100;
+            battle.player.addEffect(
+                {
+                    name: Boon.LucidWar,
+                    duration: 1,
+                    target: "self",
+                },
+                battle.player
+            );
+            expect(main.stats.hp.current).toBe(130);
+            expect(main.stats.hp.max).toBe(130);
+            expect(sub.stats.hp.current).toBe(130);
+            expect(sub.stats.hp.max).toBe(130);
+            battle.player.removeEffect(Boon.LucidWar, battle.player);
+            expect(main.stats.hp.current).toBe(100);
+            expect(main.stats.hp.max).toBe(100);
+            expect(sub.stats.hp.current).toBe(100);
+            expect(sub.stats.hp.max).toBe(100);
         });
     });
 });
