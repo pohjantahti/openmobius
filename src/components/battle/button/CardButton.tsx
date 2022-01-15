@@ -1,6 +1,6 @@
 import { BattleAction, BattleCard } from "../../../battle/types";
 import { resources } from "../../../extractor";
-import { CardElement } from "../../../info/types";
+import { CardElement, FullElement } from "../../../info/types";
 import { capitalize } from "../../../utils";
 
 interface Props {
@@ -9,10 +9,11 @@ interface Props {
     cardInfo: BattleCard | undefined;
     index: number;
     style: React.CSSProperties;
+    orbs: Record<FullElement, number>;
 }
 
 function CardButton(props: Props) {
-    const { handleBattleAction, show, cardInfo, index, style } = props;
+    const { handleBattleAction, show, cardInfo, index, style, orbs } = props;
 
     const elementColor: Record<CardElement, string> = {
         fire: "#DF0909",
@@ -23,6 +24,14 @@ function CardButton(props: Props) {
         dark: "#5A03CC",
         life: "#CD00D0",
     };
+
+    const orbCost: Array<boolean> = [];
+    if (cardInfo) {
+        const amountOfOrbs = orbs[cardInfo.element] + orbs["prismatic"];
+        for (let i = 0; i < cardInfo.ability.cost; i++) {
+            orbCost[i] = i < amountOfOrbs;
+        }
+    }
 
     return (
         <div
@@ -115,19 +124,17 @@ function CardButton(props: Props) {
                         flexDirection: "column",
                     }}
                 >
-                    {Array(cardInfo.ability.cost)
-                        .fill(undefined)
-                        .map((x, index) => (
-                            <div
-                                key={index}
-                                style={{
-                                    backgroundColor: elementColor[cardInfo.element],
-                                    width: "100%",
-                                    height: "100%",
-                                    marginBottom: "0.4rem",
-                                }}
-                            />
-                        ))}
+                    {orbCost.map((orb, index) => (
+                        <div
+                            key={index}
+                            style={{
+                                backgroundColor: orb ? elementColor[cardInfo.element] : "gray",
+                                width: "100%",
+                                height: "100%",
+                                marginBottom: "0.4rem",
+                            }}
+                        />
+                    ))}
                 </div>
             )}
             {/* Ability cooldown */}

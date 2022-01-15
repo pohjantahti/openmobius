@@ -46,6 +46,7 @@ function Buttons(props: Props) {
                 handleBattleAction={handleBattleAction}
                 showCards={showCards}
                 cards={cards}
+                orbs={orbs}
             />
         </>
     );
