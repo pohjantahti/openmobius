@@ -252,7 +252,7 @@ class Battle {
             }
             card.ability.cooldown.current = cooldown;
         }
-        this.player.updateOrbs(card.element, card.ability.cost * -1);
+        this.player.addOrRemoveOrbs(card.element, card.ability.cost * -1);
         this.player.updateUltimateGauge(card.ability.cost);
 
         // Before attack Extra Skills
@@ -317,10 +317,10 @@ class Battle {
 
         // After attack Extra Skills
         if (card.extraSkills.includes(ExtraSkill.ExtraLife)) {
-            this.player.updateOrbs("life", 1);
+            this.player.addOrRemoveOrbs("life", 1);
         }
         if (card.extraSkills.includes(ExtraSkill.ElementalRetrieval)) {
-            this.player.updateOrbs(this.player.getRandomOrbFromElementWheel(), 1);
+            this.player.drawOrbs(1);
         }
         if (card.extraSkills.includes(ExtraSkill.ElementalMirror) && card.element !== "life") {
             this.player.addResistElementEffect(card.element, card.ability.cost / 2);
@@ -330,7 +330,7 @@ class Battle {
     ultimate() {
         this.useAction();
         this.player.ultimate.current = 0;
-        // Make a function for adding effects, and replace the two sections in cardAbility()
+        this.player.drawOrbs(10);
         const ultimate = this.player.getMainJob().ultimate;
 
         //Before effects

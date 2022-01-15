@@ -224,12 +224,15 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Crystal Seeker
 -   [ ] Curse Starter
 -   [ ] Dark Draw
+-   [ ] Dark Element Starter
 -   [ ] Debarrier Starter
 -   [ ] Debrave Starter
 -   [ ] Discordant Chain
 -   [ ] Drain Starter
 -   [ ] EXP Up
 -   [ ] Earth Draw
+-   [ ] Earth Element Starter
+-   [ ] Element Generator
 -   [ ] Element Starter
 -   [ ] Elemental Third Strike
 -   [x] Enhance Dark
@@ -242,6 +245,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Extended Break
 -   [ ] Faith Starter
 -   [ ] Fire Draw
+-   [ ] Fire Element Starter
 -   [ ] Gil Up
 -   [ ] Guard Scorpion Manual
 -   [x] HP Up
@@ -261,6 +265,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Life Element Starter
 -   [ ] Life Orb Draw Up
 -   [ ] Light Draw
+-   [ ] Light Element Starter
 -   [ ] MP Break Power Up
 -   [ ] MP Damage Up
 -   [ ] MP HP Up
@@ -268,6 +273,7 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [x] Painful Break
 -   [x] Piercing Break
 -   [ ] Prismatic Draw
+-   [ ] Prismatic Element Generator
 -   [ ] Prismatic Element Starter
 -   [ ] Prismatic Return
 -   [ ] Ravage
@@ -306,7 +312,9 @@ List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and the
 -   [ ] Ultimate Charger
 -   [ ] Wall Starter
 -   [ ] Water Draw
+-   [ ] Water Element Starter
 -   [ ] Wind Draw
+-   [ ] Wind Element Starter
 
 ### Extra Skill
 

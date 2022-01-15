@@ -173,43 +173,33 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
     ];
 };
 
-const getStartingOrbs = (
-    elements: [Element, Element, Element],
-    startingElementCount: number,
-    starters?: {
-        fire?: number;
-        water?: number;
-        wind?: number;
-        earth?: number;
-        light?: number;
-        dark?: number;
-        life?: number;
-        prismatic?: number;
-    }
-): Record<FullElement, number> => {
-    // Add the specified starter elements
-    const orbs = {
-        fire: starters?.fire || 0,
-        water: starters?.water || 0,
-        wind: starters?.wind || 0,
-        earth: starters?.earth || 0,
-        light: starters?.light || 0,
-        dark: starters?.dark || 0,
-        life: starters?.life || 0,
-        prismatic: starters?.prismatic || 0,
-    };
-    const spaceLeftAfterStarters = Object.values(orbs).reduce((a, b) => a + b, 0);
-    // Give first two elements one third of the remaining space and the remaining space to the last
-    elements.forEach((element, index) => {
-        if (index === elements.length - 1) {
-            orbs[element] += startingElementCount - Object.values(orbs).reduce((a, b) => a + b, 0);
-        } else {
-            orbs[element] += Math.floor(
-                (startingElementCount - spaceLeftAfterStarters) / elements.length
-            );
+const setStartingOrbs = (player: PlayerActor, elementStarter: number) => {
+    elementStarter = Math.min(elementStarter, MAX.orbCount);
+    const autoAbilities = player.getMainJob().autoAbilities;
+    const starters: Array<[FullElement, AutoAbility]> = [
+        ["prismatic", AutoAbility.PrismaticElementStarter],
+        ["life", AutoAbility.LifeElementStarter],
+        ["fire", AutoAbility.FireElementStarter],
+        ["water", AutoAbility.WaterElementStarter],
+        ["wind", AutoAbility.WindElementStarter],
+        ["earth", AutoAbility.EarthElementStarter],
+        ["light", AutoAbility.LightElementStarter],
+        ["dark", AutoAbility.DarkElementStarter],
+    ];
+
+    // Add starter orbs
+    for (const [element, starter] of starters) {
+        const orbCount = autoAbilities[starter] || 0;
+        for (let i = 0; i < orbCount; i++) {
+            player.addOrRemoveOrbs(element, 1);
         }
-    });
-    return orbs;
+    }
+    const spaceLeftAfterStarters = Math.max(
+        elementStarter - Object.values(player.orbs).reduce((a, b) => a + b, 0),
+        0
+    );
+    // Fill the rest of the orb slots
+    player.drawOrbs(spaceLeftAfterStarters);
 };
 
 const getAutoAbility = (target: PlayerActor | BattleCard, autoAbility: AutoAbility): number => {
@@ -259,7 +249,7 @@ const isResistant = (card: BattleCard, enemy: EnemyActor): boolean => {
 
 export {
     createBattleFullDeck,
-    getStartingOrbs,
+    setStartingOrbs,
     getAutoAbility,
     getInnateSkill,
     isWeakness,

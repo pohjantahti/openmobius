@@ -454,3 +454,162 @@ test("Ability cooldown", () => {
     battle.endTurn();
     expect(card.ability.cooldown.current).toBe(0);
 });
+
+describe("Orb manipulation", () => {
+    test("Draw", () => {
+        const player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
+        player.orbs = {
+            fire: 0,
+            water: 0,
+            wind: 0,
+            earth: 0,
+            light: 0,
+            dark: 0,
+            life: 0,
+            prismatic: 0,
+        };
+        expect(Object.values(player.orbs).reduce((a, b) => a + b, 0)).toBe(0);
+        player.drawOrbs(3);
+        expect(Object.values(player.orbs).reduce((a, b) => a + b, 0)).toBe(3);
+        player.drawOrbs(9);
+        expect(Object.values(player.orbs).reduce((a, b) => a + b, 0)).toBe(12);
+    });
+
+    test("Add and remove", () => {
+        const player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
+        player.orbs = {
+            fire: 0,
+            water: 0,
+            wind: 0,
+            earth: 0,
+            light: 0,
+            dark: 0,
+            life: 0,
+            prismatic: 0,
+        };
+        player.addOrRemoveOrbs("fire", 5);
+        expect(player.orbs).toStrictEqual({
+            fire: 5,
+            water: 0,
+            wind: 0,
+            earth: 0,
+            light: 0,
+            dark: 0,
+            life: 0,
+            prismatic: 0,
+        });
+        player.addOrRemoveOrbs("fire", -2);
+        player.addOrRemoveOrbs("dark", -5);
+        player.addOrRemoveOrbs("light", 20);
+        expect(player.orbs).toStrictEqual({
+            fire: 3,
+            water: 0,
+            wind: 0,
+            earth: 0,
+            light: 13,
+            dark: 0,
+            life: 0,
+            prismatic: 0,
+        });
+    });
+
+    test("Shift", () => {
+        const player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
+        player.orbs = {
+            fire: 3,
+            water: 4,
+            wind: 0,
+            earth: 6,
+            light: 0,
+            dark: 0,
+            life: 3,
+            prismatic: 0,
+        };
+        player.shiftOrbs("prismatic");
+        expect(player.orbs).toStrictEqual({
+            fire: 0,
+            water: 0,
+            wind: 0,
+            earth: 0,
+            light: 0,
+            dark: 0,
+            life: 3,
+            prismatic: 13,
+        });
+    });
+
+    test("Shift and include life", () => {
+        const player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
+        player.orbs = {
+            fire: 3,
+            water: 4,
+            wind: 0,
+            earth: 6,
+            light: 0,
+            dark: 0,
+            life: 3,
+            prismatic: 0,
+        };
+        player.shiftOrbs("prismatic", true);
+        expect(player.orbs).toStrictEqual({
+            fire: 0,
+            water: 0,
+            wind: 0,
+            earth: 0,
+            light: 0,
+            dark: 0,
+            life: 0,
+            prismatic: 16,
+        });
+    });
+
+    test("Shift and include prismatic", () => {
+        const player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
+        player.orbs = {
+            fire: 3,
+            water: 0,
+            wind: 0,
+            earth: 0,
+            light: 0,
+            dark: 0,
+            life: 3,
+            prismatic: 10,
+        };
+        player.shiftOrbs("fire", true, true);
+        expect(player.orbs).toStrictEqual({
+            fire: 16,
+            water: 0,
+            wind: 0,
+            earth: 0,
+            light: 0,
+            dark: 0,
+            life: 0,
+            prismatic: 0,
+        });
+    });
+
+    test("Shift elements", () => {
+        const player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
+        player.orbs = {
+            fire: 3,
+            water: 2,
+            wind: 0,
+            earth: 8,
+            light: 0,
+            dark: 0,
+            life: 3,
+            prismatic: 0,
+        };
+        player.shiftElements(["fire", "earth"], "dark");
+        expect(player.orbs).toStrictEqual({
+            fire: 0,
+            water: 2,
+            wind: 0,
+            earth: 0,
+            light: 0,
+            dark: 11,
+            life: 3,
+            prismatic: 0,
+        });
+    });
+});

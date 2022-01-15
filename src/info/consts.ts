@@ -5,6 +5,7 @@ const MAX = {
     jobOverboost: 32,
     ultimateLevel: 10,
     effectDuration: 5,
+    orbCount: 16,
 };
 
 export { MAX };

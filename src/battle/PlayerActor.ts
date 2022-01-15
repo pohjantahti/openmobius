@@ -1,4 +1,6 @@
+import { MAX } from "../info";
 import { Element, FullDeck, FullElement } from "../info/types";
+import { capitalize } from "../utils";
 import BattleActor from "./BattleActor";
 import EnemyActor from "./EnemyActor";
 import PlayerDamage from "./PlayerDamage";
@@ -6,7 +8,7 @@ import { BattleFullDeck, BattleJob, Boon, ExtraSkill, AutoAbility, BattleCard } 
 import {
     createBattleFullDeck,
     getAutoAbility,
-    getStartingOrbs,
+    setStartingOrbs,
     getWeaknessWeaponElement,
     isResistant,
     isWeakness,
@@ -51,7 +53,17 @@ class PlayerActor extends BattleActor {
         };
         this.sameJob = this.getMainJob().id === this.getSubJob().id;
         this.countdownToJobChange = 4;
-        this.orbs = getStartingOrbs(this.getMainJob().elements, 16);
+        this.orbs = {
+            fire: 0,
+            water: 0,
+            wind: 0,
+            earth: 0,
+            light: 0,
+            dark: 0,
+            life: 0,
+            prismatic: 0,
+        };
+        setStartingOrbs(this, 16);
         this.actions = this.getMainJob().stats.speed;
     }
 
@@ -86,28 +98,12 @@ class PlayerActor extends BattleActor {
         this.actions = this.getMainJob().stats.speed;
     }
 
-    updateOrbs(element: FullElement, amount: number) {
-        if (amount < 0) {
-            this.orbs[element] = Math.max(this.orbs[element] + amount, 0);
-        } else if (amount > 0) {
-            const orbCount = Object.values(this.orbs).reduce((a, b) => a + b, 0);
-            for (let i = orbCount; i < 16; i++) {
-                if (amount > 0) {
-                    this.orbs[element]++;
-                    amount--;
-                } else {
-                    break;
-                }
-            }
-        }
-    }
-
     updateUltimateGauge(amount: number) {
         this.ultimate.current = Math.min(this.ultimate.current + amount, this.ultimate.max);
     }
 
     tapAttack() {
-        this.updateOrbs(this.getRandomOrbFromElementWheel(), 1);
+        this.drawOrbs(1);
         this.elementWheelTowardDefault(2);
         // Ultimate Charger
         this.updateUltimateGauge(getAutoAbility(this, AutoAbility.UltimateCharger));
@@ -491,20 +487,87 @@ class PlayerActor extends BattleActor {
         }
     }
 
-    getRandomOrbFromElementWheel(): FullElement {
-        const lifeOrbChance = 5; // Percents
-        let random = Math.floor(Math.random() * (100 + lifeOrbChance));
-        let element: FullElement = "life";
-        let allPercentages = 0;
-        for (let i = 0; i < this.wheel.length; i++) {
-            if (this.wheel[i] + allPercentages >= random) {
-                element = this.getMainJob().elements[i];
-                break;
-            } else {
-                allPercentages += this.wheel[i];
+    drawOrbs(amount: number) {
+        const wheel = this.wheel.slice();
+        const elements = this.getMainJob().elements;
+        const calculatedChances: Array<number> = [];
+        // Calculate the increases to the element draw rates. Sum of results can be higher than 100.
+        for (let i = 0; i < elements.length; i++) {
+            const element = elements[i];
+            const autoAbility = `${capitalize(element)}Draw` as AutoAbility;
+            const change = wheel[i] * (1 + getAutoAbility(this, autoAbility) / 100);
+            calculatedChances.push(change);
+        }
+
+        // Calculate life orb chance
+        const lifeOrbChance = 8 * (1 + getAutoAbility(this, AutoAbility.LifeDraw) / 100);
+        const elementOrbChance = 100 - lifeOrbChance;
+        const sumOfCalculatedChances = calculatedChances.reduce((a, b) => a + b, 0);
+        const elementChances: Array<number> = [];
+        // Calculate the final element chance. Sum of elementChances is elementOrbChance.
+        for (let i = 0; i < calculatedChances.length; i++) {
+            elementChances.push(elementOrbChance * (calculatedChances[i] / sumOfCalculatedChances));
+        }
+        // Add lifeOrbChance so that the sum of values is ~100
+        elementChances.push(lifeOrbChance);
+
+        // Determine drawn orbs
+        const orbCount = Object.values(this.orbs).reduce((a, b) => a + b, 0);
+        for (let i = orbCount; i < Math.min(orbCount + amount, MAX.orbCount); i++) {
+            const random = Math.floor(Math.random() * 100);
+            let allPercentages = 0;
+            for (let j = 0; j < elementChances.length; j++) {
+                allPercentages += elementChances[j];
+                if (allPercentages >= random) {
+                    // If last of elementChances, add a life orb
+                    // Otherwise, add an element orb
+                    if (j === elementChances.length - 1) {
+                        this.orbs["life"] += 1;
+                        break;
+                    } else {
+                        this.orbs[elements[j]] += 1;
+                        break;
+                    }
+                }
             }
         }
-        return element;
+    }
+
+    addOrRemoveOrbs(element: FullElement, amount: number) {
+        if (amount < 0) {
+            this.orbs[element] = Math.max(this.orbs[element] + amount, 0);
+        } else if (amount > 0) {
+            const orbCount = Object.values(this.orbs).reduce((a, b) => a + b, 0);
+            for (let i = orbCount; i < Math.min(orbCount + amount, MAX.orbCount); i++) {
+                this.orbs[element]++;
+            }
+        }
+    }
+
+    shiftOrbs(element: FullElement, includeLife = false, includePrismatic = false) {
+        let orbsToShift = 0;
+        for (const element of this.getMainJob().elements) {
+            orbsToShift += this.orbs[element];
+            this.orbs[element] = 0;
+        }
+        if (includeLife) {
+            orbsToShift += this.orbs["life"];
+            this.orbs["life"] = 0;
+        }
+        if (includePrismatic) {
+            orbsToShift += this.orbs["prismatic"];
+            this.orbs["prismatic"] = 0;
+        }
+        this.orbs[element] = orbsToShift;
+    }
+
+    shiftElements(from: Array<FullElement>, to: FullElement) {
+        let orbsToShift = 0;
+        for (const element of from) {
+            orbsToShift += this.orbs[element];
+            this.orbs[element] = 0;
+        }
+        this.orbs[to] = orbsToShift;
     }
 
     takeDamage(damage: number) {
