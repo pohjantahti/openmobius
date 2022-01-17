@@ -107,6 +107,7 @@ class Battle {
             playerEffects: this.player.effects,
             healToPlayer: this.healToPlayer,
             poisonToPlayer: this.poisonToPlayer,
+            music: this.player.getMainJob().resources.music,
         };
     }
 

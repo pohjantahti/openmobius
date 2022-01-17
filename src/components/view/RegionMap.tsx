@@ -15,17 +15,24 @@ interface Props {
     setBattleNodeInfo: React.Dispatch<React.SetStateAction<BattleNodeInfo>>;
     showButtons: boolean;
     setShowButtons: React.Dispatch<React.SetStateAction<boolean>>;
+    battleInProgress: boolean;
 }
 
 function RegionMap(props: Props) {
-    const { setBattleInProgress, setBattleNodeInfo, showButtons, setShowButtons } = props;
+    const {
+        setBattleInProgress,
+        setBattleNodeInfo,
+        showButtons,
+        setShowButtons,
+        battleInProgress,
+    } = props;
     const baseMapPosition = 0;
     const [mouseClickCount, setMouseClickCount] = useState(0);
     const [baseMousePosition, setBaseMousePosition] = useState(baseMapPosition);
     const [currentMapPosition, setCurrentMapPosition] = useState(baseMapPosition);
     const [previousMapPosition, setPreviousMapPosition] = useState(baseMapPosition);
 
-    const [mapNodeInfo, setMapNodeInfo] = useState<Array<MapNodeType>>([]);
+    const [mapInfo, setMapInfo] = useState<Region>(Object());
 
     const [showBattleConfirmModal, setShowBattleConfirmModal] = useState(false);
     const [selectedMapNode, setSelectedMapNode] = useState<MapNodeType>(Object());
@@ -45,12 +52,18 @@ function RegionMap(props: Props) {
             // TODO: Move this to LoadingScreen
             const mapInfo: Region = await getGameData("Region: Tower");
             // TODO: Validate mapInfo. Check for mandatory values and that id values are unique
-            window.playMusic(mapInfo.music);
-            setMapNodeInfo(mapInfo.nodes);
+            setMapInfo(mapInfo);
             setPlayerLocation(mapInfo.startingLocation || 0);
         };
         initMap();
     }, []);
+
+    // Start playing music when entering map or exiting battle
+    useEffect(() => {
+        if (!battleInProgress && mapInfo.music) {
+            window.playMusic(mapInfo.music);
+        }
+    }, [battleInProgress, mapInfo]);
 
     const handleMouseDown = (event: React.MouseEvent) => {
         setMouseClickCount(event.detail);
@@ -81,10 +94,10 @@ function RegionMap(props: Props) {
     };
 
     const handleMapNodeClick = (mapNodeId: number) => {
-        const currentMapNode = mapNodeInfo.filter(
+        const currentMapNode = mapInfo.nodes.filter(
             (node: MapNodeType) => playerLocation === node.id
         )[0];
-        const targetMapNode = mapNodeInfo.filter((node: MapNodeType) => mapNodeId === node.id)[0];
+        const targetMapNode = mapInfo.nodes.filter((node: MapNodeType) => mapNodeId === node.id)[0];
         // Determine if targetMapNode is the current player location or next to it
         // Searches through paths of both points to see if they are connected
         let moveAllowed = false;
@@ -128,7 +141,7 @@ function RegionMap(props: Props) {
                 break;
             // Show confirmation modal for new location
             case "newLocation":
-                const targetMapNode = mapNodeInfo.filter(
+                const targetMapNode = mapInfo.nodes.filter(
                     (node: MapNodeType) => mapNodeId === node.id
                 )[0];
                 setSelectedLocationInfo({
@@ -225,7 +238,7 @@ function RegionMap(props: Props) {
             >
                 <MapNodes
                     currentMapPosition={currentMapPosition}
-                    nodeInfo={mapNodeInfo}
+                    nodeInfo={mapInfo.nodes}
                     handleModal={handleMapNodeClick}
                     playerLocation={playerLocation}
                     changingPlayerLocation={changingPlayerLocation}

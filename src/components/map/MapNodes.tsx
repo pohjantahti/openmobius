@@ -5,7 +5,7 @@ import MapPaths from "./MapPaths";
 
 interface Props {
     currentMapPosition: number;
-    nodeInfo: Array<MapNodeType>;
+    nodeInfo: Array<MapNodeType> | undefined;
     handleModal: any;
     playerLocation: number;
     changingPlayerLocation: boolean;
@@ -22,7 +22,7 @@ function MapNodes(props: Props) {
         handleChangingPlayerLocation,
     } = props;
 
-    return (
+    return !nodeInfo ? null : (
         <div
             style={{
                 position: "absolute",

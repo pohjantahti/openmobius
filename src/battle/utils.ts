@@ -119,10 +119,7 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
             job: {
                 id: deck.job.id,
                 name: deck.job.name,
-                resources: {
-                    card: deck.job.resources.card,
-                    thumbnail: deck.job.resources.thumbnail,
-                },
+                resources: deck.job.resources,
                 class: deck.job.class,
                 level: deck.job.level,
                 overboost: deck.job.overboost,

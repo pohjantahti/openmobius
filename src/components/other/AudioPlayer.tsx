@@ -3,13 +3,10 @@ import { getResourceURL } from "../../extractor";
 
 declare global {
     interface Window {
-        playMusic: any;
-        playSound: any;
+        playMusic: (name: string) => void;
+        playSound: (name: string) => void;
     }
 }
-
-// TODO: Remake this to use Audio() for music and sounds
-// No need to use HTML elements since they aren't even visible
 
 function AudioPlayer() {
     const [music, setMusic] = useState("");
@@ -17,10 +14,36 @@ function AudioPlayer() {
     const [startLoop, setStartLoop] = useState(0);
     const [endLoop, setEndLoop] = useState(0);
     const [sound, setSound] = useState("");
-    // TODO: Functionality to change volume setting
-    const volume = 0;
     const musicRef = useRef<HTMLAudioElement>(null);
     const soundRef = useRef<HTMLAudioElement>(null);
+
+    const [volume, setVolume] = useState(0);
+    const handleVolume = (action: "music", newVolume: number) => {
+        switch (action) {
+            case "music":
+                setVolume(newVolume);
+                if (musicRef.current) {
+                    musicRef.current.volume = newVolume;
+                }
+                break;
+        }
+    };
+
+    const [showPanel, setShowPanel] = useState(false);
+    const [hoverPanel, setHoverPanel] = useState(false);
+    const handleControlPanel = (action: "click" | "hoverenter" | "hoverleave") => {
+        switch (action) {
+            case "click":
+                setShowPanel(!showPanel);
+                break;
+            case "hoverenter":
+                setHoverPanel(true);
+                break;
+            case "hoverleave":
+                setHoverPanel(false);
+                break;
+        }
+    };
 
     // Reads the Ogg Vorbis LoopStart and LoopEnd values
     // Looks and is kinda hacky but has worked so far
@@ -105,6 +128,110 @@ function AudioPlayer() {
             <audio ref={soundRef}>
                 <source src={sound} type="audio/ogg" />
             </audio>
+
+            <div
+                style={{
+                    position: "fixed",
+                    width: 50,
+                    height: 50,
+                    top: 0,
+                    left: 0,
+                    zIndex: 101,
+                    display: "flex",
+                    justifyContent: "center",
+                    opacity: hoverPanel ? 1 : 0,
+                    transition: "opacity 0.3s",
+                }}
+                onClick={() => handleControlPanel("click")}
+                onMouseEnter={() => handleControlPanel("hoverenter")}
+                onMouseLeave={() => handleControlPanel("hoverleave")}
+            >
+                <p
+                    style={{
+                        fontSize: 40,
+                        lineHeight: 1,
+                        color: "#E5E5E5",
+                    }}
+                >
+                    &gt;
+                </p>
+            </div>
+
+            <div
+                style={{
+                    position: "fixed",
+                    width: 370,
+                    height: 50,
+                    backgroundColor: "#3D3D3D",
+                    top: 0,
+                    left: showPanel ? 0 : -370,
+                    transition: "left 0.3s",
+                    zIndex: 101,
+                    display: "flex",
+                    alignItems: "center",
+                }}
+            >
+                <div
+                    style={{
+                        width: 50,
+                        height: 50,
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                    onClick={() => handleControlPanel("click")}
+                >
+                    <p
+                        style={{
+                            fontSize: 40,
+                            lineHeight: 1,
+                            color: "#E5E5E5",
+                        }}
+                    >
+                        &lt;
+                    </p>
+                </div>
+                <div
+                    style={{
+                        paddingLeft: 10,
+                        paddingRight: 10,
+                        borderRight: "2px solid #E5E5E5",
+                    }}
+                >
+                    <p
+                        style={{
+                            fontSize: 17,
+                            color: "#E5E5E5",
+                        }}
+                    >
+                        Volume
+                    </p>
+                </div>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        paddingLeft: 10,
+                        width: 200,
+                    }}
+                >
+                    <p
+                        style={{
+                            fontSize: 17,
+                            color: "#E5E5E5",
+                        }}
+                    >
+                        Music
+                    </p>
+                    <input
+                        type="range"
+                        value={volume}
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        onChange={(event) => handleVolume("music", Number(event.target.value))}
+                    />
+                </div>
+            </div>
         </>
     );
 }

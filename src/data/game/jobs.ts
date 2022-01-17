@@ -1,4 +1,4 @@
-import { Ailment, AutoAbility, Boon, Effect } from "../../battle/types";
+import { AutoAbility, Boon, Effect } from "../../battle/types";
 import { Element, JobClass, Target } from "../../info/types";
 
 interface Job {
@@ -7,6 +7,7 @@ interface Job {
     resources: {
         card: string;
         thumbnail: string;
+        music: string;
     };
     class: JobClass;
     level: number;
@@ -46,6 +47,7 @@ const jobs: Array<Job> = [
         resources: {
             card: "Card: Warrior",
             thumbnail: "Thumbnail: Warrior",
+            music: "Music: Warrior",
         },
         class: "warrior",
         level: 8,

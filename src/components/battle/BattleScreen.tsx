@@ -67,6 +67,9 @@ function BattleScreen(props: Props) {
             setTurnEnding(true);
             handleTurnEnd();
         }
+        if (battleInfo.music) {
+            window.playMusic(battleInfo.music);
+        }
     }, [battleInfo]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // This is needed till the first time setBattleInfo is called in useEffect

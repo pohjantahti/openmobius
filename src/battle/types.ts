@@ -15,6 +15,7 @@ interface BattleJob {
     resources: {
         card: string;
         thumbnail: string;
+        music: string;
     };
     class: JobClass;
     level: number;
@@ -135,6 +136,7 @@ interface BattleInfo {
     playerEffects: Array<BattleEffect>;
     healToPlayer: Array<number>;
     poisonToPlayer: Array<number>;
+    music: string;
 }
 
 enum BattleAction {

@@ -16,6 +16,7 @@ function MainView() {
                 setBattleNodeInfo={setBattleNodeInfo}
                 showButtons={showButtons}
                 setShowButtons={setShowButtons}
+                battleInProgress={battleInProgress}
             />
             <Drawer showButtons={showButtons} />
             <BattleView
