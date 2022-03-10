@@ -32,7 +32,7 @@ test("Mix Auto-Abilities from Job and Cards", () => {
     const player = new PlayerActor(playerInput);
     expect(player.getMainJob().stats.hp.current).toBe(117);
     expect(player.getMainJob().elementEnhance.fire).toBe(75);
-    expect(player.getMainJob().autoAbilities).toStrictEqual({
+    expect(player.getMainAA()).toStrictEqual({
         painfulBreak: 135,
         piercingBreak: 35,
     });
@@ -238,6 +238,56 @@ describe("Replacing Boons and Ailments", () => {
         expect(player.effects.length).toBe(1);
     });
 
+    test("Don't replace a hexagon Boon with a countering square Ailment", () => {
+        const player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
+        player.addEffect({
+            name: Boon.Faith,
+            duration: 3,
+            target: "self",
+            type: "hexagon",
+        });
+        expect(player.effectActive(Boon.Faith)).toBe(true);
+        expect(player.getActiveEffect(Boon.Faith)?.type).toBe("hexagon");
+        expect(player.getActiveEffect(Boon.Faith)?.duration).toBe(3);
+        expect(player.effects.length).toBe(1);
+        player.addEffect({
+            name: Ailment.Curse,
+            duration: 4,
+            target: "self",
+            type: "square",
+        });
+        expect(player.effectActive(Ailment.Curse)).toBe(false);
+        expect(player.effectActive(Boon.Faith)).toBe(true);
+        expect(player.getActiveEffect(Boon.Faith)?.type).toBe("hexagon");
+        expect(player.getActiveEffect(Boon.Faith)?.duration).toBe(3);
+        expect(player.effects.length).toBe(1);
+    });
+
+    test("Don't replace a hexagon Ailment with a countering square Boon", () => {
+        const player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
+        player.addEffect({
+            name: Ailment.Curse,
+            duration: 3,
+            target: "self",
+            type: "hexagon",
+        });
+        expect(player.effectActive(Ailment.Curse)).toBe(true);
+        expect(player.getActiveEffect(Ailment.Curse)?.type).toBe("hexagon");
+        expect(player.getActiveEffect(Ailment.Curse)?.duration).toBe(3);
+        expect(player.effects.length).toBe(1);
+        player.addEffect({
+            name: Boon.Faith,
+            duration: 4,
+            target: "self",
+            type: "square",
+        });
+        expect(player.effectActive(Boon.Faith)).toBe(false);
+        expect(player.effectActive(Ailment.Curse)).toBe(true);
+        expect(player.getActiveEffect(Ailment.Curse)?.type).toBe("hexagon");
+        expect(player.getActiveEffect(Ailment.Curse)?.duration).toBe(3);
+        expect(player.effects.length).toBe(1);
+    });
+
     test("Replace a square Boon with a hexagon Boon II", () => {
         const player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
         player.addEffect({
@@ -285,6 +335,31 @@ describe("Replacing Boons and Ailments", () => {
         expect(player.effectActive(Boon.FaithII)).toBe(true);
         expect(player.getActiveEffect(Boon.FaithII)?.type).toBe("hexagon");
         expect(player.getActiveEffect(Boon.FaithII)?.duration).toBe(4);
+        expect(player.effects.length).toBe(1);
+    });
+
+    test("Don't replace a hexagon Boon II with a hexagon Boon", () => {
+        const player = new PlayerActor(JSON.parse(JSON.stringify(emptyPlayerActor)));
+        player.addEffect({
+            name: Boon.FaithII,
+            duration: 3,
+            target: "self",
+            type: "hexagon",
+        });
+        expect(player.effectActive(Boon.FaithII)).toBe(true);
+        expect(player.getActiveEffect(Boon.FaithII)?.type).toBe("hexagon");
+        expect(player.getActiveEffect(Boon.FaithII)?.duration).toBe(3);
+        expect(player.effects.length).toBe(1);
+        player.addEffect({
+            name: Boon.Faith,
+            duration: 4,
+            target: "self",
+            type: "hexagon",
+        });
+        expect(player.effectActive(Boon.Faith)).toBe(false);
+        expect(player.effectActive(Boon.FaithII)).toBe(true);
+        expect(player.getActiveEffect(Boon.FaithII)?.type).toBe("hexagon");
+        expect(player.getActiveEffect(Boon.FaithII)?.duration).toBe(3);
         expect(player.effects.length).toBe(1);
     });
 

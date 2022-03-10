@@ -156,7 +156,7 @@ describe("Auto-Abilities", () => {
 
     test("Painful Break", () => {
         enemy.isBroken = true;
-        player.getMainJob().autoAbilities.painfulBreak = 200;
+        player.getMainAA().painfulBreak = 200;
         expect(PlayerDamage.break(player, enemy, card)).toBe(4);
         card.innateSkills!.painfulBreak = 150;
         expect(PlayerDamage.break(player, enemy, card)).toBe(5.5);
@@ -174,7 +174,7 @@ describe("Auto-Abilities", () => {
         expect(player.getTapRedGaugeDamage(enemy)).toBe(200);
         expect(player.getCardRedGaugeDamage(card, enemy)).toBe(600);
         expect(player.getUltimateRedGaugeDamage(100, enemy)).toBe(400);
-        player.getMainJob().autoAbilities[AutoAbility.PiercingBreak] = 150;
+        player.getMainAA()[AutoAbility.PiercingBreak] = 150;
         expect(player.getTapRedGaugeDamage(enemy)).toBe(500);
         expect(player.getCardRedGaugeDamage(card, enemy)).toBe(1500);
         expect(player.getUltimateRedGaugeDamage(100, enemy)).toBe(1000);

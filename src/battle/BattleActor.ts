@@ -119,11 +119,20 @@ class BattleActor {
             [Boon.EnhanceElementalAttacksII, [Boon.EnhanceElementalAttacks]],
         ];
 
+        // Check that one of the values is a Boon and the other an Ailment
+        const oppositeEffects = (compareThis: string, toThat: string): boolean => {
+            return !(
+                Object.values(Boon).includes(compareThis as Boon) &&
+                Object.values(Boon).includes(toThat as Boon)
+            );
+        };
+
         for (const [effect, counters] of counterparts) {
             if (effect === newEffectName) {
                 for (const counter of counters) {
                     if (this.effectActive(counter as Boon | Ailment)) {
                         const currentEffect = this.getActiveEffect(counter as Boon | Ailment);
+                        // Replace a square Effect with a square Effect II
                         if (
                             newEffectName.substring(newEffectName.length - 2) === "II" &&
                             currentEffect?.type === "square" &&
@@ -131,42 +140,63 @@ class BattleActor {
                         ) {
                             this.removeEffect(counter as Boon | Ailment, player);
                             return true;
-                        } else if (
+                        }
+
+                        // Don't remove a square Effect II unless it's an opposing square Effect
+                        if (
                             currentEffect?.name.substring(currentEffect.name.length - 2) === "II" &&
                             currentEffect?.type === "square" &&
                             newEffectType === "square"
                         ) {
-                            this.removeEffect(counter as Boon | Ailment, player);
+                            if (oppositeEffects(currentEffect.name, newEffectName)) {
+                                this.removeEffect(counter as Boon | Ailment, player);
+                            }
                             return false;
-                        } else if (
+                        }
+
+                        // Don't remove a hexagon Effect II unless it's an opposing hexagon Effect
+                        if (
+                            currentEffect?.name.substring(currentEffect.name.length - 2) === "II" &&
+                            currentEffect?.type === "hexagon" &&
+                            newEffectType === "hexagon"
+                        ) {
+                            if (oppositeEffects(currentEffect.name, newEffectName)) {
+                                this.removeEffect(counter as Boon | Ailment, player);
+                            }
+                            return false;
+                        }
+
+                        // Replace a hexagon Effect with a hexagon Effect II
+                        if (
                             newEffectName.substring(newEffectName.length - 2) === "II" &&
                             currentEffect?.type === "hexagon" &&
                             newEffectType === "hexagon"
                         ) {
                             this.removeEffect(counter as Boon | Ailment, player);
                             return true;
-                        } else if (
-                            currentEffect?.name.substring(currentEffect.name.length - 2) === "II" &&
-                            currentEffect?.type === "hexagon" &&
-                            newEffectType === "hexagon"
-                        ) {
+                        }
+
+                        // Don't remove existing hexagon Effect when trying to add a square Effect
+                        if (currentEffect?.type === "hexagon" && newEffectType === "square") {
+                            return false;
+                        }
+
+                        // Replace a square Effect with a square Effect
+                        if (currentEffect?.type === "square" && newEffectType === "square") {
                             this.removeEffect(counter as Boon | Ailment, player);
                             return false;
-                        } else if (currentEffect?.type === "square" && newEffectType === "square") {
+                        }
+
+                        // Replace a hexagon Effect with a hexagon Effect
+                        if (currentEffect?.type === "hexagon" && newEffectType === "hexagon") {
                             this.removeEffect(counter as Boon | Ailment, player);
                             return false;
-                        } else if (
-                            currentEffect?.type === "square" &&
-                            newEffectType === "hexagon"
-                        ) {
+                        }
+
+                        // Replace a square Effect with a hexagon Effect
+                        if (currentEffect?.type === "square" && newEffectType === "hexagon") {
                             this.removeEffect(counter as Boon | Ailment, player);
                             return true;
-                        } else if (
-                            newEffectName.substring(newEffectName.length - 2) === "II" &&
-                            currentEffect?.type === "hexagon" &&
-                            newEffectType === "square"
-                        ) {
-                            return false;
                         }
                     }
                 }
@@ -246,9 +276,9 @@ class BattleActor {
 
                 if (multiply) {
                     if (hp.current === hp.max) {
-                        hp.current *= multiplier;
+                        hp.current = Math.ceil(hp.current * multiplier);
                     }
-                    hp.max *= multiplier;
+                    hp.max = Math.ceil(hp.max * multiplier);
                 } else {
                     hp.current = Math.ceil(hp.current / multiplier);
                     hp.max /= multiplier;

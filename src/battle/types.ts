@@ -6,6 +6,7 @@ type BattleFullDeck = [BattleDeck, BattleDeck];
 
 interface BattleDeck {
     job: BattleJob;
+    autoAbilities: Partial<Record<AutoAbility, number>>;
     cards: Array<BattleCard | undefined>;
 }
 
@@ -35,7 +36,6 @@ interface BattleJob {
     };
     elementEnhance: Record<Element, number>;
     elementResistance: Record<Element, number>;
-    autoAbilities: Partial<Record<AutoAbility, number>>;
     ultimate: {
         name: string;
         attack: number;
@@ -183,7 +183,7 @@ enum Boon {
     EarthOfChaos = "earthOfChaos",
     EarthPact = "earthPact",
     EarthWeapon = "earthWeapon",
-    EarthForce = "earthForce",
+    Earthforce = "earthforce",
     EnhanceElementalAttacks = "enhanceElementalAttacks",
     EnhanceElementalAttacksII = "enhanceElementalAttacksII",
     EternalLight = "eternalLight",
@@ -269,7 +269,7 @@ enum Boon {
     WindBoost = "windBoost",
     WindPact = "windPact",
     WindWeapon = "windWeapon",
-    Windforce = "windForce",
+    Windforce = "windforce",
     WindsOfChaos = "windOfChaos",
 }
 

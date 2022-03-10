@@ -79,6 +79,16 @@ class PlayerActor extends BattleActor {
     }
 
     // Main refers to the current active job
+    getMainAA(): Partial<Record<AutoAbility, number>> {
+        return this.deck[this.activeDeck].autoAbilities;
+    }
+
+    // Sub refers to the current non-active job
+    getSubAA(): Partial<Record<AutoAbility, number>> {
+        return this.deck[this.activeDeck].autoAbilities;
+    }
+
+    // Main refers to the current active job
     getMainCards(): Array<BattleCard | undefined> {
         return this.deck[this.activeDeck].cards;
     }
@@ -130,10 +140,7 @@ class PlayerActor extends BattleActor {
         damage *= PlayerDamage.defense(enemy);
         damage = Math.round(damage);
         // Damage limit
-        damage = Math.min(
-            damage,
-            this.getMainJob().autoAbilities[AutoAbility.AttackLimitBreak] ? 999999 : 9999
-        );
+        damage = Math.min(damage, this.getMainAA()[AutoAbility.AttackLimitBreak] ? 999999 : 9999);
         return [damage, criticalHit];
     }
 
@@ -277,7 +284,7 @@ class PlayerActor extends BattleActor {
         damage *= PlayerDamage.break(this, enemy);
         // Weakness
         const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
-        if (weaknessWeapon && this.getMainJob().autoAbilities[AutoAbility.Spellsword]) {
+        if (weaknessWeapon && this.getMainAA()[AutoAbility.Spellsword]) {
             damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
         }
         // Critical
@@ -313,14 +320,14 @@ class PlayerActor extends BattleActor {
         damage *= PlayerDamage.breakDefense(enemy);
         // Weakness when Spellsword and weakness weapon active
         const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
-        if (weaknessWeapon && this.getMainJob().autoAbilities[AutoAbility.Spellsword]) {
+        if (weaknessWeapon && this.getMainAA()[AutoAbility.Spellsword]) {
             damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
         }
         //Piercing Break
         damage *= PlayerDamage.piercingBreak(this);
         // Reduced damage to yellow gauge
         let reducedDamage = 0.2;
-        if (weaknessWeapon && this.getMainJob().autoAbilities[AutoAbility.Spellsword]) {
+        if (weaknessWeapon && this.getMainAA()[AutoAbility.Spellsword]) {
             reducedDamage = 0.5;
         }
         damage *= reducedDamage;
@@ -341,7 +348,7 @@ class PlayerActor extends BattleActor {
         damage *= PlayerDamage.breakDefense(enemy);
         // Weakness when Spellsword and weakness weapon active
         const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
-        if (weaknessWeapon && this.getMainJob().autoAbilities[AutoAbility.Spellsword]) {
+        if (weaknessWeapon && this.getMainAA()[AutoAbility.Spellsword]) {
             damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
         }
         //Piercing Break

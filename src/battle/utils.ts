@@ -153,8 +153,8 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
                     dark: getElementResistance("dark"),
                 },
                 ultimate: getUltimate(),
-                autoAbilities: getAutoAbilities(),
             },
+            autoAbilities: getAutoAbilities(),
             cards: getCards(),
         };
     };
@@ -162,9 +162,10 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
     const mainDeck = getBattleDeck(fullDeck[0]);
     const subDeck = getBattleDeck(fullDeck[1]);
     return [
-        { job: mainDeck.job, cards: mainDeck.cards },
+        { job: mainDeck.job, autoAbilities: mainDeck.autoAbilities, cards: mainDeck.cards },
         {
             job: fullDeck[0].job.id === fullDeck[1].job.id ? mainDeck.job : subDeck.job,
+            autoAbilities: subDeck.autoAbilities,
             cards: subDeck.cards,
         },
     ];
@@ -172,7 +173,7 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
 
 const setStartingOrbs = (player: PlayerActor, elementStarter: number) => {
     elementStarter = Math.min(elementStarter, MAX.orbCount);
-    const autoAbilities = player.getMainJob().autoAbilities;
+    const autoAbilities = player.getMainAA();
     const starters: Array<[FullElement, AutoAbility]> = [
         ["prismatic", AutoAbility.PrismaticElementStarter],
         ["life", AutoAbility.LifeElementStarter],
@@ -200,7 +201,7 @@ const setStartingOrbs = (player: PlayerActor, elementStarter: number) => {
 };
 
 const getAutoAbility = (target: PlayerActor | BattleCard, autoAbility: AutoAbility): number => {
-    const holder = target instanceof PlayerActor ? target.getMainJob() : target;
+    const holder = target instanceof PlayerActor ? target.deck[target.activeDeck] : target;
     return holder.autoAbilities[autoAbility] || 0;
 };
 
