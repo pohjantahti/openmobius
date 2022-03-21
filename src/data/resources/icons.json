@@ -2299,6 +2299,439 @@
         "xOffset": 1269,
         "yOffset": 1984
     },
+
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Curse_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1132,
+        "yOffset": 1784
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Curse_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1347,
+        "yOffset": 1784
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: CurseII_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1265,
+        "yOffset": 444
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: CurseII_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1265,
+        "yOffset": 377
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Debrave_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1683,
+        "yOffset": 1851
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Debrave_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1749,
+        "yOffset": 1851
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: DebraveII_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1347,
+        "yOffset": 913
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: DebraveII_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1201,
+        "yOffset": 913
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Slump_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1951,
+        "yOffset": 1851
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Slump_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1816,
+        "yOffset": 1918
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Slow_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1482,
+        "yOffset": 1851
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Slow_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1548,
+        "yOffset": 1851
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Slow_Octagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1202,
+        "yOffset": 1784
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueFire_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1869,
+        "yOffset": 310
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueFire_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1883,
+        "yOffset": 511
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueWater_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1802,
+        "yOffset": 310
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueWater_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1801,
+        "yOffset": 243
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueWind_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1884,
+        "yOffset": 645
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueWind_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1950,
+        "yOffset": 645
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueEarth_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1132,
+        "yOffset": 511
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueEarth_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1268,
+        "yOffset": 511
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueLight_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1348,
+        "yOffset": 511
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueLight_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1201,
+        "yOffset": 578
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueDark_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1132,
+        "yOffset": 578
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: ImbueDark_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1268,
+        "yOffset": 578
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: DivineShield_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1616,
+        "yOffset": 779
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: DivineShield_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1268,
+        "yOffset": 712
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Veil_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1132,
+        "yOffset": 846
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Veil_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1268,
+        "yOffset": 846
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Regen_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1482,
+        "yOffset": 913
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Regen_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1201,
+        "yOffset": 846
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Drain_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1269,
+        "yOffset": 913
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Drain_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1414,
+        "yOffset": 913
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: KnightsOfTheRound_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1601,
+        "yOffset": 310
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: KnightsOfTheRound_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1615,
+        "yOffset": 578
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Genesis_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1951,
+        "yOffset": 511
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Genesis_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1868,
+        "yOffset": 444
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Hex_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1132,
+        "yOffset": 645
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Hex_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1749,
+        "yOffset": 779
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: EternalLight_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1199,
+        "yOffset": 175
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: CallOfTheVoid_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1348,
+        "yOffset": 578
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Taunt_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 269,
+        "yOffset": 160
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Taunt_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1131,
+        "yOffset": 1984
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Bio_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1269,
+        "yOffset": 109
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Bio_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1332,
+        "yOffset": 444
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: Bio_Octagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1400,
+        "yOffset": 377
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: BioII_Square",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1682,
+        "yOffset": 578
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas2",
+        "alias": "Icon: BioII_Hexagon",
+        "width": 64,
+        "height": 64,
+        "xOffset": 1682,
+        "yOffset": 511
+    },
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas2",
