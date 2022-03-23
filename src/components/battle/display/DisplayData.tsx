@@ -7,6 +7,7 @@ import ScoreWaveBar from "./ScoreWaveBar";
 import TurnBar from "./TurnBar";
 import UltimateBar from "./UltimateBar";
 import { BattleEffect } from "../../../battle/types";
+import AbilityName from "./AbilityName";
 
 interface Props {
     elements: {
@@ -38,6 +39,7 @@ interface Props {
     jobClass: JobClass;
     countdownToJobChange: number;
     playerEffects: Array<BattleEffect>;
+    abilityName: string;
 }
 
 function DisplayData(props: Props) {
@@ -53,6 +55,7 @@ function DisplayData(props: Props) {
         jobClass,
         countdownToJobChange,
         playerEffects,
+        abilityName,
     } = props;
     return (
         <>
@@ -67,6 +70,7 @@ function DisplayData(props: Props) {
             <OrbBar orbs={orbs} />
             <TurnBar actions={actions} jobClass={jobClass} />
             <PlayerBoonAilmentBar playerEffects={playerEffects} />
+            <AbilityName abilityName={abilityName} />
         </>
     );
 }

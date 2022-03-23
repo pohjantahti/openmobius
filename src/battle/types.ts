@@ -137,6 +137,7 @@ interface BattleInfo {
     healToPlayer: Array<number>;
     poisonToPlayer: Array<number>;
     music: string;
+    abilityName: string;
 }
 
 enum BattleAction {

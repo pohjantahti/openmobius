@@ -40,6 +40,7 @@ class Battle {
     }>;
     healToPlayer: Array<number>;
     poisonToPlayer: Array<number>;
+    abilityName: string;
 
     constructor(data: BattleInput) {
         this.battleResources = data.battleResources;
@@ -62,6 +63,7 @@ class Battle {
         this.damageToPlayer = [];
         this.healToPlayer = [];
         this.poisonToPlayer = [];
+        this.abilityName = "";
     }
 
     getBattleInfo(): BattleInfo {
@@ -108,6 +110,7 @@ class Battle {
             healToPlayer: this.healToPlayer,
             poisonToPlayer: this.poisonToPlayer,
             music: this.player.getMainJob().resources.music,
+            abilityName: this.abilityName,
         };
     }
 
@@ -121,6 +124,7 @@ class Battle {
                 break;
             case BattleAction.Tap:
                 this.tapAttack();
+                this.abilityName = "Attack";
                 break;
             case BattleAction.Card:
                 this.cardAbility(index!);
@@ -131,6 +135,7 @@ class Battle {
                 } else {
                     this.player.driveElement(index!);
                 }
+                this.abilityName = "Element Drive";
                 break;
             case BattleAction.Ultimate:
                 this.ultimate();
@@ -152,6 +157,7 @@ class Battle {
             this.player.resetActions();
         }
         this.targetIndex = 0;
+        this.abilityName = "";
     }
 
     battleCompleted() {
@@ -196,6 +202,7 @@ class Battle {
         this.player.countdownToJobChange -= 1;
         this.player.reduceEffects(this.player);
         this.player.reduceCooldowns();
+        this.abilityName = "";
     }
 
     tapAttack() {
@@ -238,6 +245,7 @@ class Battle {
         if (!card) {
             return;
         }
+        this.abilityName = card.ability.name;
         // Action and orb reductions
         if (!card.extraSkills.includes(ExtraSkill.QuickCast)) {
             this.useAction();
@@ -333,6 +341,7 @@ class Battle {
         this.player.ultimate.current = 0;
         this.player.drawOrbs(10);
         const ultimate = this.player.getMainJob().ultimate;
+        this.abilityName = ultimate.name;
 
         //Before effects
         this.addEffects(ultimate.effect, "before");

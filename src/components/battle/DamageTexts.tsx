@@ -22,16 +22,16 @@ function DamageTexts(props: Props) {
 
     const setAnimation = async (name: string, type: "damage" | "heal" | "poison") => {
         let maxTime = 800;
-        const poisonHitDivs: NodeListOf<HTMLElement> = document.querySelectorAll(`.${name}${type}`);
-        for (let i = 0; i < poisonHitDivs.length; i++) {
-            poisonHitDivs[i].style.opacity = "1";
-            const time = Math.min(maxTime / poisonHitDivs.length, 100);
+        const hitDivs: NodeListOf<HTMLElement> = document.querySelectorAll(`.${name}${type}`);
+        for (let i = 0; i < hitDivs.length; i++) {
+            hitDivs[i].style.opacity = "1";
+            const time = Math.min(maxTime / hitDivs.length, 100);
             maxTime -= time;
             await sleep(time);
         }
-        for (let i = 0; i < poisonHitDivs.length; i++) {
-            await sleep(Math.min(maxTime / poisonHitDivs.length, 500));
-            poisonHitDivs[i].style.opacity = "0";
+        for (let i = 0; i < hitDivs.length; i++) {
+            await sleep(Math.min(maxTime / hitDivs.length, 500));
+            hitDivs[i].style.opacity = "0";
         }
     };
 

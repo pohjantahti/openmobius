@@ -9,7 +9,7 @@ const emptyPlayerActor: PlayerInput = {
             job: {
                 id: 0,
                 name: "",
-                resources: { card: "", thumbnail: "" },
+                resources: { card: "", thumbnail: "", music: "" },
                 class: "warrior",
                 level: 8,
                 overboost: 0,
@@ -43,7 +43,7 @@ const emptyPlayerActor: PlayerInput = {
             job: {
                 id: 0,
                 name: "",
-                resources: { card: "", thumbnail: "" },
+                resources: { card: "", thumbnail: "", music: "" },
                 class: "warrior",
                 level: 8,
                 overboost: 0,

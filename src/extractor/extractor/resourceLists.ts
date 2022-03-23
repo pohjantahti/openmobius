@@ -153,7 +153,7 @@ const baseResourceList: Array<string> = [
     "Icon: Battle_JobChangeBackground",
     "Icon: Battle_BattleInfoBackground",
     "Icon: Battle_HelpButtonBackground",
-    // "Icon: Battle_AbilityNameBackground",
+    "Icon: Battle_AbilityNameBackground",
     "Icon: Battle_OrbBarBackgroundS1",
     // "Icon: Battle_OrbBarBackgroundS2",
     "Icon: Battle_ElementWheelInner",

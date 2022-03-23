@@ -170,6 +170,7 @@ function BattleScreen(props: Props) {
                 jobClass={battleInfo.jobClass}
                 countdownToJobChange={battleInfo.countdownToJobChange}
                 playerEffects={battleInfo.playerEffects}
+                abilityName={battleInfo.abilityName}
             />
 
             <EnemyCards
