@@ -12,97 +12,97 @@
     {
         "container": "CAB-music_2nd_bossbattle_a_win",
         "fileName": "music_2nd_bossbattle_a",
-        "alias": "Music: "
+        "alias": "Music: Archfiend"
     },
     {
         "container": "CAB-music_2nd_bossbattle_b_win",
         "fileName": "music_2nd_bossbattle_b",
-        "alias": "Music: "
+        "alias": "Music: Vox"
     },
     {
         "container": "CAB-music_2nd_staffroll_win",
         "fileName": "music_2nd_staffroll",
-        "alias": "Music: "
+        "alias": "Music: Credits 2"
     },
     {
         "container": "CAB-music_arearesult_win",
         "fileName": "music_arearesult",
-        "alias": "Music: "
+        "alias": "Music: Result"
     },
     {
         "container": "CAB-music_battle_caitsith_win",
         "fileName": "music_battle_caitsith",
-        "alias": "Music: "
+        "alias": "Music: Cait Sith Suit"
     },
     {
         "container": "CAB-music_battle_ff6_kefka_win",
         "fileName": "music_battle_ff6_kefka",
-        "alias": "Music: "
+        "alias": "Music: Magitek Jester"
     },
     {
         "container": "CAB-music_battle_ff6_tina_win",
         "fileName": "music_battle_ff6_tina",
-        "alias": "Music: "
+        "alias": "Music: Magitek Heroine"
     },
     {
         "container": "CAB-music_battle_gambler_win",
         "fileName": "music_battle_gambler",
-        "alias": "Music: "
+        "alias": "Music: Gambler"
     },
     {
         "container": "CAB-music_battle_gothic_man_win",
         "fileName": "music_battle_gothic_man",
-        "alias": "Music: "
+        "alias": "Music: Gothic (man)"
     },
     {
         "container": "CAB-music_battle_gothic_woman_win",
         "fileName": "music_battle_gothic_woman",
-        "alias": "Music: "
+        "alias": "Music: Gothic (woman)"
     },
     {
         "container": "CAB-music_battle_gunshi_win",
         "fileName": "music_battle_gunshi",
-        "alias": "Music: "
+        "alias": "Music: Tactician"
     },
     {
         "container": "CAB-music_battle_gunshin_win",
         "fileName": "music_battle_gunshin",
-        "alias": "Music: "
+        "alias": "Music: Shorn One"
     },
     {
         "container": "CAB-music_battle_gurafu_win",
         "fileName": "music_battle_gurafu",
-        "alias": "Music: "
+        "alias": "Music: Épéiste"
     },
     {
         "container": "CAB-music_battle_gurafu_d_win",
         "fileName": "music_battle_gurafu_d",
-        "alias": "Music: "
+        "alias": "Music: Grand Général"
     },
     {
         "container": "CAB-music_battle_gurafu_outlaw_win",
         "fileName": "music_battle_gurafu_outlaw",
-        "alias": "Music: "
+        "alias": "Music: Aventurier"
     },
     {
         "container": "CAB-music_battle_highwind_win",
         "fileName": "music_battle_highwind",
-        "alias": "Music: "
+        "alias": "Music: Highwind"
     },
     {
         "container": "CAB-music_battle_intonsya_win",
         "fileName": "music_battle_intonsya",
-        "alias": "Music: "
+        "alias": "Music: Reisender"
     },
     {
         "container": "CAB-music_battle_kenja_win",
         "fileName": "music_battle_kenja",
-        "alias": "Music: "
+        "alias": "Music: Sage"
     },
     {
         "container": "CAB-music_battle_kenou_win",
         "fileName": "music_battle_kenou",
-        "alias": "Music: "
+        "alias": "Music: Kämpfer"
     },
     {
         "container": "CAB-music_battle_kensei_win",
@@ -112,12 +112,12 @@
     {
         "container": "CAB-music_battle_kensei_monk_win",
         "fileName": "music_battle_kensei_monk",
-        "alias": "Music: "
+        "alias": "Music: Ascetic"
     },
     {
         "container": "CAB-music_battle_mage_win",
         "fileName": "music_battle_mage",
-        "alias": "Music: "
+        "alias": "Music: Mage"
     },
     {
         "container": "CAB-music_battle_mage_ver01_win",
@@ -127,87 +127,87 @@
     {
         "container": "CAB-music_battle_mare_win",
         "fileName": "music_battle_mare",
-        "alias": "Music: "
+        "alias": "Music: Azure Witch"
     },
     {
         "container": "CAB-music_battle_mare_f_win",
         "fileName": "music_battle_mare_f",
-        "alias": "Music: "
+        "alias": "Music: Night Walker"
     },
     {
         "container": "CAB-music_battle_mare_j_win",
         "fileName": "music_battle_mare_j",
-        "alias": "Music: "
+        "alias": "Music: Bailarina"
     },
     {
         "container": "CAB-music_battle_mare_santa_win",
         "fileName": "music_battle_mare_santa",
-        "alias": "Music: "
+        "alias": "Music: Santa Lucia"
     },
     {
         "container": "CAB-music_battle_mazin_win",
         "fileName": "music_battle_mazin",
-        "alias": "Music: "
+        "alias": "Music: Occultist"
     },
     {
         "container": "CAB-music_battle_meidoushi_win",
         "fileName": "music_battle_meidoushi",
-        "alias": "Music: "
+        "alias": "Music: Wahrsager"
     },
     {
         "container": "CAB-music_battle_meikenshi_win",
         "fileName": "music_battle_meikenshi",
-        "alias": "Music: "
+        "alias": "Music: Scharfrichter"
     },
     {
         "container": "CAB-music_battle_mizugi_win",
         "fileName": "music_battle_mizugi",
-        "alias": "Music: "
+        "alias": "Music: Deep Diver"
     },
     {
         "container": "CAB-music_battle_mizugi_2018_win",
         "fileName": "music_battle_mizugi_2018",
-        "alias": "Music: "
+        "alias": "Music: Tropical Traveler"
     },
     {
         "container": "CAB-music_battle_mogurumi_win",
         "fileName": "music_battle_mogurumi",
-        "alias": "Music: "
+        "alias": "Music: Moogle Suit"
     },
     {
         "container": "CAB-music_battle_monk_win",
         "fileName": "music_battle_monk",
-        "alias": "Music: "
+        "alias": "Music: Monk"
     },
     {
         "container": "CAB-music_battle_nabaat_win",
         "fileName": "music_battle_nabaat",
-        "alias": "Music: "
+        "alias": "Music: PSICOM Officer"
     },
     {
         "container": "CAB-music_battle_ninja_win",
         "fileName": "music_battle_ninja",
-        "alias": "Music: "
+        "alias": "Music: Ninja"
     },
     {
         "container": "CAB-music_battle_odoriko_win",
         "fileName": "music_battle_odoriko",
-        "alias": "Music: "
+        "alias": "Music: Dancer"
     },
     {
         "container": "CAB-music_battle_paladin_win",
         "fileName": "music_battle_paladin",
-        "alias": "Music: "
+        "alias": "Music: Paladin"
     },
     {
         "container": "CAB-music_battle_primadonna_win",
         "fileName": "music_battle_primadonna",
-        "alias": "Music: "
+        "alias": "Music: Prima Donna"
     },
     {
         "container": "CAB-music_battle_ranger_win",
         "fileName": "music_battle_ranger",
-        "alias": "Music: "
+        "alias": "Music: Ranger"
     },
     {
         "container": "CAB-music_battle_ranger_ver01_win",
@@ -217,22 +217,22 @@
     {
         "container": "CAB-music_battle_samurai_win",
         "fileName": "music_battle_samurai",
-        "alias": "Music: "
+        "alias": "Music: Samurai"
     },
     {
         "container": "CAB-music_battle_sarah_win",
         "fileName": "music_battle_sarah",
-        "alias": "Music: "
+        "alias": "Music: Battle Princess"
     },
     {
         "container": "CAB-music_battle_sarah_d_win",
         "fileName": "music_battle_sarah_d",
-        "alias": "Music: "
+        "alias": "Music: Proud Cygnus"
     },
     {
         "container": "CAB-music_battle_sarah_e_win",
         "fileName": "music_battle_sarah_e",
-        "alias": "Music: "
+        "alias": "Music: Cacciatrice"
     },
     {
         "container": "CAB-music_battle_sarah_g_win",
@@ -242,12 +242,12 @@
     {
         "container": "CAB-music_battle_sazh_win",
         "fileName": "music_battle_sazh",
-        "alias": "Music: "
+        "alias": "Music: Cocoon Aviator"
     },
     {
         "container": "CAB-music_battle_seiryu_win",
         "fileName": "music_battle_seiryu",
-        "alias": "Music: "
+        "alias": "Music: Wyrmlord"
     },
     {
         "container": "CAB-music_battle_shizin_win",
@@ -267,47 +267,47 @@
     {
         "container": "CAB-music_battle_sophie_win",
         "fileName": "music_battle_sophie",
-        "alias": "Music: "
+        "alias": "Music: Freelancer"
     },
     {
         "container": "CAB-music_battle_sophie_e_win",
         "fileName": "music_battle_sophie_e",
-        "alias": "Music: "
+        "alias": "Music: Earthshaker"
     },
     {
         "container": "CAB-music_battle_supermonk_win",
         "fileName": "music_battle_supermonk",
-        "alias": "Music: "
+        "alias": "Music: Master Monk"
     },
     {
         "container": "CAB-music_battle_suzaku_wol_win",
         "fileName": "music_battle_suzaku_wol",
-        "alias": "Music: "
+        "alias": "Music: The Phoenix"
     },
     {
         "container": "CAB-music_battle_tendoushi_win",
         "fileName": "music_battle_tendoushi",
-        "alias": "Music: "
+        "alias": "Music: Skyseer"
     },
     {
         "container": "CAB-music_battle_viking_win",
         "fileName": "music_battle_viking",
-        "alias": "Music: "
+        "alias": "Music: Viking"
     },
     {
         "container": "CAB-music_battle_vincent_win",
         "fileName": "music_battle_vincent",
-        "alias": "Music: "
+        "alias": "Music: Agent of Scarlet Woe"
     },
     {
         "container": "CAB-music_battle_witchorigin_win",
         "fileName": "music_battle_witchorigin",
-        "alias": "Music: "
+        "alias": "Music: Primeval Witch"
     },
     {
         "container": "CAB-music_battle_yuffie_win",
         "fileName": "music_battle_yuffie",
-        "alias": "Music: "
+        "alias": "Music: Materia Hunter"
     },
     {
         "container": "CAB-music_blank_win",
@@ -517,7 +517,7 @@
     {
         "container": "CAB-music_endingmedley_win",
         "fileName": "music_endingmedley",
-        "alias": "Music: "
+        "alias": "Music: Credits 1"
     },
     {
         "container": "CAB-music_event_common_ver01_win",
@@ -617,7 +617,7 @@
     {
         "container": "CAB-music_fanfare_win",
         "fileName": "music_fanfare",
-        "alias": "Music: "
+        "alias": "Music: Fanfare"
     },
     {
         "container": "CAB-music_fanfare_cheer_l_win",
@@ -1592,7 +1592,7 @@
     {
         "container": "CAB-music_wol_theme_2nd_win",
         "fileName": "music_wol_theme_2nd",
-        "alias": "Music: "
+        "alias": "Music: Dawn Warrior"
     },
     {
         "container": "CAB-music_xmasfield_win",
