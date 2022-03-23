@@ -142,7 +142,7 @@ class Battle {
     waveCompleted() {
         console.log("Wave completed", this.wave.current, this.wave.max);
         this.player.countdownToJobChange -= 1;
-        this.player.reduceEffects();
+        this.player.reduceEffects(this.player);
         this.player.reduceCooldowns();
 
         if (this.wave.current + 1 === this.wave.max) {
@@ -194,7 +194,7 @@ class Battle {
         this.enemies[this.wave.current].forEach((enemy) => enemy.reduceEffects());
         this.player.resetActions();
         this.player.countdownToJobChange -= 1;
-        this.player.reduceEffects();
+        this.player.reduceEffects(this.player);
         this.player.reduceCooldowns();
     }
 

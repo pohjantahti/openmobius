@@ -22,7 +22,7 @@ class BattleActor {
             type?: "square" | "hexagon";
             resistancePoints?: number;
         },
-        player?: PlayerActor
+        target?: PlayerActor
     ) {
         if (this.effectActive(newEffect.name)) {
             const currentEffect = this.effects.filter(
@@ -44,7 +44,7 @@ class BattleActor {
                 currentEffect.resistancePoints = newEffect.resistancePoints;
             }
         } else {
-            if (this.replaceEffect(newEffect.name, newEffect.type, player)) {
+            if (this.replaceEffect(newEffect.name, newEffect.type, target)) {
                 this.effects.push({
                     name: newEffect.name,
                     type: newEffect.type || "square",
@@ -52,7 +52,7 @@ class BattleActor {
                     resistancePoints: newEffect.resistancePoints,
                 });
                 // Increased HP effect
-                this.changeHP(true, newEffect.name, player);
+                this.changeHP(true, newEffect.name, target);
             }
         }
     }
@@ -62,7 +62,7 @@ class BattleActor {
     replaceEffect(
         newEffectName: Boon | Ailment,
         newEffectType = "square",
-        player?: PlayerActor
+        target?: PlayerActor
     ): boolean {
         const counterparts = [
             [Boon.Barrier, [Boon.BarrierII, Ailment.Debarrier, Ailment.DebarrierII]],
@@ -138,7 +138,7 @@ class BattleActor {
                             currentEffect?.type === "square" &&
                             newEffectType === "square"
                         ) {
-                            this.removeEffect(counter as Boon | Ailment, player);
+                            this.removeEffect(counter as Boon | Ailment, target);
                             return true;
                         }
 
@@ -149,7 +149,7 @@ class BattleActor {
                             newEffectType === "square"
                         ) {
                             if (oppositeEffects(currentEffect.name, newEffectName)) {
-                                this.removeEffect(counter as Boon | Ailment, player);
+                                this.removeEffect(counter as Boon | Ailment, target);
                             }
                             return false;
                         }
@@ -161,7 +161,7 @@ class BattleActor {
                             newEffectType === "hexagon"
                         ) {
                             if (oppositeEffects(currentEffect.name, newEffectName)) {
-                                this.removeEffect(counter as Boon | Ailment, player);
+                                this.removeEffect(counter as Boon | Ailment, target);
                             }
                             return false;
                         }
@@ -172,7 +172,7 @@ class BattleActor {
                             currentEffect?.type === "hexagon" &&
                             newEffectType === "hexagon"
                         ) {
-                            this.removeEffect(counter as Boon | Ailment, player);
+                            this.removeEffect(counter as Boon | Ailment, target);
                             return true;
                         }
 
@@ -183,19 +183,19 @@ class BattleActor {
 
                         // Replace a square Effect with a square Effect
                         if (currentEffect?.type === "square" && newEffectType === "square") {
-                            this.removeEffect(counter as Boon | Ailment, player);
+                            this.removeEffect(counter as Boon | Ailment, target);
                             return false;
                         }
 
                         // Replace a hexagon Effect with a hexagon Effect
                         if (currentEffect?.type === "hexagon" && newEffectType === "hexagon") {
-                            this.removeEffect(counter as Boon | Ailment, player);
+                            this.removeEffect(counter as Boon | Ailment, target);
                             return false;
                         }
 
                         // Replace a square Effect with a hexagon Effect
                         if (currentEffect?.type === "square" && newEffectType === "hexagon") {
-                            this.removeEffect(counter as Boon | Ailment, player);
+                            this.removeEffect(counter as Boon | Ailment, target);
                             return true;
                         }
                     }
@@ -229,31 +229,33 @@ class BattleActor {
         return this.effects.filter((effect) => effect.name === name).length > 0;
     }
 
-    removeEffect(name: Boon | Ailment, player?: PlayerActor) {
+    removeEffect(name: Boon | Ailment, target?: PlayerActor) {
         this.effects = this.effects.filter((effect) => effect.name !== name);
         // Remove previously added increased HP effect
-        this.changeHP(false, name, player);
+        this.changeHP(false, name, target);
     }
 
-    // Reduce effect durations and filter out the ones with a duration or resistancePoints of 0
-    reduceEffects(amount = 1) {
+    // Reduce effect durations and remove the ones with a duration or resistancePoints of 0
+    reduceEffects(target?: PlayerActor, amount = 1) {
         this.effects.forEach((effect) => {
             effect.duration -= amount;
             if (effect.resistancePoints) {
                 effect.resistancePoints -= 2;
             }
         });
-        this.effects = this.effects.filter(
-            (effect) =>
-                effect.duration > 0 || (effect.resistancePoints && effect.resistancePoints > 0)
-        );
+
+        for (const effect of this.effects) {
+            if (effect.duration <= 0 || (effect.resistancePoints && effect.resistancePoints <= 0)) {
+                this.removeEffect(effect.name, target);
+            }
+        }
     }
 
-    changeHP(multiply: boolean, name: Boon | Ailment, player?: PlayerActor) {
-        if (player) {
-            const jobs = [player.getMainJob()];
-            if (!player.sameJob) {
-                jobs.push(player.getSubJob());
+    changeHP(multiply: boolean, name: Boon | Ailment, target?: PlayerActor) {
+        if (target) {
+            const jobs = [target.getMainJob()];
+            if (!target.sameJob) {
+                jobs.push(target.getSubJob());
             }
             for (const job of jobs) {
                 const hp = job.stats.hp;
