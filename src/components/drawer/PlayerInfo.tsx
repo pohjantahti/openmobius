@@ -10,8 +10,8 @@ interface Props {
 function PlayerInfo(props: Props) {
     const { style, regionMap } = props;
 
-    const [staminaTime, setStaminaTime] = useState("00:00");
-    const [magiciteTime, setMagiciteTime] = useState("00:00:00");
+    const [staminaTime, setStaminaTime] = useState(playerInfo.stamina.timeLeft.current.string);
+    const [magiciteTime, setMagiciteTime] = useState(playerInfo.distiller.timeLeft.current.string);
 
     useEffect(() => {
         const interval = setInterval(() => {

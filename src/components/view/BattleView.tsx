@@ -14,6 +14,11 @@ function BattleView(props: Props) {
 
     const [combatInProgress, setCombatInProgress] = useState(false);
     const [resultsInProgress, setResultsInProgress] = useState(false);
+    const [scoreInfo, setScoreInfo] = useState({
+        score: 0,
+        seedBonus: 1,
+        bestScore: 0,
+    });
 
     useEffect(() => {
         if (battleInProgress) {
@@ -21,9 +26,14 @@ function BattleView(props: Props) {
         }
     }, [battleInProgress]);
 
-    const handleCombatEnd = () => {
+    const handleCombatEnd = (score: number) => {
         setCombatInProgress(false);
         setResultsInProgress(true);
+        setScoreInfo({
+            score: score,
+            seedBonus: 1,
+            bestScore: 0,
+        });
     };
 
     const handleResultsEnd = () => {
@@ -42,18 +52,17 @@ function BattleView(props: Props) {
                         height: "100%",
                         width: "100%",
                         zIndex: 15,
-                        backgroundColor: "black",
                     }}
                 >
-                    <BattleScreen
-                        combatInProgress={combatInProgress}
-                        handleCombatEnd={handleCombatEnd}
-                        battleNodeInfo={battleNodeInfo}
-                    />
-                    <ResultsScreen
-                        resultsInProgress={resultsInProgress}
-                        handleResultsEnd={handleResultsEnd}
-                    />
+                    {combatInProgress && (
+                        <BattleScreen
+                            handleCombatEnd={handleCombatEnd}
+                            battleNodeInfo={battleNodeInfo}
+                        />
+                    )}
+                    {resultsInProgress && (
+                        <ResultsScreen handleResultsEnd={handleResultsEnd} info={scoreInfo} />
+                    )}
                 </div>
             )}
         </>

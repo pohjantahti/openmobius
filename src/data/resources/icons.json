@@ -1767,6 +1767,42 @@
         "xOffset": 14,
         "yOffset": 336
     },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: BattleResult_Background",
+        "width": 476,
+        "height": 476,
+        "xOffset": 1003,
+        "yOffset": 1554
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: Boomerang",
+        "width": 104,
+        "height": 42,
+        "xOffset": 142,
+        "yOffset": 75
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: GradientLine",
+        "width": 511,
+        "height": 16,
+        "xOffset": 1,
+        "yOffset": 29
+    },
+    {
+        "container": "CAB-Resident_gui__pack_win",
+        "fileName": "ResidentAtlas",
+        "alias": "Icon: GradientLine_Half",
+        "width": 243,
+        "height": 8,
+        "xOffset": 142,
+        "yOffset": 51
+    },
 
     {
         "container": "CAB-Resident_gui__pack_win",

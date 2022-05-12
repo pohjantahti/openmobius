@@ -199,6 +199,11 @@ const baseResourceList: Array<string> = [
     "Icon: Battle_Number8",
     "Icon: Battle_Number9",
 
+    "Icon: BattleResult_Background",
+    "Icon: Boomerang",
+    "Icon: GradientLine",
+    "Icon: GradientLine_Half",
+
     "Icon: CardThumbnail_Decoration5*",
     // "Icon: CardThumbnail_Decoration4*",
     "Icon: CardThumbnail_Decoration3*",

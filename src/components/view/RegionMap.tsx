@@ -218,6 +218,7 @@ function RegionMap(props: Props) {
                     position: "absolute",
                     right: "5.33rem",
                     top: "0.5rem",
+                    opacity: battleInProgress ? 0 : 1,
                 }}
                 regionMap
             />

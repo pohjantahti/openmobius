@@ -14,11 +14,11 @@ function MainView() {
             <RegionMap
                 setBattleInProgress={setBattleInProgress}
                 setBattleNodeInfo={setBattleNodeInfo}
-                showButtons={showButtons}
+                showButtons={!battleInProgress && showButtons}
                 setShowButtons={setShowButtons}
                 battleInProgress={battleInProgress}
             />
-            <Drawer showButtons={showButtons} />
+            <Drawer showButtons={!battleInProgress && showButtons} />
             <BattleView
                 battleInProgress={battleInProgress}
                 setBattleInProgress={setBattleInProgress}

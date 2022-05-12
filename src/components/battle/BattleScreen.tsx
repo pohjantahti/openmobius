@@ -10,13 +10,12 @@ import { BattleAction, BattleInfo, BattleNodeInfo } from "../../battle/types";
 import { sleep } from "../../utils";
 
 interface Props {
-    combatInProgress: boolean;
-    handleCombatEnd: () => void;
+    handleCombatEnd: (score: number) => void;
     battleNodeInfo: BattleNodeInfo;
 }
 
 function BattleScreen(props: Props) {
-    const { combatInProgress, handleCombatEnd, battleNodeInfo } = props;
+    const { handleCombatEnd, battleNodeInfo } = props;
 
     const [battleInfo, setBattleInfo] = useState<BattleInfo>(Object());
     const [changingTarget, setChangingTarget] = useState(false);
@@ -53,7 +52,7 @@ function BattleScreen(props: Props) {
             await sleep(1000);
             const info = battle.getBattleInfo();
             if (info.isBattleCompleted) {
-                handleCombatEnd();
+                handleCombatEnd(info.score);
             } else {
                 setBattleInfo(info);
             }
@@ -140,9 +139,9 @@ function BattleScreen(props: Props) {
     return (
         <div
             style={{
-                display: combatInProgress ? "inline" : "none",
                 height: "100%",
                 width: "100%",
+                backgroundColor: "black",
             }}
         >
             <BackgroundImages />
@@ -197,7 +196,7 @@ function BattleScreen(props: Props) {
                     top: "65rem",
                     left: "82.5rem",
                 }}
-                onClick={handleCombatEnd}
+                onClick={() => handleCombatEnd(0)}
             >
                 End combat
             </button>
