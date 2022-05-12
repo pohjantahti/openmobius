@@ -1,13 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import StartMenu from "./components/view/StartMenu";
 import "./index.css";
 
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container!);
+root.render(
     <React.StrictMode>
         <StartMenu />
-    </React.StrictMode>,
-    document.getElementById("root")
+    </React.StrictMode>
 );
-
-// TODO: Get rid of "any" types
