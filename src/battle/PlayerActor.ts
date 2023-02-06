@@ -1,10 +1,18 @@
-import { MAX } from "../info";
+import { MAX, elementforces } from "../info";
 import { Element, FullDeck, FullElement } from "../info/types";
 import { capitalize } from "../utils";
 import BattleActor from "./BattleActor";
 import EnemyActor from "./EnemyActor";
 import PlayerDamage from "./PlayerDamage";
-import { BattleFullDeck, BattleJob, Boon, ExtraSkill, AutoAbility, BattleCard } from "./types";
+import {
+    BattleFullDeck,
+    BattleJob,
+    Boon,
+    ExtraSkill,
+    AutoAbility,
+    BattleCard,
+    Ailment,
+} from "./types";
 import {
     createBattleFullDeck,
     getAutoAbility,
@@ -102,6 +110,18 @@ class PlayerActor extends BattleActor {
         this.activeDeck = this.activeDeck ? 0 : 1;
         this.countdownToJobChange = 4;
         this.actions = Math.max(this.actions - 1, 0);
+        // Remove incompatible effects
+        // Elementforce
+        // Remove all the Elementforces that the new job cannot utilize
+        const currentElements = this.getMainJob().elements;
+        for (const force of Object.keys(elementforces) as Array<Boon | Ailment>) {
+            const forceElement = elementforces[force]!;
+            if (currentElements.indexOf(forceElement) === -1) {
+                if (this.effectActive(force)) {
+                    this.removeEffect(force, this);
+                }
+            }
+        }
     }
 
     resetActions() {
@@ -359,37 +379,41 @@ class PlayerActor extends BattleActor {
 
     driveElement(elementIndex: number) {
         const element = this.getMainJob().elements[elementIndex];
-        // Figure out the removed amount and indexes of remaining elements
-        const toBeRemoved = this.wheel[elementIndex];
-        const remainingIndexes = [0, 1, 2];
-        remainingIndexes.splice(elementIndex, 1);
+        // If Elementforce is active, don't touch the wheel
+        if (!this.isElementforceActive()) {
+            // Figure out the removed amount and indexes of remaining elements
+            const toBeRemoved = this.wheel[elementIndex];
+            const remainingIndexes = [0, 1, 2];
+            remainingIndexes.splice(elementIndex, 1);
 
-        // toBeRemoved is 100
-        if (this.wheel[remainingIndexes[0]] === 0 && this.wheel[remainingIndexes[1]] === 0) {
-            this.wheel[remainingIndexes[0]] = 50;
-            this.wheel[remainingIndexes[1]] = 50;
-        } else {
-            // If both remaining elements have some amount left, divide toBeRemoved between them. Otherwise, put element to 100.
-            if (this.wheel[remainingIndexes[0]] > 0) {
-                if (this.wheel[remainingIndexes[1]] > 0) {
-                    this.wheel[remainingIndexes[0]] += toBeRemoved / 2;
-                } else {
-                    this.wheel[remainingIndexes[0]] = 100;
-                }
-            }
-            if (this.wheel[remainingIndexes[1]] > 0) {
+            // toBeRemoved is 100
+            if (this.wheel[remainingIndexes[0]] === 0 && this.wheel[remainingIndexes[1]] === 0) {
+                this.wheel[remainingIndexes[0]] = 50;
+                this.wheel[remainingIndexes[1]] = 50;
+            } else {
+                // If both remaining elements have some amount left, divide toBeRemoved between them. Otherwise, put element to 100.
                 if (this.wheel[remainingIndexes[0]] > 0) {
-                    this.wheel[remainingIndexes[1]] += toBeRemoved / 2;
-                } else {
-                    this.wheel[remainingIndexes[1]] = 100;
+                    if (this.wheel[remainingIndexes[1]] > 0) {
+                        this.wheel[remainingIndexes[0]] += toBeRemoved / 2;
+                    } else {
+                        this.wheel[remainingIndexes[0]] = 100;
+                    }
+                }
+                if (this.wheel[remainingIndexes[1]] > 0) {
+                    if (this.wheel[remainingIndexes[0]] > 0) {
+                        this.wheel[remainingIndexes[1]] += toBeRemoved / 2;
+                    } else {
+                        this.wheel[remainingIndexes[1]] = 100;
+                    }
                 }
             }
+            // Remove the driven element from wheel
+            this.wheel[elementIndex] = 0;
         }
+
         let orbsToDrive = this.orbs[element] + this.orbs["prismatic"];
         this.addResistElementEffect(element, orbsToDrive);
         this.updateUltimateGauge(orbsToDrive);
-        // Remove the driven element from wheel
-        this.wheel[elementIndex] = 0;
         // Remove the orbs
         this.orbs[element] = 0;
         this.orbs["prismatic"] = 0;
@@ -446,6 +470,10 @@ class PlayerActor extends BattleActor {
 
     // Moves element wheel a specified amount toward the default of [100/3, 100/3, 100/3]
     elementWheelTowardDefault(amount: number) {
+        // If Elementforce is active, don't touch the wheel
+        if (this.isElementforceActive()) {
+            return;
+        }
         // Calculate how many elements are under and over the default
         // Ranges from 0 to 2
         let underDefault = 0;
@@ -594,6 +622,40 @@ class PlayerActor extends BattleActor {
                 card.ability.cooldown.current = Math.max(card.ability.cooldown.current - 1, 0);
             }
         }
+    }
+
+    // Changes the element wheel accordingly when an Elementforce is added or removed
+    handelElementforceChangesToWheel(boonAilment: Boon | Ailment, action: "add" | "remove") {
+        // Check that boonAilment is an Elementforce
+        const element = elementforces[boonAilment];
+        if (element) {
+            // Check that current job has an element of the Elementforce
+            const elementIndex = this.getMainJob().elements.indexOf(element);
+            // Adding: set the Elementforce element to 100 and others to 0
+            // Removing or resetting: set all the elements to 100 / 3
+            if (elementIndex !== -1) {
+                if (action === "add") {
+                    const newWheel: [number, number, number] = [0, 0, 0];
+                    newWheel[elementIndex] = 100;
+                    this.wheel = newWheel;
+                } else {
+                    this.wheel = [100 / 3, 100 / 3, 100 / 3];
+                }
+            } else {
+                this.wheel = [100 / 3, 100 / 3, 100 / 3];
+            }
+        }
+    }
+
+    isElementforceActive(): boolean {
+        return (
+            this.effectActive(Boon.Flameforce) ||
+            this.effectActive(Boon.Iceforce) ||
+            this.effectActive(Boon.Windforce) ||
+            this.effectActive(Boon.Earthforce) ||
+            this.effectActive(Boon.Lightforce) ||
+            this.effectActive(Boon.Darkforce)
+        );
     }
 }
 

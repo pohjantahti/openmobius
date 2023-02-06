@@ -8,7 +8,7 @@ const emptyPlayerActor: PlayerInput = {
         {
             job: {
                 id: 0,
-                name: "",
+                name: "Test Job 1",
                 resources: { card: "", thumbnail: "", music: "" },
                 class: "warrior",
                 level: 8,
@@ -41,8 +41,8 @@ const emptyPlayerActor: PlayerInput = {
         },
         {
             job: {
-                id: 0,
-                name: "",
+                id: 1,
+                name: "Test Job 2",
                 resources: { card: "", thumbnail: "", music: "" },
                 class: "warrior",
                 level: 8,
@@ -143,6 +143,6 @@ const emptyEnemyActor: Enemy = {
     defense: 0,
 };
 
-test.todo("Battle features");
+test("Empty imports", () => {});
 
 export { emptyPlayerActor, emptyCard, emptyBattleCard, emptyEnemyActor };

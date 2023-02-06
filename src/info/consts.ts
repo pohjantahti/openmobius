@@ -1,3 +1,6 @@
+import { Ailment, Boon } from "../battle/types";
+import { Element } from "../info/types";
+
 const MAX = {
     deckCount: 10,
     cardLevel: 80,
@@ -8,4 +11,13 @@ const MAX = {
     orbCount: 16,
 };
 
-export { MAX };
+const elementforces: Partial<Record<Boon | Ailment, Element>> = {
+    flameforce: "fire",
+    iceforce: "water",
+    windforce: "wind",
+    earthforce: "earth",
+    lightforce: "light",
+    darkforce: "dark",
+};
+
+export { MAX, elementforces };

@@ -1,6 +1,6 @@
 import { emptyDistiller, initPlayerResourceTimers, spendStamina } from "./intervals";
 import { playerInfo } from "./player";
-import { MAX } from "./consts";
+import { MAX, elementforces } from "./consts";
 import {
     deckInfo,
     currentDeck,
@@ -15,6 +15,7 @@ export {
     deckInfo,
     currentDeck,
     MAX,
+    elementforces,
     spendStamina,
     emptyDistiller,
     initPlayerResourceTimers,

@@ -1,4 +1,4 @@
-import { MAX } from "../info";
+import { MAX, elementforces } from "../info";
 import { Target } from "../info/types";
 import PlayerActor from "./PlayerActor";
 import { Ailment, BattleEffect, Boon } from "./types";
@@ -53,6 +53,8 @@ class BattleActor {
                 });
                 // Increased HP effect
                 this.changeHP(true, newEffect.name, target);
+                // Elementforce adding
+                target?.handelElementforceChangesToWheel(newEffect.name, "add");
             }
         }
     }
@@ -118,6 +120,29 @@ class BattleActor {
             [Boon.EnhanceElementalAttacks, [Boon.EnhanceElementalAttacksII]],
             [Boon.EnhanceElementalAttacksII, [Boon.EnhanceElementalAttacks]],
         ];
+
+        // Replace an Elementforce with another Elementforce that the current job can utilize
+        if (
+            target &&
+            (newEffectName === Boon.Flameforce ||
+                newEffectName === Boon.Iceforce ||
+                newEffectName === Boon.Windforce ||
+                newEffectName === Boon.Earthforce ||
+                newEffectName === Boon.Lightforce ||
+                newEffectName === Boon.Darkforce)
+        ) {
+            // Figure out the element of the Elementforce and check if current job can use it
+            const element = elementforces[newEffectName]!;
+            if (target.getMainJob().elements.indexOf(element) !== -1) {
+                // Remove other Elementforces
+                Object.keys(elementforces).forEach((force) => {
+                    target.removeEffect(force as Boon | Ailment);
+                });
+                return true;
+            } else {
+                return false;
+            }
+        }
 
         // Check that one of the values is a Boon and the other an Ailment
         const oppositeEffects = (compareThis: string, toThat: string): boolean => {
@@ -233,6 +258,8 @@ class BattleActor {
         this.effects = this.effects.filter((effect) => effect.name !== name);
         // Remove previously added increased HP effect
         this.changeHP(false, name, target);
+        // Elementforce removal
+        target?.handelElementforceChangesToWheel(name, "remove");
     }
 
     // Reduce effect durations and remove the ones with a duration or resistancePoints of 0

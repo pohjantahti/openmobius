@@ -2987,7 +2987,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas2",
-        "alias": "Icon: Fireforce_Square",
+        "alias": "Icon: Flameforce_Square",
         "width": 64,
         "height": 64,
         "xOffset": 1951,
@@ -2996,7 +2996,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas2",
-        "alias": "Icon: Fireforce_Hexagon",
+        "alias": "Icon: Flameforce_Hexagon",
         "width": 64,
         "height": 64,
         "xOffset": 1347,
@@ -3005,7 +3005,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas2",
-        "alias": "Icon: Waterforce_Square",
+        "alias": "Icon: Iceforce_Square",
         "width": 64,
         "height": 64,
         "xOffset": 1549,
@@ -3014,7 +3014,7 @@
     {
         "container": "CAB-Resident_gui__pack_win",
         "fileName": "ResidentAtlas2",
-        "alias": "Icon: Waterforce_Hexagon",
+        "alias": "Icon: Iceforce_Hexagon",
         "width": 64,
         "height": 64,
         "xOffset": 1615,

@@ -197,6 +197,48 @@ const cards: Array<Card> = [
             },
         ],
     },
+    {
+        id: 4,
+        name: "Brynhildr",
+        resources: {
+            card: "Card: Brynhildr",
+            thumbnail: "Thumbnail: Brynhildr",
+        },
+        class: "support",
+        star: 5,
+        level: 80,
+        overboost: 0,
+        element: "life",
+        ability: {
+            name: "Flameforce",
+            cost: 2,
+            attack: 0,
+            break: 0,
+            critical: 0,
+            target: "self",
+            hits: 0,
+            cooldown: 3,
+        },
+        extraSkills: [
+            ExtraSkill.EnhancedLife,
+            ExtraSkill.ElementalBounty,
+            ExtraSkill.QuickCast,
+            ExtraSkill.ImbueFire,
+            ExtraSkill.EnhancedFire,
+        ],
+        autoAbilities: {
+            attackUp: 3,
+            enhanceFire: 3,
+        },
+        effect: [
+            {
+                name: Boon.Flameforce,
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ],
+    },
 ];
 
 export default cards;

@@ -1,7 +1,7 @@
 import PlayerActor, { PlayerInput } from "../PlayerActor";
 import { Card } from "../../data/game/cards";
 import { emptyPlayerActor, emptyCard, emptyBattleCard, emptyEnemyActor } from "./index.test";
-import { Ailment, Boon } from "../types";
+import { Ailment, BattleAction, Boon } from "../types";
 import Battle from "../Battle";
 
 test("Mix Auto-Abilities from Job and Cards", () => {
@@ -686,5 +686,259 @@ describe("Orb manipulation", () => {
             life: 3,
             prismatic: 0,
         });
+    });
+
+    test("Elementforce affecting the element wheel", () => {
+        const card = JSON.parse(JSON.stringify(emptyBattleCard));
+        card.effect = [
+            {
+                name: "flameforce",
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ];
+        const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+        decks[0].cards[0] = card;
+        const battle = new Battle({
+            deck: decks,
+            ultimate: 100,
+            enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+            difficulty: 1,
+            battleResources: {},
+            activeDeck: 0,
+        });
+        battle.cardAbility(0);
+        expect(battle.player.effectActive(Boon.Flameforce)).toBe(true);
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
+        battle.player.removeEffect(Boon.Flameforce, battle.player);
+        expect(battle.player.effectActive(Boon.Flameforce)).toBe(false);
+        expect(battle.player.wheel).toStrictEqual([100 / 3, 100 / 3, 100 / 3]);
+    });
+
+    test("Driving elements doesn't affect the wheel while Elementforce is in effect", () => {
+        const card = JSON.parse(JSON.stringify(emptyBattleCard));
+        card.effect = [
+            {
+                name: "flameforce",
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ];
+        const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+        decks[0].cards[0] = card;
+        const battle = new Battle({
+            deck: decks,
+            ultimate: 100,
+            enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+            difficulty: 1,
+            battleResources: {},
+            activeDeck: 0,
+        });
+        battle.cardAbility(0);
+        expect(battle.player.effectActive(Boon.Flameforce)).toBe(true);
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
+        battle.player.orbs = {
+            fire: 16,
+            water: 0,
+            wind: 0,
+            earth: 0,
+            light: 0,
+            dark: 0,
+            life: 0,
+            prismatic: 0,
+        };
+        battle.player.driveElement(battle.player.getMainJob().elements.indexOf("fire"));
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
+    });
+
+    test("Tap attacking doesn't affect the wheel while Elementforce is in effect", () => {
+        const card = JSON.parse(JSON.stringify(emptyBattleCard));
+        card.effect = [
+            {
+                name: "flameforce",
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ];
+        const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+        decks[0].cards[0] = card;
+        const battle = new Battle({
+            deck: decks,
+            ultimate: 100,
+            enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+            difficulty: 1,
+            battleResources: {},
+            activeDeck: 0,
+        });
+        battle.cardAbility(0);
+        expect(battle.player.effectActive(Boon.Flameforce)).toBe(true);
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
+        battle.action(BattleAction.Tap);
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
+    });
+
+    test("Elementforce getting replaced by Elementforce of different element", () => {
+        const card1 = JSON.parse(JSON.stringify(emptyBattleCard));
+        card1.effect = [
+            {
+                name: "flameforce",
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ];
+        const card2 = JSON.parse(JSON.stringify(emptyBattleCard));
+        card2.effect = [
+            {
+                name: "iceforce",
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ];
+        const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+        decks[0].cards[0] = card1;
+        decks[0].cards[1] = card2;
+        const battle = new Battle({
+            deck: decks,
+            ultimate: 100,
+            enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+            difficulty: 1,
+            battleResources: {},
+            activeDeck: 0,
+        });
+        battle.cardAbility(0);
+        expect(battle.player.effectActive(Boon.Flameforce)).toBe(true);
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
+        battle.cardAbility(1);
+        expect(battle.player.effectActive(Boon.Flameforce)).toBe(false);
+        expect(battle.player.effectActive(Boon.Iceforce)).toBe(true);
+        expect(battle.player.wheel).toStrictEqual([0, 100, 0]);
+    });
+
+    test("Elementforce, that's not part of the job's elements, is not added", () => {
+        const card = JSON.parse(JSON.stringify(emptyBattleCard));
+        card.effect = [
+            {
+                name: "darkforce",
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ];
+        const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+        decks[0].cards[0] = card;
+        const battle = new Battle({
+            deck: decks,
+            ultimate: 100,
+            enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+            difficulty: 1,
+            battleResources: {},
+            activeDeck: 0,
+        });
+        battle.cardAbility(0);
+        expect(battle.player.effectActive(Boon.Darkforce)).toBe(false);
+        expect(battle.player.wheel).toStrictEqual([100 / 3, 100 / 3, 100 / 3]);
+    });
+
+    test("Elementforce not getting replaced by Elementforce that's not part of job's elements", () => {
+        const card1 = JSON.parse(JSON.stringify(emptyBattleCard));
+        card1.effect = [
+            {
+                name: "flameforce",
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ];
+        const card2 = JSON.parse(JSON.stringify(emptyBattleCard));
+        card2.effect = [
+            {
+                name: "darkforce",
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ];
+        const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+        decks[0].cards[0] = card1;
+        decks[0].cards[1] = card2;
+        const battle = new Battle({
+            deck: decks,
+            ultimate: 100,
+            enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+            difficulty: 1,
+            battleResources: {},
+            activeDeck: 0,
+        });
+        battle.cardAbility(0);
+        expect(battle.player.effectActive(Boon.Flameforce)).toBe(true);
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
+        battle.cardAbility(1);
+        expect(battle.player.effectActive(Boon.Flameforce)).toBe(true);
+        expect(battle.player.effectActive(Boon.Darkforce)).toBe(false);
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
+    });
+
+    test("Elementforce removed on Job Change if the new job's elements can't utilize the Elementforce", () => {
+        const card = JSON.parse(JSON.stringify(emptyBattleCard));
+        card.effect = [
+            {
+                name: "darkforce",
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ];
+        const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+        decks[0].cards[0] = card;
+        decks[0].job.elements = ["dark", "water", "earth"];
+        const battle = new Battle({
+            deck: decks,
+            ultimate: 100,
+            enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+            difficulty: 1,
+            battleResources: {},
+            activeDeck: 0,
+        });
+        battle.cardAbility(0);
+        expect(battle.player.effectActive(Boon.Darkforce)).toBe(true);
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
+        battle.action(BattleAction.JobChange);
+        expect(battle.player.effectActive(Boon.Darkforce)).toBe(false);
+        expect(battle.player.wheel).toStrictEqual([100 / 3, 100 / 3, 100 / 3]);
+    });
+
+    test("Elementforce not removed on Job Change if the new job's elements can utilize the Elementforce", () => {
+        const card = JSON.parse(JSON.stringify(emptyBattleCard));
+        card.effect = [
+            {
+                name: "darkforce",
+                duration: 3,
+                target: "self",
+                timing: "before",
+            },
+        ];
+        const decks = JSON.parse(JSON.stringify(emptyPlayerActor.deck));
+        decks[0].cards[0] = card;
+        decks[0].job.elements = ["dark", "water", "earth"];
+        decks[1].job.elements = ["dark", "water", "earth"];
+        const battle = new Battle({
+            deck: decks,
+            ultimate: 100,
+            enemies: [[JSON.parse(JSON.stringify(emptyEnemyActor))]],
+            difficulty: 1,
+            battleResources: {},
+            activeDeck: 0,
+        });
+        battle.cardAbility(0);
+        expect(battle.player.effectActive(Boon.Darkforce)).toBe(true);
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
+        battle.action(BattleAction.JobChange);
+        expect(battle.player.effectActive(Boon.Darkforce)).toBe(true);
+        expect(battle.player.wheel).toStrictEqual([100, 0, 0]);
     });
 });

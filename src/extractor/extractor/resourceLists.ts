@@ -312,10 +312,10 @@ const baseResourceList: Array<string> = [
     "Icon: ResistLight_Hexagon",
     "Icon: ResistDark_Square",
     "Icon: ResistDark_Hexagon",
-    "Icon: Fireforce_Square",
-    "Icon: Fireforce_Hexagon",
-    "Icon: Waterforce_Square",
-    "Icon: Waterforce_Hexagon",
+    "Icon: Flameforce_Square",
+    "Icon: Flameforce_Hexagon",
+    "Icon: Iceforce_Square",
+    "Icon: Iceforce_Hexagon",
     "Icon: Windforce_Square",
     "Icon: Windforce_Hexagon",
     "Icon: Earthforce_Square",
@@ -413,6 +413,7 @@ const baseResourceList: Array<string> = [
     "Thumbnail: Knights of the Round: FFVII",
     "Thumbnail: Xezat: FFV",
     "Thumbnail: Jormungand",
+    "Thumbnail: Brynhildr",
     "Card: 5-8* Frame",
 ];
 

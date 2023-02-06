@@ -27,7 +27,7 @@ const getDefaultData = (): {
         },
         {
             job: 0,
-            cards: [-1, 0, 0, -1],
+            cards: [0, 4, -1, -1],
         },
     ];
     return data;
