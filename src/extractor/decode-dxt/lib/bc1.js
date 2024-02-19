@@ -4,9 +4,9 @@
  *
  */
 
-var utils = require("./utils");
+import utils from "./utils";
 
-module.exports = function decodeBC1(imageData, width, height) {
+function decodeBC1(imageData, width, height) {
     var rgba = new Uint8Array(width * height * 4),
         height_4 = (height / 4) | 0,
         width_4 = (width / 4) | 0,
@@ -47,4 +47,6 @@ module.exports = function decodeBC1(imageData, width, height) {
     }
 
     return rgba;
-};
+}
+
+export default decodeBC1;

@@ -4,13 +4,13 @@
  *
  */
 
-var utils = require("./utils");
+import utils from "./utils";
 
 var getAlphaIndex = function getAlphaIndex(alphaIndices, pixelIndex) {
     return utils.extractBitsFromUin16Array(alphaIndices, 3 * (15 - pixelIndex), 3);
 };
 
-module.exports = function decodeBC3(imageData, width, height, premultiplied) {
+function decodeBC3(imageData, width, height, premultiplied) {
     var rgba = new Uint8Array(width * height * 4),
         height_4 = (height / 4) | 0,
         width_4 = (width / 4) | 0,
@@ -77,4 +77,6 @@ module.exports = function decodeBC3(imageData, width, height, premultiplied) {
     }
 
     return rgba;
-};
+}
+
+export default decodeBC3;

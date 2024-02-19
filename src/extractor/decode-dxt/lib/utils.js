@@ -108,4 +108,4 @@ utils.multiply = function (component, multiplier) {
     return Math.round(component * multiplier);
 };
 
-module.exports = utils;
+export default utils;

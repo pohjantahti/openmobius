@@ -10,30 +10,30 @@ const getResourceInfo = async (resource: string): Promise<ResourceInfo> => {
     let jsonFile;
     switch (type) {
         case "Icon":
-            jsonFile = "icons.json";
+            jsonFile = "icons";
             break;
         case "Card":
-            jsonFile = "cards.json";
+            jsonFile = "cards";
             break;
         case "Music":
-            jsonFile = "music.json";
+            jsonFile = "music";
             break;
         case "Thumbnail":
-            jsonFile = "thumbnails.json";
+            jsonFile = "thumbnails";
             break;
         case "Billboard":
-            jsonFile = "billboard.json";
+            jsonFile = "billboard";
             break;
         case "Regionmap":
-            jsonFile = "regionmap.json";
+            jsonFile = "regionmap";
             break;
         default:
-            jsonFile = "resources.json";
+            jsonFile = "resources";
             break;
     }
     const file: Array<ResourceInfo> = Object.values(
-        await import("../../data/resources/" + jsonFile)
-    );
+        await import(`../../data/resources/${jsonFile}.json`)
+    )[0] as Array<ResourceInfo>;
     return file.filter((item: any) => item.alias === resource)[0];
 };
 
@@ -42,22 +42,22 @@ const getGameData = async (resource: string, searchId?: number) => {
     let dataFile;
     switch (args[0]) {
         case "Card":
-            dataFile = "cards.ts";
+            dataFile = "cards";
             break;
         case "Enemy":
-            dataFile = "enemies.ts";
+            dataFile = "enemies";
             break;
         case "Job":
-            dataFile = "jobs.ts";
+            dataFile = "jobs";
             break;
         case "Region":
-            dataFile = "regions.ts";
+            dataFile = "regions";
             break;
         default:
             console.error("Unknown game data type: ", resource, searchId);
             break;
     }
-    const data: { default: Array<any> } = await import("../../data/game/" + dataFile);
+    const data: { default: Array<any> } = await import(`../../data/game/${dataFile}.ts`);
     if (args[1]) {
         return data.default.filter((item: any) => item.name === args[1])[0];
     } else if (searchId! >= 0) {
@@ -78,7 +78,7 @@ const extractResourceAsTextureInfo = async (resourceInfo: ResourceInfo): Promise
 };
 
 // Core function of this file
-const extractResourceFile = async (resourceInfo: ResourceInfo): Promise<[BinaryReader, {}]> => {
+const extractResourceFile = async (resourceInfo: ResourceInfo): Promise<[BinaryReader, object]> => {
     // Load the .unity3d file
     const assetBundle: ArrayBuffer = await getAssetBundle(resourceInfo.container);
     let reader: BinaryReader = new BinaryReader(new DataView(assetBundle));

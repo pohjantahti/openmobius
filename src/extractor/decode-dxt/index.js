@@ -1,6 +1,6 @@
-var decodeBC1 = require("./lib/bc1"),
-    decodeBC2 = require("./lib/bc2"),
-    decodeBC3 = require("./lib/bc3");
+import decodeBC1 from "./lib/bc1";
+import decodeBC2 from "./lib/bc2";
+import decodeBC3 from "./lib/bc3";
 
 /**
  * Decode a DXT image to RGBA data.
@@ -39,4 +39,4 @@ decode.dxt3 = "dxt3";
 decode.dxt4 = "dxt4";
 decode.dxt5 = "dxt5";
 
-module.exports = decode;
+export default decode;

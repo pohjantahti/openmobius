@@ -10,33 +10,30 @@ const resources: Record<string, string> = {};
 const tilesetImages: Record<string, TextureInfo> = {};
 
 // Save Blob urls to the resources or tilesetImages
-const saveResources = (
+const saveResources = async (
     resourceList: Array<string>,
     name: string,
     onProgress?: any
 ): Promise<undefined> => {
-    return new Promise(async (resolve) => {
-        const startTime: number = Date.now();
-        for (const [index, item] of Array.from(resourceList.entries())) {
-            const resourceInfo = await getResourceInfo(item);
-            if (tilesetList.includes(item)) {
-                tilesetImages[item] = await extractResourceAsTextureInfo(resourceInfo);
-            } else {
-                resources[item] = await getResourceURL(item);
-            }
-
-            if (onProgress) {
-                onProgress(name, index, resourceList.length);
-            }
+    const startTime: number = Date.now();
+    for (const [index, item] of Array.from(resourceList.entries())) {
+        const resourceInfo = await getResourceInfo(item);
+        if (tilesetList.includes(item)) {
+            tilesetImages[item] = await extractResourceAsTextureInfo(resourceInfo);
+        } else {
+            resources[item] = await getResourceURL(item);
         }
-        const endTime: number = (Date.now() - startTime) / 1000;
-        console.log(
-            `${name} completed in ${endTime} seconds with ${
-                resourceList.length
-            } resources. Average time per resource: ${(endTime / resourceList.length).toFixed(3)}`
-        );
-        resolve(undefined);
-    });
+
+        if (onProgress) {
+            onProgress(name, index, resourceList.length);
+        }
+    }
+    const endTime: number = (Date.now() - startTime) / 1000;
+    console.log(
+        `${name} completed in ${endTime} seconds with ${
+            resourceList.length
+        } resources. Average time per resource: ${(endTime / resourceList.length).toFixed(3)}`
+    );
 };
 
 const getResourceURL = async (resource: string): Promise<string> => {
