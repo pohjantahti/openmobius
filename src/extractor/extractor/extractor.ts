@@ -4,6 +4,10 @@ import { readFile } from "./fileSystemAccess";
 import containers from "../../data/resources/containers.json";
 import LZMA from "../lzma";
 import type { ResourceInfo, TextureInfo } from "./types";
+import { Card } from "../../data/game/cards";
+import { Enemy } from "../../data/game/enemies";
+import { Job } from "../../data/game/jobs";
+import { Region } from "../../data/game/regions";
 
 const getResourceInfo = async (resource: string): Promise<ResourceInfo> => {
     const type = resource.split(":")[0];
@@ -31,10 +35,10 @@ const getResourceInfo = async (resource: string): Promise<ResourceInfo> => {
             jsonFile = "resources";
             break;
     }
-    const file: Array<ResourceInfo> = Object.values(
+    const file = Object.values(
         await import(`../../data/resources/${jsonFile}.json`)
     )[0] as Array<ResourceInfo>;
-    return file.filter((item: any) => item.alias === resource)[0];
+    return file.filter((item) => item.alias === resource)[0];
 };
 
 const getGameData = async (resource: string, searchId?: number) => {
@@ -57,11 +61,13 @@ const getGameData = async (resource: string, searchId?: number) => {
             console.error("Unknown game data type: ", resource, searchId);
             break;
     }
-    const data: { default: Array<any> } = await import(`../../data/game/${dataFile}.ts`);
+    const data: { default: Array<Card | Enemy | Job | Region> } = await import(
+        `../../data/game/${dataFile}.ts`
+    );
     if (args[1]) {
-        return data.default.filter((item: any) => item.name === args[1])[0];
+        return data.default.filter((item) => item.name === args[1])[0];
     } else if (searchId! >= 0) {
-        return data.default.filter((item: any) => item.id === searchId)[0];
+        return data.default.filter((item) => item.id === searchId)[0];
     } else {
         return data.default;
     }
@@ -78,7 +84,9 @@ const extractResourceAsTextureInfo = async (resourceInfo: ResourceInfo): Promise
 };
 
 // Core function of this file
-const extractResourceFile = async (resourceInfo: ResourceInfo): Promise<[BinaryReader, object]> => {
+const extractResourceFile = async (
+    resourceInfo: ResourceInfo
+): Promise<[BinaryReader, AssetFile]> => {
     // Load the .unity3d file
     const assetBundle: ArrayBuffer = await getAssetBundle(resourceInfo.container);
     let reader: BinaryReader = new BinaryReader(new DataView(assetBundle));
@@ -102,7 +110,7 @@ const extractResourceFile = async (resourceInfo: ResourceInfo): Promise<[BinaryR
 };
 
 const getAssetBundle = async (container: string): Promise<ArrayBuffer> => {
-    const assetBundlePath: string = (containers as any)[container];
+    const assetBundlePath: string = (containers as Record<string, string>)[container];
     if (assetBundlePath === undefined) {
         console.error("container erro", container);
     }
@@ -118,7 +126,15 @@ const getAssetBundleHeaderInfo = (reader: BinaryReader) => {
     };
 };
 
-const getBlockBytes = async (reader: BinaryReader, abHeader: any) => {
+const getBlockBytes = async (
+    reader: BinaryReader,
+    abHeader: {
+        signature: string;
+        version: number;
+        unityVersion: string;
+        unityRevision: string;
+    }
+) => {
     // Skip unused header info
     // -----------------------
     // const minimumStreamedBytes = reader.readU32();
@@ -161,7 +177,14 @@ const getAssetFileBytes = (reader: BinaryReader, blockBytes: ArrayBuffer): Array
     return blockBytes.slice(offset);
 };
 
-const getAssetFile = (reader: BinaryReader) => {
+interface AssetFile {
+    objectInfos: Array<{
+        byteStart: number;
+        classId: number;
+    }>;
+}
+
+const getAssetFile = (reader: BinaryReader): AssetFile => {
     // const metaDataSize = reader.readU32();
     // const fileSize = reader.readU32();
     // const version = reader.readU32();
@@ -238,11 +261,11 @@ const getAssetFile = (reader: BinaryReader) => {
     const objectCount = reader.readI32();
     const objectInfos = [];
     for (let i = 0; i < objectCount; i++) {
-        const objectInfo: any = {
-            byteStart: null,
+        const objectInfo = {
+            byteStart: 0,
             // byteSize: null,
             // typeId: null,
-            classId: null,
+            classId: 0,
             // pathId: null,
             // serializedType: null
         };
@@ -337,3 +360,4 @@ const getAssetFile = (reader: BinaryReader) => {
 // };
 
 export { getResourceInfo, getGameData, extractResourceAsURL, extractResourceAsTextureInfo };
+export type { AssetFile };

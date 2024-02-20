@@ -22,7 +22,7 @@ describe("Boons and Ailments", () => {
 
     // Check that Cards and Jobs don't have unsupported Boons or Ailments on them
     afterAll(async () => {
-        const cards: Array<Card> = await getGameData("Card");
+        const cards = (await getGameData("Card")) as Array<Card>;
         cards.forEach((card) => {
             card.effect?.forEach((effect) => {
                 if (!passedTests.has(effect.name)) {
@@ -31,7 +31,7 @@ describe("Boons and Ailments", () => {
             });
         });
 
-        const jobs: Array<Job> = await getGameData("Job");
+        const jobs = (await getGameData("Job")) as Array<Job>;
         jobs.forEach((job) => {
             job.ultimate.effect?.forEach((effect) => {
                 if (!passedTests.has(effect.name)) {

@@ -38,11 +38,11 @@ describe("Base stats and multipliers", () => {
     test("Weakness", () => {
         enemy.element = "fire";
         card.element = "fire";
-        expect(PlayerDamage.weakness(player, enemy, card.element, card)).toBe(1);
+        expect(PlayerDamage.weakness(enemy, card.element, card)).toBe(1);
         enemy.element = "water";
-        expect(PlayerDamage.weakness(player, enemy, card.element, card)).toBe(1.3);
+        expect(PlayerDamage.weakness(enemy, card.element, card)).toBe(1.3);
         enemy.isBroken = true;
-        expect(PlayerDamage.weakness(player, enemy, card.element, card)).toBe(2);
+        expect(PlayerDamage.weakness(enemy, card.element, card)).toBe(2);
     });
 
     test("Critical chance", () => {
@@ -53,7 +53,7 @@ describe("Base stats and multipliers", () => {
     });
 
     test("Critical", () => {
-        expect(PlayerDamage.critical(player, card)).toBe(1.5);
+        expect(PlayerDamage.critical()).toBe(1.5);
     });
 
     test("Defense", () => {

@@ -53,7 +53,7 @@ function AudioPlayer() {
         const decoder = new TextDecoder();
 
         // Return zeroes if LoopStart is not specified
-        var bufferPart = dataView.buffer.slice(134, 143);
+        const bufferPart = dataView.buffer.slice(134, 143);
         if (decoder.decode(new Uint8Array(bufferPart).buffer) !== "LoopStart") {
             return [0, 0];
         }

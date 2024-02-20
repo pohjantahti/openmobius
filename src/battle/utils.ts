@@ -100,7 +100,10 @@ const createBattleFullDeck = (fullDeck: FullDeck): BattleFullDeck => {
         const getCards = (): Array<BattleCard | undefined> => {
             const cards: Array<BattleCard | undefined> = [];
             // Easier to edit the card when treated as any
-            for (const card of deck.cards as Array<any | undefined>) {
+            // Card object is turned into BattleCard object
+            // card.ability.cooldown changes from number to object
+            // eslint-disable-next-line
+            for (const card of deck.cards as Array<any>) {
                 if (!card) {
                     cards.push(undefined);
                 } else {

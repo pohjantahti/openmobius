@@ -41,7 +41,10 @@ function RegionMap(props: Props) {
     const [changingPlayerLocation, setChangingPlayerLocation] = useState(false);
     const [showChangePlayerLocationConfirmModal, setShowChangePlayerLocationConfirmModal] =
         useState(false);
-    const [selectedLocationInfo, setSelectedLocationInfo] = useState({});
+    const [selectedLocationInfo, setSelectedLocationInfo] = useState({
+        id: 0,
+        name: "",
+    });
 
     const mapDiv = useRef<HTMLDivElement>(null);
 
@@ -50,7 +53,7 @@ function RegionMap(props: Props) {
     useEffect(() => {
         const initMap = async () => {
             // TODO: Move this to LoadingScreen
-            const mapInfo: Region = await getGameData("Region: Tower");
+            const mapInfo = (await getGameData("Region: Tower")) as Region;
             // TODO: Validate mapInfo. Check for mandatory values and that id values are unique
             setMapInfo(mapInfo);
             setPlayerLocation(mapInfo.startingLocation || 0);
@@ -140,7 +143,7 @@ function RegionMap(props: Props) {
                 setChangingPlayerLocation(!changingPlayerLocation);
                 break;
             // Show confirmation modal for new location
-            case "newLocation":
+            case "newLocation": {
                 const targetMapNode = mapInfo.nodes.filter(
                     (node: MapNodeType) => mapNodeId === node.id
                 )[0];
@@ -151,6 +154,7 @@ function RegionMap(props: Props) {
                 setShowChangePlayerLocationConfirmModal(true);
                 setShowButtons(false);
                 break;
+            }
             // Move to new location after confirm
             case "confirmLocation":
                 setPlayerLocation(mapNodeId!);
@@ -170,7 +174,7 @@ function RegionMap(props: Props) {
             enemyInfo.push([]);
             // Loop enemies in a wave
             for (let j = 0; j < mapNodeEnemies[i].length; j++) {
-                const enemy: Enemy = await getGameData("Enemy", mapNodeEnemies[i][j]);
+                const enemy = (await getGameData("Enemy", mapNodeEnemies[i][j])) as Enemy;
                 enemyInfo[i].push(enemy);
             }
         }

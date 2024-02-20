@@ -3,8 +3,10 @@ import { getGameData } from "../extractor";
 import { setDeckInfo } from "./decks";
 import { FullDeck } from "./types";
 
+type DeckDataType = Array<Array<{ job: number; cards: Array<number> }>>;
+
 const getDefaultData = (): {
-    decks: Array<Array<{ job: number; cards: Array<number> }>>;
+    decks: DeckDataType;
 } => {
     const data = {
         // Decks with default job and empty cards
@@ -44,11 +46,11 @@ const initLocalStorage = async () => {
     }
 
     // Get localStorage data and add it to deckInfo
-    const deckData: Array<any> = JSON.parse(localStorage.getItem("decks")!);
+    const deckData: DeckDataType = JSON.parse(localStorage.getItem("decks")!);
     const decks: Array<FullDeck> = [];
     // Loop through full decks (main + sub)
     for (let i = 0; i < Math.min(deckData.length, MAX.deckCount); i++) {
-        const deck: any = [];
+        const deck = [];
         // Loop through main and sub decks
         for (let j = 0; j < 2; j++) {
             const halfDeck = deckData[i][j];
@@ -72,7 +74,7 @@ const initLocalStorage = async () => {
                 cards: cards,
             });
         }
-        decks.push(deck);
+        decks.push(deck as FullDeck);
     }
     setDeckInfo(decks);
 };

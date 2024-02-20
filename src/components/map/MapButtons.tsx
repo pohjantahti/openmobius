@@ -2,7 +2,10 @@ import { resources } from "../../extractor";
 
 interface Props {
     changingPlayerLocation: boolean;
-    handleChangingPlayerLocation: any;
+    handleChangingPlayerLocation: (
+        action: "switchMode" | "newLocation" | "confirmLocation",
+        mapNodeId?: number
+    ) => void;
     showButtons: boolean;
 }
 

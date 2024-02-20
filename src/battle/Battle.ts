@@ -473,14 +473,16 @@ class Battle {
                     case "self":
                         this.player.addEffect(effect, this.player);
                         break;
-                    case "single":
+                    case "single": {
                         const target = this.getTargets("single")[0];
                         target.addEffect(effect);
                         break;
-                    case "area":
+                    }
+                    case "area": {
                         const targets = this.getTargets("area");
                         targets.forEach((target) => target.addEffect(effect));
                         break;
+                    }
                 }
             });
     }

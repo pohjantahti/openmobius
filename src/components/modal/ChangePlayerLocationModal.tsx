@@ -3,8 +3,14 @@ import ModalButton from "./ModalButton";
 
 interface Props {
     show: boolean;
-    info: any;
-    handleChangingPlayerLocation: any;
+    info: {
+        id: number;
+        name: string;
+    };
+    handleChangingPlayerLocation: (
+        action: "switchMode" | "newLocation" | "confirmLocation",
+        mapNodeId?: number
+    ) => void;
     handleModalClose: () => void;
 }
 

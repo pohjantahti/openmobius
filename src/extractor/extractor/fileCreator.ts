@@ -2,10 +2,11 @@ import BinaryReader from "./binaryReader";
 import decodeDXT from "../decode-dxt";
 import { ClassID, TextureFormat } from "./consts";
 import { ResourceInfo, TextureInfo } from "./types";
+import { AssetFile } from "./extractor";
 
 const getResourceAsBlobURL = (
     reader: BinaryReader,
-    assetFile: any,
+    assetFile: AssetFile,
     resourceInfo: ResourceInfo
 ): string => {
     for (const objectInfo of assetFile.objectInfos) {
@@ -14,9 +15,10 @@ const getResourceAsBlobURL = (
             continue;
         }
         switch (objectInfo.classId) {
-            case ClassID.Texture2D:
+            case ClassID.Texture2D: {
                 const { imageBuffer, width, height } = getTexture2D(reader, resourceInfo);
                 return createBitmapImage(imageBuffer, resourceInfo, width, height);
+            }
             case ClassID.TextAsset:
                 return getTextAsset(reader);
             case ClassID.Font:
@@ -35,7 +37,7 @@ const getResourceAsBlobURL = (
 
 const getTextureInfo = (
     reader: BinaryReader,
-    assetFile: any,
+    assetFile: AssetFile,
     resourceInfo: ResourceInfo
 ): TextureInfo => {
     for (const objectInfo of assetFile.objectInfos) {

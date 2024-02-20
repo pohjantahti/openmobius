@@ -22,20 +22,20 @@ describe("Auto-Abilities", () => {
 
     // Check that Cards and Jobs don't have unsupported Auto-Abilities on them
     afterAll(async () => {
-        const cards: Array<Card> = await getGameData("Card");
-        const jobs: Array<Job> = await getGameData("Job");
+        const cards = (await getGameData("Card")) as Array<Card>;
         cards.forEach((card) => {
-            Object.keys(card.autoAbilities).forEach((autoAbility) => {
-                //@ts-ignore
+            const autoAbilities = Object.keys(card.autoAbilities) as Array<AutoAbility>;
+            autoAbilities.forEach((autoAbility) => {
                 if (!passedTests.has(autoAbility)) {
                     console.log(`Card:\t${card.id}\tAuto-Ability:\t${autoAbility}`);
                 }
             });
         });
 
+        const jobs = (await getGameData("Job")) as Array<Job>;
         jobs.forEach((job) => {
-            Object.keys(job.autoAbilities).forEach((autoAbility) => {
-                //@ts-ignore
+            const autoAbilities = Object.keys(job.autoAbilities) as Array<AutoAbility>;
+            autoAbilities.forEach((autoAbility) => {
                 if (!passedTests.has(autoAbility)) {
                     console.log(`Job:\t${job.id}\tAuto-Ability:\t${autoAbility}`);
                 }

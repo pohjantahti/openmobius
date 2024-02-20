@@ -320,7 +320,7 @@ enum Ailment {
     Slow = "slow",
     Slump = "slump",
     Stun = "stun",
-    Taunt = "stun",
+    Taunt = "taunt",
     UltimateDrain = "ultimateDrain",
     UltimateGaugeLocked = "ultimateGaugeLocked",
     Unguard = "unguard",

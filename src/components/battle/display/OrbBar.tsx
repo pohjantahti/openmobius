@@ -8,10 +8,9 @@ interface Props {
 
 function OrbBar(props: Props) {
     const { orbs } = props;
-    const orbTypes = Object.keys(orbs);
+    const orbTypes = Object.keys(orbs) as Array<FullElement>;
     const orbList = [];
     for (let i = 0; i < orbTypes.length; i++) {
-        // @ts-ignore
         for (let j = 0; j < orbs[orbTypes[i]]; j++) {
             orbList.push(orbTypes[i]);
         }

@@ -14,7 +14,7 @@ interface DrawerItem {
 function DrawerScrollList(props: { items: Array<DrawerItem> }) {
     const { items } = props;
 
-    const scrollList: any = [];
+    const scrollList: Array<React.ReactNode> = [];
 
     items.forEach((item: DrawerItem, index: number) => {
         scrollList.push(
@@ -184,3 +184,4 @@ function DrawerScrollList(props: { items: Array<DrawerItem> }) {
 }
 
 export default DrawerScrollList;
+export type { DrawerItem };

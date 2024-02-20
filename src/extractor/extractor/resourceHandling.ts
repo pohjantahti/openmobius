@@ -13,7 +13,7 @@ const tilesetImages: Record<string, TextureInfo> = {};
 const saveResources = async (
     resourceList: Array<string>,
     name: string,
-    onProgress?: any
+    onProgress?: (name: string, left: number, total: number) => void
 ): Promise<undefined> => {
     const startTime: number = Date.now();
     for (const [index, item] of Array.from(resourceList.entries())) {

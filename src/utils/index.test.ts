@@ -10,7 +10,8 @@ test("Capitalize the first letter of string", () => {
         expect(capitalize(value)).toBe(result);
     });
     const errorValues = [123, undefined];
-    errorValues.forEach((value: any) => {
+    errorValues.forEach((value) => {
+        // @ts-expect-error Feed non-string values to a string function
         expect(() => capitalize(value)).toThrow(TypeError);
     });
 });

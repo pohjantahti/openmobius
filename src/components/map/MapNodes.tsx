@@ -6,10 +6,13 @@ import MapPaths from "./MapPaths";
 interface Props {
     currentMapPosition: number;
     nodeInfo: Array<MapNodeType> | undefined;
-    handleModal: any;
+    handleModal: (mapNodeId: number) => void;
     playerLocation: number;
     changingPlayerLocation: boolean;
-    handleChangingPlayerLocation: any;
+    handleChangingPlayerLocation: (
+        action: "switchMode" | "newLocation" | "confirmLocation",
+        mapNodeId?: number
+    ) => void;
 }
 
 function MapNodes(props: Props) {

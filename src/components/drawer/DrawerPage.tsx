@@ -1,5 +1,5 @@
 import { useState } from "react";
-import DrawerScrollList from "./DrawerScrollList";
+import DrawerScrollList, { DrawerItem } from "./DrawerScrollList";
 import PlayerInfo from "./PlayerInfo";
 import { resources } from "../../extractor";
 
@@ -9,27 +9,34 @@ interface Props {
     gradientColors: Array<string>;
     content: JSX.Element;
     drawerScrollHeight: string;
-    drawerScrollInfo: any;
+    drawerScrollInfo: Array<DrawerItem>;
 }
 
 function DrawerPage(props: Props) {
     const { name, show, gradientColors, content, drawerScrollHeight, drawerScrollInfo } = props;
 
-    const [scrollInfo, setScrollInfo]: any = useState({});
+    const [scrollInfo, setScrollInfo] = useState({
+        mouseDown: false,
+        top: 0,
+        y: 0,
+    });
 
-    const handleMouseMove = (e: any) => {
+    const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (scrollInfo.mouseDown) {
-            const element: any = document.getElementById(`scroll${name}`);
-            element.scrollTop = scrollInfo.top - (e.clientY - scrollInfo.y);
+            const element = document.getElementById(`scroll${name}`)!;
+            element.scrollTop = scrollInfo.top - (event.clientY - scrollInfo.y);
         }
     };
 
-    const handleMouseDown = (e: any, mouseDown: boolean) => {
-        const element: any = document.getElementById(`scroll${name}`);
+    const handleMouseDown = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        mouseDown: boolean
+    ) => {
+        const element = document.getElementById(`scroll${name}`)!;
         setScrollInfo({
             mouseDown: mouseDown,
             top: element.scrollTop,
-            y: e.clientY,
+            y: event.clientY,
         });
     };
 

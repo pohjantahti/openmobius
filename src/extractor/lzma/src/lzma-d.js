@@ -10,7 +10,7 @@ var LZMA = (function () {
         action_decompress = 2,
         /** de */
         action_progress = 3,
-        wait = typeof setImmediate === "function" ? setImmediate : setTimeout,
+        wait = setTimeout,
         __4294967296 = 4294967296,
         N1_longLit = [4294967295, -__4294967296],
         P0_longLit = [0, 0],

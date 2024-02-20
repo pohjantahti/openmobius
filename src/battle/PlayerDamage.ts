@@ -66,22 +66,22 @@ class PlayerDamage {
     }
 
     static attackMod(player: PlayerActor) {
-        let attackMod = player.effectActive(Boon.Brave) ? 100 : 0;
+        const attackMod = player.effectActive(Boon.Brave) ? 100 : 0;
         return 1 + attackMod / 100;
     }
 
     static magicMod(player: PlayerActor) {
-        let magicMod = player.effectActive(Boon.Faith) ? 50 : 0;
+        const magicMod = player.effectActive(Boon.Faith) ? 50 : 0;
         return 1 + magicMod / 100;
     }
 
     static breakPowerMod(player: PlayerActor) {
-        let breakPowerMod = player.effectActive(Boon.Boost) ? 100 : 0;
+        const breakPowerMod = player.effectActive(Boon.Boost) ? 100 : 0;
         return 1 + breakPowerMod / 100;
     }
 
     static elementEnhance(player: PlayerActor, card: BattleCard): number {
-        let additionalEE = card.extraSkills.includes(ExtraSkill.VitalityTap)
+        const additionalEE = card.extraSkills.includes(ExtraSkill.VitalityTap)
             ? 30 *
               Math.pow(player.getMainJob().stats.hp.current / player.getMainJob().stats.hp.max, 3)
             : 0;
@@ -101,27 +101,22 @@ class PlayerDamage {
             return bonus;
         };
         if (enemy.isBroken) {
-            let additionalBreak = getAutoAbility(player, AutoAbility.PainfulBreak);
+            const additionalBreak = getAutoAbility(player, AutoAbility.PainfulBreak);
             return 1 + (100 + additionalBreak + cardBonus()) / 100;
         } else {
             return 1;
         }
     }
 
-    static weakness(
-        player: PlayerActor,
-        enemy: EnemyActor,
-        usedElement: CardElement,
-        card?: BattleCard
-    ): number {
+    static weakness(enemy: EnemyActor, usedElement: CardElement, card?: BattleCard): number {
         const cardBonus = (): number => {
             if (!card) return 0;
-            let bonus =
+            const bonus =
                 enemy.isBroken && card.extraSkills.includes(ExtraSkill.BreakExploiter) ? 25 : 0;
             return bonus;
         };
         if (isWeakness(usedElement, enemy.element)) {
-            let additionalWeakness = enemy.isBroken ? 70 : 0;
+            const additionalWeakness = enemy.isBroken ? 70 : 0;
             return 1 + (30 + additionalWeakness + cardBonus()) / 100;
         } else {
             return 1;
@@ -141,12 +136,12 @@ class PlayerDamage {
                 enemy.isBroken && card.extraSkills.includes(ExtraSkill.BreakerKiller) ? 0.15 : 0;
             return bonus;
         };
-        let criticalChance = (player.getMainJob().stats.critical + extraStars) * 0.05;
+        const criticalChance = (player.getMainJob().stats.critical + extraStars) * 0.05;
         return criticalChance + cardBonus();
     }
 
-    static critical(player: PlayerActor, card?: BattleCard): number {
-        let additionalCritical = 0;
+    static critical(): number {
+        const additionalCritical = 0;
         return 1 + (50 + additionalCritical) / 100;
     }
 
@@ -162,14 +157,14 @@ class PlayerDamage {
     }
 
     static piercingBreak(player: PlayerActor): number {
-        let piercingBreak = getAutoAbility(player, AutoAbility.PiercingBreak);
+        const piercingBreak = getAutoAbility(player, AutoAbility.PiercingBreak);
         return 1 + piercingBreak / 100;
     }
 
     static defense(enemy: EnemyActor, card?: BattleCard) {
         const cardBonus = (): number => {
             if (!card) return 0;
-            let bonus = 0;
+            const bonus = 0;
             return bonus;
         };
         if (!enemy.effectActive(Ailment.Unguard) || !enemy.isBroken) {
@@ -180,7 +175,7 @@ class PlayerDamage {
     }
 
     static breakDefense(enemy: EnemyActor): number {
-        let breakDefense = enemy.effectActive(Ailment.BreakDefenseDown) ? 50 : 0;
+        const breakDefense = enemy.effectActive(Ailment.BreakDefenseDown) ? 50 : 0;
         return 1 + breakDefense / 100;
     }
 }

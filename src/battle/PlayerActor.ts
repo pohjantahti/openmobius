@@ -149,12 +149,12 @@ class PlayerActor extends BattleActor {
         // Weakness
         const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
         if (weaknessWeapon) {
-            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+            damage *= PlayerDamage.weakness(enemy, weaknessWeapon);
         }
         // Critical
-        let criticalHit = Math.random() < PlayerDamage.criticalChance(this, enemy);
+        const criticalHit = Math.random() < PlayerDamage.criticalChance(this, enemy);
         if (criticalHit) {
-            damage *= PlayerDamage.critical(this);
+            damage *= PlayerDamage.critical();
         }
         // Defense
         damage *= PlayerDamage.defense(enemy);
@@ -176,7 +176,7 @@ class PlayerActor extends BattleActor {
         // Weakness
         const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
         if (weaknessWeapon) {
-            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+            damage *= PlayerDamage.weakness(enemy, weaknessWeapon);
         }
         //Piercing Break
         damage *= PlayerDamage.piercingBreak(this);
@@ -202,7 +202,7 @@ class PlayerActor extends BattleActor {
         // Weakness
         const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
         if (weaknessWeapon) {
-            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+            damage *= PlayerDamage.weakness(enemy, weaknessWeapon);
         }
         //Piercing Break
         damage *= PlayerDamage.piercingBreak(this);
@@ -219,11 +219,11 @@ class PlayerActor extends BattleActor {
         // Break
         damage *= PlayerDamage.break(this, enemy, card);
         // Weakness
-        damage *= PlayerDamage.weakness(this, enemy, card.element, card);
+        damage *= PlayerDamage.weakness(enemy, card.element, card);
         // Critical
-        let criticalHit = Math.random() < PlayerDamage.criticalChance(this, enemy, card);
+        const criticalHit = Math.random() < PlayerDamage.criticalChance(this, enemy, card);
         if (criticalHit) {
-            damage *= PlayerDamage.critical(this, card);
+            damage *= PlayerDamage.critical();
         }
         // Defense
         damage *= PlayerDamage.defense(enemy, card);
@@ -253,7 +253,7 @@ class PlayerActor extends BattleActor {
             // Break defense
             damage *= PlayerDamage.breakDefense(enemy);
             // Weakness
-            damage *= PlayerDamage.weakness(this, enemy, card.element, card);
+            damage *= PlayerDamage.weakness(enemy, card.element, card);
             // Guard Breaker
             if (isResistant(card, enemy) && card.extraSkills.includes(ExtraSkill.GuardBreaker)) {
                 damage *= 0.4;
@@ -283,7 +283,7 @@ class PlayerActor extends BattleActor {
             // Break defense
             damage *= PlayerDamage.breakDefense(enemy);
             // Weakness
-            damage *= PlayerDamage.weakness(this, enemy, card.element, card);
+            damage *= PlayerDamage.weakness(enemy, card.element, card);
             //Piercing Break
             damage *= PlayerDamage.piercingBreak(this);
             damage = Math.round(damage);
@@ -305,10 +305,10 @@ class PlayerActor extends BattleActor {
         // Weakness
         const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
         if (weaknessWeapon && this.getMainAA()[AutoAbility.Spellsword]) {
-            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+            damage *= PlayerDamage.weakness(enemy, weaknessWeapon);
         }
         // Critical
-        let criticalHit =
+        const criticalHit =
             Math.random() <
             PlayerDamage.criticalChance(
                 this,
@@ -317,7 +317,7 @@ class PlayerActor extends BattleActor {
                 this.getMainJob().ultimate.critical
             );
         if (criticalHit) {
-            damage *= PlayerDamage.critical(this);
+            damage *= PlayerDamage.critical();
         }
         // Defense
         damage *= PlayerDamage.defense(enemy);
@@ -341,7 +341,7 @@ class PlayerActor extends BattleActor {
         // Weakness when Spellsword and weakness weapon active
         const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
         if (weaknessWeapon && this.getMainAA()[AutoAbility.Spellsword]) {
-            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+            damage *= PlayerDamage.weakness(enemy, weaknessWeapon);
         }
         //Piercing Break
         damage *= PlayerDamage.piercingBreak(this);
@@ -369,7 +369,7 @@ class PlayerActor extends BattleActor {
         // Weakness when Spellsword and weakness weapon active
         const weaknessWeapon = getWeaknessWeaponElement(this, enemy);
         if (weaknessWeapon && this.getMainAA()[AutoAbility.Spellsword]) {
-            damage *= PlayerDamage.weakness(this, enemy, weaknessWeapon);
+            damage *= PlayerDamage.weakness(enemy, weaknessWeapon);
         }
         //Piercing Break
         damage *= PlayerDamage.piercingBreak(this);
@@ -411,7 +411,7 @@ class PlayerActor extends BattleActor {
             this.wheel[elementIndex] = 0;
         }
 
-        let orbsToDrive = this.orbs[element] + this.orbs["prismatic"];
+        const orbsToDrive = this.orbs[element] + this.orbs["prismatic"];
         this.addResistElementEffect(element, orbsToDrive);
         this.updateUltimateGauge(orbsToDrive);
         // Remove the orbs

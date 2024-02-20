@@ -33,7 +33,7 @@ describe("Extra Skills", () => {
 
     // Check that Cards don't have unsupported Extra Skills on them
     afterAll(async () => {
-        const cards: Array<Card> = await getGameData("Card");
+        const cards = (await getGameData("Card")) as Array<Card>;
         cards.forEach((card) => {
             card.extraSkills.forEach((extraSkill) => {
                 if (!passedTests.has(extraSkill)) {
@@ -61,9 +61,9 @@ describe("Extra Skills", () => {
         card.extraSkills.push(ExtraSkill.BreakExploiter);
         enemy.element = "water";
         card.element = "fire";
-        expect(PlayerDamage.weakness(player, enemy, card.element, card)).toBe(1.3);
+        expect(PlayerDamage.weakness(enemy, card.element, card)).toBe(1.3);
         enemy.isBroken = true;
-        expect(PlayerDamage.weakness(player, enemy, card.element, card)).toBe(2.25);
+        expect(PlayerDamage.weakness(enemy, card.element, card)).toBe(2.25);
         passedTests.add(ExtraSkill.BreakExploiter);
     });
 

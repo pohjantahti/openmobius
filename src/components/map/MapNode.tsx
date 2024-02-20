@@ -4,10 +4,13 @@ import { capitalize } from "../../utils";
 
 interface Props {
     info: MapNodeType;
-    handleModal: any;
+    handleModal: (mapNodeId: number) => void;
     playerLocation: boolean;
     changingPlayerLocation: boolean;
-    handleChangingPlayerLocation: any;
+    handleChangingPlayerLocation: (
+        action: "switchMode" | "newLocation" | "confirmLocation",
+        mapNodeId?: number
+    ) => void;
 }
 
 function MapNode(props: Props) {

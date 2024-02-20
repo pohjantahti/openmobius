@@ -72,13 +72,13 @@ class BinaryReader {
         return value;
     }
 
-    readI64(): BigInt {
+    readI64(): bigint {
         const value = this.dataView.getBigInt64(this.position, this.isLittleEndian);
         this.position += 8;
         return value;
     }
 
-    readU64(): BigInt {
+    readU64(): bigint {
         const value = this.dataView.getBigUint64(this.position, this.isLittleEndian);
         this.position += 8;
         return value;
