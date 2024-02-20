@@ -23,14 +23,4 @@ const hexToMatrix = (hex: string): string => {
     return matrix.join();
 };
 
-// Adds zeroes to the beginning of number until it reaches maxPad
-// Example: padNumberWithZeroes(123, 7) returns 0000123
-const padNumberWithZeroes = (number: number, maxPad: number): string => {
-    let stringCount = number.toString();
-    for (let i = stringCount.length; i < maxPad; i++) {
-        stringCount = "0" + stringCount;
-    }
-    return stringCount;
-};
-
-export { capitalize, sleep, hexToMatrix, padNumberWithZeroes };
+export { capitalize, sleep, hexToMatrix };

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import MainView from "./MainView";
 import { saveResources, resources } from "../../extractor";
 import { sleep } from "../../utils";
@@ -18,11 +18,11 @@ function LoadingScreen(props: Props) {
 
     const [completed, setCompleted] = useState(false);
     const [firstTimeLoadCompleted, setFirstTimeLoadCompleted] = useState(false);
-    const [loadingInProgress, setLoadingInProgress] = useState(false);
+    const loadingInProgress = useRef(false);
 
     useEffect(() => {
         const handleFirstTimeLoading = async () => {
-            setLoadingInProgress(true);
+            loadingInProgress.current = true;
             initPlayerResourceTimers();
             await initLocalStorage();
             const totalAnimationLength = loadingInfo.loadingTimeLength;
@@ -35,9 +35,9 @@ function LoadingScreen(props: Props) {
             await sleep(Math.max(totalAnimationLength - endTime, 0));
             setCompleted(true);
             setFirstTimeLoadCompleted(true);
-            setLoadingInProgress(false);
+            loadingInProgress.current = false;
         };
-        if (loadingInfo.firstTime && !loadingInProgress && !firstTimeLoadCompleted) {
+        if (loadingInfo.firstTime && !loadingInProgress.current && !firstTimeLoadCompleted) {
             handleFirstTimeLoading();
         }
         // else { TODO: Regular, non-firstTime loading screen for changing region }

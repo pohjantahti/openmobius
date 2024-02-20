@@ -1,4 +1,4 @@
-import { capitalize, hexToMatrix, padNumberWithZeroes } from ".";
+import { capitalize, hexToMatrix } from ".";
 
 test("Capitalize the first letter of string", () => {
     const values = [
@@ -27,25 +27,5 @@ test("Convert hex color to color matrix", () => {
     ];
     values.forEach(([value, result]) => {
         expect(hexToMatrix(value)).toBe(result);
-    });
-});
-
-test("Pad number with zeroes", () => {
-    const values = [
-        {
-            value: [123, 7],
-            result: "0000123",
-        },
-        {
-            value: [123, 0],
-            result: "123",
-        },
-        {
-            value: [0, 0],
-            result: "0",
-        },
-    ];
-    values.forEach(({ value, result }) => {
-        expect(padNumberWithZeroes(value[0], value[1])).toBe(result);
     });
 });

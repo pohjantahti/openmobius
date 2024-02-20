@@ -1,6 +1,5 @@
 import { resources } from "../../extractor";
 import { playerInfo } from "../../info";
-import { padNumberWithZeroes } from "../../utils";
 
 interface SkillseedProps {
     element: string;
@@ -55,7 +54,7 @@ function SkillseedInfo() {
                         textShadow: `-1px 0 ${textShadow}, 0 1px ${textShadow}, 1px 0 ${textShadow}, 0 -1px ${textShadow}`,
                     }}
                 >
-                    {padNumberWithZeroes(count, 7)}
+                    {count.toString().padStart(7, "0")}
                 </p>
             </div>
         );
