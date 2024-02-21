@@ -1,3 +1,4 @@
+import { test, expect } from "vitest";
 import { capitalize, hexToMatrix } from ".";
 
 test("Capitalize the first letter of string", () => {
