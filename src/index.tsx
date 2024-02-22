@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import StartMenu from "./components/view/StartMenu";
+import StartMenu from "./pages/replica/components/view/StartMenu";
 import "./index.css";
 
 const container = document.getElementById("root");

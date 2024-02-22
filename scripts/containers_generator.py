@@ -1,4 +1,4 @@
-# Used to generate the "src/data/resources/containers.json"
+# Used to generate the "src/pages/replica/data/resources/containers.json"
 
 from io import BytesIO
 from os import listdir, path

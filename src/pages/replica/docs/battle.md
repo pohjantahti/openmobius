@@ -1,0 +1,434 @@
+# Battle
+
+## Progress
+
+List of all Boons, Ailments, Auto-Abilities, Extra Skills, Innate Skills and their implementation status.
+
+### Boons
+
+-   [ ] Ability Ignition
+-   [ ] Absolute Defense
+-   [ ] Attack Ignition
+-   [ ] Barrier
+-   [ ] Barrier II
+-   [ ] Berserk
+-   [ ] Berserk II
+-   [ ] Blitzball
+-   [ ] Bloodlust X
+-   [x] Boost
+-   [ ] Boost II
+-   [x] Brave
+-   [ ] Brave II
+-   [ ] Break Defense Up
+-   [ ] Break Immunity
+-   [ ] Burst Mode
+-   [ ] Charging Attack
+-   [ ] Cleaving Attack
+-   [ ] Critical Resist Up
+-   [ ] Damage Absorption
+-   [ ] Damage Reduction
+-   [ ] Dark Boost
+-   [ ] Dark Weapon
+-   [x] Darkforce
+-   [ ] Divine Shield
+-   [ ] Drain
+-   [ ] Drive Ignition
+-   [ ] Earth Boost
+-   [ ] Earth of Chaos
+-   [ ] Earth Pact
+-   [ ] Earth Weapon
+-   [x] Earthforce
+-   [ ] Enhance Elemental Attacks
+-   [ ] Enhance Elemental Attacks II
+-   [ ] Eternal Light
+-   [x] Faith
+-   [ ] Faith II
+-   [ ] Feather Charge
+-   [ ] Fire Boost
+-   [ ] Fire Pact
+-   [ ] Fire Weapon
+-   [x] Flameforce
+-   [ ] Flames of Chaos
+-   [ ] Full Remission
+-   [ ] Giants Drink
+-   [ ] Haste
+-   [x] Iceforce
+-   [ ] Immune To Ailments
+-   [ ] Immune To Bio
+-   [ ] Immune To BreakDefenseDown
+-   [ ] Immune To CriticalResistDown
+-   [ ] Immune To Curse
+-   [ ] Immune To Debarrier
+-   [ ] Immune To Debilitate
+-   [ ] Immune To Debrave
+-   [ ] Immune To Sleep
+-   [ ] Immune To Slow
+-   [ ] Immune To Stun
+-   [ ] Immune To Taunt
+-   [ ] Immune To Unguard
+-   [ ] Immune To WeaknessDown
+-   [ ] Immune To Fatigue
+-   [ ] Immune To Hex
+-   [ ] Knights of the Round
+-   [ ] Light Boost
+-   [ ] Light Pact
+-   [ ] Light Weapon
+-   [x] Lightforce
+-   [x] Lucid Cast
+-   [x] Lucid Cast II
+-   [x] Lucid Fist
+-   [x] Lucid Fist II
+-   [x] Lucid Hunt
+-   [x] Lucid Hunt II
+-   [x] Lucid War
+-   [x] Lucid War II
+-   [ ] Martial Arts
+-   [ ] Martial Flow
+-   [ ] Melee
+-   [ ] Omnidrive
+-   [ ] Pearl of Destruction
+-   [ ] Perfect Defense
+-   [ ] Quicken
+-   [ ] Ranged
+-   [ ] Regen
+-   [ ] Resist Dark
+-   [ ] Resist Earth
+-   [ ] Resist Fire
+-   [ ] Resist Light
+-   [ ] Resist Water
+-   [ ] Resist Wind
+-   [ ] Rind Barrier
+-   [ ] Seed Counter
+-   [ ] Snipe
+-   [ ] Snipe II
+-   [ ] The Ultima Weapon Guardian Buff
+-   [ ] Trance-All
+-   [ ] Trance-All II
+-   [ ] Tri-Barrier Fire
+-   [ ] Tri-Barrier Water
+-   [ ] Tri-Barrier Wind
+-   [ ] Ultimate Booster
+-   [ ] Ultimate Charge
+-   [ ] Ultimate Gauge
+-   [ ] Umbral Veil
+-   [ ] Veil
+-   [ ] Wall
+-   [ ] Wall II
+-   [ ] Ward of Chaos
+-   [ ] Water Boost
+-   [ ] Water Pact
+-   [ ] Water Weapon
+-   [ ] Waves of Chaos
+-   [ ] Weakness Weapon
+-   [ ] Wind Boost
+-   [ ] Wind Pact
+-   [ ] Wind Weapon
+-   [x] Windforce
+-   [ ] Winds of Chaos
+
+### Ailment
+
+-   [ ] Ability Block
+-   [ ] Bio
+-   [ ] Bio II
+-   [ ] Bleeding Out
+-   [x] Break Defense Down
+-   [ ] Break Defense Down II
+-   [ ] Call of the Void
+-   [x] Clouded Cast
+-   [x] Clouded Fist
+-   [x] Clouded Hunt
+-   [x] Clouded War
+-   [ ] Critical Resist Down
+-   [ ] Critical Resist Down II
+-   [ ] Curse
+-   [ ] Curse II
+-   [ ] Dark Lockout
+-   [ ] Deaths Curse
+-   [ ] Debarrier
+-   [ ] Debarrier II
+-   [ ] Debilitate
+-   [ ] Debrave
+-   [ ] Debrave II
+-   [ ] Earth Lockout
+-   [ ] Edict of Earth
+-   [ ] Edict of Fire
+-   [ ] Edict of Light
+-   [ ] Fatigue
+-   [ ] Fire Lockout
+-   [ ] Foam
+-   [ ] Genesis
+-   [ ] Hex
+-   [ ] HP Sap
+-   [ ] Laser Damage
+-   [ ] Light Lockout
+-   [ ] Melon Seed
+-   [ ] Nightmare
+-   [ ] Null Wall
+-   [ ] Nullify Recovery
+-   [ ] Oil
+-   [ ] Rampage
+-   [ ] Self-Disintegration
+-   [ ] Sleep
+-   [ ] Slow
+-   [ ] Slump
+-   [ ] Stun
+-   [ ] Taunt
+-   [ ] Ultimate Drain
+-   [ ] Ultimate Gauge Locked
+-   [ ] Unguard
+-   [ ] Vulnerability
+-   [ ] Water Lockout
+-   [ ] Weaken
+-   [ ] Weaken II
+-   [ ] Wind Lockout
+
+### Auto-Ability
+
+-   [ ] Ability Chain
+-   [ ] Area Element Drives
+-   [ ] Area Heals and Boons
+-   [ ] Area Ultimate Charge Abilities
+-   [ ] Area Ultimate Charge Normal Attacks
+-   [ ] Attack Limit Break
+-   [x] Attack Up
+-   [ ] Attuned Chain
+-   [ ] Auto-Charge Ultimate
+-   [ ] Avert Action Loss
+-   [ ] Avert Attack Down
+-   [ ] Avert Bio
+-   [ ] Avert Break Power Down
+-   [ ] Avert Crit Down
+-   [ ] Avert Defense Down
+-   [ ] Avert Magic Down
+-   [ ] Avert Stun
+-   [ ] Avert Unguard
+-   [ ] Barrier Starter
+-   [ ] Base Attributes
+-   [ ] Boost Starter
+-   [ ] Boost Ultimate
+-   [ ] Brave Starter
+-   [x] Break Power Up
+-   [ ] Clutch Barrier
+-   [ ] Clutch Berserk
+-   [ ] Clutch Boost
+-   [ ] Clutch Brave
+-   [ ] Clutch Drain
+-   [ ] Clutch Faith
+-   [ ] Clutch Haste
+-   [ ] Clutch Regen
+-   [ ] Clutch Snipe
+-   [ ] Clutch Veil
+-   [ ] Clutch Wall
+-   [ ] Counterattack
+-   [ ] Crystal Seeker
+-   [ ] Curse Starter
+-   [ ] Dark Draw
+-   [ ] Dark Element Starter
+-   [ ] Debarrier Starter
+-   [ ] Debrave Starter
+-   [ ] Discordant Chain
+-   [ ] Drain Starter
+-   [ ] EXP Up
+-   [ ] Earth Draw
+-   [ ] Earth Element Starter
+-   [ ] Element Generator
+-   [ ] Element Starter
+-   [ ] Elemental Third Strike
+-   [x] Enhance Dark
+-   [x] Enhance Earth
+-   [x] Enhance Fire
+-   [x] Enhance Light
+-   [x] Enhance Water
+-   [x] Enhance Wind
+-   [ ] Exploit Weakness
+-   [ ] Extended Break
+-   [ ] Faith Starter
+-   [ ] Fire Draw
+-   [ ] Fire Element Starter
+-   [ ] Gil Up
+-   [ ] Guard Scorpion Manual
+-   [x] HP Up
+-   [ ] Haste Starter
+-   [ ] Healing Victory
+-   [ ] Improved Criticals
+-   [ ] Improved Extra Skill Unlock
+-   [ ] Job Change Recast
+-   [ ] Job Change Shift: Dark
+-   [ ] Job Change Shift: Earth
+-   [ ] Job Change Shift: Fire
+-   [ ] Job Change Shift: Light
+-   [ ] Job Change Shift: Water
+-   [ ] Job Change Shift: Wind
+-   [ ] Kill and Draw
+-   [ ] Life Draw
+-   [ ] Life Element Starter
+-   [ ] Life Orb Draw Up
+-   [ ] Light Draw
+-   [ ] Light Element Starter
+-   [ ] MP Break Power Up
+-   [ ] MP Damage Up
+-   [ ] MP HP Up
+-   [x] Magic Up
+-   [x] Painful Break
+-   [x] Piercing Break
+-   [ ] Prismatic Draw
+-   [ ] Prismatic Element Generator
+-   [ ] Prismatic Element Starter
+-   [ ] Prismatic Return
+-   [ ] Ravage
+-   [ ] Regen Starter
+-   [ ] Resist Dark
+-   [ ] Resist Earth
+-   [ ] Resist Fire
+-   [ ] Resist Light
+-   [ ] Resist Water
+-   [ ] Resist Wind
+-   [ ] Reunion
+-   [ ] Shield: Sicarius Bestia
+-   [ ] Shield: Sicarius Externus
+-   [ ] Shield: Sicarius Imperator
+-   [ ] Skillseed Up
+-   [ ] Sleep Resistance
+-   [ ] Snipe Starter
+-   [ ] Starting Actions Up
+-   [ ] Stun Starter
+-   [ ] Terra Battle: Archer \*2
+-   [ ] Terra Battle: Archer3
+-   [ ] Terra Battle: Archer4
+-   [ ] Terra Battle: Archer5
+-   [ ] Terra Battle: SpearWielder2
+-   [ ] Terra Battle: Spear Wielder \*3
+-   [ ] Terra Battle: Spear Wielder \*4
+-   [ ] Terra Battle: Spear Wielder \*5
+-   [ ] Terra Battle: Staff Wielder \*2
+-   [ ] Terra Battle: Staff Wielder \*3
+-   [ ] Terra Battle: Staff Wielder \*4
+-   [ ] Terra Battle: Staff Wielder \*5
+-   [ ] Terra Battle: Sword Wielder \*2
+-   [ ] Terra Battle: Sword Wielder \*3
+-   [ ] Terra Battle: Sword Wielder \*4
+-   [ ] Terra Battle: Sword Wielder \*5
+-   [ ] Ultimate Charger
+-   [ ] Wall Starter
+-   [ ] Water Draw
+-   [ ] Water Element Starter
+-   [ ] Wind Draw
+-   [ ] Wind Element Starter
+
+### Extra Skill
+
+-   [ ] Ability Igniton
+-   [ ] Armiger
+-   [ ] Attack Ignition
+-   [ ] Attacker-Guard Buster
+-   [ ] Attacker-Guard Killer
+-   [ ] Augment \*4 Limit Break
+-   [ ] Augment \*5 Limit Break
+-   [ ] Bad Dream
+-   [ ] Blood Tap
+-   [x] Bloodthirst
+-   [ ] Break Balancer
+-   [ ] Break Exploiter
+-   [x] Breaker-Killer
+-   [ ] Breath of the Triad
+-   [ ] Charging Attack
+-   [ ] Cleanse Earth
+-   [ ] Cleanse Flames
+-   [ ] Cleanse Waters
+-   [ ] Cleanse Winds
+-   [ ] Cleaving Attack
+-   [ ] Convergence
+-   [ ] Critical Retrieval
+-   [ ] Critical Rupture
+-   [ ] Critical Weakness
+-   [ ] Damage Limit Break
+-   [ ] Damage Limit Break II
+-   [ ] Dark Pact
+-   [ ] Dispel
+-   [ ] Drive Ignition
+-   [ ] Drive Tap
+-   [x] Duration Boost
+-   [ ] Earth Pact
+-   [ ] Element Every Buddy
+-   [ ] Element Tap
+-   [ ] Elemental Bounty
+-   [x] Elemental Mirror
+-   [x] Elemental Retrieval
+-   [ ] Elemental Return
+-   [x] Enhanced Ailments
+-   [x] Enhanced Boons
+-   [ ] Enhanced Dark
+-   [ ] Enhanced Earth
+-   [ ] Enhanced Fire
+-   [ ] Enhanced Life
+-   [ ] Enhanced Light
+-   [ ] Enhanced Water
+-   [ ] Enhanced Wind
+-   [ ] Esuna
+-   [x] Extra Life
+-   [x] Extreme Bloodthirst
+-   [ ] Fire Pact
+-   [ ] Fortune
+-   [x] Guard Breaker
+-   [ ] High Voltage
+-   [ ] Holy Cleansing
+-   [ ] Imbue Dark
+-   [ ] Imbue Earth
+-   [ ] Imbue Fire
+-   [ ] Imbue Light
+-   [ ] Imbue Water
+-   [ ] Imbue Wind
+-   [x] Lasting Ailments
+-   [x] Lasting Boons
+-   [ ] Legendary Blademaster
+-   [ ] Light Pact
+-   [ ] Lone Lion
+-   [ ] Magic Fusion
+-   [x] Mantra
+-   [ ] Martial Arts
+-   [ ] Martial Combat
+-   [ ] Martial Flow
+-   [ ] Meia Synchro
+-   [ ] Misfortune
+-   [ ] Overdrive
+-   [ ] Potent Ailments
+-   [ ] Potent Cleansing
+-   [ ] Prime Supporter
+-   [x] Quick Cast
+-   [x] Quick Recast
+-   [ ] Reckoning
+-   [ ] Sicarius Bestia Hunter
+-   [ ] Sicarius Bestia Killer
+-   [ ] Sicarius Externus Hunter
+-   [ ] Sicarius Externus Killer
+-   [ ] Sicarius Imperator Hunter
+-   [ ] Sicarius Imperator Killer
+-   [ ] Sicarius Machina Hunter
+-   [ ] Sicarius Machina Killer
+-   [ ] Sicarius Medeis Buster
+-   [ ] Sicarius Superior Buster
+-   [ ] Spira Hunter
+-   [ ] Support-Guard Buster
+-   [ ] Support-Guard Killer
+-   [x] Taijutsu
+-   [ ] Trigger Synergy
+-   [ ] Ultra Damage Escalation
+-   [ ] Ultra Defense Breaker
+-   [ ] Ultra Guard Breaker
+-   [ ] Ultra Convergence
+-   [ ] Ultra Element Tap
+-   [ ] Ultra Improved Criticals
+-   [ ] Ultra Martial Combat
+-   [ ] Unity Strike
+-   [ ] Veil
+-   [x] Vitality Tap
+-   [ ] Water Pact
+-   [ ] Weakness Breaker
+-   [ ] Wind Pact
+
+### InnateSkill
+
+-   [ ] Exploit Weakness
+-   [ ] Improved Criticals
+-   [x] Painful Break
