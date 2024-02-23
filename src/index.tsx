@@ -1,12 +1,12 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import StartMenu from "./pages/replica/components/view/StartMenu";
+import Router from "./pages/main-menu/Router";
 import "./index.css";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
 root.render(
     <React.StrictMode>
-        <StartMenu />
+        <Router />
     </React.StrictMode>
 );

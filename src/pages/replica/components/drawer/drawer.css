@@ -34,7 +34,7 @@
 .drawerButtonText {
     transform: rotate(90deg);
     font-size: 1.6rem;
-    margin-left: 1rem;
+    margin-left: 1rem !important;
 }
 
 .drawerHomeImg {

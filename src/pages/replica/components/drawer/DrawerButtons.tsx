@@ -163,8 +163,9 @@ function DrawerButtons(props: Props) {
                     }}
                 />
                 <p
-                    className="drawerButtonText"
                     style={{
+                        transform: "rotate(90deg)",
+                        fontSize: "1.6rem",
                         marginTop: "0.8rem",
                         marginLeft: "2.13rem",
                         color: "#F0E7FC",
