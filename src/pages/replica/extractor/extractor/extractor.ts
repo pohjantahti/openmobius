@@ -1,6 +1,6 @@
 import BinaryReader from "./binaryReader";
 import { getResourceAsBlobURL, getTextureInfo } from "./fileCreator";
-import { readFile } from "./fileSystemAccess";
+import { readFile } from "@extractor/fileSystemAccess";
 import containers from "../../data/resources/containers.json";
 import LZMA from "@lib/lzma";
 import type { ResourceInfo, TextureInfo } from "./types";

@@ -2,7 +2,7 @@ import { useState } from "react";
 import StartInfo from "./views/StartInfo";
 import MainMenu from "./views/MainMenu";
 import StartMenu from "../replica/components/view/StartMenu";
-import AssetViewer from "./views/AssetViewer";
+import AssetViewer from "../asset-viewer/AssetViewer";
 
 type RouteOptions = "mainMenu" | "replica" | "assetViewer";
 

@@ -1,4 +1,4 @@
-import { setBaseDirectoryHandle } from "../../replica/extractor";
+import { setBaseDirectoryHandle } from "@extractor/fileSystemAccess";
 import Box from "../components/Box";
 import Collapse from "../components/Collapse";
 
