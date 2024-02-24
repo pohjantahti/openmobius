@@ -1,5 +1,5 @@
+import { Card, CardActionArea, CardContent, Container, Stack, Typography } from "@mui/material";
 import { RouteOptions } from "../Router";
-import Box from "../components/Box";
 
 interface Props {
     setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
@@ -8,61 +8,54 @@ interface Props {
 function MainMenu(props: Props) {
     const { setRoute } = props;
     return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-            }}
-        >
-            <Box
-                style={{
-                    width: 900,
-                    height: 200,
-                    margin: 10,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "column",
-                }}
-            >
-                <h1>OpenMobius</h1>
-                <p>Choose your activity</p>
-            </Box>
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    width: 900,
-                }}
-            >
-                <Box
-                    style={{
-                        width: "100%",
-                        height: 200,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        margin: "0px 10px 0px 0px",
-                    }}
-                >
-                    <h1 onClick={() => setRoute("assetViewer")}>Asset Viewer</h1>
-                </Box>
-                <Box
-                    style={{
-                        width: "100%",
+        <Container maxWidth="md" sx={{ padding: 2 }}>
+            <Stack spacing={2}>
+                <Card
+                    sx={{
                         height: 200,
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
                     }}
                 >
-                    <h1 onClick={() => setRoute("replica")}>Replica</h1>
-                </Box>
-            </div>
-        </div>
+                    <CardContent>
+                        <Typography variant="h4" fontWeight="bold">
+                            OpenMobius
+                        </Typography>
+                    </CardContent>
+                </Card>
+                <Stack direction="row" spacing={2}>
+                    <Card sx={{ width: "50%" }} onClick={() => setRoute("assetViewer")}>
+                        <CardActionArea
+                            sx={{
+                                height: 150,
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            <CardContent>
+                                <Typography variant="h5">Asset Viewer</Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                    <Card sx={{ width: "50%" }} onClick={() => setRoute("replica")}>
+                        <CardActionArea
+                            sx={{
+                                height: 150,
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            <CardContent>
+                                <Typography variant="h5">Replica</Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Stack>
+            </Stack>
+        </Container>
     );
 }
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ScopedCssBaseline } from "@mui/material";
 import StartInfo from "./views/StartInfo";
 import MainMenu from "./views/MainMenu";
 import StartMenu from "../replica/components/view/StartMenu";
@@ -19,9 +20,15 @@ function Router() {
     return (
         <>
             {startInfoComplete ? (
-                routes[route]
+                route === "replica" ? (
+                    <StartMenu />
+                ) : (
+                    <ScopedCssBaseline>{routes[route]}</ScopedCssBaseline>
+                )
             ) : (
-                <StartInfo setStartInfoComplete={setStartMenuComplete} />
+                <ScopedCssBaseline>
+                    <StartInfo setStartInfoComplete={setStartMenuComplete} />
+                </ScopedCssBaseline>
             )}
         </>
     );

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { RouteOptions } from "../main-menu/Router";
-import Box from "../main-menu/components/Box";
 import { getHashFileList } from "@extractor/fileSystemAccess";
 import { FixedSizeList } from "react-window";
+import { Box, Button, CircularProgress, Paper, Stack, Typography } from "@mui/material";
 
 interface Props {
     setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
@@ -25,72 +25,68 @@ function AssetViewer(props: Props) {
     }, []);
 
     return (
-        <div
-            style={{
+        <Stack
+            direction="row"
+            spacing={1}
+            padding={1}
+            sx={{
                 position: "absolute",
-                display: "flex",
-                justifyContent: "flex-start",
-                height: "100%",
-                width: "100%",
+                height: 1,
+                width: 1,
             }}
         >
-            <Box
-                style={{
-                    height: "auto",
-                    width: 400,
-                    margin: "5px 2.5px 5px 5px",
-                    display: "flex",
-                    flexDirection: "column",
-                    padding: 5,
-                }}
-            >
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "space-evenly",
-                        width: "auto",
-                    }}
-                >
-                    <h1 onClick={() => props.setRoute("mainMenu")}>{"<"}</h1>
-                    <h1>Asset Viewer</h1>
-                </div>
-                <div
-                    style={{
-                        width: "auto",
-                        height: "100%",
-                        display: "flex",
-                    }}
-                >
-                    <p>{hashFileList.length}/21500</p>
-                </div>
-                <div
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                    }}
-                >
-                    <FixedSizeList
-                        height={750}
-                        width={400}
-                        itemCount={hashFileList.length}
-                        itemSize={20}
-                    >
-                        {({ index, style }) => (
-                            <p key={index} style={style}>
-                                {hashFileList[index]}
-                            </p>
-                        )}
-                    </FixedSizeList>
-                </div>
-            </Box>
-            <Box
-                style={{
-                    height: "auto",
-                    width: "100%",
-                    margin: "5px 5px 5px 2.5px",
-                }}
-            ></Box>
-        </div>
+            <Paper sx={{ height: 1 }}>
+                <Stack spacing={1} padding={1} sx={{ height: 1, width: "416px" }}>
+                    <Stack spacing={2} direction="row">
+                        <Button variant="contained" onClick={() => props.setRoute("mainMenu")}>
+                            Back
+                        </Button>
+                        <Typography variant="h5">Asset Viewer</Typography>
+                    </Stack>
+                    {hashFileList.length === 0 ? (
+                        <Box
+                            sx={{
+                                height: 1,
+                                width: 1,
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Typography variant="body1">Loading...</Typography>
+                            <CircularProgress />
+                        </Box>
+                    ) : (
+                        <Box
+                            sx={{
+                                height: 1,
+                                width: 1,
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "flex-end",
+                            }}
+                        >
+                            <FixedSizeList
+                                height={750}
+                                width={400}
+                                itemCount={hashFileList.length}
+                                itemSize={20}
+                            >
+                                {({ index, style }) => (
+                                    <Typography variant="body2" key={index} style={style}>
+                                        {hashFileList[index]}
+                                    </Typography>
+                                )}
+                            </FixedSizeList>
+                        </Box>
+                    )}
+                </Stack>
+            </Paper>
+            <Paper sx={{ width: 1 }}>
+                <Typography>Assets</Typography>
+            </Paper>
+        </Stack>
     );
 }
 
