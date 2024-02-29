@@ -23,6 +23,20 @@ const darkTheme = createTheme({
                 },
             },
         },
+        MuiAccordionSummary: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#212121",
+                },
+            },
+        },
+        MuiAccordionDetails: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#333333",
+                },
+            },
+        },
     },
 });
 

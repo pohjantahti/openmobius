@@ -68,7 +68,7 @@ function LoadingScreen(props: Props) {
                                 opacity: 0,
                                 zIndex: 2,
                             }}
-                        ></div>
+                        />
                         <div
                             style={{
                                 position: "absolute",
@@ -110,6 +110,8 @@ function LoadingScreen(props: Props) {
                         background: "-webkit-linear-gradient(#C6F3FF, #97CCEC)",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
+                        opacity: 0,
+                        animation: "loadingScreenText 2s",
                     }}
                 >
                     MOBIUS FINAL FANTASY
@@ -181,9 +183,11 @@ function LoadingScreen(props: Props) {
                         background: "-webkit-linear-gradient(#C6F3FF, #97CCEC)",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
+                        opacity: 0,
+                        animation: "loadingScreenText 2s",
                     }}
                 >
-                    Customer ID : 1234 – 1234 – 1234
+                    Customer ID : 1234 - 1234 - 1234
                 </p>
 
                 {/* Support "link" in the bottom right */}
@@ -204,6 +208,8 @@ function LoadingScreen(props: Props) {
                             fontSize: "1.2rem",
                             bottom: "-1rem",
                             color: "#FFFFFF",
+                            opacity: 0,
+                            animation: "loadingScreenText 2s",
                         }}
                     >
                         Support

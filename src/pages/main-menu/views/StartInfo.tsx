@@ -36,11 +36,11 @@ function StartInfo(props: Props) {
                         <Accordion defaultExpanded disableGutters>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
-                                sx={{ fontWeight: "bold", backgroundColor: "#212121" }}
+                                sx={{ fontWeight: "bold" }}
                             >
                                 What is it?
                             </AccordionSummary>
-                            <AccordionDetails sx={{ backgroundColor: "#333333" }}>
+                            <AccordionDetails>
                                 <Typography variant="body1" marginBottom={1}>
                                     OpenMobius is an open-source, partial replication of the
                                     original Mobius Final Fantasy game. In its current form, it's a
@@ -58,11 +58,11 @@ function StartInfo(props: Props) {
                         <Accordion disableGutters>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
-                                sx={{ fontWeight: "bold", backgroundColor: "#212121" }}
+                                sx={{ fontWeight: "bold" }}
                             >
                                 How to use it?
                             </AccordionSummary>
-                            <AccordionDetails sx={{ backgroundColor: "#333333" }}>
+                            <AccordionDetails>
                                 <p>
                                     <b>Base requirements:</b>
                                 </p>

@@ -3,6 +3,8 @@ import { RouteOptions } from "../main-menu/Router";
 import { getHashFileList } from "@extractor/fileSystemAccess";
 import { FixedSizeList } from "react-window";
 import { Box, Button, CircularProgress, Paper, Stack, Typography } from "@mui/material";
+import { FullContainerData, extractFullContainerData } from "@extractor/containerExtraction";
+import ContainerMetaDataDisplay from "./components/ContainerMetaDataDisplay";
 
 interface Props {
     setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
@@ -10,6 +12,7 @@ interface Props {
 
 function AssetViewer(props: Props) {
     const [hashFileList, setHashFileList] = useState<Array<string>>([]);
+    const [containerData, setContainerData] = useState<FullContainerData | undefined>();
     const inProgress = useRef(false);
 
     useEffect(() => {
@@ -23,6 +26,19 @@ function AssetViewer(props: Props) {
             fetchHashFileList();
         }
     }, []);
+
+    const handleGetContainerData = async (containerPath: string) => {
+        const containerData: FullContainerData = await extractFullContainerData(
+            "mobius_data/Hash/" + containerPath
+        );
+        setContainerData({
+            containerPath: containerData.containerPath,
+            containerHeader: containerData.containerHeader,
+            blockByteInfo: containerData.blockByteInfo,
+            assetFileBytesInfo: containerData.assetFileBytesInfo,
+            assetFile: containerData.assetFile,
+        });
+    };
 
     return (
         <Stack
@@ -74,7 +90,12 @@ function AssetViewer(props: Props) {
                                 itemSize={20}
                             >
                                 {({ index, style }) => (
-                                    <Typography variant="body2" key={index} style={style}>
+                                    <Typography
+                                        variant="body2"
+                                        key={index}
+                                        style={style}
+                                        onClick={() => handleGetContainerData(hashFileList[index])}
+                                    >
                                         {hashFileList[index]}
                                     </Typography>
                                 )}
@@ -83,8 +104,10 @@ function AssetViewer(props: Props) {
                     )}
                 </Stack>
             </Paper>
-            <Paper sx={{ width: 1 }}>
+            <Paper sx={{ width: 1, overflowY: "auto", padding: 1 }}>
                 <Typography>Assets</Typography>
+                <Typography>Container: {containerData?.containerPath}</Typography>
+                <ContainerMetaDataDisplay containerData={containerData} />
             </Paper>
         </Stack>
     );
