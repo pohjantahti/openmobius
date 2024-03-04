@@ -1,0 +1,437 @@
+[
+    {
+        "container": "00/0019db27619b4312c785a3fa71f50a_win.unity3d",
+        "name": "CAB-Id_01041_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_01041_Thum_Atlas", "classId": 28, "pathId": "-8690615341770343361" }
+        ]
+    },
+    {
+        "container": "00/03414171f7850d503fc321cb241de0_win.unity3d",
+        "name": "CAB-Id_09071_AutoClip_gui__pack__us_win",
+        "assets": [
+            { "name": "Id_09071_AutoClip_Atlas", "classId": 28, "pathId": "-4993811292154857733" }
+        ]
+    },
+    {
+        "container": "00/0566d3847b72b472d768c73f651ded_win.unity3d",
+        "name": "CAB-summer19_08_vfx__pack_win",
+        "assets": [
+            { "name": "summer19_08", "classId": 28, "pathId": "-6120144842120052380" },
+            { "name": "summer19_awa_08", "classId": 28, "pathId": "5256903705192064320" }
+        ]
+    },
+    {
+        "container": "00/05a6f8c31a0ed61da6ec41f13457f0_win.unity3d",
+        "name": "CAB-Id_00086_ManagementIcon_gui__pack__us_win",
+        "assets": [
+            {
+                "name": "Id_00086_ManagementIcon_Atlas",
+                "classId": 28,
+                "pathId": "-3739598043838910164"
+            }
+        ]
+    },
+    {
+        "container": "00/0869c09a594d7dbb19865af549dbd3_win.unity3d",
+        "name": "CAB-Id_00269_Card_gui__pack_win",
+        "assets": [
+            { "name": "Id_00269_Card_Atlas", "classId": 28, "pathId": "2780973742717870838" }
+        ]
+    },
+    {
+        "container": "00/1d8b8a9ca23cb64e58e25fabc5b97b_win.unity3d",
+        "name": "CAB-b386_prop2_win",
+        "assets": [
+            { "name": "b386_prop2_a", "classId": 28, "pathId": "2891245650027963353" },
+            { "name": "b386_prop2_n", "classId": 28, "pathId": "4423132186412200280" },
+            { "name": "b386_shadow", "classId": 28, "pathId": "6533405055122388119" },
+            { "name": "b386_prop2_m", "classId": 28, "pathId": "9100416537951568092" }
+        ]
+    },
+    {
+        "container": "00/1f124239a395993ffe6e5fbc81c28e_win.unity3d",
+        "name": "CAB-wk8741_textures_win",
+        "assets": [
+            { "name": "wk8741_C01", "classId": 28, "pathId": "-459520976626951642" },
+            { "name": "wk8741_M01", "classId": 28, "pathId": "2155186661787666878" },
+            { "name": "wk8741_N01", "classId": 28, "pathId": "5919747262183678595" }
+        ]
+    },
+    {
+        "container": "00/1f6d5f7e8eeb6bb7ed6ff44c293087_win.unity3d",
+        "name": "CAB-Id_01255_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_01255_Thum_Atlas", "classId": 28, "pathId": "3765660331743995300" }
+        ]
+    },
+    {
+        "container": "00/21eb8da8f3aa4640b159b2c667d966_win.unity3d",
+        "name": "CAB-b403_sky_win",
+        "assets": [{ "name": "b_sky403(RGBE)", "classId": 28, "pathId": "-2241583060605903960" }]
+    },
+    {
+        "container": "00/26d25b74e61ac88ebe085d890b319d_win.unity3d",
+        "name": "CAB-ms0241_win",
+        "assets": [
+            { "name": "ms0241_crystal", "classId": 43, "pathId": "-5310054067938297569" },
+            { "name": "ms0241_body", "classId": 43, "pathId": "-4401106765808508696" }
+        ]
+    },
+    {
+        "container": "00/2b3deefa4a810929d3947ad053b802_win.unity3d",
+        "name": "CAB-Id_00259_Card_gui__pack_win",
+        "assets": [
+            { "name": "Id_00259_Card_Atlas", "classId": 28, "pathId": "4145069710473605953" }
+        ]
+    },
+    {
+        "container": "00/2be64675ac0b1aaa5b7d6469cf5de5_win.unity3d",
+        "name": "CAB-Id_01302_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_01302_Thum_Atlas", "classId": 28, "pathId": "-8053637374000965204" }
+        ]
+    },
+    {
+        "container": "00/2d23b496df3860190d7f338787e379_win.unity3d",
+        "name": "CAB-b268_win",
+        "assets": [
+            { "name": "falsi_alpha", "classId": 43, "pathId": "-3056428567944949181" },
+            { "name": "veil", "classId": 43, "pathId": "2218809740902033710" },
+            { "name": "falsi", "classId": 43, "pathId": "7098445883026272816" }
+        ]
+    },
+    {
+        "container": "00/2ddc36e9f4f4d22b5b63e7ae6cdec0_win.unity3d",
+        "name": "CAB-Id_00431_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_00431_Thum_Atlas", "classId": 28, "pathId": "1464433092685964123" }
+        ]
+    },
+    {
+        "container": "00/306323e145ca2b926b0aa2c1c725c7_win.unity3d",
+        "name": "CAB-Id_01595_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_01595_Thum_Atlas", "classId": 28, "pathId": "1774034629294222727" }
+        ]
+    },
+    {
+        "container": "00/34ea39b2a1ce75d92e1ee6c2dc164f_win.unity3d",
+        "name": "CAB-Id_00677_Card_gui__pack_win",
+        "assets": [
+            { "name": "Id_00677_Card_Atlas", "classId": 28, "pathId": "-450410993589500877" }
+        ]
+    },
+    {
+        "container": "00/42154da92798f7ab80ea3e63ec02d8_win.unity3d",
+        "name": "CAB-ps1001_win",
+        "assets": [
+            { "name": "ps1001_alpha", "classId": 43, "pathId": "1371096481381130764" },
+            { "name": "ps1001_body", "classId": 43, "pathId": "3529461597585537413" }
+        ]
+    },
+    {
+        "container": "00/4301a78eec8b016ec29ebdc538b4af_win.unity3d",
+        "name": "CAB-Id_01438_Card_gui__pack_win",
+        "assets": [
+            { "name": "Id_01438_Card_Atlas", "classId": 28, "pathId": "-4203752036743875842" }
+        ]
+    },
+    {
+        "container": "00/461e3d5df1d4528b04f3d9c8cbb74d_win.unity3d",
+        "name": "CAB-b379_prop1_win",
+        "assets": [
+            { "name": "b379_prop1_m", "classId": 28, "pathId": "-4255874885349243779" },
+            { "name": "b379_prop1_a", "classId": 28, "pathId": "2115549120007064241" },
+            { "name": "b379_prop1_n", "classId": 28, "pathId": "4233273923131856143" }
+        ]
+    },
+    {
+        "container": "00/4f3095768f1dca5c304bde56fd2dfe_win.unity3d",
+        "name": "CAB-Id_01492_Card_gui__pack_win",
+        "assets": [
+            { "name": "Id_01492_Card_Atlas", "classId": 28, "pathId": "-2661107699966664072" }
+        ]
+    },
+    {
+        "container": "00/570ea700256688d9bdfbb8265ed477_win.unity3d",
+        "name": "CAB-Id_90129_BillBoard_gui__pack__us_win",
+        "assets": [
+            { "name": "Id_90129_BillBoard_Atlas", "classId": 28, "pathId": "-4822874993522248812" }
+        ]
+    },
+    {
+        "container": "00/5c0d32a936df593d3717a4845c8972_win.unity3d",
+        "name": "CAB-Id_01637_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_01637_Thum_Atlas", "classId": 28, "pathId": "-8706497577714657065" }
+        ]
+    },
+    {
+        "container": "00/5e12113697a9bae991d55a3cfa3c50_win.unity3d",
+        "name": "CAB-Id_00043_Card_gui__pack_win",
+        "assets": [
+            { "name": "Id_00043_Card_Atlas", "classId": 28, "pathId": "-1103130953458274874" }
+        ]
+    },
+    {
+        "container": "00/5e14fbc3e75d99c4706cf1e5de3565_win.unity3d",
+        "name": "CAB-Id_02365_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_02365_Thum_Atlas", "classId": 28, "pathId": "-1630113324252713095" }
+        ]
+    },
+    {
+        "container": "00/624f2f8279034077e7751a856b1902_win.unity3d",
+        "name": "CAB-Id_09052_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_09052_Thum_Atlas", "classId": 28, "pathId": "-2723744284072855995" }
+        ]
+    },
+    {
+        "container": "00/67fbe8b4eed5a1299aa73a4c6bf270_win.unity3d",
+        "name": "CAB-b207_textures_win",
+        "assets": [{ "name": "b207_prop3a", "classId": 28, "pathId": "755771279163787231" }]
+    },
+    {
+        "container": "00/6e4f065343ea6bb7d668f3315fd4b4_win.unity3d",
+        "name": "CAB-b403_prop2_win",
+        "assets": [
+            { "name": "b403_prop2n", "classId": 28, "pathId": "-7166501533638616619" },
+            { "name": "b403_prop2m", "classId": 28, "pathId": "677767816003626005" },
+            { "name": "b403_prop2a", "classId": 28, "pathId": "5572750630928342038" }
+        ]
+    },
+    {
+        "container": "00/7d1efbe9a002ab7f9b2e1f7c3331db_win.unity3d",
+        "name": "CAB-sc4041_win",
+        "assets": [{ "name": "sc4041_body", "classId": 43, "pathId": "7373984231770292859" }]
+    },
+    {
+        "container": "00/7e05cde6d8e13f64df61b839b7ea00_win.unity3d",
+        "name": "CAB-b402_prop2_win",
+        "assets": [
+            { "name": "b402_prop2a", "classId": 28, "pathId": "-8062280478402405280" },
+            { "name": "b402_prop2m", "classId": 28, "pathId": "-3017171835065309264" },
+            { "name": "b402_prop2n", "classId": 28, "pathId": "1943943648649822255" }
+        ]
+    },
+    {
+        "container": "00/7e8e529efac5c23d8c695a8df1faa2_win.unity3d",
+        "name": "CAB-Id_02763_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_02763_Thum_Atlas", "classId": 28, "pathId": "-3209773467592640813" }
+        ]
+    },
+    {
+        "container": "00/7f5503ed6a690e991117925b016987_win.unity3d",
+        "name": "CAB-Id_09694_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_09694_Thum_Atlas", "classId": 28, "pathId": "4158422986472240218" }
+        ]
+    },
+    {
+        "container": "00/8f809bb631dc71e0597351344638f4_win.unity3d",
+        "name": "CAB-Id_00620_Card_gui__pack_win",
+        "assets": [{ "name": "Id_00620_Card_Atlas", "classId": 28, "pathId": "413306758890278253" }]
+    },
+    {
+        "container": "00/9d12967a805e3efa823b7e74a07899_win.unity3d",
+        "name": "CAB-Id_10027_Thum_gui__pack_win",
+        "assets": [{ "name": "Id_10027_Thum_Atlas", "classId": 28, "pathId": "300926526530817736" }]
+    },
+    {
+        "container": "00/9d7d390b7488cb22c366d9f02781f6_win.unity3d",
+        "name": "CAB-sc2901_win",
+        "assets": [
+            { "name": "sc2901_alpha", "classId": 43, "pathId": "-8329129273318167584" },
+            { "name": "sc2901_body", "classId": 43, "pathId": "1750473962693825445" }
+        ]
+    },
+    {
+        "container": "00/9e24ea40245a7ec27633ae26c59e32_win.unity3d",
+        "name": "CAB-sd6901_win",
+        "assets": [
+            { "name": "sd6901_alpha", "classId": 43, "pathId": "-9210679725246937417" },
+            { "name": "sd6901_alphaB", "classId": 43, "pathId": "-6137718625694955852" },
+            { "name": "sd6901_eye", "classId": 43, "pathId": "-5141346039182654930" },
+            { "name": "sd6901_body", "classId": 43, "pathId": "-4359229484586256411" },
+            { "name": "sd6901_glass", "classId": 43, "pathId": "-832729208375019470" },
+            { "name": "sd6901_skin", "classId": 43, "pathId": "2211376452574470314" },
+            { "name": "sd6901_hair", "classId": 43, "pathId": "5298649873989263770" }
+        ]
+    },
+    {
+        "container": "00/a737523c6de537cc3bf0470af31294_win.unity3d",
+        "name": "CAB-Id_00248_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_00248_Thum_Atlas", "classId": 28, "pathId": "7223570383167468163" }
+        ]
+    },
+    {
+        "container": "00/a944613bf5dbba7ca18c3ba5a1368f_win.unity3d",
+        "name": "CAB-b235_win",
+        "assets": [
+            { "name": "b235_prop4far", "classId": 43, "pathId": "-6686775563506150422" },
+            { "name": "b235_p1al", "classId": 43, "pathId": "-5708676240228431384" },
+            { "name": "b235_prop4", "classId": 43, "pathId": "-1418575741918413584" },
+            { "name": "b235_p1", "classId": 43, "pathId": "-1375189028707576264" },
+            { "name": "b235_prop2", "classId": 43, "pathId": "-1141824693386903949" },
+            { "name": "b235_prop4al", "classId": 43, "pathId": "374788618031293915" },
+            { "name": "b235_p1em", "classId": 43, "pathId": "7039036520222659421" },
+            { "name": "sky235", "classId": 43, "pathId": "9021935998540859505" }
+        ]
+    },
+    {
+        "container": "00/ad577551ee70ca7f77e81a93f6f626_win.unity3d",
+        "name": "CAB-Id_00233_Thum_gui__pack_win",
+        "assets": [{ "name": "Id_00233_Thum_Atlas", "classId": 28, "pathId": "501146124944176579" }]
+    },
+    {
+        "container": "00/b64fee20871dca402de554d36a686e_win.unity3d",
+        "name": "CAB-Id_00494_Card_gui__pack_win",
+        "assets": [
+            { "name": "Id_00494_Card_Atlas", "classId": 28, "pathId": "-5189644784765816688" }
+        ]
+    },
+    {
+        "container": "00/b95008830ca81876ad8a1422101211_win.unity3d",
+        "name": "CAB-Id_01548_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_01548_Thum_Atlas", "classId": 28, "pathId": "-7674934631600489007" }
+        ]
+    },
+    {
+        "container": "00/bfac290b8458273165b7e16347466f_win.unity3d",
+        "name": "CAB-sc4091_win",
+        "assets": [
+            { "name": "sc4091_body", "classId": 43, "pathId": "-9216293161951336895" },
+            { "name": "sc4091_hair", "classId": 43, "pathId": "-6649562339815412330" },
+            { "name": "sc4091_alpha", "classId": 43, "pathId": "-1353738421068680224" },
+            { "name": "sc4091_eye", "classId": 43, "pathId": "350440553390278805" },
+            { "name": "sc4091_head", "classId": 43, "pathId": "7979794032780628194" }
+        ]
+    },
+    {
+        "container": "00/c64cacc70b08f75503412003b24c53_win.unity3d",
+        "name": "CAB-Id_11000_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_11000_Thum_Atlas", "classId": 28, "pathId": "4856478084497630536" }
+        ]
+    },
+    {
+        "container": "00/cb02103924b953dcc05b6ee0f34519_win.unity3d",
+        "name": "CAB-Id_03176_Card_gui__pack_win",
+        "assets": [
+            { "name": "Id_03176_Card_Atlas", "classId": 28, "pathId": "-546536511922280630" }
+        ]
+    },
+    {
+        "container": "00/cb93f8cb8aa4ecae193f6682aa599d_win.unity3d",
+        "name": "CAB-nc6511_win",
+        "assets": [
+            { "name": "nc6511_mant", "classId": 43, "pathId": "-8663227259441913517" },
+            { "name": "nc6511_skin", "classId": 43, "pathId": "-7302908419521561344" },
+            { "name": "nc6511_hair", "classId": 43, "pathId": "-6895101793235806615" },
+            { "name": "nc6511_hood", "classId": 43, "pathId": "-3402391178554874107" },
+            { "name": "nc6511_eye", "classId": 43, "pathId": "-3267400033176448645" },
+            { "name": "nc6511_matsu", "classId": 43, "pathId": "-36527590170346788" },
+            { "name": "nc6511_body", "classId": 43, "pathId": "3182657727090704047" }
+        ]
+    },
+    {
+        "container": "00/cc0c3b702ceb848f6902d664f61cb0_win.unity3d",
+        "name": "CAB-ww2071_textures_win",
+        "assets": [
+            { "name": "ww2071_M01", "classId": 28, "pathId": "-293884950632863228" },
+            { "name": "ww2071_N01", "classId": 28, "pathId": "4054558996205452584" },
+            { "name": "ww2071_C01", "classId": 28, "pathId": "6747855462992958318" }
+        ]
+    },
+    {
+        "container": "00/d346400da87df8600e94e7f6829cb6_win.unity3d",
+        "name": "CAB-b110_win",
+        "assets": []
+    },
+    {
+        "container": "00/d90850d64821f5573d7cb20c02dd7b_win.unity3d",
+        "name": "CAB-nc6102_textures_win",
+        "assets": [
+            { "name": "nc6102_C01", "classId": 28, "pathId": "-101253108618139748" },
+            { "name": "nc6102_N01", "classId": 28, "pathId": "1989085512734860815" },
+            { "name": "nc6102_M01", "classId": 28, "pathId": "7377816177426544632" }
+        ]
+    },
+    {
+        "container": "00/dbe4261c3119c46fc0ebee285f3fbf_win.unity3d",
+        "name": "CAB-Id_02423_Thum_gui__pack_win",
+        "assets": [{ "name": "Id_02423_Thum_Atlas", "classId": 28, "pathId": "978940345534480416" }]
+    },
+    {
+        "container": "00/e25aa799c48303a606de142b6d2ac5_win.unity3d",
+        "name": "CAB-Id_09593_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_09593_Thum_Atlas", "classId": 28, "pathId": "-2123530161949771851" }
+        ]
+    },
+    {
+        "container": "00/e7c9b1fbf0e91bdd06819be9af6b33_win.unity3d",
+        "name": "CAB-Id_00496_Card_gui__pack_win",
+        "assets": [
+            { "name": "Id_00496_Card_Atlas", "classId": 28, "pathId": "-2680770586329248515" }
+        ]
+    },
+    {
+        "container": "00/e9096695d3089b80976fb7af983c8f_win.unity3d",
+        "name": "CAB-Id_02363_Card_gui__pack_win",
+        "assets": [{ "name": "Id_02363_Card_Atlas", "classId": 28, "pathId": "117261832989122762" }]
+    },
+    {
+        "container": "00/eae9184c526ca4c1ffaafc73a82335_win.unity3d",
+        "name": "CAB-Id_09978_Thum_gui__pack_win",
+        "assets": [
+            { "name": "Id_09978_Thum_Atlas", "classId": 28, "pathId": "-4135998923013745347" }
+        ]
+    },
+    {
+        "container": "00/f1bccc990d9452371b5350eecca56f_win.unity3d",
+        "name": "CAB-ev_0108_180_vfx__pack_win",
+        "assets": [
+            { "name": "DefaultEffectTexture", "classId": 28, "pathId": "5447354888450013036" }
+        ]
+    },
+    {
+        "container": "00/f3f15c3aae58342b392ac90cfce6d3_win.unity3d",
+        "name": "CAB-Id_01204_AutoClip_gui__pack__us_win",
+        "assets": [
+            { "name": "Id_01204_AutoClip_Atlas", "classId": 28, "pathId": "1518090381378241664" }
+        ]
+    },
+    {
+        "container": "00/f4cb07be5200e7a905dddc70d6e38f_win.unity3d",
+        "name": "CAB-ms2063_textures_win",
+        "assets": [
+            { "name": "ms2063_M01", "classId": 28, "pathId": "-5902775051060398744" },
+            { "name": "ms2063_C01", "classId": 28, "pathId": "1778787338720636751" },
+            { "name": "ms2063_N01", "classId": 28, "pathId": "8626383037077691730" }
+        ]
+    },
+    {
+        "container": "00/f61af2084ef34344d73c51dd3b55fe_win.unity3d",
+        "name": "CAB-Id_00163_ManagementIcon_gui__pack__us_win",
+        "assets": [
+            {
+                "name": "Id_00163_ManagementIcon_Atlas",
+                "classId": 28,
+                "pathId": "-6671121582638456058"
+            }
+        ]
+    },
+    {
+        "container": "00/fe9a1c9288aad423c7d30cb71efeb4_win.unity3d",
+        "name": "CAB-Id_01572_AutoClip_gui__pack__us_win",
+        "assets": [
+            { "name": "Id_01572_AutoClip_Atlas", "classId": 28, "pathId": "-8505902522536684158" }
+        ]
+    }
+]

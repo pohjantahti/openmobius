@@ -1,43 +1,45 @@
 import { useEffect, useRef, useState } from "react";
 import { RouteOptions } from "../main-menu/Router";
-import { getHashFileList } from "@extractor/fileSystemAccess";
-import { FixedSizeList } from "react-window";
 import { Box, Button, CircularProgress, Paper, Stack, Typography } from "@mui/material";
-import { FullContainerData, extractFullContainerData } from "@extractor/containerExtraction";
-import ContainerMetaDataDisplay from "./components/ContainerMetaDataDisplay";
+import AssetList from "./components/AssetScrollList";
+import { getAsset } from "@extractor/assetExtraction";
 
 interface Props {
     setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
 }
 
+type AssetListJSON = Array<{
+    container: string;
+    name: string;
+    assets: Array<{
+        classId: number;
+        pathId: string;
+        name?: string;
+    }>;
+}>;
+
 function AssetViewer(props: Props) {
-    const [hashFileList, setHashFileList] = useState<Array<string>>([]);
-    const [containerData, setContainerData] = useState<FullContainerData | undefined>();
+    const [assetList, setAssetList] = useState<AssetListJSON>([]);
     const inProgress = useRef(false);
+    const [displayedAsset, setDisplayedAsset] = useState<string>("");
 
     useEffect(() => {
-        const fetchHashFileList = async () => {
+        const fetchAssetList = async () => {
             inProgress.current = true;
-            const list = await getHashFileList();
-            console.log("Hash file list fetched");
-            setHashFileList(list);
+            const listJSON = await fetch("./asset-viewer/containerAssets.json");
+            const list: AssetListJSON = await listJSON.json();
+            console.log("Asset list fetched");
+            inProgress.current = false;
+            setAssetList(list);
         };
         if (!inProgress.current) {
-            fetchHashFileList();
+            fetchAssetList();
         }
     }, []);
 
-    const handleGetContainerData = async (containerPath: string) => {
-        const containerData: FullContainerData = await extractFullContainerData(
-            "mobius_data/Hash/" + containerPath
-        );
-        setContainerData({
-            containerPath: containerData.containerPath,
-            containerHeader: containerData.containerHeader,
-            blockByteInfo: containerData.blockByteInfo,
-            assetFileBytesInfo: containerData.assetFileBytesInfo,
-            assetFile: containerData.assetFile,
-        });
+    const handleDisplayedAsset = async (containerPath: string, pathId: string) => {
+        const assetURL = await getAsset(containerPath, pathId);
+        setDisplayedAsset(assetURL);
     };
 
     return (
@@ -59,7 +61,7 @@ function AssetViewer(props: Props) {
                         </Button>
                         <Typography variant="h5">Asset Viewer</Typography>
                     </Stack>
-                    {hashFileList.length === 0 ? (
+                    {assetList.length === 0 ? (
                         <Box
                             sx={{
                                 height: 1,
@@ -83,34 +85,20 @@ function AssetViewer(props: Props) {
                                 justifyContent: "flex-end",
                             }}
                         >
-                            <FixedSizeList
-                                height={750}
-                                width={400}
-                                itemCount={hashFileList.length}
-                                itemSize={20}
-                            >
-                                {({ index, style }) => (
-                                    <Typography
-                                        variant="body2"
-                                        key={index}
-                                        style={style}
-                                        onClick={() => handleGetContainerData(hashFileList[index])}
-                                    >
-                                        {hashFileList[index]}
-                                    </Typography>
-                                )}
-                            </FixedSizeList>
+                            <AssetList
+                                assetList={assetList}
+                                handleDisplayedAsset={handleDisplayedAsset}
+                            />
                         </Box>
                     )}
                 </Stack>
             </Paper>
-            <Paper sx={{ width: 1, overflowY: "auto", padding: 1 }}>
-                <Typography>Assets</Typography>
-                <Typography>Container: {containerData?.containerPath}</Typography>
-                <ContainerMetaDataDisplay containerData={containerData} />
+            <Paper sx={{ width: 1, height: 1, padding: 1 }}>
+                <img src={displayedAsset} style={{ maxHeight: "100%" }} />
             </Paper>
         </Stack>
     );
 }
 
 export default AssetViewer;
+export type { AssetListJSON };

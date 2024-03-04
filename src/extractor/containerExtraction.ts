@@ -1,51 +1,71 @@
 import LZMA from "@lib/lzma";
 import BinaryReader from "../pages/replica/extractor/extractor/binaryReader";
 import { readFile } from "./fileSystemAccess";
-import { commonString } from "../pages/replica/extractor/extractor/consts";
+import { ClassID } from "./consts";
+import { AssetInfo } from "./assetExtraction";
 
-interface FullContainerData {
-    containerPath: string;
-    containerHeader: ContainerHeader;
-    blockByteInfo: BlockBytesInfo;
-    assetFileBytesInfo: AssetFileBytesInfo;
-    assetFile: AssetFile;
+interface ContainerData {
+    container: string;
+    name: string;
+    assetInfos: Array<AssetInfo>;
+    assetBytes: ArrayBuffer;
 }
 
-const extractFullContainerData = async (containerPath: string): Promise<FullContainerData> => {
+const extractContainerDatas = async (
+    containerPaths: Array<string>,
+    onProgress?: (index: number, total: number) => void
+): Promise<Array<ContainerData>> => {
+    const containerDatas: Array<ContainerData> = [];
+    for (let i = 0; i < containerPaths.length; i++) {
+        if (onProgress) {
+            onProgress(i, containerPaths.length);
+        }
+        const containerData = await getContainerData(containerPaths[i]);
+        containerDatas.push(containerData);
+    }
+    return containerDatas;
+};
+
+const getContainerData = async (containerPath: string): Promise<ContainerData> => {
     // Get the .unity3d file
-    const containerFile: ArrayBuffer = await readFile(containerPath);
+    const containerFile = await getContainerFile(containerPath);
     let reader: BinaryReader = new BinaryReader(new DataView(containerFile));
     // Container header
-    const containerHeader = getFullContainerHeader(reader);
+    const containerHeader = getContainerHeader(reader);
     if (containerHeader.signature !== "UnityRaw" && containerHeader.signature !== "UnityWeb") {
         throw new Error(`Signature: ${containerHeader.signature} is not supported.`);
     }
-    // BlockBytes
-    const { blockBytes, blockByteInfo } = await getFullBlockBytes(reader, containerHeader);
+    // AssetFile bytes
+    const blockBytes = await getBlockBytes(reader, containerHeader.signature);
     reader = new BinaryReader(new DataView(blockBytes));
-    // AssetFileBytes
-    const { assetFileBytes, assetFileBytesInfo } = getFullAssetFileBytes(reader, blockBytes);
+    const { assetFileBytes, name } = getAssetFileBytes(reader, blockBytes);
     reader = new BinaryReader(new DataView(assetFileBytes));
     // AssetFile
-    const assetFile = getFullAssetFile(reader);
+    const assetFile = getAssetFile(reader);
+    // AssetInfos
+    const assetInfos = [];
+    for (const asset of assetFile) {
+        reader.position = asset.byteStart;
+        const assetName = getAssetName(reader, asset.classId);
+        assetInfos.push({
+            ...asset,
+            name: assetName,
+        });
+    }
 
     return {
-        containerPath: containerPath,
-        containerHeader: containerHeader,
-        blockByteInfo: blockByteInfo,
-        assetFileBytesInfo: assetFileBytesInfo,
-        assetFile: assetFile,
+        container: containerPath,
+        name: name,
+        assetInfos: assetInfos,
+        assetBytes: assetFileBytes,
     };
 };
 
-interface ContainerHeader {
-    signature: string;
-    version: number;
-    unityVersion: string;
-    unityRevision: string;
-}
+const getContainerFile = async (containerPath: string): Promise<ArrayBuffer> => {
+    return await readFile("mobius_data/Hash/" + containerPath);
+};
 
-const getFullContainerHeader = (reader: BinaryReader): ContainerHeader => {
+const getContainerHeader = (reader: BinaryReader) => {
     return {
         signature: reader.readStringToNull(),
         version: reader.readU32(),
@@ -54,314 +74,95 @@ const getFullContainerHeader = (reader: BinaryReader): ContainerHeader => {
     };
 };
 
-interface BlockBytesInfo {
-    minimumStreamedBytes: number;
-    abHeaderSize: number;
-    numberOfLevelsToDownloadBeforeStreaming: number;
-    levelCount: number;
-    compressedSize: number;
-    uncompressedSize: number;
-    flags: number;
-    completeFileSize: number;
-    fileInfoHeaderSize: number;
-}
-
-interface BlockBytes {
-    blockBytes: ArrayBuffer;
-    blockByteInfo: BlockBytesInfo;
-}
-
-const getFullBlockBytes = async (
-    reader: BinaryReader,
-    abHeader: ContainerHeader
-): Promise<BlockBytes> => {
-    const minimumStreamedBytes = reader.readU32();
-    const abHeaderSize = reader.readU32(); // Always 60
-    const numberOfLevelsToDownloadBeforeStreaming = reader.readU32();
-    const levelCount = reader.readI32(); // Always 1
-    const compressedSize = reader.readU32();
+const getBlockBytes = async (reader: BinaryReader, signature: string): Promise<ArrayBuffer> => {
+    reader.position += 20;
     const uncompressedSize = reader.readU32();
-    const flags = abHeader.signature === "UnityWeb" ? 1 : 0;
-    const completeFileSize = reader.readU32();
-    const fileInfoHeaderSize = reader.readU32();
-    reader.position = abHeaderSize;
-
-    // Decompress block
-    let blockBytes = reader.readBytes(uncompressedSize);
-    if (abHeader.signature === "UnityWeb") {
-        const data = await LZMA.decompress(new Uint8Array(blockBytes));
-        blockBytes = Uint8Array.from(data).buffer;
+    reader.position = 60;
+    const uncompressedBytes = reader.readBytes(uncompressedSize);
+    if (signature === "UnityWeb") {
+        const data = await LZMA.decompress(new Uint8Array(uncompressedBytes));
+        return Uint8Array.from(data).buffer;
+    } else {
+        return uncompressedBytes;
     }
-
-    return {
-        blockBytes: blockBytes,
-        blockByteInfo: {
-            minimumStreamedBytes: minimumStreamedBytes,
-            abHeaderSize: abHeaderSize,
-            numberOfLevelsToDownloadBeforeStreaming: numberOfLevelsToDownloadBeforeStreaming,
-            levelCount: levelCount,
-            compressedSize: compressedSize,
-            uncompressedSize: uncompressedSize,
-            flags: flags,
-            completeFileSize: completeFileSize,
-            fileInfoHeaderSize: fileInfoHeaderSize,
-        },
-    };
 };
 
-interface AssetFileBytesInfo {
-    nodesCount: number;
-    path: string;
-    offset: number;
-    size: number;
-}
-
-interface AssetFileBytes {
-    assetFileBytes: ArrayBuffer;
-    assetFileBytesInfo: AssetFileBytesInfo;
-}
-
-const getFullAssetFileBytes = (reader: BinaryReader, blockBytes: ArrayBuffer): AssetFileBytes => {
-    // Asset file info
-    const nodesCount = reader.readI32(); // Always 1
-    const path = reader.readStringToNull();
+const getAssetFileBytes = (
+    reader: BinaryReader,
+    blockBytes: ArrayBuffer
+): { assetFileBytes: ArrayBuffer; name: string } => {
+    reader.position += 4;
+    const name = reader.readStringToNull();
     const offset = reader.readU32();
-    const size = reader.readU32();
+    reader.position += 4;
     return {
         assetFileBytes: blockBytes.slice(offset),
-        assetFileBytesInfo: {
-            nodesCount: nodesCount,
-            path: path,
-            offset: offset,
-            size: size,
-        },
+        name: name,
     };
 };
 
-interface TypeTreeNode {
-    type: string | null;
-    name: string | null;
-    byteSize: number;
-    index: number;
-    isArray: boolean;
-    version: number;
-    metaFlag: number;
-    level: number;
-    typeStrOffset: number;
-    nameStrOffset: number;
-}
-
-interface Types {
-    classId: number;
-    scriptTypeIndex: number;
-    nodes: Array<TypeTreeNode>;
-    scriptId: ArrayBuffer | null;
-    oldTypeHash: ArrayBuffer;
-}
-
-interface ObjectInfos {
+interface ObjectInfoType {
+    pathId: bigint;
     byteStart: number;
     byteSize: number;
-    typeId: number;
     classId: number;
-    stripped: ArrayBuffer;
-    pathId: bigint;
 }
 
-interface Scripts {
-    localSerializedFileIndex: number;
-    localIdentifierInFile: bigint;
-}
-
-interface Externals {
-    guid: ArrayBuffer;
-    type: number;
-    pathName: string;
-    fileName: string;
-}
-
-interface AssetFile {
-    header: {
-        metaDataSize: number;
-        fileSize: number;
-        version: number;
-        dataOffset: number;
-        endianess: ArrayBuffer;
-        reserved: ArrayBuffer;
-    };
-    version: [5, 0, 1, 2];
-    buildType: "p";
-    unityVersion: string;
-    targetPlatform: number;
-    enableTypeTree: boolean;
-    types: Array<Types>;
-    objectInfos: Array<ObjectInfos>;
-    scriptTypes: Array<Scripts>;
-    externals: Array<Externals>;
-    userInformation: string;
-}
-
-const getFullAssetFile = (reader: BinaryReader): AssetFile => {
-    const readString = (stringBufferReader: BinaryReader, value: number | null): string => {
-        if (value === null) {
-            return "";
-        }
-        const isOffset = (value & 0x80000000) === 0;
-        if (isOffset) {
-            stringBufferReader.position = value;
-            return stringBufferReader.readStringToNull();
-        }
-        const offset = value & 0x7fffffff;
-        if (commonString[offset] !== undefined) {
-            return commonString[offset];
-        }
-        return offset.toString();
-    };
-
-    const metaDataSize = reader.readU32();
-    const fileSize = reader.readU32();
-    const version = reader.readU32();
+const getAssetFile = (reader: BinaryReader): Array<ObjectInfoType> => {
+    reader.position = 12;
     const dataOffset = reader.readU32();
-    const endianess = reader.readByte();
-    const reserved = reader.readBytes(3);
     reader.isLittleEndian = true;
-    const unityVersion = reader.readStringToNull(); // Always 5.0.1p2
-    const targetPlatform = reader.readI32(); // Always 5 (Windows)
-    const enableTypeTree = reader.readBoolean(); // Always true
+    reader.position = 33;
 
     // Types
     const typeCount = reader.readI32();
-    const types: Array<Types> = [];
     for (let i = 0; i < typeCount; i++) {
         const classId = reader.readI32();
-        let scriptId = null;
         if (classId < 0) {
-            scriptId = reader.readBytes(16); //hash128
+            reader.position += 16;
         }
-        const oldTypeHash = reader.readBytes(16); //hash128
-
-        const typeTree: Array<TypeTreeNode> = [];
+        reader.position += 16;
         const numberOfNodes = reader.readI32();
         const stringBufferSize = reader.readI32();
-        for (let j = 0; j < numberOfNodes; j++) {
-            const version = reader.readU16();
-            const level = reader.readU8();
-            const isArray = reader.readBoolean();
-            const typeStrOffset = reader.readU32();
-            const nameStrOffset = reader.readU32();
-            const byteSize = reader.readI32();
-            const index = reader.readI32();
-            const metaFlag = reader.readI32();
-            typeTree.push({
-                type: null,
-                name: null,
-                byteSize: byteSize,
-                index: index,
-                isArray: isArray,
-                version: version,
-                metaFlag: metaFlag,
-                level: level,
-                typeStrOffset: typeStrOffset,
-                nameStrOffset: nameStrOffset,
-            });
-        }
-        const stringBuffer = reader.readBytes(stringBufferSize);
-        const stringBufferReader = new BinaryReader(new DataView(stringBuffer));
-        for (let j = 0; j < numberOfNodes; j++) {
-            typeTree[j].type = readString(stringBufferReader, typeTree[j].typeStrOffset);
-            typeTree[j].name = readString(stringBufferReader, typeTree[j].nameStrOffset);
-        }
-        types.push({
-            classId: classId,
-            scriptTypeIndex: -1,
-            nodes: typeTree,
-            scriptId: scriptId,
-            oldTypeHash: oldTypeHash,
-        });
+        reader.position += numberOfNodes * 24 + stringBufferSize;
     }
 
     // Objects
     const objectCount = reader.readI32();
-    const objectInfos: Array<ObjectInfos> = [];
+    const objectInfos = [];
     for (let i = 0; i < objectCount; i++) {
         reader.align();
         const pathId = reader.readI64();
         let byteStart = reader.readU32();
         byteStart += dataOffset;
         const byteSize = reader.readU32();
-        const typeId = reader.readI32();
+        reader.position += 4;
         const classId = reader.readU16();
-        // objectInfo.serializedType = types.filter((x) => x.classId === objectInfo.typeId);
-        // const scriptTypeIndex = reader.readI16();
-        reader.readI16();
-        // if (objectInfo.serializedType != null) {
-        //     objectInfo.serializedType.scriptTypeIndex = scriptTypeIndex;
-        // }
-        const stripped = reader.readByte();
+        reader.position += 3;
         objectInfos.push({
+            pathId: pathId,
             byteStart: byteStart,
             byteSize: byteSize,
-            typeId: typeId,
             classId: classId,
-            stripped: stripped,
-            pathId: pathId,
         });
     }
 
-    // Scripts
-    const scriptCount = reader.readI32();
-    const scriptTypes: Array<Scripts> = [];
-    for (let i = 0; i < scriptCount; i++) {
-        const localSerializedFileIndex = reader.readI32();
-        reader.align();
-        const localIdentifierInFile = reader.readI64();
-        scriptTypes.push({
-            localSerializedFileIndex: localSerializedFileIndex,
-            localIdentifierInFile: localIdentifierInFile,
-        });
-    }
-
-    // Externals
-    const externalsCount = reader.readI32();
-    const externals: Array<Externals> = [];
-    for (let i = 0; i < externalsCount; i++) {
-        // const tempEmpty = reader.readStringToNull();
-        reader.readStringToNull();
-        const guid = reader.readBytes(16);
-        const type = reader.readI32();
-        const pathName = reader.readStringToNull();
-        const fileNamePieces = pathName.split("/");
-        const fileName = fileNamePieces[fileNamePieces.length - 1];
-        externals.push({
-            guid: guid,
-            type: type,
-            pathName: pathName,
-            fileName: fileName,
-        });
-    }
-    const userInformation = reader.readStringToNull();
-
-    return {
-        header: {
-            metaDataSize: metaDataSize,
-            fileSize: fileSize,
-            version: version,
-            dataOffset: dataOffset,
-            endianess: endianess,
-            reserved: reserved,
-        },
-        version: [5, 0, 1, 2],
-        buildType: "p",
-        unityVersion: unityVersion,
-        targetPlatform: targetPlatform,
-        enableTypeTree: enableTypeTree,
-        types: types,
-        objectInfos: objectInfos,
-        scriptTypes: scriptTypes,
-        externals: externals,
-        userInformation: userInformation,
-    };
+    return objectInfos;
 };
 
-export { extractFullContainerData };
-export type { FullContainerData };
+const getAssetName = (reader: BinaryReader, classId: number): string => {
+    if (ClassID.GameObject === classId) {
+        return "";
+    }
+    let assetName: string = "";
+    const length = reader.readI32();
+    if (length > 0 && length <= reader.dataView.byteLength - reader.position) {
+        const stringData = reader.readBytes(length);
+        const decoder = new TextDecoder();
+        reader.align();
+        assetName = decoder.decode(stringData);
+    }
+    return assetName;
+};
+
+export { extractContainerDatas, getAssetName };
