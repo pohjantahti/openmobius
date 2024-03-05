@@ -1,9 +1,9 @@
 /*
-    This file is a mixture from following sources:
-    - BinaryReaderExtensions class in AssetStudio
+    BinaryReader was inspired by the following sources:
+    - EndianBinaryReader and BinaryReaderExtensions classes in AssetStudio
     - BinaryReader class in shibunyan and SyncReader class in binarin
 
-    Check "../LICENSES" for links to relevant projects.
+    Check "./LICENSES" for links to relevant projects.
 */
 
 class BinaryReader {

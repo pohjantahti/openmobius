@@ -1,5 +1,5 @@
 import LZMA from "@lib/lzma";
-import BinaryReader from "../pages/replica/extractor/extractor/binaryReader";
+import BinaryReader from "@extractor/binaryReader";
 import { readFile } from "./fileSystemAccess";
 import { ClassID } from "./consts";
 import { AssetInfo } from "./assetExtraction";

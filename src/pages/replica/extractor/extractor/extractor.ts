@@ -1,4 +1,4 @@
-import BinaryReader from "./binaryReader";
+import BinaryReader from "@extractor/binaryReader";
 import { getResourceAsBlobURL, getTextureInfo } from "./fileCreator";
 import { readFile } from "@extractor/fileSystemAccess";
 import containers from "../../data/resources/containers.json";

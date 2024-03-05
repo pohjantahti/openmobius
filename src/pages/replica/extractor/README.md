@@ -9,4 +9,4 @@ version (5.0.1p2) is relevant. Currently, a lot of the code is commented out
 as there is no use case for most of it (not right now, at least). Appropriate
 reader position jumps are done right below the commented parts.
 
-Check `LICENSES` for links to relevant projects.
+Check `LICENSE` for links to relevant projects.

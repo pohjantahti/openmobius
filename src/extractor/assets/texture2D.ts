@@ -1,4 +1,4 @@
-import BinaryReader from "../../pages/replica/extractor/extractor/binaryReader";
+import BinaryReader from "@extractor/binaryReader";
 import { TextureFormat } from "@extractor/consts";
 import decodeDXT from "@lib/decode-dxt";
 

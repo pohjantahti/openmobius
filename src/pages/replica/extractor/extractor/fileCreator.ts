@@ -1,4 +1,4 @@
-import BinaryReader from "./binaryReader";
+import BinaryReader from "@extractor/binaryReader";
 import decodeDXT from "@lib/decode-dxt";
 import { ClassID, TextureFormat } from "@extractor/consts";
 import { ResourceInfo, TextureInfo } from "./types";

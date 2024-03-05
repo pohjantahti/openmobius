@@ -1,4 +1,4 @@
-import BinaryReader from "../pages/replica/extractor/extractor/binaryReader";
+import BinaryReader from "@extractor/binaryReader";
 import { getTexture2D } from "./assets/texture2D";
 import { ClassID } from "./consts";
 import { extractContainerDatas, getAssetName } from "./containerExtraction";
