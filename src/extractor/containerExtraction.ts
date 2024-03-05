@@ -29,7 +29,7 @@ const extractContainerDatas = async (
 const getContainerData = async (containerPath: string): Promise<ContainerData> => {
     // Get the .unity3d file
     const containerFile = await getContainerFile(containerPath);
-    let reader: BinaryReader = new BinaryReader(new DataView(containerFile));
+    let reader: BinaryReader = new BinaryReader(containerFile);
     // Container header
     const containerHeader = getContainerHeader(reader);
     if (containerHeader.signature !== "UnityRaw" && containerHeader.signature !== "UnityWeb") {
@@ -37,9 +37,9 @@ const getContainerData = async (containerPath: string): Promise<ContainerData> =
     }
     // AssetFile bytes
     const blockBytes = await getBlockBytes(reader, containerHeader.signature);
-    reader = new BinaryReader(new DataView(blockBytes));
+    reader = new BinaryReader(blockBytes);
     const { assetFileBytes, name } = getAssetFileBytes(reader, blockBytes);
-    reader = new BinaryReader(new DataView(assetFileBytes));
+    reader = new BinaryReader(assetFileBytes);
     // AssetFile
     const assetFile = getAssetFile(reader);
     // AssetInfos
@@ -154,15 +154,7 @@ const getAssetName = (reader: BinaryReader, classId: number): string => {
     if (ClassID.GameObject === classId) {
         return "";
     }
-    let assetName: string = "";
-    const length = reader.readI32();
-    if (length > 0 && length <= reader.dataView.byteLength - reader.position) {
-        const stringData = reader.readBytes(length);
-        const decoder = new TextDecoder();
-        reader.align();
-        assetName = decoder.decode(stringData);
-    }
-    return assetName;
+    return reader.readAlignedString();
 };
 
 export { extractContainerDatas, getAssetName };

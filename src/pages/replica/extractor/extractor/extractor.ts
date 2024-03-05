@@ -89,7 +89,7 @@ const extractResourceFile = async (
 ): Promise<[BinaryReader, AssetFile]> => {
     // Load the .unity3d file
     const assetBundle: ArrayBuffer = await getAssetBundle(resourceInfo.container);
-    let reader: BinaryReader = new BinaryReader(new DataView(assetBundle));
+    let reader: BinaryReader = new BinaryReader(assetBundle);
     // .unity3d header
     const abHeader = getAssetBundleHeaderInfo(reader);
     if (abHeader.signature !== "UnityRaw" && abHeader.signature !== "UnityWeb") {
@@ -100,10 +100,10 @@ const extractResourceFile = async (
         throw new Error(`Signature: ${abHeader.signature} is not supported.`);
     }
     const blockBytes = await getBlockBytes(reader, abHeader);
-    reader = new BinaryReader(new DataView(blockBytes));
+    reader = new BinaryReader(blockBytes);
 
     const assetFileBytes = getAssetFileBytes(reader, blockBytes);
-    reader = new BinaryReader(new DataView(assetFileBytes));
+    reader = new BinaryReader(assetFileBytes);
     const assetFile = getAssetFile(reader);
 
     return [reader, assetFile];
@@ -247,7 +247,7 @@ const getAssetFile = (reader: BinaryReader): AssetFile => {
         //     typeTree.push(typeTreeNode);
         // }
         // const stringBuffer = reader.readBytes(stringBufferSize);
-        // const stringBufferReader = new BinaryReader(new DataView(stringBuffer));
+        // const stringBufferReader = new BinaryReader(stringBuffer);
         // for (let j = 0; j < numberOfNodes; j++) {
         //     typeTree[j].type = readString(stringBufferReader, typeTree[j].typeStrOffset);
         //     typeTree[j].name = readString(stringBufferReader, typeTree[j].nameStrOffset);

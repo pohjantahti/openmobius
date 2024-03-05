@@ -11,8 +11,8 @@ class BinaryReader {
     position: number;
     isLittleEndian: boolean;
 
-    constructor(dataView: DataView, position: number = 0, endian = false) {
-        this.dataView = dataView;
+    constructor(arrayBuffer: ArrayBuffer, position: number = 0, endian = false) {
+        this.dataView = new DataView(arrayBuffer);
         this.position = position;
         this.isLittleEndian = endian;
     }
@@ -99,6 +99,18 @@ class BinaryReader {
         return decoder.decode(new Uint8Array(bytes).buffer);
     }
 
+    readAlignedString(): string {
+        let string: string = "";
+        const length = this.readI32();
+        if (length > 0 && length <= this.dataView.byteLength - this.position) {
+            const stringData = this.readBytes(length);
+            const decoder = new TextDecoder();
+            this.align();
+            string = decoder.decode(stringData);
+        }
+        return string;
+    }
+
     readFloat(): number {
         const value = this.dataView.getFloat32(this.position, this.isLittleEndian);
         this.position += 4;
@@ -109,6 +121,38 @@ class BinaryReader {
         const value = this.dataView.getInt8(this.position) !== 0;
         this.position++;
         return value;
+    }
+
+    readVector3() {
+        return {
+            x: this.readFloat(),
+            y: this.readFloat(),
+            z: this.readFloat(),
+        };
+    }
+
+    readTypeArray(type: () => number, length = this.readI32()): Array<number> {
+        const array = [];
+        for (let i = 0; i < length; i++) {
+            array.push(type());
+        }
+        return array;
+    }
+
+    readFloatArray(length?: number): Array<number> {
+        return this.readTypeArray(this.readFloat, length);
+    }
+
+    readU8Array(length?: number): Array<number> {
+        return this.readTypeArray(this.readU8, length);
+    }
+
+    readI32Array(length?: number): Array<number> {
+        return this.readTypeArray(this.readI32, length);
+    }
+
+    readU32Array(length?: number): Array<number> {
+        return this.readTypeArray(this.readU32, length);
     }
 }
 

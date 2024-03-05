@@ -28,17 +28,17 @@ const init = async () => {
     for (let i = 0; i < 100; i++) {
         const containerFilePath = containerFiles[i];
         const containerFile = await readFile(mffDataFolder + containerFilePath);
-        let reader = new BinaryReader(new DataView(containerFile.buffer));
+        let reader = new BinaryReader(containerFile.buffer);
 
         const containerHeader = getContainerHeader(reader);
         if (containerHeader.signature !== "UnityRaw" && containerHeader.signature !== "UnityWeb") {
             throw new Error(`Signature: ${containerHeader.signature} is not supported.`);
         }
         const blockBytes = await getBlockBytes(reader, containerHeader.signature);
-        reader = new BinaryReader(new DataView(blockBytes));
+        reader = new BinaryReader(blockBytes);
 
         const { assetFileBytes, name } = getAssetFileBytes(reader, blockBytes);
-        reader = new BinaryReader(new DataView(assetFileBytes));
+        reader = new BinaryReader(assetFileBytes);
         const assetFile = getAssetFile(reader);
         if (assetFile.length === 0) {
             continue;
@@ -182,14 +182,14 @@ init();
 //-----------------------------------------------------------------------
 
 /**
- * @param {DataView} dataView
+ * @param {ArrayBuffer} dataView
  * @param {position} position
  * @param {boolean} isLittleEndian
  */
 
 class BinaryReader {
-    constructor(dataView, position = 0, endian = false) {
-        this.dataView = dataView;
+    constructor(arrayBuffer, position = 0, endian = false) {
+        this.dataView = new DataView(arrayBuffer);
         this.position = position;
         this.isLittleEndian = endian;
     }

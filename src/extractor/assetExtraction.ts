@@ -21,7 +21,7 @@ const getAsset = async (containerPath: string, pathId: string): Promise<string> 
 };
 
 const getAssetBlobURL = (assetInfo: AssetInfo, assetBytes: ArrayBuffer): string => {
-    const reader = new BinaryReader(new DataView(assetBytes), assetInfo.byteStart, true);
+    const reader = new BinaryReader(assetBytes, assetInfo.byteStart, true);
     getAssetName(reader, assetInfo.classId);
 
     let blobUrl = "";
