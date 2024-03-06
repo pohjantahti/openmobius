@@ -24,10 +24,8 @@ class BinaryReader {
         }
     }
 
-    readByte(): ArrayBuffer {
-        const value = this.dataView.buffer.slice(this.position, this.position + 1);
-        this.position++;
-        return value;
+    readByte(): number {
+        return this.readU8();
     }
 
     readBytes(length: number): ArrayBuffer {
@@ -131,28 +129,44 @@ class BinaryReader {
         };
     }
 
-    readTypeArray(type: () => number, length = this.readI32()): Array<number> {
+    readFloatArray(length = this.readI32()): Array<number> {
         const array = [];
         for (let i = 0; i < length; i++) {
-            array.push(type());
+            array.push(this.readFloat());
         }
         return array;
     }
 
-    readFloatArray(length?: number): Array<number> {
-        return this.readTypeArray(this.readFloat, length);
+    readU8Array(length = this.readI32()): Array<number> {
+        const array = [];
+        for (let i = 0; i < length; i++) {
+            array.push(this.readU8());
+        }
+        return array;
     }
 
-    readU8Array(length?: number): Array<number> {
-        return this.readTypeArray(this.readU8, length);
+    readI32Array(length = this.readI32()): Array<number> {
+        const array = [];
+        for (let i = 0; i < length; i++) {
+            array.push(this.readI32());
+        }
+        return array;
     }
 
-    readI32Array(length?: number): Array<number> {
-        return this.readTypeArray(this.readI32, length);
+    readU32Array(length = this.readI32()): Array<number> {
+        const array = [];
+        for (let i = 0; i < length; i++) {
+            array.push(this.readU32());
+        }
+        return array;
     }
 
-    readU32Array(length?: number): Array<number> {
-        return this.readTypeArray(this.readU32, length);
+    readMatrixArray(length = this.readI32()): Array<Array<number>> {
+        const array = [];
+        for (let i = 0; i < length; i++) {
+            array.push(this.readFloatArray(16));
+        }
+        return array;
     }
 }
 

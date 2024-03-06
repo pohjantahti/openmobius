@@ -2,6 +2,7 @@ import BinaryReader from "@extractor/binaryReader";
 import { getTexture2D } from "./assets/texture2D";
 import { ClassID } from "./consts";
 import { extractContainerDatas, getAssetName } from "./containerExtraction";
+import { getMesh } from "./assets/mesh";
 
 interface AssetInfo {
     name: string;
@@ -23,14 +24,13 @@ const getAsset = async (containerPath: string, pathId: string): Promise<string> 
 const getAssetBlobURL = (assetInfo: AssetInfo, assetBytes: ArrayBuffer): string => {
     const reader = new BinaryReader(assetBytes, assetInfo.byteStart, true);
     getAssetName(reader, assetInfo.classId);
-
     let blobUrl = "";
     switch (assetInfo.classId) {
         case ClassID.Texture2D:
             blobUrl = getTexture2D(reader);
             break;
         case ClassID.Mesh:
-            blobUrl = "Mesh";
+            blobUrl = getMesh(reader, assetInfo.name);
             break;
         default:
             break;
