@@ -3,6 +3,14 @@ import { TextureFormat } from "@extractor/consts";
 import decodeDXT from "@lib/decode-dxt";
 
 const getTexture2D = (reader: BinaryReader): string => {
+    const { imageBuffer, width, height } = getImageData(reader);
+    const file = createBitmapImageFile(imageBuffer, width, height);
+
+    const imageBlob = new Blob([file], { type: "image/bmp" });
+    return window.URL.createObjectURL(imageBlob);
+};
+
+const getImageData = (reader: BinaryReader) => {
     const width = reader.readI32();
     const height = reader.readI32();
     reader.position += 4;
@@ -24,10 +32,18 @@ const getTexture2D = (reader: BinaryReader): string => {
             break;
     }
 
-    return createBitmapImage(imageBuffer, width, height);
+    return {
+        imageBuffer: imageBuffer,
+        width: width,
+        height: height,
+    };
 };
 
-const createBitmapImage = (imageBuffer: Uint8Array, width: number, height: number) => {
+const createBitmapImageFile = (
+    imageBuffer: Uint8Array,
+    width: number,
+    height: number
+): Uint8Array => {
     // bitmap image conversion
     // https://stackoverflow.com/a/61246415
 
@@ -82,8 +98,7 @@ const createBitmapImage = (imageBuffer: Uint8Array, width: number, height: numbe
 
     arr.set(imageBuffer, headerSize);
 
-    const imageBlob = new Blob([arr], { type: "image/bmp" });
-    return window.URL.createObjectURL(imageBlob);
+    return arr;
 };
 
 export { getTexture2D };

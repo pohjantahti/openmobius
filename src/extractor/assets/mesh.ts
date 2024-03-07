@@ -1,20 +1,28 @@
 import BinaryReader from "@extractor/binaryReader";
 
 const getMesh = (reader: BinaryReader, name: string): string => {
+    const meshData = getMeshData(reader, name);
+    const file = createObjFile(name, meshData);
+
+    const meshBlob = new Blob([file], { type: "model/obj" });
+    return window.URL.createObjectURL(meshBlob);
+};
+
+const getMeshData = (reader: BinaryReader, name: string) => {
     let UV0: Array<number> = [];
     let normals: Array<number> = [];
     const indices: Array<number> = [];
     let vertices: Array<number> = [];
 
     const subMeshes = getSubMeshes(reader);
-    const shapes = getBlendShapeData(reader);
-    const bindPose = reader.readMatrixArray();
-    const boneNameHashes = reader.readU32Array();
-    const rootBoneNameHash = reader.readU32();
+    getBlendShapeData(reader); // shaper
+    reader.readMatrixArray(); // bindPose
+    reader.readU32Array(); // boneNameHashes
+    reader.readU32(); // rootBoneNameHash
     const meshCompression = reader.readByte();
-    const isReadable = reader.readBoolean();
-    const keepVertices = reader.readBoolean();
-    const keepIndices = reader.readBoolean();
+    reader.readBoolean(); // isReadable
+    reader.readBoolean(); // keepVertices
+    reader.readBoolean(); // keepIndices
     reader.align();
 
     const indexBufferSize = reader.readI32();
@@ -38,10 +46,10 @@ const getMesh = (reader: BinaryReader, name: string): string => {
 
     reader.position += 24;
 
-    const meshUsageFlags = reader.readI32();
-    const bakedConvexCollisionMesh = reader.readU8Array();
+    reader.readI32(); // meshsUsageFlags
+    reader.readU8Array(); // bakedConvexCollisionMesh
     reader.align();
-    const bakedTriangleCollisionMesh = reader.readU8Array();
+    reader.readU8Array(); // bakedTriangleCollisionMesh
     reader.align();
 
     // processData()
@@ -201,7 +209,14 @@ const getMesh = (reader: BinaryReader, name: string): string => {
         }
     }
 
-    return createObj(name, vertexCount, vertices, UV0, normals, subMeshes, indices);
+    return {
+        vertexCount: vertexCount,
+        vertices: vertices,
+        UV0: UV0,
+        normals: normals,
+        subMeshes: subMeshes,
+        indices: indices,
+    };
 };
 
 interface SubMesh {
@@ -456,17 +471,21 @@ const getPackedIntVector = (reader: BinaryReader) => {
     };
 };
 
-const createObj = (
+const createObjFile = (
     fileName: string,
-    vertexCount: number,
-    vertices: Array<number>,
-    UV0: Array<number>,
-    normals: Array<number>,
-    subMeshes: Array<SubMesh>,
-    indices: Array<number>
+    meshData: {
+        vertexCount: number;
+        vertices: Array<number>;
+        UV0: Array<number>;
+        normals: Array<number>;
+        subMeshes: Array<SubMesh>;
+        indices: Array<number>;
+    }
 ) => {
-    if (vertexCount <= 0 || vertices.length) {
-        throw new Error("No verticies");
+    const { vertexCount, vertices, UV0, normals, subMeshes, indices } = meshData;
+
+    if (vertexCount <= 0) {
+        throw new Error(`No vertices: ${fileName}`);
     }
 
     let file = "";
@@ -510,19 +529,19 @@ const createObj = (
         const indexCount = subMeshes[i].indexCount;
         const end = sum + indexCount / 3;
         for (let f = sum; f < end; f++) {
-            file += `f ${indices[f * 3 + 2] + 1}/${indices[f * 3 + 2] + 1}/${
-                indices[f * 3 + 2] + 1
-            } ${indices[f * 3 + 1] + 1}/${indices[f * 3 + 1] + 1}/${
-                indices[f * 3 + 1] + 1
-            } ${indices[f * 3] + 1}/${indices[f * 3] + 1}/${indices[f * 3] + 1}\r\n`;
+            const first = indices[f * 3 + 2] + 1;
+            const second = indices[f * 3 + 1] + 1;
+            const third = indices[f * 3] + 1;
+            file += `f ${first}/${first}/${first} `;
+            file += `${second}/${second}/${second} `;
+            file += `${third}/${third}/${third}\r\n`;
         }
         sum = end;
     }
 
     file.replace("NaN", "0");
 
-    const meshBlob = new Blob([file], { type: "model/obj" });
-    return window.URL.createObjectURL(meshBlob);
+    return file;
 };
 
 export { getMesh };
