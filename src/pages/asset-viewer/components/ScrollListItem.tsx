@@ -25,7 +25,7 @@ interface Props {
             name?: string;
         }>;
     };
-    handleDisplayedAsset: (containerPath: string, pathId: string) => void;
+    handleDisplayedAsset: (containerPath: string, pathId: string, classId: number) => void;
 }
 function ScrollListItem(props: Props) {
     const { container, handleDisplayedAsset } = props;
@@ -53,7 +53,13 @@ function ScrollListItem(props: Props) {
                         <ListItemButton
                             key={index}
                             sx={{ paddingLeft: 5 }}
-                            onClick={() => handleDisplayedAsset(container.container, asset.pathId)}
+                            onClick={() =>
+                                handleDisplayedAsset(
+                                    container.container,
+                                    asset.pathId,
+                                    asset.classId
+                                )
+                            }
                         >
                             <ListItemIcon sx={{ minWidth: 30 }}>
                                 {asset.classId === ClassID.Texture2D && <PhotoIcon />}

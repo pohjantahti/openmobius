@@ -3,6 +3,7 @@ import { RouteOptions } from "../main-menu/Router";
 import { Box, Button, CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import AssetList from "./components/AssetScrollList";
 import { getAsset } from "@extractor/assetExtraction";
+import AssetDisplay from "./components/AssetDisplay";
 
 interface Props {
     setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
@@ -21,7 +22,10 @@ type AssetListJSON = Array<{
 function AssetViewer(props: Props) {
     const [assetList, setAssetList] = useState<AssetListJSON>([]);
     const inProgress = useRef(false);
-    const [displayedAsset, setDisplayedAsset] = useState<string>("");
+    const [displayedAsset, setDisplayedAsset] = useState<{
+        url: string;
+        classId: number;
+    }>();
 
     useEffect(() => {
         const fetchAssetList = async () => {
@@ -37,9 +41,12 @@ function AssetViewer(props: Props) {
         }
     }, []);
 
-    const handleDisplayedAsset = async (containerPath: string, pathId: string) => {
-        const assetURL = await getAsset(containerPath, pathId);
-        setDisplayedAsset(assetURL);
+    const handleDisplayedAsset = async (containerPath: string, pathId: string, classId: number) => {
+        const url = await getAsset(containerPath, pathId);
+        setDisplayedAsset({
+            url: url,
+            classId: classId,
+        });
     };
 
     return (
@@ -94,7 +101,7 @@ function AssetViewer(props: Props) {
                 </Stack>
             </Paper>
             <Paper sx={{ width: 1, height: 1, padding: 1 }}>
-                <img src={displayedAsset} style={{ maxHeight: "100%" }} />
+                {displayedAsset && <AssetDisplay displayedAsset={displayedAsset} />}
             </Paper>
         </Stack>
     );

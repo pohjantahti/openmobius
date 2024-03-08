@@ -4,7 +4,7 @@ import ScrollListItem from "./ScrollListItem";
 
 interface Props {
     assetList: AssetListJSON;
-    handleDisplayedAsset: (containerPath: string, pathId: string) => void;
+    handleDisplayedAsset: (containerPath: string, pathId: string, classId: number) => void;
 }
 function AssetList(props: Props) {
     return (
