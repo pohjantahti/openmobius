@@ -78,7 +78,7 @@ const init = async () => {
     }
     await writeFile(
         "./public/asset-viewer/containerAssets.json",
-        JSON.stringify(containerAssetData, (_, v) => (typeof v === "bigint" ? v.toString() : v))
+        JSON.stringify(containerAssetData)
     );
 };
 
@@ -139,7 +139,7 @@ const getAssetFile = (reader) => {
     const objectInfos = [];
     for (let i = 0; i < objectCount; i++) {
         reader.align();
-        const pathId = reader.readI64();
+        const pathId = reader.readI64().toString();
         let byteStart = reader.readU32();
         byteStart += dataOffset;
         const byteSize = reader.readU32();

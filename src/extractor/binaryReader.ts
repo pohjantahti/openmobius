@@ -6,6 +6,8 @@
     Check "./LICENSES" for links to relevant projects.
 */
 
+import { Quaternion, Vector3 } from "./assets/types";
+
 class BinaryReader {
     dataView: DataView;
     position: number;
@@ -121,11 +123,20 @@ class BinaryReader {
         return value;
     }
 
-    readVector3() {
+    readVector3(): Vector3 {
         return {
             x: this.readFloat(),
             y: this.readFloat(),
             z: this.readFloat(),
+        };
+    }
+
+    readQuaternion(): Quaternion {
+        return {
+            x: this.readFloat(),
+            y: this.readFloat(),
+            z: this.readFloat(),
+            w: this.readFloat(),
         };
     }
 

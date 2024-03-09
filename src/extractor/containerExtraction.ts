@@ -102,7 +102,7 @@ const getAssetFileBytes = (
 };
 
 interface ObjectInfoType {
-    pathId: bigint;
+    pathId: string;
     byteStart: number;
     byteSize: number;
     classId: number;
@@ -132,7 +132,7 @@ const getAssetFile = (reader: BinaryReader): Array<ObjectInfoType> => {
     const objectInfos = [];
     for (let i = 0; i < objectCount; i++) {
         reader.align();
-        const pathId = reader.readI64();
+        const pathId = reader.readI64().toString();
         let byteStart = reader.readU32();
         byteStart += dataOffset;
         const byteSize = reader.readU32();
@@ -151,10 +151,16 @@ const getAssetFile = (reader: BinaryReader): Array<ObjectInfoType> => {
 };
 
 const getAssetName = (reader: BinaryReader, classId: number): string => {
-    if (ClassID.GameObject === classId) {
-        return "";
+    let name = "";
+    switch (classId) {
+        case ClassID.GameObject:
+        case ClassID.Transform:
+            break;
+        default:
+            name = reader.readAlignedString();
+            break;
     }
-    return reader.readAlignedString();
+    return name;
 };
 
 export { extractContainerDatas, getAssetName };

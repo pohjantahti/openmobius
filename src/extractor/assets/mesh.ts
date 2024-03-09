@@ -1,4 +1,5 @@
 import BinaryReader from "@extractor/binaryReader";
+import { Vector3 } from "./types";
 
 const getMesh = (reader: BinaryReader, name: string): string => {
     const meshData = getMeshData(reader, name);
@@ -226,16 +227,8 @@ interface SubMesh {
     firstVertex: number;
     vertexCount: number;
     localAABB: {
-        center: {
-            x: number;
-            y: number;
-            z: number;
-        };
-        extent: {
-            x: number;
-            y: number;
-            z: number;
-        };
+        center: Vector3;
+        extent: Vector3;
     };
 }
 
@@ -359,6 +352,7 @@ const getVertexData = (reader: BinaryReader) => {
 };
 
 type VertexFormat = 0 | 1 | 2 | 6 | 10;
+
 const getVertexFormat = (format: number): VertexFormat => {
     switch (format) {
         case 0:
@@ -375,7 +369,9 @@ const getVertexFormat = (format: number): VertexFormat => {
             throw new Error(`Unkown VertexFormat: ${format}`);
     }
 };
+
 type FormatSize = 4 | 2 | 1;
+
 const getFormatSize = (vertexFormat: number): FormatSize => {
     switch (vertexFormat) {
         case 0:
