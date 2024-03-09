@@ -1,18 +1,23 @@
-import { Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import Texture2D from "./assetTypes/Texture2D";
 import Mesh from "./assetTypes/Mesh";
+import { DisplayedAsset } from "../AssetViewer";
 
 interface Props {
-    displayedAsset: {
-        url: string;
-        classId: number;
-    };
+    displayedAsset: DisplayedAsset | undefined;
+}
+
+interface AssetTypeProps {
+    url: string;
+    classId: number;
 }
 
 function AssetDisplay(props: Props) {
-    const { url, classId } = props.displayedAsset;
+    const { displayedAsset } = props;
 
-    const AssetType = () => {
+    const AssetType = (props: AssetTypeProps) => {
+        const { url, classId } = props;
+
         switch (classId) {
             case 28:
                 return <Texture2D url={url} />;
@@ -26,7 +31,13 @@ function AssetDisplay(props: Props) {
         }
     };
 
-    return <AssetType />;
+    return (
+        <Paper sx={{ width: 1, height: 1, padding: 1 }}>
+            {displayedAsset && (
+                <AssetType url={displayedAsset.url} classId={displayedAsset.classId} />
+            )}
+        </Paper>
+    );
 }
 
 export default AssetDisplay;
