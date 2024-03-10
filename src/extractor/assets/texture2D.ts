@@ -6,8 +6,8 @@ const getTexture2D = (reader: BinaryReader): string => {
     const { imageBuffer, width, height } = getImageData(reader);
     const file = createBitmapImageFile(imageBuffer, width, height);
 
-    const imageBlob = new Blob([file], { type: "image/bmp" });
-    return window.URL.createObjectURL(imageBlob);
+    const blob = new Blob([file], { type: "image/bmp" });
+    return window.URL.createObjectURL(blob);
 };
 
 const getImageData = (reader: BinaryReader) => {

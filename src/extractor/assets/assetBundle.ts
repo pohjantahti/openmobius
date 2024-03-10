@@ -5,8 +5,8 @@ const getAssetBundle = (reader: BinaryReader) => {
     const assetBundleData = getAssetBundleData(reader);
     const file = JSON.stringify(assetBundleData);
 
-    const imageBlob = new Blob([file], { type: "application/json" });
-    return window.URL.createObjectURL(imageBlob);
+    const blob = new Blob([file], { type: "application/json" });
+    return window.URL.createObjectURL(blob);
 };
 
 interface AssetBundle {

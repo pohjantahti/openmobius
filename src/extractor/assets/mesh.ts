@@ -5,8 +5,8 @@ const getMesh = (reader: BinaryReader, name: string): string => {
     const meshData = getMeshData(reader, name);
     const file = createObjFile(name, meshData);
 
-    const meshBlob = new Blob([file], { type: "model/obj" });
-    return window.URL.createObjectURL(meshBlob);
+    const blob = new Blob([file], { type: "model/obj" });
+    return window.URL.createObjectURL(blob);
 };
 
 const getMeshData = (reader: BinaryReader, name: string) => {

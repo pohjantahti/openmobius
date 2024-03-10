@@ -5,8 +5,8 @@ const getGameObject = (reader: BinaryReader): string => {
     const gameObjectData = getGameObjectData(reader);
     const file = JSON.stringify(gameObjectData);
 
-    const imageBlob = new Blob([file], { type: "application/json" });
-    return window.URL.createObjectURL(imageBlob);
+    const blob = new Blob([file], { type: "application/json" });
+    return window.URL.createObjectURL(blob);
 };
 
 const getGameObjectData = (reader: BinaryReader) => {

@@ -6,6 +6,8 @@ import { getMesh } from "./assets/mesh";
 import { getGameObject } from "./assets/gameObject";
 import { getTransform } from "./assets/transform";
 import { getAssetBundle } from "./assets/assetBundle";
+import { getMonoBehaviour } from "./assets/monoBehaviour";
+import { getMonoScript } from "./assets/monoScript";
 
 interface AssetInfo {
     name: string;
@@ -40,6 +42,12 @@ const getAssetBlobURL = (assetInfo: AssetInfo, assetBytes: ArrayBuffer): string 
             break;
         case ClassID.Mesh:
             blobUrl = getMesh(reader, assetInfo.name);
+            break;
+        case ClassID.MonoBehaviour:
+            blobUrl = getMonoBehaviour(reader);
+            break;
+        case ClassID.MonoScript:
+            blobUrl = getMonoScript(reader);
             break;
         case ClassID.AssetBundle:
             blobUrl = getAssetBundle(reader);

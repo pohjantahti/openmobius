@@ -6,8 +6,8 @@ const getTransform = (reader: BinaryReader): string => {
     const transformData = getTransformData(reader);
     const file = JSON.stringify(transformData);
 
-    const imageBlob = new Blob([file], { type: "application/json" });
-    return window.URL.createObjectURL(imageBlob);
+    const blob = new Blob([file], { type: "application/json" });
+    return window.URL.createObjectURL(blob);
 };
 
 interface Transform {

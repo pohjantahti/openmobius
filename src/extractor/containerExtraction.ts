@@ -155,6 +155,7 @@ const getAssetName = (reader: BinaryReader, classId: number): string => {
     switch (classId) {
         case ClassID.GameObject:
         case ClassID.Transform:
+        case ClassID.MonoBehaviour:
             break;
         default:
             name = reader.readAlignedString();
