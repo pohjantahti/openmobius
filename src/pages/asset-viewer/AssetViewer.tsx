@@ -42,7 +42,7 @@ function AssetViewer(props: Props) {
     useEffect(() => {
         const fetchAssetList = async () => {
             inProgress.current = true;
-            const listJSON = await fetch("./asset-viewer/containerAssets.json");
+            const listJSON = await fetch("./assets/containerAssets.json");
             const list: AssetListJSON = await listJSON.json();
             console.log("Asset list fetched");
             inProgress.current = false;

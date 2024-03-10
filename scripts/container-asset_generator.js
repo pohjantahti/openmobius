@@ -1,5 +1,6 @@
 import LZMA from "../src/lib/lzma/src/lzma-d.js";
 import { readFile, readdir, writeFile } from "fs/promises";
+import path from "path";
 
 const supportedTypes = [28, 43];
 const ignoredAssetNames = [
@@ -19,15 +20,16 @@ const init = async () => {
 
     const containerFiles = [];
     for (const hashFolder of await readdir(mffDataFolder)) {
-        for (const hashFile of await readdir(mffDataFolder + hashFolder))
-            containerFiles.push(hashFolder + "/" + hashFile);
+        for (const hashFile of await readdir(path.join(mffDataFolder, hashFolder)))
+            containerFiles.push(path.join(hashFolder, hashFile));
     }
 
+    const containerData = [];
     const containerAssetData = [];
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < containerFiles.length; i++) {
         const containerFilePath = containerFiles[i];
-        const containerFile = await readFile(mffDataFolder + containerFilePath);
+        const containerFile = await readFile(path.join(mffDataFolder, containerFilePath));
         let reader = new BinaryReader(containerFile.buffer);
 
         const containerHeader = getContainerHeader(reader);
@@ -38,6 +40,12 @@ const init = async () => {
         reader = new BinaryReader(blockBytes);
 
         const { assetFileBytes, name } = getAssetFileBytes(reader, blockBytes);
+
+        containerData.push({
+            container: containerFilePath.replace("\\", "/"),
+            name: name,
+        });
+
         reader = new BinaryReader(assetFileBytes);
         const assetFile = getAssetFile(reader);
         if (assetFile.length === 0) {
@@ -68,7 +76,7 @@ const init = async () => {
             }
         }
         containerAssetData.push({
-            container: containerFilePath,
+            container: containerFilePath.replace("\\", "/"),
             name: name,
             assets: objectInfos,
         });
@@ -76,10 +84,10 @@ const init = async () => {
             console.log(`${i} / ${containerFiles.length}`);
         }
     }
-    await writeFile(
-        "./public/asset-viewer/containerAssets.json",
-        JSON.stringify(containerAssetData)
-    );
+    console.log("Containers count: ", containerData.length);
+    console.log("ContainerAsset count: ", containerAssetData.length);
+    await writeFile("./public/assets/containers.json", JSON.stringify(containerData));
+    await writeFile("./public/assets/containerAssets.json", JSON.stringify(containerAssetData));
 };
 
 const getContainerHeader = (reader) => {
