@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Texture2D from "./assetTypes/Texture2D";
 import Mesh from "./assetTypes/Mesh";
 import { DisplayedAsset } from "../AssetViewer";
@@ -32,11 +32,11 @@ function AssetDisplay(props: Props) {
     };
 
     return (
-        <Paper sx={{ width: 1, height: 1, padding: 1 }}>
+        <>
             {displayedAsset && (
                 <AssetType url={displayedAsset.url} classId={displayedAsset.classId} />
             )}
-        </Paper>
+        </>
     );
 }
 

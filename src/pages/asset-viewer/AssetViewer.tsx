@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { RouteOptions } from "../main-menu/Router";
-import { Stack } from "@mui/material";
 import { getAsset } from "@extractor/assetExtraction";
 import AssetDisplay from "./components/AssetDisplay";
 import LeftBar from "./components/LeftBar";
+import ControlAndDisplayAreas from "./components/ControlAndDisplayAreas";
 
 interface Props {
     setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
@@ -62,23 +62,17 @@ function AssetViewer(props: Props) {
     };
 
     return (
-        <Stack
-            direction="row"
-            spacing={1}
-            padding={1}
-            sx={{
-                position: "absolute",
-                height: 1,
-                width: 1,
-            }}
-        >
-            <LeftBar
-                assetList={assetList}
-                setRoute={props.setRoute}
-                handleDisplayedAsset={handleDisplayedAsset}
-            />
-            <AssetDisplay displayedAsset={displayedAsset} />
-        </Stack>
+        <ControlAndDisplayAreas
+            left={
+                <LeftBar
+                    assetList={assetList}
+                    setRoute={props.setRoute}
+                    handleDisplayedAsset={handleDisplayedAsset}
+                />
+            }
+            leftWidth={"415px"}
+            right={<AssetDisplay displayedAsset={displayedAsset} />}
+        />
     );
 }
 

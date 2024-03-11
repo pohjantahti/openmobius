@@ -2,6 +2,6 @@
 /coverage
 /build
 /notes
-/public/tests
+/public/assets/tests
 
 .env

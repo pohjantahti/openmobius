@@ -24,36 +24,48 @@ function MainMenu(props: Props) {
                         </Typography>
                     </CardContent>
                 </Card>
-                <Stack direction="row" spacing={2}>
-                    <Card sx={{ width: "50%" }} onClick={() => setRoute("assetViewer")}>
-                        <CardActionArea
-                            sx={{
-                                height: 150,
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <CardContent>
-                                <Typography variant="h5">Asset Viewer</Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                    <Card sx={{ width: "50%" }} onClick={() => setRoute("replica")}>
-                        <CardActionArea
-                            sx={{
-                                height: 150,
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <CardContent>
-                                <Typography variant="h5">Replica</Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Stack>
+                <Card sx={{ width: 1 }} onClick={() => setRoute("assetCollections")}>
+                    <CardActionArea
+                        sx={{
+                            height: 120,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <CardContent>
+                            <Typography variant="h5">Asset Collections</Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+                <Card sx={{ width: 1 }} onClick={() => setRoute("assetViewer")}>
+                    <CardActionArea
+                        sx={{
+                            height: 120,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <CardContent>
+                            <Typography variant="h5">Asset Viewer</Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+                <Card sx={{ width: 1 }} onClick={() => setRoute("replica")}>
+                    <CardActionArea
+                        sx={{
+                            height: 120,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <CardContent>
+                            <Typography variant="h5">Replica</Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
             </Stack>
         </Container>
     );

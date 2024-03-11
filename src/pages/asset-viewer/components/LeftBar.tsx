@@ -9,7 +9,6 @@ import {
     InputAdornment,
     InputLabel,
     OutlinedInput,
-    Paper,
     Stack,
     Typography,
 } from "@mui/material";
@@ -77,81 +76,79 @@ function LeftBar(props: Props) {
     };
 
     return (
-        <Paper sx={{ height: 1 }}>
-            <Stack spacing={1} padding={1} sx={{ height: 1, width: "415px" }}>
-                <Stack spacing={2} direction="row">
-                    <Button variant="contained" onClick={() => setRoute("mainMenu")}>
-                        Back
-                    </Button>
-                    <Typography variant="h5">Asset Viewer</Typography>
-                </Stack>
-                {assetList.length === 0 ? (
-                    <Box
-                        sx={{
-                            height: 1,
-                            width: 1,
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Typography variant="body1">Loading...</Typography>
-                        <CircularProgress />
-                    </Box>
-                ) : (
-                    <Box
-                        sx={{
-                            height: 1,
-                            width: 1,
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-between",
-                        }}
-                    >
-                        <FormControl variant="outlined" size="small">
-                            <InputLabel>Asset name</InputLabel>
-                            <OutlinedInput
-                                label="Asset name"
-                                value={filterText}
-                                onChange={handleTextFiltering}
-                                endAdornment={
-                                    filterText.length > 0 && (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                size="small"
-                                                edge="end"
-                                                onClick={() => setFilterText("")}
-                                            >
-                                                <HighlightOffIcon />
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )
-                                }
-                            />
-                        </FormControl>
-                        <Stack direction="row" spacing={1}>
-                            <Chip
-                                label="Texture2D"
-                                color="primary"
-                                variant={filterChips[28] ? "filled" : "outlined"}
-                                onClick={() => handleChipFiltering(28)}
-                            />
-                            <Chip
-                                label="Mesh"
-                                color="primary"
-                                variant={filterChips[43] ? "filled" : "outlined"}
-                                onClick={() => handleChipFiltering(43)}
-                            />
-                        </Stack>
-                        <AssetList
-                            assetList={visibleAssetList}
-                            handleDisplayedAsset={handleDisplayedAsset}
-                        />
-                    </Box>
-                )}
+        <Stack spacing={1} sx={{ height: 1, width: 1 }}>
+            <Stack spacing={2} direction="row">
+                <Button variant="contained" onClick={() => setRoute("mainMenu")}>
+                    Back
+                </Button>
+                <Typography variant="h5">Asset Viewer</Typography>
             </Stack>
-        </Paper>
+            {assetList.length === 0 ? (
+                <Box
+                    sx={{
+                        height: 1,
+                        width: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <Typography variant="body1">Loading...</Typography>
+                    <CircularProgress />
+                </Box>
+            ) : (
+                <Box
+                    sx={{
+                        height: 1,
+                        width: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <FormControl variant="outlined" size="small">
+                        <InputLabel>Asset name</InputLabel>
+                        <OutlinedInput
+                            label="Asset name"
+                            value={filterText}
+                            onChange={handleTextFiltering}
+                            endAdornment={
+                                filterText.length > 0 && (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            size="small"
+                                            edge="end"
+                                            onClick={() => setFilterText("")}
+                                        >
+                                            <HighlightOffIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }
+                        />
+                    </FormControl>
+                    <Stack direction="row" spacing={1}>
+                        <Chip
+                            label="Texture2D"
+                            color="primary"
+                            variant={filterChips[28] ? "filled" : "outlined"}
+                            onClick={() => handleChipFiltering(28)}
+                        />
+                        <Chip
+                            label="Mesh"
+                            color="primary"
+                            variant={filterChips[43] ? "filled" : "outlined"}
+                            onClick={() => handleChipFiltering(43)}
+                        />
+                    </Stack>
+                    <AssetList
+                        assetList={visibleAssetList}
+                        handleDisplayedAsset={handleDisplayedAsset}
+                    />
+                </Box>
+            )}
+        </Stack>
     );
 }
 
