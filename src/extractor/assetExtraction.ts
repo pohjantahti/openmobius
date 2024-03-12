@@ -1,7 +1,7 @@
 import BinaryReader from "@extractor/binaryReader";
 import { getTexture2D } from "./assets/texture2D";
 import { ClassID } from "./consts";
-import { extractContainerDatas, getAssetName } from "./containerExtraction";
+import { TypeInfo, extractContainerDatas, getAssetName } from "./containerExtraction";
 import { getMesh } from "./assets/mesh";
 import { getGameObject } from "./assets/gameObject";
 import { getTransform } from "./assets/transform";
@@ -13,6 +13,7 @@ interface AssetInfo {
     name: string;
     byteStart: number;
     byteSize: number;
+    types: TypeInfo;
     classId: number;
     pathId: string;
 }
@@ -44,7 +45,7 @@ const getAssetBlobURL = (assetInfo: AssetInfo, assetBytes: ArrayBuffer): string 
             blobUrl = getMesh(reader, assetInfo.name);
             break;
         case ClassID.MonoBehaviour:
-            blobUrl = getMonoBehaviour(reader);
+            blobUrl = getMonoBehaviour(reader, assetInfo);
             break;
         case ClassID.MonoScript:
             blobUrl = getMonoScript(reader);

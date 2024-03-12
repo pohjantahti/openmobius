@@ -117,6 +117,12 @@ class BinaryReader {
         return value;
     }
 
+    readFloat64(): number {
+        const value = this.dataView.getFloat64(this.position, this.isLittleEndian);
+        this.position += 8;
+        return value;
+    }
+
     readBoolean(): boolean {
         const value = this.dataView.getInt8(this.position) !== 0;
         this.position++;
