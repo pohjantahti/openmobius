@@ -28,4 +28,5 @@ const getMonoScriptData = (reader: BinaryReader): MonoScript => {
     };
 };
 
-export { getMonoScript };
+export { getMonoScript, getMonoScriptData };
+export type { MonoScript };

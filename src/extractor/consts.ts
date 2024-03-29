@@ -120,6 +120,7 @@ enum ClassID {
     MonoBehaviour = 114,
     MonoScript = 115,
     Font = 128,
+    SkinnedMeshRenderer = 137,
     AssetBundle = 142,
 }
 

@@ -1,5 +1,5 @@
 import BinaryReader from "@extractor/binaryReader";
-import { getPointer } from "./utils";
+import { Pointer, getPointer } from "./utils";
 
 const getGameObject = (reader: BinaryReader): string => {
     const gameObjectData = getGameObjectData(reader);
@@ -9,12 +9,23 @@ const getGameObject = (reader: BinaryReader): string => {
     return window.URL.createObjectURL(blob);
 };
 
-const getGameObjectData = (reader: BinaryReader) => {
+interface GameObject {
+    components: Array<{
+        type: number;
+        component: Pointer;
+    }>;
+    layer: number;
+    name: string;
+}
+
+const getGameObjectData = (reader: BinaryReader): GameObject => {
     const componentsSize = reader.readI32();
     const components = [];
     for (let i = 0; i < componentsSize; i++) {
-        reader.readI32();
-        components.push(getPointer(reader));
+        components.push({
+            type: reader.readI32(),
+            component: getPointer(reader),
+        });
     }
     const layer = reader.readI32();
     const name = reader.readAlignedString();
@@ -26,4 +37,5 @@ const getGameObjectData = (reader: BinaryReader) => {
     };
 };
 
-export { getGameObject };
+export { getGameObject, getGameObjectData };
+export type { GameObject };

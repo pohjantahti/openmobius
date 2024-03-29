@@ -43,4 +43,5 @@ const getAssetBundleData = (reader: BinaryReader): AssetBundle => {
     };
 };
 
-export { getAssetBundle };
+export { getAssetBundle, getAssetBundleData };
+export type { AssetBundle };

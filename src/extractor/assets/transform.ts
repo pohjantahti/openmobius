@@ -41,4 +41,5 @@ const getTransformData = (reader: BinaryReader): Transform => {
     };
 };
 
-export { getTransform };
+export { getTransform, getTransformData };
+export type { Transform };

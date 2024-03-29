@@ -187,4 +187,5 @@ const getNodes = (nodes: Array<TypeNode>, index: number): Array<TypeNode> => {
     return nodeList;
 };
 
-export { getMonoBehaviour };
+export { getMonoBehaviour, getMonoBehaviourData };
+export type { MonoBehaviour };

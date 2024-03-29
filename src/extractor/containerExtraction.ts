@@ -218,6 +218,7 @@ const getAssetName = (reader: BinaryReader, classId: number): string => {
         case ClassID.GameObject:
         case ClassID.Transform:
         case ClassID.MonoBehaviour:
+        case ClassID.SkinnedMeshRenderer:
             break;
         default:
             name = reader.readAlignedString();

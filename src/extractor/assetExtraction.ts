@@ -3,11 +3,12 @@ import { getTexture2D } from "./assets/texture2D";
 import { ClassID } from "./consts";
 import { TypeInfo, extractContainerDatas, getAssetName } from "./containerExtraction";
 import { getMesh } from "./assets/mesh";
-import { getGameObject } from "./assets/gameObject";
-import { getTransform } from "./assets/transform";
-import { getAssetBundle } from "./assets/assetBundle";
-import { getMonoBehaviour } from "./assets/monoBehaviour";
-import { getMonoScript } from "./assets/monoScript";
+import { getGameObject, getGameObjectData } from "./assets/gameObject";
+import { getTransform, getTransformData } from "./assets/transform";
+import { getAssetBundle, getAssetBundleData } from "./assets/assetBundle";
+import { getMonoBehaviour, getMonoBehaviourData } from "./assets/monoBehaviour";
+import { getMonoScript, getMonoScriptData } from "./assets/monoScript";
+import { getSkinnedMeshRenderer, getSkinnedMeshRendererData } from "./assets/skinnedMeshRenderer";
 
 interface AssetInfo {
     name: string;
@@ -20,11 +21,17 @@ interface AssetInfo {
 
 const getAsset = async (containerPath: string, pathId: string): Promise<string> => {
     const container = await extractContainerDatas([containerPath]);
-    const assetInfo = container[0].assetInfos.find((info) => info.pathId === pathId);
-    if (!assetInfo) {
-        throw new Error(`Did not find asset with pathId: ${pathId} in container: ${containerPath}`);
-    }
+    const assetInfo = getAssetInfo(container[0].assetInfos, pathId);
     return getAssetBlobURL(assetInfo, container[0].assetBytes);
+};
+
+const getAssetInfo = (assetInfos: Array<AssetInfo>, pathId: string) => {
+    const assetInfo = assetInfos.find((info) => info.pathId === pathId);
+    if (assetInfo) {
+        return assetInfo;
+    } else {
+        throw new Error(`Could not find asset with pathId: ${pathId} in ${assetInfos}`);
+    }
 };
 
 const getAssetBlobURL = (assetInfo: AssetInfo, assetBytes: ArrayBuffer): string => {
@@ -50,6 +57,9 @@ const getAssetBlobURL = (assetInfo: AssetInfo, assetBytes: ArrayBuffer): string 
         case ClassID.MonoScript:
             blobUrl = getMonoScript(reader);
             break;
+        case ClassID.SkinnedMeshRenderer:
+            blobUrl = getSkinnedMeshRenderer(reader);
+            break;
         case ClassID.AssetBundle:
             blobUrl = getAssetBundle(reader);
             break;
@@ -60,5 +70,36 @@ const getAssetBlobURL = (assetInfo: AssetInfo, assetBytes: ArrayBuffer): string 
     return blobUrl;
 };
 
-export { getAssetBlobURL, getAsset };
+const getAssetObject = (assetInfo: AssetInfo, assetBytes: ArrayBuffer) => {
+    const reader = new BinaryReader(assetBytes, assetInfo.byteStart, true);
+    getAssetName(reader, assetInfo.classId);
+    let assetObject;
+    switch (assetInfo.classId) {
+        case ClassID.GameObject:
+            assetObject = getGameObjectData(reader);
+            break;
+        case ClassID.Transform:
+            assetObject = getTransformData(reader);
+            break;
+        case ClassID.MonoBehaviour:
+            assetObject = getMonoBehaviourData(reader, assetInfo);
+            break;
+        case ClassID.MonoScript:
+            assetObject = getMonoScriptData(reader);
+            break;
+        case ClassID.SkinnedMeshRenderer:
+            assetObject = getSkinnedMeshRendererData(reader);
+            break;
+        case ClassID.AssetBundle:
+            assetObject = getAssetBundleData(reader);
+            break;
+        default:
+            throw new Error(`Unsupported asset type: ${assetInfo}`);
+            break;
+    }
+
+    return assetObject;
+};
+
+export { getAssetBlobURL, getAsset, getAssetObject, getAssetInfo };
 export type { AssetInfo };
