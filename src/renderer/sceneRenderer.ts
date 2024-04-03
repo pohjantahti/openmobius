@@ -62,6 +62,8 @@ class SceneRenderer {
     }
 
     async loadJob(jobId: string) {
+        this.unloadJob();
+
         const jobPrefab = await getJobPrefab(jobId);
 
         const colorTexture = new THREE.TextureLoader().load(jobPrefab.textures.color);
@@ -76,6 +78,7 @@ class SceneRenderer {
 
         const loader = new OBJLoader();
         const job = new THREE.Group();
+        job.name = "displayedJob";
         for (const part of jobPrefab.meshes) {
             loader.load(part.mesh, (obj) => {
                 const mesh = obj.children[0] as THREE.Mesh;
@@ -91,6 +94,52 @@ class SceneRenderer {
             });
         }
         this.scene.add(job);
+    }
+
+    unloadJob() {
+        const job = this.scene.getObjectByName("displayedJob") as THREE.Group | undefined;
+        if (job) {
+            for (const child of job.children as Array<THREE.Mesh>) {
+                child.geometry.dispose();
+                const material = child.material as THREE.MeshPhysicalMaterial;
+                material.map?.dispose();
+                material.normalMap?.dispose();
+                material.aoMap?.dispose();
+                material.dispose();
+            }
+            this.scene.remove(job);
+        }
+    }
+
+    unloadEverything() {
+        this.unloadJob();
+        this.animate = false;
+        this.controls.dispose();
+
+        for (const child of this.scene.children) {
+            switch (child.type) {
+                case "HemisphereLight":
+                case "DirectionalLight": {
+                    const object = child as THREE.HemisphereLight | THREE.DirectionalLight;
+                    object.dispose();
+                    break;
+                }
+                case "Mesh": {
+                    const object = child as THREE.Mesh;
+                    object.geometry.dispose();
+                    if (object.material instanceof THREE.Material) {
+                        object.material.dispose();
+                    }
+                    break;
+                }
+                default:
+                    console.log(`Type not accounted for: ${child.type}`);
+                    break;
+            }
+        }
+        this.renderer.clear();
+        this.renderer.forceContextLoss();
+        this.renderer.dispose();
     }
 }
 

@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 
 interface Props {
     setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
-    setSelectedJobId: React.Dispatch<React.SetStateAction<string>>;
+    handleSelectedJobId: (newJobId: string) => void;
 }
 
 function LeftBar(props: Props) {
-    const { setRoute, setSelectedJobId } = props;
+    const { setRoute, handleSelectedJobId } = props;
 
     const [jobOptions, setJobOptions] = useState<Array<string>>([]);
     const [jobOptionsInput, setJobOptionsInput] = useState("");
@@ -46,7 +46,7 @@ function LeftBar(props: Props) {
             </Stack>
 
             <Autocomplete
-                onChange={(_, newValue) => setSelectedJobId(newValue || "")}
+                onChange={(_, newValue) => handleSelectedJobId(newValue || "")}
                 inputValue={jobOptionsInput}
                 onInputChange={(_, newInput) => setJobOptionsInput(newInput)}
                 options={jobOptions}
