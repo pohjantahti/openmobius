@@ -12,5 +12,10 @@ const getPointer = (reader: BinaryReader): Pointer => {
     };
 };
 
-export { getPointer };
+const createBlobURL = (file: BlobPart, type: string): string => {
+    const blob = new Blob([file], { type: type });
+    return window.URL.createObjectURL(blob);
+};
+
+export { getPointer, createBlobURL };
 export type { Pointer };

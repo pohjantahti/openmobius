@@ -3,13 +3,27 @@ import { Vector3 } from "./types";
 
 const getMesh = (reader: BinaryReader, name: string): string => {
     const meshData = getMeshData(reader, name);
-    const file = createObjFile(name, meshData);
+    const file = createObjFile(meshData);
 
     const blob = new Blob([file], { type: "model/obj" });
     return window.URL.createObjectURL(blob);
 };
 
-const getMeshData = (reader: BinaryReader, name: string) => {
+interface MeshData {
+    name: string;
+    vertexCount: number;
+    vertices: Array<number>;
+    UV0: Array<number>;
+    normals: Array<number>;
+    subMeshes: Array<SubMesh>;
+    indices: Array<number>;
+    skin: Array<{
+        weight: Array<number>;
+        boneIndex: Array<number>;
+    }>;
+}
+
+const getMeshData = (reader: BinaryReader, name: string): MeshData => {
     let UV0: Array<number> = [];
     let normals: Array<number> = [];
     const indices: Array<number> = [];
@@ -211,12 +225,14 @@ const getMeshData = (reader: BinaryReader, name: string) => {
     }
 
     return {
+        name: name,
         vertexCount: vertexCount,
         vertices: vertices,
         UV0: UV0,
         normals: normals,
         subMeshes: subMeshes,
         indices: indices,
+        skin: skin,
     };
 };
 
@@ -467,25 +483,15 @@ const getPackedIntVector = (reader: BinaryReader) => {
     };
 };
 
-const createObjFile = (
-    fileName: string,
-    meshData: {
-        vertexCount: number;
-        vertices: Array<number>;
-        UV0: Array<number>;
-        normals: Array<number>;
-        subMeshes: Array<SubMesh>;
-        indices: Array<number>;
-    }
-) => {
-    const { vertexCount, vertices, UV0, normals, subMeshes, indices } = meshData;
+const createObjFile = (meshData: MeshData) => {
+    const { name, vertexCount, vertices, UV0, normals, subMeshes, indices } = meshData;
 
     if (vertexCount <= 0) {
-        throw new Error(`No vertices: ${fileName}`);
+        throw new Error(`No vertices: ${name}`);
     }
 
     let file = "";
-    file += `g ${fileName}\r\n`;
+    file += `g ${name}\r\n`;
 
     //Vertices
     let c = 3;
@@ -521,7 +527,7 @@ const createObjFile = (
     // Face
     let sum = 0;
     for (let i = 0; i < subMeshes.length; i++) {
-        file += `g ${fileName}_${i}\r\n`;
+        file += `g ${name}_${i}\r\n`;
         const indexCount = subMeshes[i].indexCount;
         const end = sum + indexCount / 3;
         for (let f = sum; f < end; f++) {
@@ -540,4 +546,5 @@ const createObjFile = (
     return file;
 };
 
-export { getMesh };
+export { getMesh, getMeshData, createObjFile };
+export type { MeshData };

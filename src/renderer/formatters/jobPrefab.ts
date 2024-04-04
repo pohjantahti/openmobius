@@ -1,8 +1,11 @@
 import { getAssetBlobURL, getAssetInfo, getAssetObject } from "@extractor/assetExtraction";
 import { AssetBundle } from "@extractor/assets/assetBundle";
 import { GameObject } from "@extractor/assets/gameObject";
+import { MeshData, createObjFile } from "@extractor/assets/mesh";
 import { SkinnedMeshRenderer } from "@extractor/assets/skinnedMeshRenderer";
 import { Transform } from "@extractor/assets/transform";
+import { Quaternion, Vector3 } from "@extractor/assets/types";
+import { createBlobURL } from "@extractor/assets/utils";
 import { ClassID } from "@extractor/consts";
 import { extractContainerDatas } from "@extractor/containerExtraction";
 
@@ -11,23 +14,27 @@ interface JobPrefab {
     meshes: Array<{
         name: string;
         mesh: string;
+        skin: Array<{
+            weight: Array<number>;
+            boneIndex: Array<number>;
+        }>;
     }>;
     textures: {
         color: string;
         normal: string;
         material: string;
     };
+    rootBone: BoneNode;
 }
 
-// interface BoneNode {
-//     name: string;
-//     pathId: string;
-//     localRotation: Quaternion;
-//     localPosition: Vector3;
-//     localScale: Vector3;
-//     father: BoneNode;
-//     children: Array<BoneNode>;
-// }
+interface BoneNode {
+    name: string;
+    pathId: string;
+    localRotation: Quaternion;
+    localPosition: Vector3;
+    localScale: Vector3;
+    children: Array<BoneNode>;
+}
 
 const getJobPrefab = async (id: string): Promise<JobPrefab> => {
     const file = await fetch("./assets/containers.json");
@@ -102,21 +109,43 @@ const getJobPrefab = async (id: string): Promise<JobPrefab> => {
             0
         ) as SkinnedMeshRenderer;
 
-        const mesh = getURLWithPathId(skinnedMeshRenderer.mesh.pathId, 0);
+        const meshData = getObjectWithPathId(skinnedMeshRenderer.mesh.pathId, 0) as MeshData;
+        const mesh = createBlobURL(createObjFile(meshData), "model/obj");
 
         meshes.push({
             name: name,
             mesh: mesh,
+            skin: meshData.skin,
         });
     }
 
-    // const rootTransform = getObjectWithPathId(prefabTransform.children[1].pathId, 0) as Transform;
+    const getBoneNode = (transformPathId: string): BoneNode => {
+        const transform = getObjectWithPathId(transformPathId, 0) as Transform;
+        const gameObject = getObjectWithPathId(transform.gameObject.pathId, 0) as GameObject;
+        const children: Array<BoneNode> = [];
+        for (const child of transform.children) {
+            children.push(getBoneNode(child.pathId));
+        }
+
+        return {
+            name: gameObject.name,
+            pathId: transformPathId,
+            localRotation: transform.localRotation,
+            localPosition: transform.localPosition,
+            localScale: transform.localScale,
+            children: children,
+        };
+    };
+
+    const rootBone = getBoneNode(prefabTransform.children[1].pathId);
 
     return {
         id: id,
         meshes: meshes,
         textures: textures,
+        rootBone: rootBone,
     };
 };
 
 export { getJobPrefab };
+export type { BoneNode };

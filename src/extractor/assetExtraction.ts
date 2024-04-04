@@ -2,7 +2,7 @@ import BinaryReader from "@extractor/binaryReader";
 import { getTexture2D } from "./assets/texture2D";
 import { ClassID } from "./consts";
 import { TypeInfo, extractContainerDatas, getAssetName } from "./containerExtraction";
-import { getMesh } from "./assets/mesh";
+import { getMesh, getMeshData } from "./assets/mesh";
 import { getGameObject, getGameObjectData } from "./assets/gameObject";
 import { getTransform, getTransformData } from "./assets/transform";
 import { getAssetBundle, getAssetBundleData } from "./assets/assetBundle";
@@ -80,6 +80,9 @@ const getAssetObject = (assetInfo: AssetInfo, assetBytes: ArrayBuffer) => {
             break;
         case ClassID.Transform:
             assetObject = getTransformData(reader);
+            break;
+        case ClassID.Mesh:
+            assetObject = getMeshData(reader, assetInfo.name);
             break;
         case ClassID.MonoBehaviour:
             assetObject = getMonoBehaviourData(reader, assetInfo);
