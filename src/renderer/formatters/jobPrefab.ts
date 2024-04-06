@@ -148,4 +148,4 @@ const getJobPrefab = async (id: string): Promise<JobPrefab> => {
 };
 
 export { getJobPrefab };
-export type { BoneNode };
+export type { JobPrefab, BoneNode };

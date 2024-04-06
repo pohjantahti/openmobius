@@ -8,6 +8,7 @@
         "paths": {
             "@extractor/*": ["./src/extractor/*"],
             "@lib/*": ["./src/lib/*"],
+            "@renderer/*": ["./src/renderer/*"],
             "@utils": ["./src/utils"]
         },
         /* Bundler mode */

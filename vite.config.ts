@@ -10,6 +10,7 @@ export default defineConfig({
         alias: {
             "@extractor": path.resolve(__dirname, "./src/extractor"),
             "@lib": path.resolve(__dirname, "./src/lib"),
+            "@renderer": path.resolve(__dirname, "./src/renderer"),
             "@utils": path.resolve(__dirname, "./src/utils"),
         },
     },

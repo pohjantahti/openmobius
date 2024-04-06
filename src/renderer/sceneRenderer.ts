@@ -69,12 +69,15 @@ class SceneRenderer {
         const colorTexture = new THREE.TextureLoader().load(jobPrefab.textures.color);
         colorTexture.wrapS = THREE.RepeatWrapping;
         colorTexture.wrapT = THREE.RepeatWrapping;
+        colorTexture.colorSpace = THREE.SRGBColorSpace;
         const normalTexture = new THREE.TextureLoader().load(jobPrefab.textures.normal);
         normalTexture.wrapS = THREE.RepeatWrapping;
         normalTexture.wrapT = THREE.RepeatWrapping;
+        normalTexture.colorSpace = THREE.NoColorSpace;
         const materialTexture = new THREE.TextureLoader().load(jobPrefab.textures.material);
         materialTexture.wrapS = THREE.RepeatWrapping;
         materialTexture.wrapT = THREE.RepeatWrapping;
+        materialTexture.colorSpace = THREE.NoColorSpace;
 
         const loader = new OBJLoader();
         const job = new THREE.Group();
@@ -85,7 +88,7 @@ class SceneRenderer {
                 const material = new THREE.MeshPhysicalMaterial({
                     map: colorTexture,
                     normalMap: normalTexture,
-                    aoMap: materialTexture,
+                    // aoMap: materialTexture,
                     // roughnessMap: materialTexture,
                     // metalnessMap: materialTexture,
                     alphaTest: 0.5,
