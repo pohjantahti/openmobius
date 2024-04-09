@@ -6,27 +6,20 @@ import { JobPrefab, getJobPrefab } from "./formatters/jobPrefab";
 import { OBJLoader } from "three/examples/jsm/Addons.js";
 
 interface JobProps {
-    meshData: {
-        name: string;
-        mesh: string;
-        skin: Array<{
-            weight: number[];
-            boneIndex: number[];
-        }>;
-    };
-    textures: {
-        color: string;
-        normal: string;
-        material: string;
-    };
+    index: number;
+    jobPrefab: JobPrefab;
 }
 
 function Job(props: JobProps) {
-    const object = useLoader(OBJLoader, props.meshData.mesh).children[0] as THREE.Mesh;
+    const { index, jobPrefab } = props;
+    const meshData = jobPrefab.meshes[index];
+    const object = useLoader(OBJLoader, meshData.mesh).children[0] as THREE.Mesh;
+
+    object.geometry.name = meshData.name;
     const [colorTexture, normalTexture, materialTexture] = useTexture([
-        props.textures.color,
-        props.textures.normal,
-        props.textures.material,
+        jobPrefab.textures.color,
+        jobPrefab.textures.normal,
+        jobPrefab.textures.material,
     ]);
     colorTexture.wrapS = THREE.RepeatWrapping;
     colorTexture.wrapT = THREE.RepeatWrapping;
@@ -39,6 +32,17 @@ function Job(props: JobProps) {
     materialTexture.wrapS = THREE.RepeatWrapping;
     materialTexture.wrapT = THREE.RepeatWrapping;
     materialTexture.colorSpace = THREE.NoColorSpace;
+
+    useEffect(() => {
+        return () => {
+            object.geometry.dispose();
+            const material = object.material as THREE.Material;
+            material.dispose();
+            colorTexture.dispose();
+            normalTexture.dispose();
+            materialTexture.dispose();
+        };
+    }, []); // eslint-disable-line
 
     return (
         <mesh>
@@ -106,7 +110,7 @@ function JobRenderer(props: Props) {
                 {jobPrefab && (
                     <group>
                         {jobPrefab.meshes.map((mesh, index) => (
-                            <Job key={index} meshData={mesh} textures={jobPrefab.textures} />
+                            <Job key={mesh.name} index={index} jobPrefab={jobPrefab} />
                         ))}
                     </group>
                 )}
