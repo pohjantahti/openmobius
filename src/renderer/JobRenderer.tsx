@@ -1,62 +1,18 @@
 import * as THREE from "three";
 import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls, useTexture } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { useEffect, useState } from "react";
-import { JobPrefab, getJobPrefab } from "./formatters/jobPrefab";
-import { OBJLoader } from "three/examples/jsm/Addons.js";
+import { getJobPrefabGltf } from "./formatters/jobPrefab";
+import { GLTFLoader } from "three/examples/jsm/Addons.js";
 
 interface JobProps {
-    index: number;
-    jobPrefab: JobPrefab;
+    gltfFile: string;
 }
 
 function Job(props: JobProps) {
-    const { index, jobPrefab } = props;
-    const meshData = jobPrefab.meshes[index];
-    const object = useLoader(OBJLoader, meshData.mesh).children[0] as THREE.Mesh;
+    const gltf = useLoader(GLTFLoader, props.gltfFile);
 
-    object.geometry.name = meshData.name;
-    const [colorTexture, normalTexture, materialTexture] = useTexture([
-        jobPrefab.textures.color,
-        jobPrefab.textures.normal,
-        jobPrefab.textures.material,
-    ]);
-    colorTexture.wrapS = THREE.RepeatWrapping;
-    colorTexture.wrapT = THREE.RepeatWrapping;
-    colorTexture.colorSpace = THREE.SRGBColorSpace;
-
-    normalTexture.wrapS = THREE.RepeatWrapping;
-    normalTexture.wrapT = THREE.RepeatWrapping;
-    normalTexture.colorSpace = THREE.NoColorSpace;
-
-    materialTexture.wrapS = THREE.RepeatWrapping;
-    materialTexture.wrapT = THREE.RepeatWrapping;
-    materialTexture.colorSpace = THREE.NoColorSpace;
-
-    useEffect(() => {
-        return () => {
-            object.geometry.dispose();
-            const material = object.material as THREE.Material;
-            material.dispose();
-            colorTexture.dispose();
-            normalTexture.dispose();
-            materialTexture.dispose();
-        };
-    }, []); // eslint-disable-line
-
-    return (
-        <mesh>
-            <primitive object={object.geometry} />
-            <meshStandardMaterial
-                map={colorTexture}
-                normalMap={normalTexture}
-                // aoMap={materialTexture}
-                // roughnessMap={materialTexture}
-                // metalnessMap={materialTexture}
-                alphaTest={0.5}
-            />
-        </mesh>
-    );
+    return <primitive object={gltf.scene} />;
 }
 
 interface Props {
@@ -65,13 +21,12 @@ interface Props {
 
 function JobRenderer(props: Props) {
     const { jobId } = props;
-
-    const [jobPrefab, setJobPrefab] = useState<JobPrefab>();
+    const [gltfFile, setGltfFile] = useState("");
 
     useEffect(() => {
         const handleJobId = async () => {
-            const prefab = await getJobPrefab(jobId);
-            setJobPrefab(prefab);
+            const file = await getJobPrefabGltf(jobId);
+            setGltfFile(file);
         };
 
         if (jobId.length > 0) {
@@ -107,13 +62,7 @@ function JobRenderer(props: Props) {
                     <meshStandardMaterial color={0x555555} />
                 </mesh>
 
-                {jobPrefab && (
-                    <group>
-                        {jobPrefab.meshes.map((mesh, index) => (
-                            <Job key={mesh.name} index={index} jobPrefab={jobPrefab} />
-                        ))}
-                    </group>
-                )}
+                {gltfFile.length > 0 && <Job gltfFile={gltfFile} />}
             </Canvas>
         </>
     );
