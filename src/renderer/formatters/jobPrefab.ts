@@ -1,20 +1,18 @@
 import { getAssetBlobURL, getAssetInfo, getAssetObject } from "@extractor/assetExtraction";
 import { AssetBundle } from "@extractor/assets/assetBundle";
 import { GameObject } from "@extractor/assets/gameObject";
-import { MeshData, createObjFile } from "@extractor/assets/mesh";
+import { MeshData } from "@extractor/assets/mesh";
 import { SkinnedMeshRenderer } from "@extractor/assets/skinnedMeshRenderer";
 import { Transform } from "@extractor/assets/transform";
 import { Quaternion, Vector3 } from "@extractor/assets/types";
-import { createBlobURL } from "@extractor/assets/utils";
+import { Pointer } from "@extractor/assets/utils";
 import { ClassID } from "@extractor/consts";
 import { extractContainerDatas } from "@extractor/containerExtraction";
-import { loadObj } from "@lib/obj2gltf";
 
 interface JobPrefab {
     id: string;
     meshes: Array<{
         name: string;
-        mesh: string;
         skin: Array<{
             weight: Array<number>;
             boneIndex: Array<number>;
@@ -23,13 +21,15 @@ interface JobPrefab {
         UV0: Array<number>;
         normals: Array<number>;
         indices: Array<number>;
+        bindPose: Array<Array<number>>;
+        tangents: Array<number>;
     }>;
     textures: {
         color: string;
         normal: string;
         material: string;
     };
-    rootBone: BoneNode;
+    joints: Array<Joint>;
 }
 
 interface BoneNode {
@@ -39,6 +39,14 @@ interface BoneNode {
     localPosition: Vector3;
     localScale: Vector3;
     children: Array<BoneNode>;
+}
+
+interface Joint {
+    translation: Array<number>;
+    rotation: Array<number>;
+    scale: Array<number>;
+    children: Array<number>;
+    name?: string;
 }
 
 const getJobPrefab = async (id: string): Promise<JobPrefab> => {
@@ -103,6 +111,8 @@ const getJobPrefab = async (id: string): Promise<JobPrefab> => {
         0
     ) as Transform;
 
+    let bonePointers: Array<Pointer> = [];
+
     const meshes = [];
     for (const children of meshCollectionTransform.children) {
         const transform = getObjectWithPathId(children.pathId, 0) as Transform;
@@ -114,45 +124,78 @@ const getJobPrefab = async (id: string): Promise<JobPrefab> => {
             0
         ) as SkinnedMeshRenderer;
 
+        bonePointers = skinnedMeshRenderer.bones;
+
         const meshData = getObjectWithPathId(skinnedMeshRenderer.mesh.pathId, 0) as MeshData;
-        const mesh = createBlobURL(createObjFile(meshData), "model/obj");
 
         meshes.push({
             name: name,
-            mesh: mesh,
             skin: meshData.skin,
             vertices: meshData.vertices,
             UV0: meshData.UV0,
             normals: meshData.normals,
             indices: meshData.indices,
+            bindPose: meshData.bindPose,
+            tangents: meshData.tangents,
         });
     }
 
-    const getBoneNode = (transformPathId: string): BoneNode => {
-        const transform = getObjectWithPathId(transformPathId, 0) as Transform;
+    const boneList: Array<{
+        name: string;
+        pathId: string;
+        localRotation: Quaternion;
+        localPosition: Vector3;
+        localScale: Vector3;
+        children: Array<string>;
+    }> = [];
+    for (const pointer of bonePointers) {
+        const transform = getObjectWithPathId(pointer.pathId, 0) as Transform;
         const gameObject = getObjectWithPathId(transform.gameObject.pathId, 0) as GameObject;
-        const children: Array<BoneNode> = [];
-        for (const child of transform.children) {
-            children.push(getBoneNode(child.pathId));
-        }
 
-        return {
+        const children: Array<string> = [];
+        for (const pointer of transform.children) {
+            children.push(pointer.pathId);
+        }
+        boneList.push({
             name: gameObject.name,
-            pathId: transformPathId,
+            pathId: pointer.pathId,
             localRotation: transform.localRotation,
             localPosition: transform.localPosition,
             localScale: transform.localScale,
             children: children,
-        };
-    };
+        });
+    }
 
-    const rootBone = getBoneNode(prefabTransform.children[1].pathId);
+    const joints: Array<Joint> = [];
+    for (const bone of boneList) {
+        const childIndices: Array<number> = [];
+        for (const pathId of bone.children) {
+            const index = boneList.findIndex((bone) => bone.pathId === pathId);
+            if (index === -1) {
+                console.warn("Unkown bone pathId:", pathId);
+            } else {
+                childIndices.push(index);
+            }
+        }
+        joints.push({
+            name: bone.name,
+            rotation: [
+                bone.localRotation.x,
+                bone.localRotation.y,
+                bone.localRotation.z,
+                bone.localRotation.w,
+            ],
+            translation: [bone.localPosition.x, bone.localPosition.y, bone.localPosition.z],
+            scale: [bone.localScale.x, bone.localScale.y, bone.localScale.z],
+            children: childIndices,
+        });
+    }
 
     return {
         id: id,
         meshes: meshes,
         textures: textures,
-        rootBone: rootBone,
+        joints: joints,
     };
 };
 
@@ -216,6 +259,7 @@ interface GLTF {
                 TEXCOORD_0: number;
                 JOINTS_0?: number;
                 WEIGHTS_0?: number;
+                TANGENT?: number;
             };
             indices: number;
             material: number;
@@ -241,7 +285,11 @@ interface GLTF {
         alphaMode?: string;
         name?: string;
     }>;
-    // skins: Array<{}>
+    skins: Array<{
+        inverseBindMatrices?: number;
+        joints: Array<number>;
+        skeleton?: number;
+    }>;
     buffers: Array<{
         uri: string;
         byteLength: number;
@@ -284,8 +332,6 @@ const getJobPrefabGltf = async (id: string) => {
                 nodes: [],
             },
         ],
-        nodes: [],
-        meshes: [],
         materials: [
             {
                 pbrMetallicRoughness: {
@@ -333,24 +379,79 @@ const getJobPrefabGltf = async (id: string) => {
             },
         ],
 
+        nodes: [],
+        meshes: [],
+        skins: [],
         accessors: [],
         buffers: [],
         bufferViews: [],
     };
 
+    gltf.scenes[0].nodes.push(gltf.nodes.length);
+    gltf.nodes.push(...jobPrefab.joints);
+
+    const jointIndices: Array<number> = [];
+    for (let i = 0; i < jobPrefab.joints.length; i++) {
+        jointIndices.push(i);
+    }
+
+    const bindPoseBuffer = new DataView(
+        new ArrayBuffer(jobPrefab.meshes[0].bindPose.length * 16 * 4)
+    );
+
+    let offset = 0;
+    for (const bindPose of jobPrefab.meshes[0].bindPose) {
+        for (const num of bindPose) {
+            bindPoseBuffer.setFloat32(offset, num, true);
+            offset += 4;
+        }
+    }
+
+    const bindPoseAccessor = {
+        bufferView: gltf.bufferViews.length,
+        componentType: ComponentType.Float,
+        count: jobPrefab.meshes[0].bindPose.length,
+        type: AccessorType.MAT4,
+        name: "bindPose_accessor",
+    };
+
+    const bindPoseBufferView = {
+        buffer: gltf.buffers.length,
+        byteOffset: 0,
+        byteLength: bindPoseBuffer.buffer.byteLength,
+        name: "bindPose_bufferView",
+    };
+
+    gltf.skins.push({
+        inverseBindMatrices: gltf.accessors.length,
+        joints: jointIndices,
+    });
+
+    gltf.accessors.push(bindPoseAccessor);
+    gltf.bufferViews.push(bindPoseBufferView);
+    gltf.buffers.push({
+        byteLength: bindPoseBuffer.buffer.byteLength,
+        uri: `data:application/octet-stream;base64,${btoa(
+            new Uint8Array(bindPoseBuffer.buffer).reduce(
+                (data, byte) => data + String.fromCharCode(byte),
+                ""
+            )
+        )}`,
+    });
+
     let i = 0;
     for (const children of jobPrefab.meshes) {
-        const file = await loadObj(children.mesh);
-
-        const positions = file[0].meshes[0].primitives[0].positions;
-        const normals = file[0].meshes[0].primitives[0].normals;
-        const uvs = file[0].meshes[0].primitives[0].uvs;
-        const indices = file[0].meshes[0].primitives[0].indices;
-
-        // const positions = children.vertices;
-        // const normals = children.normals;
-        // const uvs = children.UV0;
-        // const indices = children.indices;
+        const positions = children.vertices;
+        const normals = children.normals;
+        const uvs = children.UV0;
+        const indices = children.indices;
+        const weights: Array<number> = [];
+        const joints: Array<number> = [];
+        for (const boneWeight of children.skin) {
+            weights.push(...boneWeight.weight);
+            joints.push(...boneWeight.boneIndex);
+        }
+        const tangents = children.tangents;
 
         const positionsAccessor = {
             bufferView: gltf.bufferViews.length,
@@ -381,6 +482,27 @@ const getJobPrefabGltf = async (id: string) => {
             count: indices.length,
             type: AccessorType.SCALAR,
             name: `${i}_indices_accessor`,
+        };
+        const weightsAccessor = {
+            bufferView: gltf.bufferViews.length + 4,
+            componentType: ComponentType.Float,
+            count: weights.length / 4,
+            type: AccessorType.VEC4,
+            name: `${i}_weights_accessor`,
+        };
+        const jointsAccessor = {
+            bufferView: gltf.bufferViews.length + 5,
+            componentType: ComponentType.UShort,
+            count: joints.length / 4,
+            type: AccessorType.VEC4,
+            name: `${i}_joints_accessor`,
+        };
+        const tangentsAccessor = {
+            bufferView: gltf.bufferViews.length + 6,
+            componentType: ComponentType.Float,
+            count: joints.length / 4,
+            type: AccessorType.VEC4,
+            name: `${i}_tangents_accessor`,
         };
 
         const positionsBufferView = {
@@ -414,9 +536,30 @@ const getJobPrefabGltf = async (id: string) => {
             target: BufferViewTarget.ElementArrayBuffer,
             name: `${i}_indices_bufferView`,
         };
+        const weightsBufferView = {
+            buffer: gltf.buffers.length,
+            byteOffset: indicesBufferView.byteOffset + indicesBufferView.byteLength,
+            byteLength: weights.length * 4,
+            target: BufferViewTarget.ElementArrayBuffer,
+            name: `${i}_weights_bufferView`,
+        };
+        const jointsBufferView = {
+            buffer: gltf.buffers.length,
+            byteOffset: weightsBufferView.byteOffset + weightsBufferView.byteLength,
+            byteLength: joints.length * 2,
+            target: BufferViewTarget.ElementArrayBuffer,
+            name: `${i}_joints_bufferView`,
+        };
+        const tangentsBufferView = {
+            buffer: gltf.buffers.length,
+            byteOffset: jointsBufferView.byteOffset + jointsBufferView.byteLength,
+            byteLength: tangents.length * 4,
+            target: BufferViewTarget.ArrayBuffer,
+            name: `${i}_tangents_bufferView`,
+        };
 
         const buffer = new DataView(
-            new ArrayBuffer(indicesBufferView.byteOffset + indicesBufferView.byteLength)
+            new ArrayBuffer(tangentsBufferView.byteOffset + tangentsBufferView.byteLength)
         );
 
         let offset = 0;
@@ -428,13 +571,29 @@ const getJobPrefabGltf = async (id: string) => {
             buffer.setFloat32(offset, num, true);
             offset += 4;
         }
-        for (const num of uvs) {
-            buffer.setFloat32(offset, num, true);
+        for (let j = 0; j < uvs.length; j++) {
+            if (j % 2 === 0) {
+                buffer.setFloat32(offset, uvs[j], true);
+            } else {
+                buffer.setFloat32(offset, 1 - uvs[j], true);
+            }
             offset += 4;
         }
         for (const num of indices) {
             buffer.setUint16(offset, num, true);
             offset += 2;
+        }
+        for (const num of weights) {
+            buffer.setFloat32(offset, num, true);
+            offset += 4;
+        }
+        for (const num of joints) {
+            buffer.setUint16(offset, num, true);
+            offset += 2;
+        }
+        for (const num of tangents) {
+            buffer.setFloat32(offset, num, true);
+            offset += 4;
         }
 
         gltf.buffers.push({
@@ -451,6 +610,7 @@ const getJobPrefabGltf = async (id: string) => {
 
         gltf.scenes[0].nodes.push(gltf.nodes.length);
         gltf.nodes.push({ mesh: gltf.meshes.length });
+        // gltf.nodes.push({ mesh: gltf.meshes.length, skin: 0 });
 
         gltf.meshes.push({
             primitives: [
@@ -459,20 +619,35 @@ const getJobPrefabGltf = async (id: string) => {
                         POSITION: gltf.accessors.length,
                         NORMAL: gltf.accessors.length + 1,
                         TEXCOORD_0: gltf.accessors.length + 2,
+                        // WEIGHTS_0: gltf.accessors.length + 4,
+                        // JOINTS_0: gltf.accessors.length + 5,
+                        TANGENT: gltf.accessors.length + 6,
                     },
                     indices: gltf.accessors.length + 3,
                     material: 0,
+                    mode: 4,
                 },
             ],
             name: children.name,
         });
 
-        gltf.accessors.push(positionsAccessor, normalsAccessor, uvsAccessor, indicesAccessor);
+        gltf.accessors.push(
+            positionsAccessor,
+            normalsAccessor,
+            uvsAccessor,
+            indicesAccessor,
+            weightsAccessor,
+            jointsAccessor,
+            tangentsAccessor
+        );
         gltf.bufferViews.push(
             positionsBufferView,
             normalsBufferView,
             uvsBufferView,
-            indicesBufferView
+            indicesBufferView,
+            weightsBufferView,
+            jointsBufferView,
+            tangentsBufferView
         );
         i++;
     }

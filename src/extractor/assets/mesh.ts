@@ -21,6 +21,8 @@ interface MeshData {
         weight: Array<number>;
         boneIndex: Array<number>;
     }>;
+    bindPose: Array<Array<number>>;
+    tangents: Array<number>;
 }
 
 const getMeshData = (reader: BinaryReader, name: string): MeshData => {
@@ -28,10 +30,11 @@ const getMeshData = (reader: BinaryReader, name: string): MeshData => {
     let normals: Array<number> = [];
     const indices: Array<number> = [];
     let vertices: Array<number> = [];
+    let tangents: Array<number> = [];
 
     const subMeshes = getSubMeshes(reader);
     getBlendShapeData(reader); // shaper
-    reader.readMatrixArray(); // bindPose
+    const bindPose = reader.readMatrixArray();
     reader.readU32Array(); // boneNameHashes
     reader.readU32(); // rootBoneNameHash
     const meshCompression = reader.readByte();
@@ -145,6 +148,9 @@ const getMeshData = (reader: BinaryReader, name: string): MeshData => {
                     case 3:
                         UV0 = componentsFloatArray;
                         break;
+                    case 7:
+                        tangents = componentsFloatArray;
+                        break;
                     default:
                         break;
                 }
@@ -233,6 +239,8 @@ const getMeshData = (reader: BinaryReader, name: string): MeshData => {
         subMeshes: subMeshes,
         indices: indices,
         skin: skin,
+        bindPose: bindPose,
+        tangents: tangents,
     };
 };
 

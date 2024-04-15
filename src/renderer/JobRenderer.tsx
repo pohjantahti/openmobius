@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import { useEffect, useState } from "react";
+import { OrbitControls, useHelper } from "@react-three/drei";
+import { useEffect, useRef, useState } from "react";
 import { getJobPrefabGltf } from "./formatters/jobPrefab";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
 
@@ -10,9 +10,12 @@ interface JobProps {
 }
 
 function Job(props: JobProps) {
+    const mesh = useRef<THREE.Group>(null!);
     const gltf = useLoader(GLTFLoader, props.gltfFile);
 
-    return <primitive object={gltf.scene} />;
+    useHelper(mesh, THREE.SkeletonHelper);
+
+    return <primitive ref={mesh} object={gltf.scene} />;
 }
 
 interface Props {
