@@ -1,84 +1,99 @@
 import { setBaseDirectoryHandle } from "@extractor/fileSystemAccess";
 import {
-    Container,
-    Paper,
-    Typography,
-    Link,
     Accordion,
     AccordionSummary,
     AccordionDetails,
     Button,
     Stack,
-    Box,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    IconButton,
+    Alert,
+    Link,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useState } from "react";
 
 interface Props {
-    setStartInfoComplete: React.Dispatch<React.SetStateAction<boolean>>;
+    setGameAssetsProvided: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// Display general info about this project and instructions to get started
-function StartInfo(props: Props) {
+function ProvideGameAssets(props: Props) {
+    const [open, setOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const supported = typeof window.showDirectoryPicker === "function";
+
+    const handleOpenDialog = () => {
+        setOpen(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpen(false);
+        setErrorMessage("");
+    };
+
     const handleOpenFolderButton = async () => {
-        await setBaseDirectoryHandle();
-        props.setStartInfoComplete(true);
+        try {
+            await setBaseDirectoryHandle();
+            props.setGameAssetsProvided(true);
+            handleCloseDialog();
+        } catch (error) {
+            if (error instanceof Error) {
+                setErrorMessage(error.message);
+            }
+        }
     };
 
     return (
-        <Container maxWidth="md">
-            <Paper sx={{ padding: 2, marginTop: 2 }}>
-                <Stack spacing={2}>
-                    <Typography variant="h3" fontWeight="bold">
-                        OpenMobius
-                    </Typography>
-                    <Link href="https://github.com/pohjantahti/openmobius">View on Github</Link>
-                    <Box>
-                        <Accordion defaultExpanded disableGutters>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                sx={{ fontWeight: "bold" }}
-                            >
-                                What is it?
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Typography variant="body1" marginBottom={1}>
-                                    OpenMobius is an open-source, partial replication of the
-                                    original Mobius Final Fantasy game. In its current form, it's a
-                                    small tech demo with some interactable features.
-                                </Typography>
-                                <Typography>
-                                    <b>Disclaimer:</b> This site is not an official Final Fantasy
-                                    product and is not affiliated with nor endorsed by Square Enix.
-                                    The site does not contain any original game assets and does not
-                                    earn money in any way. Usage of this site's features requires
-                                    the original game assets.
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
+        <>
+            <Button variant="contained" onClick={handleOpenDialog}>
+                Provide Game Assets
+            </Button>
+            <Dialog open={open} onClose={handleCloseDialog}>
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <DialogTitle>Provide Game Assets</DialogTitle>
+                    <IconButton onClick={handleCloseDialog} sx={{ marginRight: 2, height: 1 }}>
+                        <CloseIcon />
+                    </IconButton>
+                </Stack>
+                <DialogContent>
+                    <Stack spacing={2}>
                         <Accordion disableGutters>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 sx={{ fontWeight: "bold" }}
                             >
-                                How to use it?
+                                What to do?
                             </AccordionSummary>
-                            <AccordionDetails>
+                            <AccordionDetails sx={{ height: 400, overflowY: "auto" }}>
                                 <p>
                                     <b>Base requirements:</b>
                                 </p>
                                 <ul>
-                                    <li>Original Mobius Final Fantasy game assets (GL version)</li>
+                                    <li>Original Mobius Final Fantasy game assets (GL version).</li>
                                     <li>
-                                        Browser that supports File System Access API.
-                                        <a
-                                            style={{ color: "#0080EE", marginLeft: 4 }}
-                                            href="https://caniuse.com/native-filesystem-api"
-                                        >
-                                            Check compatibility.
-                                        </a>
+                                        Browser that supports the{" "}
+                                        <Link href="https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker#browser_compatibility">
+                                            showDirectoryPicker()
+                                        </Link>{" "}
+                                        function from the{" "}
+                                        <Link href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_API">
+                                            File System Access API
+                                        </Link>
+                                        .
                                     </li>
                                 </ul>
-
+                                {supported ? (
+                                    <Alert severity="success">
+                                        Your current browser is compatible.
+                                    </Alert>
+                                ) : (
+                                    <Alert severity="error">
+                                        Your current browser is incompatible.
+                                    </Alert>
+                                )}
                                 <p>
                                     <b>Instructions</b> (written for Windows but applicable to any
                                     other OS)
@@ -96,7 +111,7 @@ function StartInfo(props: Props) {
                                             </li>
                                             <li>
                                                 If you can't find them, searching for "mobiusff.exe"
-                                                in File Explorer may help you find them.
+                                                in File Explorer may help you to find them.
                                             </li>
                                         </ul>
                                     </li>
@@ -105,7 +120,7 @@ function StartInfo(props: Props) {
                                     <li>
                                         Check that your game asset folder contains a folder called
                                         "mobiusff_Data" and inside it are folders "mobius_data" and
-                                        "StreamingAssets".
+                                        "StreamingAssets" among many others.
                                     </li>
                                     <br />
 
@@ -159,8 +174,8 @@ function StartInfo(props: Props) {
                                     </li>
                                     <ul>
                                         <li>
-                                            If the folder was the correct one, asset loading will
-                                            begin.
+                                            If the folder was the correct one, this window will
+                                            close.
                                         </li>
                                         <li>
                                             If the loading does not begin, make sure you selected
@@ -178,14 +193,21 @@ function StartInfo(props: Props) {
                                 </ol>
                             </AccordionDetails>
                         </Accordion>
-                    </Box>
-                    <Button variant="contained" onClick={handleOpenFolderButton}>
-                        Open "mobiusff_Data" folder
-                    </Button>
-                </Stack>
-            </Paper>
-        </Container>
+
+                        {errorMessage.length > 0 && <Alert severity="error">{errorMessage}</Alert>}
+
+                        <Button
+                            disabled={!supported}
+                            variant="contained"
+                            onClick={handleOpenFolderButton}
+                        >
+                            Open "mobiusff_Data" folder
+                        </Button>
+                    </Stack>
+                </DialogContent>
+            </Dialog>
+        </>
     );
 }
 
-export default StartInfo;
+export default ProvideGameAssets;

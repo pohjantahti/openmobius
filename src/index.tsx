@@ -37,6 +37,23 @@ const darkTheme = createTheme({
                 },
             },
         },
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#212121",
+                },
+            },
+        },
+        MuiAlert: {
+            styleOverrides: {
+                standardError: {
+                    backgroundColor: "#2a1515",
+                },
+                standardSuccess: {
+                    backgroundColor: "#162717",
+                },
+            },
+        },
     },
 });
 
