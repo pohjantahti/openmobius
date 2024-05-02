@@ -11,6 +11,10 @@ import {
     IconButton,
     Alert,
     Link,
+    Typography,
+    List,
+    ListItemText,
+    ListItem,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -46,6 +50,22 @@ function ProvideGameAssets(props: Props) {
         }
     };
 
+    const Ol = (props: { children: React.ReactNode }) => {
+        return <List sx={{ listStyle: "decimal", paddingLeft: 3 }}>{props.children}</List>;
+    };
+
+    const Ul = (props: { children: React.ReactNode }) => {
+        return <List sx={{ listStyle: "disc", padding: 0, paddingLeft: 3 }}>{props.children}</List>;
+    };
+
+    const Li = (props: { children: React.ReactNode }) => {
+        return (
+            <ListItem sx={{ display: "list-item", padding: 0 }}>
+                <ListItemText sx={{ margin: 0 }}>{props.children}</ListItemText>
+            </ListItem>
+        );
+    };
+
     return (
         <>
             <Button variant="contained" onClick={handleOpenDialog}>
@@ -68,12 +88,12 @@ function ProvideGameAssets(props: Props) {
                                 What to do?
                             </AccordionSummary>
                             <AccordionDetails sx={{ height: 400, overflowY: "auto" }}>
-                                <p>
+                                <Typography>
                                     <b>Base requirements:</b>
-                                </p>
-                                <ul>
-                                    <li>Original Mobius Final Fantasy game assets (GL version).</li>
-                                    <li>
+                                </Typography>
+                                <Ul>
+                                    <Li>Original Mobius Final Fantasy game assets (GL version).</Li>
+                                    <Li>
                                         Browser that supports the{" "}
                                         <Link href="https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker#browser_compatibility">
                                             showDirectoryPicker()
@@ -83,8 +103,10 @@ function ProvideGameAssets(props: Props) {
                                             File System Access API
                                         </Link>
                                         .
-                                    </li>
-                                </ul>
+                                    </Li>
+                                </Ul>
+                                <br />
+
                                 {supported ? (
                                     <Alert severity="success">
                                         Your current browser is compatible.
@@ -94,103 +116,94 @@ function ProvideGameAssets(props: Props) {
                                         Your current browser is incompatible.
                                     </Alert>
                                 )}
-                                <p>
+                                <br />
+
+                                <Typography>
                                     <b>Instructions</b> (written for Windows but applicable to any
                                     other OS)
-                                </p>
-                                <ol>
-                                    <li>
-                                        Figure out the location of your game assets:
-                                        <ul>
-                                            <li>If you know this, skip to 2.</li>
-                                            <li>
-                                                If you do not know, they are likely in the default
-                                                Steam installation location (on Windows "C:\Program
-                                                Files (x86)\Steam\steamapps\common\MOBIUS FINAL
-                                                FANTASY").
-                                            </li>
-                                            <li>
-                                                If you can't find them, searching for "mobiusff.exe"
-                                                in File Explorer may help you to find them.
-                                            </li>
-                                        </ul>
-                                    </li>
+                                </Typography>
+
+                                <Ol>
+                                    <Li>Figure out the location of your game assets:</Li>
+                                    <Ul>
+                                        <Li>If you know this, skip to 2.</Li>
+                                        <Li>If you know this, skip to 2.</Li>
+                                    </Ul>
                                     <br />
 
-                                    <li>
+                                    <Li>
                                         Check that your game asset folder contains a folder called
                                         "mobiusff_Data" and inside it are folders "mobius_data" and
                                         "StreamingAssets" among many others.
-                                    </li>
+                                    </Li>
                                     <br />
 
-                                    <li>
+                                    <Li>
                                         Make sure that your game assets are not located in a
                                         protected folder that File System Access API can't access
                                         due to security reasons. If they are, copy them to a
                                         non-protected location.
-                                        <br />
-                                        <br />
-                                        Examples of protected folders:
-                                        <ul>
-                                            <li>
-                                                "Program Files (x86)" (the default Steam location)
-                                            </li>
-                                            <li>
-                                                Other Windows related folders: Program Files,
-                                                Windows
-                                            </li>
-                                            <li>
-                                                Some user folders: Downloads, Documents, Desktop
-                                            </li>
-                                        </ul>
-                                        Examples of non-protected locations:
-                                        <ul>
-                                            <li>
-                                                A folder in the root of your Windows drive (for
-                                                example, "C:\mobiusfolder").
-                                            </li>
-                                            <li>A folder in another drive (A, B, D, etc.)</li>
-                                            <li>Some user folders: Pictures, Music, Videos</li>
-                                        </ul>
-                                    </li>
+                                    </Li>
                                     <br />
 
-                                    <li>
+                                    <ListItemText>Examples of protected folders:</ListItemText>
+                                    <Ul>
+                                        <Li>"Program Files (x86)" (the default Steam location)</Li>
+                                        <Li>
+                                            Other Windows related folders: Program Files, Windows
+                                        </Li>
+                                        <Li>Some user folders: Downloads, Documents, Desktop</Li>
+                                    </Ul>
+                                    <br />
+
+                                    <ListItemText>
+                                        Examples of non-protected locations:
+                                    </ListItemText>
+                                    <Ul>
+                                        <Li>
+                                            A folder in the root of your Windows drive (for example,
+                                            "C:\mobiusfolder").
+                                        </Li>
+                                        <Li>A folder in another drive (A, B, D, etc.)</Li>
+                                        <Li>Some user folders: Pictures, Music, Videos</Li>
+                                    </Ul>
+                                    <br />
+
+                                    <Li>
                                         Once given access, this site will retain it to go through
                                         your game asset files, extracting the needed resources from
                                         them, as long as this site stays open in your browser. This
                                         site only reads files and will not create new or alter
                                         existing files in any way.
-                                    </li>
+                                    </Li>
                                     <br />
 
-                                    <li>Click the 'Open "mobiusff_Data" folder' button below.</li>
+                                    <Li>Click the 'Open "mobiusff_Data" folder' button below.</Li>
                                     <br />
 
-                                    <li>
+                                    <Li>
                                         Use the window to select the "mobiusff_Data" folder and
                                         click "Select folder".
-                                    </li>
-                                    <ul>
-                                        <li>
+                                    </Li>
+                                    <Ul>
+                                        <Li>
                                             If the folder was the correct one, this window will
                                             close.
-                                        </li>
-                                        <li>
+                                        </Li>
+                                        <Li>
                                             If the loading does not begin, make sure you selected
                                             the correct folder and/or go back to 2.
-                                        </li>
-                                        <li>
+                                        </Li>
+                                        <Li>
                                             If the browser popup asks you to choose another folder,
                                             go back to 3.
-                                        </li>
-                                        <li>
+                                        </Li>
+                                        <Li>
                                             If clicking the button below doesn't do anything, go
                                             back to base requirements.
-                                        </li>
-                                    </ul>
-                                </ol>
+                                        </Li>
+                                    </Ul>
+                                </Ol>
                             </AccordionDetails>
                         </Accordion>
 

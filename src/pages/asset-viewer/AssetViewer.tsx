@@ -1,13 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { RouteOptions } from "../main-menu/Router";
 import { getAsset } from "@extractor/assetExtraction";
 import AssetDisplay from "./components/AssetDisplay";
 import LeftBar from "./components/LeftBar";
 import ControlAndDisplayAreas from "./components/ControlAndDisplayAreas";
-
-interface Props {
-    setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
-}
 
 type AssetListJSON = Array<{
     container: string;
@@ -34,7 +29,7 @@ interface DisplayedAsset {
     classId: number;
 }
 
-function AssetViewer(props: Props) {
+function AssetViewer() {
     const [assetList, setAssetList] = useState<AssetListJSON>([]);
     const [displayedAsset, setDisplayedAsset] = useState<DisplayedAsset>();
     const inProgress = useRef(false);
@@ -63,13 +58,7 @@ function AssetViewer(props: Props) {
 
     return (
         <ControlAndDisplayAreas
-            left={
-                <LeftBar
-                    assetList={assetList}
-                    setRoute={props.setRoute}
-                    handleDisplayedAsset={handleDisplayedAsset}
-                />
-            }
+            left={<LeftBar assetList={assetList} handleDisplayedAsset={handleDisplayedAsset} />}
             leftWidth={"415px"}
             right={<AssetDisplay displayedAsset={displayedAsset} />}
         />

@@ -1,10 +1,10 @@
 import { createContext, useState } from "react";
 import { ScopedCssBaseline } from "@mui/material";
-import MainMenu from "./views/MainMenu";
-import StartMenu from "../replica/components/view/StartMenu";
-import AssetCollections from "../asset-collections/AssetCollections";
-import AssetViewer from "../asset-viewer/AssetViewer";
-import Battle from "../battle/Battle";
+import MainMenu from "./main-menu/MainMenu";
+import StartMenu from "./replica/components/view/StartMenu";
+import AssetCollections from "./asset-collections/AssetCollections";
+import AssetViewer from "./asset-viewer/AssetViewer";
+import BattleSimulator from "./battle-simulator/BattleSimulator";
 import MainAppBar from "./MainAppBar";
 
 type RouteOptions = "mainMenu" | "battle" | "assetCollections" | "assetViewer" | "replica";
@@ -18,14 +18,13 @@ function Router() {
     const routes: Record<RouteOptions, React.ReactNode> = {
         mainMenu: (
             <MainMenu
-                setRoute={setRoute}
                 gameAssetsProvided={gameAssetsProvided}
                 setGameAssetsProvided={setGameAssetsProvided}
             />
         ),
-        battle: <Battle />,
-        assetCollections: <AssetCollections setRoute={setRoute} />,
-        assetViewer: <AssetViewer setRoute={setRoute} />,
+        battle: <BattleSimulator />,
+        assetCollections: <AssetCollections />,
+        assetViewer: <AssetViewer />,
         replica: <StartMenu />,
     };
 

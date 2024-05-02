@@ -66,7 +66,7 @@ function MainAppBar(props: Props) {
     return (
         <>
             <AppBar position="static">
-                <Toolbar variant="regular" sx={{ paddingX: 1 }} disableGutters>
+                <Toolbar sx={{ paddingX: 1 }} disableGutters>
                     <Stack spacing={1} direction="row" flexGrow={1}>
                         <Typography
                             variant="h6"

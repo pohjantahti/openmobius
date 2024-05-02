@@ -11,17 +11,18 @@ import {
     Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { RouteOptions } from "../Router";
-import ProvideGameAssets from "./ProvideGameAssets";
+import { RouteContext, RouteOptions } from "../Router";
+import ProvideGameAssets from "./components/ProvideGameAssets";
+import { useContext } from "react";
 
 interface Props {
-    setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
     gameAssetsProvided: boolean;
     setGameAssetsProvided: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function MainMenu(props: Props) {
-    const { setRoute, gameAssetsProvided, setGameAssetsProvided } = props;
+    const { gameAssetsProvided, setGameAssetsProvided } = props;
+    const setRoute = useContext(RouteContext);
 
     const MainMenuCard = (props: { name: string; route: RouteOptions; disabled?: boolean }) => {
         const { name, route, disabled } = props;
@@ -35,7 +36,7 @@ function MainMenu(props: Props) {
                         color: disabled ? "#6E6E6E" : "inherit",
                     }}
                     disabled={disabled}
-                    onClick={() => setRoute(route)}
+                    onClick={() => setRoute && setRoute(route)}
                 >
                     <CardContent>
                         <Typography variant="h5">{name}</Typography>
@@ -53,7 +54,7 @@ function MainMenu(props: Props) {
                         What is OpenMobius?
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography variant="body1" marginBottom={1}>
+                        <Typography marginBottom={1}>
                             OpenMobius is an open-source, interactive archive of the Mobius Final
                             Fantasy game. In its current form, it's a small tech demo with some
                             interactable features.

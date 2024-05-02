@@ -1,14 +1,14 @@
 import { Autocomplete, Button, Stack, TextField, Typography } from "@mui/material";
-import { RouteOptions } from "../../main-menu/Router";
-import { useEffect, useState } from "react";
+import { RouteContext } from "../../Router";
+import { useContext, useEffect, useState } from "react";
 
 interface Props {
-    setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
     handleSelectedJobId: (newJobId: string) => void;
 }
 
 function LeftBar(props: Props) {
-    const { setRoute, handleSelectedJobId } = props;
+    const { handleSelectedJobId } = props;
+    const setRoute = useContext(RouteContext);
 
     const [jobOptions, setJobOptions] = useState<Array<string>>([]);
     const [jobOptionsInput, setJobOptionsInput] = useState("");
@@ -39,7 +39,7 @@ function LeftBar(props: Props) {
     return (
         <Stack spacing={1} sx={{ height: 1, width: 1 }}>
             <Stack spacing={2} direction="row">
-                <Button variant="contained" onClick={() => setRoute("mainMenu")}>
+                <Button variant="contained" onClick={() => setRoute && setRoute("mainMenu")}>
                     Back
                 </Button>
                 <Typography variant="h5">Asset Collections</Typography>

@@ -1,6 +1,5 @@
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import {
-    Box,
     Button,
     Chip,
     CircularProgress,
@@ -13,19 +12,19 @@ import {
     Typography,
 } from "@mui/material";
 import AssetList from "./AssetScrollList";
-import { RouteOptions } from "../../main-menu/Router";
+import { RouteContext } from "../../Router";
 import { AssetListItem, AssetListJSON } from "../AssetViewer";
 import { ClassID } from "@extractor/consts";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 interface Props {
     assetList: AssetListJSON;
-    setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>;
     handleDisplayedAsset: (containerPath: string, pathId: string, classId: number) => void;
 }
 
 function LeftBar(props: Props) {
-    const { assetList, setRoute, handleDisplayedAsset } = props;
+    const { assetList, handleDisplayedAsset } = props;
+    const setRoute = useContext(RouteContext);
 
     const [filterChips, setFilterChips] = useState<Record<number, boolean>>({
         28: true,
@@ -78,35 +77,18 @@ function LeftBar(props: Props) {
     return (
         <Stack spacing={1} sx={{ height: 1, width: 1 }}>
             <Stack spacing={2} direction="row">
-                <Button variant="contained" onClick={() => setRoute("mainMenu")}>
+                <Button variant="contained" onClick={() => setRoute && setRoute("mainMenu")}>
                     Back
                 </Button>
                 <Typography variant="h5">Asset Viewer</Typography>
             </Stack>
             {assetList.length === 0 ? (
-                <Box
-                    sx={{
-                        height: 1,
-                        width: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
+                <Stack justifyContent="center" alignItems="center" height={1}>
                     <Typography variant="body1">Loading...</Typography>
                     <CircularProgress />
-                </Box>
+                </Stack>
             ) : (
-                <Box
-                    sx={{
-                        height: 1,
-                        width: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                    }}
-                >
+                <Stack justifyContent="space-between" height={1}>
                     <FormControl variant="outlined" size="small">
                         <InputLabel>Asset name</InputLabel>
                         <OutlinedInput
@@ -146,7 +128,7 @@ function LeftBar(props: Props) {
                         assetList={visibleAssetList}
                         handleDisplayedAsset={handleDisplayedAsset}
                     />
-                </Box>
+                </Stack>
             )}
         </Stack>
     );

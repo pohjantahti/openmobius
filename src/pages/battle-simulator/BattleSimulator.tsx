@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 
-function Battle() {
+function BattleSimulator() {
     return (
         <>
             <Typography>Battle Simulator</Typography>
@@ -8,4 +8,4 @@ function Battle() {
     );
 }
 
-export default Battle;
+export default BattleSimulator;
