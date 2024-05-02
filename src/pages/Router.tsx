@@ -7,7 +7,7 @@ import AssetViewer from "./asset-viewer/AssetViewer";
 import BattleSimulator from "./battle-simulator/BattleSimulator";
 import MainAppBar from "./MainAppBar";
 
-type RouteOptions = "mainMenu" | "battle" | "assetCollections" | "assetViewer" | "replica";
+type RouteOptions = "mainMenu" | "battleSimulator" | "assetCollections" | "assetViewer" | "replica";
 
 const RouteContext = createContext<React.Dispatch<React.SetStateAction<RouteOptions>> | null>(null);
 
@@ -22,7 +22,7 @@ function Router() {
                 setGameAssetsProvided={setGameAssetsProvided}
             />
         ),
-        battle: <BattleSimulator />,
+        battleSimulator: <BattleSimulator />,
         assetCollections: <AssetCollections />,
         assetViewer: <AssetViewer />,
         replica: <StartMenu />,
@@ -34,7 +34,7 @@ function Router() {
                 <StartMenu />
             ) : (
                 <>
-                    <MainAppBar gameAssetsProvided={gameAssetsProvided} />
+                    <MainAppBar gameAssetsProvided={gameAssetsProvided} route={route} />
                     <ScopedCssBaseline>{routes[route]}</ScopedCssBaseline>
                 </>
             )}

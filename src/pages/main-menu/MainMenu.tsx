@@ -71,7 +71,7 @@ function MainMenu(props: Props) {
 
                 <Typography variant="h6">General</Typography>
                 <Divider />
-                <MainMenuCard name="Battle Simulator" route="battle" />
+                <MainMenuCard name="Battle Simulator" route="battleSimulator" />
 
                 <Stack spacing={2} direction="row">
                     <Typography variant="h6">Game Asset Content</Typography>

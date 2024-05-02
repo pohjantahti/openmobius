@@ -14,12 +14,12 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import GithubIcon from "@mui/icons-material/Github";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { RouteContext, RouteOptions } from "./Router";
 
 const routes: Array<{ name: string; route: RouteOptions }> = [
     { name: "Main Menu", route: "mainMenu" },
-    { name: "Battle Simulator", route: "battle" },
+    { name: "Battle Simulator", route: "battleSimulator" },
     { name: "Asset Collections", route: "assetCollections" },
     { name: "Asset Viewer", route: "assetViewer" },
     { name: "Replica", route: "replica" },
@@ -27,14 +27,15 @@ const routes: Array<{ name: string; route: RouteOptions }> = [
 
 interface Props {
     gameAssetsProvided: boolean;
+    route: RouteOptions;
 }
 
 function MainAppBar(props: Props) {
-    const { gameAssetsProvided } = props;
+    const { gameAssetsProvided, route } = props;
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-    const [menuIndex, setMenuIndex] = useState(0);
     const [smallWindow, setSmallWindow] = useState(false);
     const setRoute = useContext(RouteContext);
+    const routeName = useMemo(() => routes.filter((a) => a.route === route)[0].name, [route]);
 
     useEffect(() => {
         const widthChanges = () => {
@@ -59,7 +60,6 @@ function MainAppBar(props: Props) {
 
     const handleClickMenu = (index: number) => {
         handleCloseMenu();
-        setMenuIndex(index);
         setRoute && setRoute(routes[index].route);
     };
 
@@ -84,7 +84,7 @@ function MainAppBar(props: Props) {
                                 justifyContent: "space-between",
                             }}
                         >
-                            {routes[menuIndex].name}
+                            {routeName}
                             <Icon sx={{ lineHeight: 1 }}>
                                 <ExpandMoreIcon />
                             </Icon>
