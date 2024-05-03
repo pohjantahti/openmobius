@@ -2,12 +2,11 @@ import { createContext, useState } from "react";
 import { ScopedCssBaseline } from "@mui/material";
 import MainMenu from "./main-menu/MainMenu";
 import StartMenu from "./replica/components/view/StartMenu";
-import AssetCollections from "./asset-collections/AssetCollections";
 import AssetViewer from "./asset-viewer/AssetViewer";
 import BattleSimulator from "./battle-simulator/BattleSimulator";
 import MainAppBar from "./MainAppBar";
 
-type RouteOptions = "mainMenu" | "battleSimulator" | "assetCollections" | "assetViewer" | "replica";
+type RouteOptions = "mainMenu" | "battleSimulator" | "assetViewer" | "replica";
 
 const RouteContext = createContext<React.Dispatch<React.SetStateAction<RouteOptions>> | null>(null);
 
@@ -23,7 +22,6 @@ function Router() {
             />
         ),
         battleSimulator: <BattleSimulator />,
-        assetCollections: <AssetCollections />,
         assetViewer: <AssetViewer />,
         replica: <StartMenu />,
     };

@@ -1,5 +1,5 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip } from "@mui/material";
-import { AssetListItem } from "../AssetViewer";
+import { AssetListItem } from "./SingleViewerPanel";
 import { FixedSizeList } from "react-window";
 import FolderIcon from "@mui/icons-material/Folder";
 import PhotoIcon from "@mui/icons-material/Photo";
@@ -60,8 +60,8 @@ function AssetList(props: Props) {
 
     return (
         <FixedSizeList
-            height={750}
-            width={400}
+            height={690}
+            width={399}
             itemCount={assetList.length}
             itemSize={35}
             style={{ marginLeft: 0, overflowY: "scroll" }}

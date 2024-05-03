@@ -1,8 +1,8 @@
-import { useContext, useMemo, useState } from "react";
+import { ClassID } from "@extractor/consts";
 import {
-    Button,
     Chip,
     CircularProgress,
+    Divider,
     FormControl,
     IconButton,
     InputAdornment,
@@ -11,20 +11,45 @@ import {
     Stack,
     Typography,
 } from "@mui/material";
-import AssetList from "./AssetScrollList";
-import { RouteContext } from "../../Router";
-import { AssetListItem, AssetListJSON } from "../AssetViewer";
-import { ClassID } from "@extractor/consts";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { useEffect, useMemo, useRef, useState } from "react";
+import AssetList from "./AssetScrollList";
 
 interface Props {
-    assetList: AssetListJSON;
-    handleDisplayedAsset: (containerPath: string, pathId: string, classId: number) => void;
+    currentTab: number;
+    index: number;
+    handleDisplayedAsset: (
+        containerPath: string,
+        pathId: string,
+        classId: number,
+        collection?: boolean
+    ) => void;
 }
 
-function LeftBar(props: Props) {
-    const { assetList, handleDisplayedAsset } = props;
-    const setRoute = useContext(RouteContext);
+type AssetListJSON = Array<{
+    container: string;
+    name: string;
+    assets: Array<{
+        classId: number;
+        pathId: string;
+        name?: string;
+    }>;
+}>;
+
+interface AssetListItem {
+    container: string;
+    type: "container" | "asset";
+    name: string;
+    asset: {
+        classId: number;
+        pathId: string;
+    };
+}
+
+function SingleViewerPanel(props: Props) {
+    const { currentTab, index, handleDisplayedAsset } = props;
+    const [assetList, setAssetList] = useState<AssetListJSON>([]);
+    const inProgress = useRef(false);
 
     const [filterChips, setFilterChips] = useState<Record<number, boolean>>({
         28: true,
@@ -74,21 +99,29 @@ function LeftBar(props: Props) {
         setFilterText(event.target.value);
     };
 
+    useEffect(() => {
+        const fetchAssetList = async () => {
+            inProgress.current = true;
+            const listJSON = await fetch("./assets/containerAssets.json");
+            const list: AssetListJSON = await listJSON.json();
+            console.log("Asset list fetched");
+            inProgress.current = false;
+            setAssetList(list);
+        };
+        if (!inProgress.current) {
+            fetchAssetList();
+        }
+    }, []);
+
     return (
-        <Stack spacing={1} sx={{ height: 1, width: 1 }}>
-            <Stack spacing={2} direction="row">
-                <Button variant="contained" onClick={() => setRoute && setRoute("mainMenu")}>
-                    Back
-                </Button>
-                <Typography variant="h5">Asset Viewer</Typography>
-            </Stack>
+        <div hidden={currentTab !== index}>
             {assetList.length === 0 ? (
                 <Stack justifyContent="center" alignItems="center" height={1}>
                     <Typography variant="body1">Loading...</Typography>
                     <CircularProgress />
                 </Stack>
             ) : (
-                <Stack justifyContent="space-between" height={1}>
+                <Stack spacing={1} justifyContent="space-between" height={1} marginTop={1}>
                     <FormControl variant="outlined" size="small">
                         <InputLabel>Asset name</InputLabel>
                         <OutlinedInput
@@ -124,14 +157,16 @@ function LeftBar(props: Props) {
                             onClick={() => handleChipFiltering(43)}
                         />
                     </Stack>
+                    <Divider />
                     <AssetList
                         assetList={visibleAssetList}
                         handleDisplayedAsset={handleDisplayedAsset}
                     />
                 </Stack>
             )}
-        </Stack>
+        </div>
     );
 }
 
-export default LeftBar;
+export default SingleViewerPanel;
+export type { AssetListItem };

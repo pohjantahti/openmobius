@@ -20,7 +20,6 @@ import { RouteContext, RouteOptions } from "./Router";
 const routes: Array<{ name: string; route: RouteOptions }> = [
     { name: "Main Menu", route: "mainMenu" },
     { name: "Battle Simulator", route: "battleSimulator" },
-    { name: "Asset Collections", route: "assetCollections" },
     { name: "Asset Viewer", route: "assetViewer" },
     { name: "Replica", route: "replica" },
 ];
@@ -65,7 +64,7 @@ function MainAppBar(props: Props) {
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="sticky" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                 <Toolbar sx={{ paddingX: 1 }} disableGutters>
                     <Stack spacing={1} direction="row" flexGrow={1}>
                         <Typography
@@ -106,12 +105,9 @@ function MainAppBar(props: Props) {
 
                     <ListSubheader sx={{ lineHeight: 2 }}>Game Asset Content</ListSubheader>
                     <MenuItem disabled={!gameAssetsProvided} onClick={() => handleClickMenu(2)}>
-                        Asset Collections
-                    </MenuItem>
-                    <MenuItem disabled={!gameAssetsProvided} onClick={() => handleClickMenu(3)}>
                         Asset Viewer
                     </MenuItem>
-                    <MenuItem disabled={!gameAssetsProvided} onClick={() => handleClickMenu(4)}>
+                    <MenuItem disabled={!gameAssetsProvided} onClick={() => handleClickMenu(3)}>
                         Replica
                     </MenuItem>
                 </MenuList>

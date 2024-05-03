@@ -1,69 +1,43 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { getAsset } from "@extractor/assetExtraction";
+import { Stack } from "@mui/material";
 import AssetDisplay from "./components/AssetDisplay";
-import LeftBar from "./components/LeftBar";
-import ControlAndDisplayAreas from "./components/ControlAndDisplayAreas";
-
-type AssetListJSON = Array<{
-    container: string;
-    name: string;
-    assets: Array<{
-        classId: number;
-        pathId: string;
-        name?: string;
-    }>;
-}>;
-
-interface AssetListItem {
-    container: string;
-    type: "container" | "asset";
-    name: string;
-    asset: {
-        classId: number;
-        pathId: string;
-    };
-}
+import TabPanels from "./components/TabPanels";
 
 interface DisplayedAsset {
     url: string;
     classId: number;
+    collection: boolean;
 }
 
 function AssetViewer() {
-    const [assetList, setAssetList] = useState<AssetListJSON>([]);
     const [displayedAsset, setDisplayedAsset] = useState<DisplayedAsset>();
-    const inProgress = useRef(false);
 
-    useEffect(() => {
-        const fetchAssetList = async () => {
-            inProgress.current = true;
-            const listJSON = await fetch("./assets/containerAssets.json");
-            const list: AssetListJSON = await listJSON.json();
-            console.log("Asset list fetched");
-            inProgress.current = false;
-            setAssetList(list);
-        };
-        if (!inProgress.current) {
-            fetchAssetList();
+    const handleDisplayedAsset = async (
+        containerPath: string,
+        id: string,
+        classId: number,
+        collection = false
+    ) => {
+        let url = id;
+        if (!collection) {
+            url = await getAsset(containerPath, id);
         }
-    }, []);
 
-    const handleDisplayedAsset = async (containerPath: string, pathId: string, classId: number) => {
-        const url = await getAsset(containerPath, pathId);
         setDisplayedAsset({
             url: url,
             classId: classId,
+            collection: collection,
         });
     };
 
     return (
-        <ControlAndDisplayAreas
-            left={<LeftBar assetList={assetList} handleDisplayedAsset={handleDisplayedAsset} />}
-            leftWidth={"415px"}
-            right={<AssetDisplay displayedAsset={displayedAsset} />}
-        />
+        <Stack direction="row">
+            <TabPanels handleDisplayedAsset={handleDisplayedAsset} />
+            <AssetDisplay displayedAsset={displayedAsset} />
+        </Stack>
     );
 }
 
 export default AssetViewer;
-export type { AssetListJSON, AssetListItem, DisplayedAsset };
+export type { DisplayedAsset };

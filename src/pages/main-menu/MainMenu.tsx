@@ -81,11 +81,6 @@ function MainMenu(props: Props) {
                 </Stack>
                 <Divider />
                 <MainMenuCard
-                    name="Asset Collections"
-                    route="assetCollections"
-                    disabled={!gameAssetsProvided}
-                />
-                <MainMenuCard
                     name="Asset Viewer"
                     route="assetViewer"
                     disabled={!gameAssetsProvided}
