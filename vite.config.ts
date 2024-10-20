@@ -8,6 +8,7 @@ export default defineConfig({
     plugins: [react()],
     resolve: {
         alias: {
+            "@battle": path.resolve(__dirname, "./src/battle"),
             "@extractor": path.resolve(__dirname, "./src/extractor"),
             "@lib": path.resolve(__dirname, "./src/lib"),
             "@renderer": path.resolve(__dirname, "./src/renderer"),
