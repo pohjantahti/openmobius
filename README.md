@@ -1,6 +1,6 @@
 # OpenMobius
 
-OpenMobius is an open-source, partial replication of Mobius Final Fantasy in React.
+OpenMobius is an open-source, interactive archive of the Mobius Final Fantasy game. In its current form, it's a small tech demo with some interactable features.
 
 ## Install and run
 
@@ -12,7 +12,7 @@ Requirements: Node.js
 git clone https://github.com/pohjantahti/openmobius.git
 ```
 
-2. Install dependencies (~290MB)
+2. Install dependencies
 
 ```
 npm install
@@ -21,7 +21,7 @@ npm install
 3. Run
 
 ```
-npm start
+npm run dev
 ```
 
-and open `localhost:3000` in browser (may open automatically)
+and open `localhost:8888` in browser
